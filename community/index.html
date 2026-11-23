@@ -83,7 +83,7 @@ p{margin:0}
 .pill.future{background:var(--peach);color:var(--peach-ink)}
 .pill.plain{background:var(--paper);color:var(--ink-2)}
 .note{font-size:13px;color:var(--ink-3)}
-.sample-flag{background:var(--butter);color:var(--butter-ink);border-radius:var(--r-md);padding:10px 16px;font-size:13.5px;font-weight:500}
+a.is-off{opacity:.5;cursor:not-allowed}
 
 /* filters */
 .toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
@@ -314,12 +314,11 @@ a.channel:hover{border-color:var(--mint)}
     <nav class="nav" id="nav"></nav>
     <div class="side-foot">
       <p>Say kia ora, ask a question or share what you're working on.</p>
-      <a class="btn-white" id="slackSide" href="#" target="_blank" rel="noopener">Open PlayLab Slack</a>
+      <a class="btn-white" id="slackSide">Open PlayLab Slack</a>
     </div>
   </aside>
 
   <main class="main">
-    <div class="sample-flag" id="sampleFlag" hidden>Showing sample content. Connect your Google Sheets in the settings to show real entries.</div>
 
     <!-- ===== Foyer ===== -->
     <section class="view" id="view-foyer" aria-labelledby="h-foyer">
@@ -339,7 +338,7 @@ a.channel:hover{border-color:var(--mint)}
         </div>
 
         <div class="card s7">
-          <div class="card-head"><h2>Shout-outs</h2><a class="link-btn" id="shoutForm" href="#" target="_blank" rel="noopener">Send a shout-out</a></div>
+          <div class="card-head"><h2>Shout-outs</h2><a class="link-btn" id="shoutForm">Send a shout-out</a></div>
           <div class="shout"><ul id="shouts"></ul></div>
         </div>
 
@@ -380,7 +379,7 @@ a.channel:hover{border-color:var(--mint)}
     <!-- ===== Lounge ===== -->
     <section class="view" id="view-lounge" aria-labelledby="h-lounge">
       <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--lilac);color:var(--lilac-ink)" data-ico="sofa"></span><div><h1 id="h-lounge">The Lounge</h1><p>Meet the people in the MTF community and find someone who knows about the thing you're stuck on.</p></div></div>
-        <a class="solid-btn" data-form="profile" href="#" target="_blank" rel="noopener">Add your profile</a></div>
+        <a class="solid-btn" data-form="profile">Add your profile</a></div>
       <div class="toolbar">
         <div role="group" aria-label="Filter by role" id="roleChips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
         <select class="sel" id="genSel" aria-label="Filter by Gen"></select>
@@ -392,7 +391,7 @@ a.channel:hover{border-color:var(--mint)}
     <!-- ===== Gallery ===== -->
     <section class="view" id="view-gallery" aria-labelledby="h-gallery">
       <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--butter);color:var(--butter-ink)" data-ico="frame"></span><div><h1 id="h-gallery">The Gallery</h1><p>Project work from across the programme, and moments from onsite days, events and life beyond study. Want your work here? Send it to the PlayLab team and we'll add it.</p></div></div>
-        <a class="solid-btn" data-form="gallery" href="#" target="_blank" rel="noopener">Send us your work</a></div>
+        <a class="solid-btn" data-form="gallery">Send us your work</a></div>
       <div class="toolbar">
         <div role="group" aria-label="Filter by type" id="typeChips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
         <select class="sel" id="galGen" aria-label="Filter by Gen"></select>
@@ -409,7 +408,7 @@ a.channel:hover{border-color:var(--mint)}
             <h2>Step into the PlayLab space.</h2>
             <p>FrameVR runs in your web browser on a laptop, phone or VR headset. There's nothing to install.</p>
             <div class="btns">
-              <a class="solid-btn" id="frameOpen" href="#" target="_blank" rel="noopener">Enter the space</a>
+              <a class="solid-btn" id="frameOpen">Enter the space</a>
               <button class="ghost-btn" id="frameLoad">Load it on this page</button>
             </div>
           </div>
@@ -441,7 +440,7 @@ a.channel:hover{border-color:var(--mint)}
     <!-- ===== Commons ===== -->
     <section class="view" id="view-commons" aria-labelledby="h-commons">
       <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--mint);color:var(--mint-ink)" data-ico="chat"></span><div><h1 id="h-commons">The Commons</h1><p>Our conversations happen in the PlayLab Slack. Choose the channel that fits what you want to say.</p></div></div>
-        <a class="solid-btn" id="slackJoin" href="#" target="_blank" rel="noopener">Join PlayLab Slack</a></div>
+        <a class="solid-btn" id="slackJoin">Join PlayLab Slack</a></div>
       <div class="channels" id="channels"></div>
       <div class="card" style="margin-top:18px">
         <div class="card-head"><h2>Posting tips</h2></div>
@@ -457,7 +456,7 @@ a.channel:hover{border-color:var(--mint)}
     <!-- ===== Map Wall ===== -->
     <section class="view" id="view-map" aria-labelledby="h-map">
       <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--peach);color:var(--peach-ink)" data-ico="globe"></span><div><h1 id="h-map">The Map Wall</h1><p>Where we come from and where we call home. Every pin is someone in the MTF community.</p></div></div>
-        <a class="solid-btn" data-form="profile" href="#" target="_blank" rel="noopener">Add your pin</a></div>
+        <a class="solid-btn" data-form="profile">Add your pin</a></div>
       <div class="grid">
         <div class="map-card s12">
           <div class="map-top">
@@ -512,7 +511,10 @@ const SETTINGS = {
     gallery: "#",
     shoutout: "#"
   },
-  slackJoin: "#",
+  // Where "Open PlayLab Slack" and "Join PlayLab Slack" go. Best: your
+  // workspace's invite link (in Slack: workspace name > Invite people >
+  // Copy invite link) or its address, e.g. https://playlab-mtf.slack.com
+  slackJoin: "https://slack.com/signin",
   // Slack channels shown in The Commons. Paste each channel's link
   // (right-click the channel in Slack > Copy > Copy link).
   channels: [
@@ -530,6 +532,10 @@ const SETTINGS = {
       {date:null, title:"Gallery walk-through", detail:"Date to be confirmed"}
     ]
   },
+  // Show the made-up sample people, gallery and shout-outs while a
+  // section has no real entries yet. Set to false before launch: empty
+  // sections then invite people to add the first entry.
+  showSamples: true,
   // Show photos and full names? Set to false if the site becomes public
   // and you'd rather show first names and initials only.
   showFullNames: true,
@@ -725,10 +731,10 @@ function mapHeaders(raw){
 async function load(key){
   if(key === "gallery"){
     if(GALLERY.length) return GALLERY.map(x => ({...x}));
-    state.sample.gallery = true; return SAMPLE.gallery.map(x => ({...x}));
+    return SETTINGS.showSamples ? SAMPLE.gallery.map(x => ({...x})) : [];
   }
   const url = SETTINGS.sheets[key];
-  if(!url){ state.sample[key] = true; return SAMPLE[key].map(x => ({...x})); }
+  if(!url) return SETTINGS.showSamples ? SAMPLE[key].map(x => ({...x})) : [];
   try{
     const res = await fetch(url, {cache:"no-store"});
     if(!res.ok) throw new Error(res.status);
@@ -763,6 +769,13 @@ function imgURL(u){
   if(/^https?:\/\//.test(u)) return u;
   // Images uploaded to the repo, e.g. gallery/kai-futures.jpg
   return /^[\w\-./]+\.(jpe?g|png|gif|webp|avif)$/i.test(u) && !u.includes("..") ? u : "";
+}
+// Point a button at a link from SETTINGS. Until a real link is added,
+// the button is greyed out instead of reopening this page.
+function setLink(a, url){
+  const u = safeURL(url);
+  if(u){ a.href = u; a.target = "_blank"; a.rel = "noopener"; a.classList.remove("is-off"); a.removeAttribute("aria-disabled"); a.removeAttribute("title"); }
+  else { a.removeAttribute("href"); a.classList.add("is-off"); a.setAttribute("aria-disabled", "true"); a.title = "Link coming soon"; }
 }
 function safeURL(u){ u = String(u||"").trim(); return /^https?:\/\//.test(u) ? u : ""; }
 function countryName(c){
@@ -1005,8 +1018,9 @@ function renderFoyer(){
   const F = SETTINGS.forms;
   $("#contribBtns").innerHTML = [
     ["profile","user","Add your profile and pin"],["gallery","frame","Send us work for the Gallery"],["shoutout","star","Send a shout-out"]
-  ].map(([k,i,l]) => `<a href="${esc(F[k])}" target="_blank" rel="noopener">${ico(i,2.2)}${l}</a>`).join("");
-  $("#shoutForm").href = F.shoutout;
+  ].map(([k,i,l]) => `<a data-form="${k}">${ico(i,2.2)}${l}</a>`).join("");
+  document.querySelectorAll("[data-form]").forEach(a => setLink(a, F[a.dataset.form]));
+  setLink($("#shoutForm"), F.shoutout);
 }
 
 /* ---------- Lounge ---------- */
@@ -1039,7 +1053,7 @@ function renderPeople(){
       ${p.askmeabout ? `<div class="ask"><b>Ask me about</b>${esc(p.askmeabout)}</div>` : ""}
       ${link ? `<div class="p-link"><a class="link-btn" href="${esc(link)}" target="_blank" rel="noopener">Portfolio or LinkedIn</a></div>` : ""}
     </article>`;
-  }).join("") : `<div class="empty" style="grid-column:1/-1"><b>No one matches that yet</b>Try a different filter or search word, or add your own profile.</div>`;
+  }).join("") : (state.people.length ? `<div class="empty" style="grid-column:1/-1"><b>No one matches that yet</b>Try a different filter or search word.</div>` : `<div class="empty" style="grid-column:1/-1"><b>No profiles yet</b>Add yours and be the first in the Lounge.</div>`);
 }
 
 /* ---------- Gallery ---------- */
@@ -1062,7 +1076,7 @@ function renderGallery(){
       <div class="w-body"><h3>${esc(w.title || "Untitled")}</h3><p>${esc([...new Set([w.maker && displayName(w.maker), w.gen].filter(Boolean))].join(", "))}</p>
       <div class="w-tags"><span class="pill ${w._type}">${w._type === "project" ? "Project" : "Community"}</span>${w.course ? `<span class="pill plain">${esc(w.course)}</span>` : ""}</div></div>
     </button>`;
-  }).join("") : `<div class="empty"><b>Nothing here yet</b>Be the first to share something for this filter.</div>`;
+  }).join("") : (state.gallery.length ? `<div class="empty"><b>Nothing here for this filter</b>Try another filter.</div>` : `<div class="empty"><b>The Gallery is getting ready</b>Send us your work and we'll add it here.</div>`);
 }
 let lbIndex = -1;
 function openWork(i){
@@ -1081,7 +1095,7 @@ function openWork(i){
 /* ---------- Portal ---------- */
 function renderPortal(){
   const url = safeURL(SETTINGS.frame.url);
-  $("#frameOpen").href = url || "#";
+  setLink($("#frameOpen"), url);
   $("#frameLoad").hidden = !url;
   const s = SETTINGS.frame.sessions.slice().sort((a,b) => (a.date ? new Date(a.date) : Infinity) - (b.date ? new Date(b.date) : Infinity));
   const today = new Date(); today.setHours(0,0,0,0);
@@ -1245,8 +1259,8 @@ function wire(){
     const i = pinGroups.findIndex(g => g.people.some(p => (state.mapMode === "home" ? p._home : p._from)?.country === b.dataset.country));
     const el = document.querySelector(`[data-pin="${i}"]`); if(el){ el.scrollIntoView({block:"center"}); showTip(i, el); }
   });
-  document.querySelectorAll("[data-form]").forEach(a => a.href = SETTINGS.forms[a.dataset.form] || "#");
-  ["slackSide","slackJoin"].forEach(id => $("#"+id).href = SETTINGS.slackJoin);
+  document.querySelectorAll("[data-form]").forEach(a => setLink(a, SETTINGS.forms[a.dataset.form]));
+  ["slackSide","slackJoin"].forEach(id => setLink($("#"+id), SETTINGS.slackJoin));
   document.querySelectorAll("[data-ico]").forEach(el => el.innerHTML = ico(el.dataset.ico));
   window.addEventListener("resize", () => { $("#tip").hidden = true; });
 }
@@ -1262,7 +1276,6 @@ async function init(){
     .filter(w => w.title || w.image).map(w => ({...w, _type: typeOf(w.type)}))
     .sort((a,b) => (dateOf(b.timestamp)||0) - (dateOf(a.timestamp)||0));
   state.shoutouts = shoutouts.map(s => ({...s, from: s.from || s.fromcountry || s.name || ""})).filter(s => s.message);
-  $("#sampleFlag").hidden = !Object.keys(state.sample).length;
   renderPlan(); wirePlan(); renderFoyer();
   renderLoungeControls(); renderPeople();
   renderGalleryControls(); renderGallery();

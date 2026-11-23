@@ -34,6 +34,8 @@ In `student-journey/index.html`, find `const COHORTS` and add a line at the top 
 
 ## Community: connecting Google Forms and Sheets
 
+> **Day-to-day updates** (adding Gallery pieces, approving entries, changing links) are explained step by step in [`community/HOW-TO-UPDATE.md`](community/HOW-TO-UPDATE.md). This section covers the one-off setup.
+
 The Community page shows sample content until you connect it. Profiles and shout-outs come from Google Forms through a published, approved-only sheet. The Gallery works differently: students send work privately and the PlayLab team adds pieces by hand (see **Gallery** below).
 
 Do the steps below for these two forms:
@@ -42,6 +44,10 @@ Do the steps below for these two forms:
 |---|---|---|
 | Add your profile and pin | The Lounge, the Map Wall, Recently joined | `sheets.people` and `forms.profile` |
 | Send a shout-out | Shout-outs in the Foyer | `sheets.shoutouts` and `forms.shoutout` |
+
+### Sample content
+
+Until each section has real entries, the page shows made-up sample people, gallery pieces and shout-outs so you can see how it looks. Before students see the page, find `showSamples: true` in `SETTINGS` and change it to `showSamples: false`. Empty sections then invite people to add the first entry.
 
 ### Before you start: privacy
 
