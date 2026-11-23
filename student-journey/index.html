@@ -894,12 +894,18 @@ function renderNav(){
     const b = e.target.closest("button"); if(b) go(b.dataset.view);
   });
 }
+// Go back to the top. Inside the Google Sites embed, also ask the outer
+// page to scroll up to the top of the embed.
+function toTop(){
+  window.scrollTo(0, 0);
+  try{ document.documentElement.scrollIntoView({block:"start", behavior:"instant"}); }catch(e){}
+}
 function go(id, opts={}){
   if(!VIEWS.some(v => v.id === id)) id = "home";
   document.querySelectorAll(".view").forEach(s => s.classList.toggle("active", s.id === "view-"+id));
   document.querySelectorAll("#nav button").forEach(b => { if(b.dataset.view === id) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current"); });
   if(history.replaceState) history.replaceState(null, "", "#"+id);
-  if(!opts.keepScroll) window.scrollTo({top:0});
+  if(!opts.keepScroll) toTop();
   if(opts.scrollTo){ const el = document.getElementById(opts.scrollTo); if(el){ el.scrollIntoView({block:"center"}); el.focus({preventScroll:true}); } }
 }
 document.addEventListener("click", e => {

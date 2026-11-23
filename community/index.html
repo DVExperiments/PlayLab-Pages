@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Community Space · PlayLab · Master of Technological Futures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PlayLab · Community Space
+   Edit the SETTINGS and SAMPLE sections in the <script> at the
+   bottom. Real content comes from Google Sheets (see README).
+   ============================================================ */
+:root{
+  --paper:#EEF1F7; --card:#FFFFFF; --ink:#172038; --ink-2:#4A5372; --ink-3:#7D86A3; --line:#E1E5EF;
+  --blue:#3651F5; --blue-deep:#2238C4; --blue-soft:#E4E8FF;
+  --peach:#FFD5C2; --peach-ink:#9A3B12;
+  --lilac:#DDD7FF; --lilac-ink:#4B3AB0;
+  --mint:#CBEFD8;  --mint-ink:#1D6B3E;
+  --butter:#FFEDA8; --butter-ink:#7A5A00;
+  --sky:#CFE6FF;   --sky-ink:#1B4F8A;
+  --r-xl:28px; --r-lg:20px; --r-md:14px;
+  --shadow:0 1px 0 rgba(23,32,56,.04), 0 8px 24px -12px rgba(34,56,196,.18);
+  --display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--blue-deep)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.01em;line-height:1.15}
+p{margin:0}
+[hidden]{display:none!important}
+
+/* ---------- Shell (shared with My Journey) ---------- */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh;gap:18px;padding:18px}
+.side{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none}
+.brand b{font-family:var(--display);font-size:19px;display:block;line-height:1.1}
+.brand small{opacity:.75;font-size:12.5px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;font-weight:500;font-size:14.5px;color:rgba(255,255,255,.85)}
+.nav button i{width:12px;height:12px;border-radius:4px;flex:none;margin:0 3px}
+.nav button svg{width:19px;height:19px;flex:none}
+.nav button:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav button[aria-current="page"]{background:#fff;color:var(--blue-deep);font-weight:700}
+.nav button:focus-visible{outline:3px solid #fff;outline-offset:1px}
+.nav hr{border:0;border-top:1px solid rgba(255,255,255,.2);margin:8px 12px}
+.side-foot{margin-top:auto;background:rgba(255,255,255,.12);border-radius:var(--r-lg);padding:16px;font-size:13.5px}
+.side-foot p{opacity:.9;margin-bottom:10px}
+.btn-white{display:inline-block;background:#fff;color:var(--blue-deep);text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px;font-size:13px}
+
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.view{display:none}
+.view.active{display:block}
+.view-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:4px 4px 18px}
+.view-head .vh-title{display:flex;gap:14px;align-items:center}
+.room-badge{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex:none}
+.room-badge svg{width:26px;height:26px}
+.view-head h1{font-size:clamp(26px,3vw,34px);font-weight:800}
+.view-head p{color:var(--ink-2);max-width:62ch;margin-top:4px}
+
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.grid>.s12{grid-column:span 12}.grid>.s8{grid-column:span 8}.grid>.s7{grid-column:span 7}.grid>.s6{grid-column:span 6}.grid>.s5{grid-column:span 5}.grid>.s4{grid-column:span 4}
+.card{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:19px;font-weight:700}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
+.link-btn{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--blue-deep);padding:6px 12px;border-radius:999px;background:var(--blue-soft);text-decoration:none;display:inline-block}
+.link-btn:hover{background:#d4daff}
+.solid-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none}
+.solid-btn:hover{background:var(--blue-deep)}
+.ghost-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:10px 16px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:var(--card);text-decoration:none}
+.ghost-btn:hover{border-color:var(--blue);color:var(--blue-deep)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.pill.student{background:var(--lilac);color:var(--lilac-ink)}
+.pill.alumni{background:var(--butter);color:var(--butter-ink)}
+.pill.staff{background:var(--mint);color:var(--mint-ink)}
+.pill.future{background:var(--peach);color:var(--peach-ink)}
+.pill.plain{background:var(--paper);color:var(--ink-2)}
+.note{font-size:13px;color:var(--ink-3)}
+.sample-flag{background:var(--butter);color:var(--butter-ink);border-radius:var(--r-md);padding:10px 16px;font-size:13.5px;font-weight:500}
+
+/* filters */
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.chip{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.sel{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font-weight:600;font-size:13.5px;color:var(--ink-2);cursor:pointer}
+.find{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 16px;font-size:14px}
+.find:focus,.sel:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.empty{background:var(--card);border-radius:var(--r-lg);padding:28px;text-align:center;color:var(--ink-2)}
+.empty b{display:block;font-family:var(--display);font-size:18px;color:var(--ink);margin-bottom:4px}
+
+/* ---------- Foyer hero: isometric building ---------- */
+.hero{background:var(--ink);color:#fff;border-radius:var(--r-xl);padding:30px;overflow:hidden}
+.hero-top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end;margin-bottom:10px}
+.hero h1{font-size:clamp(30px,4.2vw,50px);font-weight:800;max-width:14ch;line-height:1.02;letter-spacing:-.025em}
+.hero-intro{max-width:44ch;color:rgba(255,255,255,.78);font-size:15.5px}
+.hero-body{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(260px,1fr);gap:26px;align-items:center}
+.plan{width:100%;max-width:700px;height:auto;display:block;overflow:visible;margin:0 auto}
+.plan .vis{transition:transform .3s cubic-bezier(.2,.8,.2,1), filter .3s ease}
+.plan .vis.hot{transform:translateY(-7px);filter:brightness(1.07) drop-shadow(0 10px 14px rgba(0,0,0,.35))}
+.plan .hit{fill:transparent;cursor:pointer;outline:none}
+.plan .route{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-dasharray:2 9;opacity:0;transition:opacity .25s ease}
+.plan .route.hot{opacity:.9;animation:march 1s linear infinite}
+@keyframes march{to{stroke-dashoffset:-22}}
+.plan .label{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.plan .label rect{fill:#fff;transition:fill .2s ease}
+.plan .label .ln{font-family:var(--display);font-weight:700;font-size:15px;fill:var(--ink)}
+.plan .label .lc{font-family:var(--body);font-weight:600;font-size:11.5px;fill:var(--ink-3)}
+.plan .label.hot{transform:translateY(-7px)}
+.plan .label.hot rect,.plan .label.hot .tail{fill:var(--blue)}
+.plan .foyer-label{pointer-events:none}
+.plan .foyer-label rect{fill:var(--blue)}
+.plan .foyer-label text{fill:#fff}
+.plan .hitg{cursor:pointer}
+.plan .label.hot text{fill:#fff}
+.plan .you-ring{transform-box:fill-box;transform-origin:center;animation:pulse 2.4s ease-out infinite}
+@keyframes pulse{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.plan .portal-glow{animation:glow 3s ease-in-out infinite alternate}
+@keyframes glow{from{opacity:.55}to{opacity:1}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.plan.animate .vis{animation:rise .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*80ms)}
+.dir{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.dir button{all:unset;box-sizing:border-box;width:100%;cursor:pointer;display:flex;gap:14px;align-items:center;padding:11px 14px;border-radius:16px;background:rgba(255,255,255,.06);transition:background .2s ease}
+.dir button:hover,.dir button.hot{background:rgba(255,255,255,.14)}
+.dir button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.dir .d-ico{flex:none;width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:var(--tone);color:var(--tone-ink)}
+.dir .d-ico svg{width:21px;height:21px}
+.dir .d-txt{flex:1;min-width:0}
+.dir b{display:block;font-family:var(--display);font-weight:700;font-size:16px;line-height:1.2}
+.dir span{font-size:13px;color:rgba(255,255,255,.68)}
+.dir .d-n{flex:none;font-size:12px;font-weight:700;background:rgba(255,255,255,.12);border-radius:999px;padding:3px 9px;color:#fff;white-space:nowrap}
+.dir-hint{font-size:12.5px;color:rgba(255,255,255,.55);margin:0 0 10px 4px}
+
+/* foyer cards */
+.shout{display:flex;flex-direction:column;gap:10px}
+.shout li{list-style:none;background:var(--paper);border-radius:var(--r-md);padding:14px 16px;display:flex;gap:12px}
+.shout ul{margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.shout .s-ico{flex:none;width:34px;height:34px;border-radius:11px;background:var(--butter);color:var(--butter-ink);display:grid;place-items:center}
+.shout .s-ico svg{width:18px;height:18px}
+.shout p{font-size:14.5px}
+.shout small{display:block;color:var(--ink-3);font-size:12.5px;margin-top:3px}
+.arrivals{display:flex;flex-direction:column;gap:10px}
+.mini{display:flex;gap:12px;align-items:center}
+.mini b{font-weight:600;font-size:14.5px;display:block;line-height:1.25}
+.mini span{font-size:12.5px;color:var(--ink-3)}
+.contrib{background:var(--blue);color:#fff}
+.contrib h2{color:#fff}
+.contrib p{color:rgba(255,255,255,.82);font-size:14.5px;margin-bottom:16px;max-width:60ch}
+.contrib-btns{display:flex;flex-wrap:wrap;gap:10px}
+.contrib-btns a{display:inline-flex;align-items:center;gap:8px;background:#fff;color:var(--blue-deep);font-weight:700;font-size:14px;text-decoration:none;padding:10px 16px;border-radius:999px}
+.contrib-btns a svg{width:17px;height:17px}
+.contrib-btns a:hover{background:var(--blue-soft)}
+.contrib-btns a:focus-visible{outline:3px solid #fff}
+.guides{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.guides li{background:var(--paper);border-radius:var(--r-md);padding:14px 16px;font-size:14px;color:var(--ink-2)}
+.guides li b{display:block;color:var(--ink);font-size:14.5px;margin-bottom:2px}
+.newhere ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:14.5px}
+.newhere li{margin:4px 0}
+.newhere p{color:var(--ink-2);font-size:14.5px;margin-bottom:8px}
+
+/* ---------- Lounge: people ---------- */
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.person{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:12px}
+.p-top{display:flex;gap:14px;align-items:center}
+.av{width:56px;height:56px;border-radius:18px;flex:none;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px;overflow:hidden;background-size:cover;background-position:center}
+.av.sm{width:40px;height:40px;border-radius:13px;font-size:14px}
+.person h3{font-size:18px;font-weight:700}
+.p-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
+.p-line{font-size:13.5px;color:var(--ink-2);display:flex;gap:8px;align-items:flex-start}
+.p-line svg{width:16px;height:16px;flex:none;margin-top:2px;color:var(--ink-3)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12.5px;background:var(--paper);border-radius:999px;padding:4px 10px;color:var(--ink-2);font-weight:500}
+.ask{background:var(--lilac);color:var(--lilac-ink);border-radius:var(--r-md);padding:10px 14px;font-size:13.5px}
+.ask b{display:block;font-size:12.5px;opacity:.8}
+.person .p-link{margin-top:auto}
+
+/* ---------- Gallery ---------- */
+.gallery{columns:3 260px;column-gap:16px}
+.work{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;break-inside:avoid;margin-bottom:16px;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+.work:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.work .w-img{width:100%;display:block;background:var(--paper);object-fit:cover}
+.work .w-body{padding:14px 16px 16px}
+.work h3{font-size:16px;font-weight:700}
+.work p{font-size:13px;color:var(--ink-3);margin-top:3px}
+.work .w-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pill.project{background:var(--butter);color:var(--butter-ink)}
+.pill.community{background:var(--sky);color:var(--sky-ink)}
+dialog.lightbox{border:0;padding:0;border-radius:var(--r-xl);max-width:min(920px,94vw);width:100%;box-shadow:0 30px 80px -20px rgba(23,32,56,.5)}
+dialog.lightbox::backdrop{background:rgba(23,32,56,.6)}
+.lb-img{width:100%;max-height:62vh;object-fit:contain;background:var(--ink);display:block}
+.lb-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:10px}
+.lb-body h2{font-size:24px;font-weight:800}
+.lb-body p{color:var(--ink-2)}
+.lb-close{all:unset;position:absolute;z-index:2;top:12px;right:12px;cursor:pointer;background:#fff;border-radius:999px;width:38px;height:38px;display:grid;place-items:center;box-shadow:var(--shadow)}
+.lb-close svg{width:18px;height:18px}
+.lb-wrap{position:relative}
+.lb-nav{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap}
+
+/* ---------- Portal ---------- */
+.portal-hero{background:var(--ink);color:#fff;border-radius:var(--r-xl);padding:30px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;overflow:hidden}
+.portal-hero h2{font-size:clamp(24px,3vw,34px);font-weight:800}
+.portal-hero p{color:rgba(255,255,255,.8);margin:10px 0 18px;max-width:52ch}
+.portal-hero .btns{display:flex;gap:10px;flex-wrap:wrap}
+.portal-hero .ghost-btn{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+.portal-hero .ghost-btn:hover{border-color:#fff;color:#fff}
+.portal-art{width:100%;max-width:300px;justify-self:center}
+.portal-art circle{fill:none;stroke-width:2}
+@keyframes spin{to{transform:rotate(360deg)}}
+.portal-art .ring{transform-origin:150px 150px;animation:spin 40s linear infinite}
+.portal-art .ring.r2{animation-duration:60s;animation-direction:reverse}
+.frame-embed{width:100%;aspect-ratio:16/9;border:0;border-radius:var(--r-lg);background:var(--ink);display:block}
+.steps{counter-reset:s;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.steps li{counter-increment:s;display:flex;gap:14px;font-size:14.5px;color:var(--ink-2)}
+.steps li::before{content:counter(s);flex:none;width:30px;height:30px;border-radius:10px;background:var(--sky);color:var(--sky-ink);font-weight:800;display:grid;place-items:center;font-family:var(--display)}
+.steps b{color:var(--ink);display:block}
+.sessions{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.sessions li{display:flex;gap:14px;align-items:center;background:var(--paper);border-radius:var(--r-md);padding:10px}
+.date-chip{flex:none;width:54px;height:54px;border-radius:14px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.date-chip small{font-size:10.5px;color:var(--ink-3);font-weight:600}
+.date-chip b{font-family:var(--display);font-size:21px;font-weight:800;color:var(--blue-deep)}
+.sessions b.t{display:block;font-size:14px;font-weight:600}
+.sessions span{font-size:12.5px;color:var(--ink-3)}
+
+/* ---------- Commons ---------- */
+.channels{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.channel{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;border:2px solid transparent}
+a.channel:hover{border-color:var(--mint)}
+.channel .c-ico{width:42px;height:42px;border-radius:14px;display:grid;place-items:center}
+.channel .c-ico svg{width:21px;height:21px}
+.channel h3{font-size:17px;font-weight:700}
+.channel p{font-size:13.5px;color:var(--ink-2)}
+.channel .c-name{margin-top:auto;font-size:13px;font-weight:700;color:var(--mint-ink)}
+.channel .c-ex{font-size:12.5px;color:var(--ink-3)}
+
+/* ---------- Map wall ---------- */
+.map-card{background:var(--ink);border-radius:var(--r-xl);padding:22px;color:#fff;position:relative}
+.map-top{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.seg{display:inline-flex;background:rgba(255,255,255,.1);border-radius:999px;padding:4px}
+.seg button{all:unset;cursor:pointer;padding:7px 14px;border-radius:999px;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.8)}
+.seg button[aria-pressed="true"]{background:#fff;color:var(--ink)}
+.seg button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.map-svg{width:100%;height:auto;display:block}
+.map-svg .land{fill:rgba(255,255,255,.22)}
+.pin{cursor:pointer;outline:none}
+.pin circle.halo{fill:var(--peach);opacity:.28}
+.pin circle.core{fill:var(--peach);stroke:var(--ink)}
+.pin.home circle.core,.pin.home circle.halo{fill:var(--peach)}
+.pin.from circle.core,.pin.from circle.halo{fill:#B9AEFF}
+.pin:hover circle.core,.pin:focus-visible circle.core,.pin.on circle.core{fill:#fff}
+.pin text{fill:var(--ink);font-family:var(--body);font-weight:800;pointer-events:none}
+.tip{position:absolute;z-index:5;background:#fff;color:var(--ink);border-radius:var(--r-md);padding:12px 14px;box-shadow:0 14px 40px -10px rgba(0,0,0,.45);width:240px;font-size:13.5px;pointer-events:none;transform:translate(-50%,calc(-100% - 14px))}
+.tip b{display:block;font-family:var(--display);font-size:16px}
+.tip span{color:var(--ink-3);font-size:12.5px}
+.tip ul{margin:6px 0 0;padding-left:16px;color:var(--ink-2)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.stat{border-radius:var(--r-lg);padding:18px}
+.stat b{font-family:var(--display);font-size:38px;font-weight:800;line-height:1;display:block}
+.stat span{font-size:13.5px;font-weight:600}
+.bars{display:flex;flex-direction:column;gap:9px}
+.bar-row{display:grid;grid-template-columns:150px 1fr 30px;gap:10px;align-items:center;font-size:13.5px}
+.bar-row .bt{height:10px;border-radius:999px;background:var(--paper);overflow:hidden}
+.bar-row .bt i{display:block;height:100%;background:var(--peach-ink);border-radius:999px}
+.bar-row b{font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+.bar-row button{all:unset;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bar-row button:hover{color:var(--blue-deep);text-decoration:underline}
+
+.foot{font-size:12.5px;color:var(--ink-3);text-align:center;padding:10px 0 4px}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media (max-width:1100px){
+  .hero-body{grid-template-columns:1fr}
+}
+@media (max-width:1180px){
+  .grid>.s8,.grid>.s7,.grid>.s6,.grid>.s5,.grid>.s4{grid-column:span 12}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;padding:12px;gap:12px}
+  .side{position:static;height:auto;flex-direction:row;align-items:center;padding:10px;border-radius:var(--r-lg);overflow-x:auto}
+  .brand{padding:0 8px 0 4px}
+  .brand small,.side-foot,.nav hr{display:none}
+  .nav{flex-direction:row}
+  .nav button{white-space:nowrap;padding:9px 12px}
+  .nav button span{display:none}
+  .nav button[aria-current="page"] span{display:inline}
+  .portal-hero{grid-template-columns:1fr}
+  .portal-art{max-width:200px}
+}
+@media (max-width:600px){
+  .hero,.portal-hero{padding:22px 18px}
+  .plan{display:none}
+  .dir-hint{display:none}
+  .stats{grid-template-columns:1fr}
+  .bar-row{grid-template-columns:110px 1fr 26px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side" aria-label="Community rooms">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3651F5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 3v8M3 11h18M8 21v-5h8v5"/></svg>
+      </div>
+      <div><b>Community</b><small>Students, alumni and staff</small></div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <p>Say kia ora, ask a question or share what you're working on.</p>
+      <a class="btn-white" id="slackSide" href="#" target="_blank" rel="noopener">Open PlayLab Slack</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="sample-flag" id="sampleFlag" hidden>Showing sample content. Connect your Google Sheets in the settings to show real entries.</div>
+
+    <!-- ===== Foyer ===== -->
+    <section class="view" id="view-foyer" aria-labelledby="h-foyer">
+      <div class="grid">
+        <div class="hero s12">
+          <div class="hero-top">
+            <h1 id="h-foyer">Come in and have a look around.</h1>
+            <p class="hero-intro">This is the shared space for everyone in the Master of Technological Futures: current students, alumni, people about to start, and staff. Choose a room to meet people, see what's being made and join the conversation.</p>
+          </div>
+          <div class="hero-body">
+            <svg class="plan animate" id="plan" role="group" aria-label="Map of the Community Space. Select a room to go in."></svg>
+            <div>
+              <p class="dir-hint">Choose a room to go in</p>
+              <ul class="dir" id="dir"></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s7">
+          <div class="card-head"><h2>Shout-outs</h2><a class="link-btn" id="shoutForm" href="#" target="_blank" rel="noopener">Send a shout-out</a></div>
+          <div class="shout"><ul id="shouts"></ul></div>
+        </div>
+
+        <div class="card s5">
+          <div class="card-head"><h2>Recently joined</h2><button class="link-btn" data-go="lounge">See everyone</button></div>
+          <div class="arrivals" id="arrivals"></div>
+        </div>
+
+        <div class="card contrib s12">
+          <h2>Add yourself to the space</h2>
+          <p>Add a profile and a pin on the map, send us work for the Gallery, or celebrate someone. The PlayLab team checks everything before it appears here.</p>
+          <div class="contrib-btns" id="contribBtns"></div>
+        </div>
+
+        <div class="card s7">
+          <div class="card-head"><h2>How we look after this space</h2></div>
+          <ul class="guides">
+            <li><b>Manaaki each other</b>Be kind, generous and curious. Assume good intent and disagree with ideas, not people.</li>
+            <li><b>Ask before you share</b>Get permission before posting someone else's work, words or photo.</li>
+            <li><b>Credit the makers</b>Name everyone who worked on a piece, including any AI tools you used.</li>
+            <li><b>Keep it in the whānau</b>What's shared here stays here. Don't repost it elsewhere without asking.</li>
+          </ul>
+        </div>
+
+        <div class="card s5 newhere">
+          <div class="card-head"><h2>New here?</h2></div>
+          <p>Starting soon, or just started? A good first week in the space:</p>
+          <ul>
+            <li>Add your profile so your cohort can find you.</li>
+            <li>Drop your pin on the Map Wall.</li>
+            <li>Say kia ora in the Slack introductions channel.</li>
+            <li>Browse the Gallery to see what past Gens have made.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Lounge ===== -->
+    <section class="view" id="view-lounge" aria-labelledby="h-lounge">
+      <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--lilac);color:var(--lilac-ink)" data-ico="sofa"></span><div><h1 id="h-lounge">The Lounge</h1><p>Meet the people in the MTF community and find someone who knows about the thing you're stuck on.</p></div></div>
+        <a class="solid-btn" data-form="profile" href="#" target="_blank" rel="noopener">Add your profile</a></div>
+      <div class="toolbar">
+        <div role="group" aria-label="Filter by role" id="roleChips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        <select class="sel" id="genSel" aria-label="Filter by Gen"></select>
+        <input class="find" id="peopleQ" type="search" placeholder="Search names, skills or interests" aria-label="Search people">
+      </div>
+      <div class="people" id="people"></div>
+    </section>
+
+    <!-- ===== Gallery ===== -->
+    <section class="view" id="view-gallery" aria-labelledby="h-gallery">
+      <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--butter);color:var(--butter-ink)" data-ico="frame"></span><div><h1 id="h-gallery">The Gallery</h1><p>Project work from across the programme, and moments from onsite days, events and life beyond study. Want your work here? Send it to the PlayLab team and we'll add it.</p></div></div>
+        <a class="solid-btn" data-form="gallery" href="#" target="_blank" rel="noopener">Send us your work</a></div>
+      <div class="toolbar">
+        <div role="group" aria-label="Filter by type" id="typeChips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        <select class="sel" id="galGen" aria-label="Filter by Gen"></select>
+      </div>
+      <div class="gallery" id="gallery"></div>
+    </section>
+
+    <!-- ===== Portal ===== -->
+    <section class="view" id="view-portal" aria-labelledby="h-portal">
+      <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--sky);color:var(--sky-ink)" data-ico="portal"></span><div><h1 id="h-portal">The Portal</h1><p>Our virtual space in FrameVR, for meeting up, presenting and exploring together from wherever you are.</p></div></div></div>
+      <div class="grid">
+        <div class="portal-hero s12">
+          <div>
+            <h2>Step into the PlayLab space.</h2>
+            <p>FrameVR runs in your web browser on a laptop, phone or VR headset. There's nothing to install.</p>
+            <div class="btns">
+              <a class="solid-btn" id="frameOpen" href="#" target="_blank" rel="noopener">Enter the space</a>
+              <button class="ghost-btn" id="frameLoad">Load it on this page</button>
+            </div>
+          </div>
+          <svg class="portal-art" viewBox="0 0 300 300" aria-hidden="true">
+            <circle class="ring" cx="150" cy="150" r="138" stroke="rgba(207,230,255,.35)" stroke-dasharray="4 10"/>
+            <circle class="ring r2" cx="150" cy="150" r="112" stroke="rgba(221,215,255,.55)" stroke-dasharray="60 18"/>
+            <circle cx="150" cy="150" r="84" stroke="#CFE6FF" stroke-width="3"/>
+            <circle cx="150" cy="150" r="62" style="fill:#3651F5;stroke:none"/>
+            <circle cx="150" cy="150" r="40" style="fill:#CFE6FF;stroke:none;opacity:.9"/>
+          </svg>
+        </div>
+        <div class="s12" id="frameSlot" hidden></div>
+        <div class="card s7">
+          <div class="card-head"><h2>First time in FrameVR?</h2></div>
+          <ol class="steps">
+            <li><div><b>Open the link</b>Use Chrome, Edge or Safari. On a headset, open the link in the headset's browser.</div></li>
+            <li><div><b>Choose a name and avatar</b>Use the name your cohort knows you by so people can find you.</div></li>
+            <li><div><b>Allow your microphone</b>Your browser will ask. You can mute any time.</div></li>
+            <li><div><b>Move around</b>Use WASD or the arrow keys on a laptop, or drag on a phone. Walk up to people to talk to them.</div></li>
+          </ol>
+        </div>
+        <div class="card s5">
+          <div class="card-head"><h2>Upcoming in the Portal</h2></div>
+          <ul class="sessions" id="sessions"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Commons ===== -->
+    <section class="view" id="view-commons" aria-labelledby="h-commons">
+      <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--mint);color:var(--mint-ink)" data-ico="chat"></span><div><h1 id="h-commons">The Commons</h1><p>Our conversations happen in the PlayLab Slack. Choose the channel that fits what you want to say.</p></div></div>
+        <a class="solid-btn" id="slackJoin" href="#" target="_blank" rel="noopener">Join PlayLab Slack</a></div>
+      <div class="channels" id="channels"></div>
+      <div class="card" style="margin-top:18px">
+        <div class="card-head"><h2>Posting tips</h2></div>
+        <ul class="guides">
+          <li><b>Say what you need</b>Start with your question or request, then give the context.</li>
+          <li><b>Use threads</b>Reply in a thread so conversations stay easy to follow.</li>
+          <li><b>Search first</b>Someone may already have asked. Check the channel before posting.</li>
+          <li><b>Close the loop</b>When your question is answered, say what worked so others can learn.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== Map Wall ===== -->
+    <section class="view" id="view-map" aria-labelledby="h-map">
+      <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--peach);color:var(--peach-ink)" data-ico="globe"></span><div><h1 id="h-map">The Map Wall</h1><p>Where we come from and where we call home. Every pin is someone in the MTF community.</p></div></div>
+        <a class="solid-btn" data-form="profile" href="#" target="_blank" rel="noopener">Add your pin</a></div>
+      <div class="grid">
+        <div class="map-card s12">
+          <div class="map-top">
+            <div class="seg" role="group" aria-label="Show pins for">
+              <button data-mode="home" aria-pressed="true">Where we call home</button>
+              <button data-mode="from" aria-pressed="false">Where we're from</button>
+            </div>
+            <div class="seg" role="group" aria-label="Zoom">
+              <button data-zoom="world" aria-pressed="true">World</button>
+              <button data-zoom="pacific" aria-pressed="false">Pacific</button>
+              <button data-zoom="aotearoa" aria-pressed="false">Aotearoa</button>
+            </div>
+          </div>
+          <svg class="map-svg" id="map" role="img" aria-label="World map of community pins"></svg>
+          <div class="tip" id="tip" hidden></div>
+        </div>
+        <div class="s12 stats" id="stats"></div>
+        <div class="card s12">
+          <div class="card-head"><h2>Places we're connected to</h2><span class="note" id="placesNote"></span></div>
+          <div class="bars" id="bars"></div>
+        </div>
+      </div>
+    </section>
+
+    <p class="foot">PlayLab · Master of Technological Futures · academyEX</p>
+  </main>
+</div>
+
+<dialog class="lightbox" id="lightbox" aria-labelledby="lbTitle">
+  <div class="lb-wrap">
+    <button class="lb-close" id="lbClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div id="lbMedia"></div>
+    <div class="lb-body" id="lbBody"></div>
+  </div>
+</dialog>
+
+<script>
+/* ============================================================
+   SETTINGS: edit this section.
+   ============================================================ */
+const SETTINGS = {
+  // Published-to-web CSV links from Google Sheets (File > Share >
+  // Publish to web > choose the "Approved" tab > CSV). Leave "" to show
+  // the sample content further down. See README for the full setup.
+  sheets: {
+    people: "",
+    shoutouts: ""
+  },
+  // Google Form links people use to add things.
+  forms: {
+    profile: "#",
+    gallery: "#",
+    shoutout: "#"
+  },
+  slackJoin: "#",
+  // Slack channels shown in The Commons. Paste each channel's link
+  // (right-click the channel in Slack > Copy > Copy link).
+  channels: [
+    {name:"#introductions", title:"Say kia ora", ico:"wave", tone:"peach", desc:"New to the community? Introduce yourself and your context.", eg:"I'm from Gen31, working in health tech in Tauranga.", url:"#"},
+    {name:"#class-questions", title:"Class questions", ico:"question", tone:"lilac", desc:"Questions about weekly content, readings and assessments.", eg:"Has anyone found good sources on data sovereignty?", url:"#"},
+    {name:"#help-and-requests", title:"Help and requests", ico:"hand", tone:"butter", desc:"Ask for feedback, testers, survey participants or a hand with a tool.", eg:"Looking for 5 people to test my XR prototype.", url:"#"},
+    {name:"#collaborations", title:"Collaborations", ico:"nodes", tone:"sky", desc:"Find people to build, write or present with.", eg:"Keen to co-write a conference paper on AI in schools.", url:"#"},
+    {name:"#opportunities", title:"Opportunities", ico:"star", tone:"mint", desc:"Jobs, events, funding and calls for papers. Alumni especially welcome.", eg:"Our team is hiring a service designer.", url:"#"},
+    {name:"#korero", title:"General kōrero", ico:"chat", tone:"peach", desc:"Everything else: wins, links, pets and weekend projects.", eg:"Finally finished my cardboard VR headset.", url:"#"}
+  ],
+  frame: {
+    url: "#",   // your FrameVR space link, e.g. https://framevr.io/playlab
+    sessions: [ // add upcoming sessions: date "YYYY-MM-DD"
+      {date:null, title:"Drop-in hangout", detail:"Date to be confirmed"},
+      {date:null, title:"Gallery walk-through", detail:"Date to be confirmed"}
+    ]
+  },
+  // Show photos and full names? Set to false if the site becomes public
+  // and you'd rather show first names and initials only.
+  showFullNames: true,
+  showPhotos: true
+};
+
+/* ============================================================
+   GALLERY: the PlayLab team adds pieces here by hand.
+   Students send work through the private Gallery Google Form. To put a
+   piece on the page:
+   1. Resize the image to about 1600px wide (a .jpg under 500KB is ideal).
+   2. On GitHub, open the community/gallery folder, click Add file >
+      Upload files, and upload the image, e.g. kai-futures.jpg
+   3. Add an entry below. Newest first. Copy an example and change it.
+   While this list is empty, the page shows the sample gallery.
+     {title:"Kai Futures 2040", maker:"Aroha Tane", gen:"Gen31",
+      type:"Project",            // "Project" or "Community"
+      course:"Disruption Report", // optional
+      description:"A speculative menu from a 2040 marae kitchen.",
+      image:"gallery/kai-futures.jpg",
+      link:""},                  // optional link to the full piece
+   ============================================================ */
+const GALLERY = [
+
+];
+
+/* ============================================================
+   SAMPLE CONTENT: shown only when the matching sheet link above
+   is empty. These people and works are made up.
+   ============================================================ */
+const SAMPLE = {
+  people: [
+    {name:"Aroha Tane", role:"Student", gen:"Gen31", city:"Rotorua", country:"New Zealand", fromcountry:"New Zealand", profession:"Learning designer, iwi education trust", interests:"Mātauranga Māori, game-based learning, weaving", askmeabout:"Designing learning with communities", timestamp:"2026-11-20"},
+    {name:"Sione Fifita", role:"Student", gen:"Gen31", city:"Auckland", country:"New Zealand", fromcountry:"Tonga", profession:"IT project lead, local council", interests:"Smart cities, rugby, Pacific futures", askmeabout:"Running digital projects in government", timestamp:"2026-11-18"},
+    {name:"Priya Raman", role:"Student", gen:"Gen30", city:"Wellington", country:"New Zealand", fromcountry:"India", profession:"Product manager, fintech", interests:"AI ethics, Carnatic music, running", askmeabout:"Product roadmaps and user research", timestamp:"2026-11-12"},
+    {name:"Mei Lin Chen", role:"Student", gen:"Gen30", city:"Christchurch", country:"New Zealand", fromcountry:"China", profession:"Architect", interests:"Parametric design, XR, ceramics", askmeabout:"Blender and 3D modelling", timestamp:"2026-10-30"},
+    {name:"Lealofi Tuilagi", role:"Future student", gen:"Gen32", city:"Apia", country:"Samoa", fromcountry:"Samoa", profession:"Secondary school teacher", interests:"Climate resilience, storytelling", askmeabout:"Teaching with mobile devices", timestamp:"2026-11-22"},
+    {name:"Tom Hargreaves", role:"Alumni", gen:"Gen24", city:"London", country:"United Kingdom", fromcountry:"New Zealand", profession:"Innovation lead, healthcare", interests:"Systems thinking, cycling", askmeabout:"Taking a project idea into a real organisation", timestamp:"2026-09-02"},
+    {name:"Ana Souza", role:"Alumni", gen:"Gen26", city:"Hamilton", country:"New Zealand", fromcountry:"Brazil", profession:"UX researcher", interests:"Speculative design, samba, data viz", askmeabout:"Futures workshops and scenario building", timestamp:"2026-08-14"},
+    {name:"Josefa Ravai", role:"Student", gen:"Gen29", city:"Suva", country:"Fiji", fromcountry:"Fiji", profession:"Telecommunications engineer", interests:"Connectivity, ocean conservation", askmeabout:"Network infrastructure in the Pacific", timestamp:"2026-07-21"},
+    {name:"Hannah Müller", role:"Student", gen:"Gen29", city:"Tauranga", country:"New Zealand", fromcountry:"Germany", profession:"Marketing director", interests:"Generative AI, sailing", askmeabout:"Brand strategy and storytelling", timestamp:"2026-07-19"},
+    {name:"Kenji Watanabe", role:"Staff", gen:"", city:"Auckland", country:"New Zealand", fromcountry:"Japan", profession:"Learning technologist, PlayLab", interests:"Robotics, analogue photography", askmeabout:"FrameVR, Arduino and the PlayLab kit", timestamp:"2026-06-01"},
+    {name:"Grace Okafor", role:"Staff", gen:"", city:"Auckland", country:"New Zealand", fromcountry:"Nigeria", profession:"Academic advisor", interests:"Decolonising tech, poetry", askmeabout:"Academic writing and finding evidence", timestamp:"2026-06-01"},
+    {name:"Liam O'Connor", role:"Alumni", gen:"Gen22", city:"Dunedin", country:"New Zealand", fromcountry:"Ireland", profession:"Founder, ag-tech startup", interests:"Drones, regenerative farming", askmeabout:"Starting a business from your project", timestamp:"2026-05-11"},
+    {name:"Maria Santos", role:"Student", gen:"Gen31", city:"Auckland", country:"New Zealand", fromcountry:"Philippines", profession:"Nurse educator", interests:"Health simulation, VR", askmeabout:"Simulation in healthcare training", timestamp:"2026-11-19"},
+    {name:"Daniel Kim", role:"Student", gen:"Gen30", city:"Sydney", country:"Australia", fromcountry:"South Korea", profession:"Data analyst, retail", interests:"Machine learning, film photography", askmeabout:"Python and dashboards", timestamp:"2026-10-02"}
+  ],
+  gallery: [
+    {title:"Kai Futures 2040", maker:"Aroha Tane", gen:"Gen31", type:"Project", course:"Disruption Report", description:"A speculative menu from a 2040 marae kitchen, exploring food sovereignty and lab-grown kai."},
+    {title:"Systems map: rural connectivity", maker:"Josefa Ravai", gen:"Gen29", type:"Project", course:"Week 6 studio", description:"Causal loop diagram of how mobile coverage shapes education and health in outer islands."},
+    {title:"Week 1 onsite, day two", maker:"PlayLab team", gen:"Gen31", type:"Community", course:"", description:"The design sprint wall at the end of the first onsite day."},
+    {title:"What is a digital twin?", maker:"Mei Lin Chen", gen:"Gen30", type:"Project", course:"Emerging Technology Explainer", description:"An illustrated explainer for architects new to digital twins."},
+    {title:"Cardboard VR headsets", maker:"Gen30", gen:"Gen30", type:"Community", course:"", description:"Building our own headsets in the PlayLab, Week 15."},
+    {title:"Refusing the algorithm", maker:"Priya Raman", gen:"Gen30", type:"Project", course:"Ethical Case Study", description:"A redesign that limits automated credit decisions and keeps a person in the loop."},
+    {title:"Graduation night", maker:"PlayLab team", gen:"Gen26", type:"Community", course:"", description:"Celebrating Gen26 finishing the programme."},
+    {title:"Smart bus stop prototype", maker:"Sione Fifita", gen:"Gen31", type:"Project", course:"Emerging Project Idea", description:"Low-fidelity model of a solar-powered bus stop with live info in te reo Māori and Tongan."},
+    {title:"Future artefact: the 2050 school bag", maker:"Hannah Müller", gen:"Gen29", type:"Project", course:"Week 6 studio", description:"A speculative object from a future where schools have no walls."}
+  ],
+  shoutouts: [
+    {message:"Huge congratulations to Gen29 on submitting your Emerging Project Ideas!", from:"PlayLab team", timestamp:"2026-11-21"},
+    {message:"Thanks Kenji for staying late to help us get the 3D printer going.", from:"Mei Lin, Gen30", timestamp:"2026-11-15"},
+    {message:"Ana's futures workshop for the council was brilliant. Alumni doing amazing things.", from:"Grace", timestamp:"2026-11-08"}
+  ]
+};
+
+/* ============================================================
+   APP: you shouldn't need to edit below this line.
+   ============================================================ */
+const MAP = {"step":1.5,"latTop":84,"latBot":-58,"cols":240,"rows":95,"dots":"AAAAAAAAAAAAAAAX/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//+f///8YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP9/n/////gAAASAAZYAAAeAAAAAAAAAAAAAAAAAGj/8f////8AAAPwAAAAAAAAcAAAAAAAAAAAAAADgAAOAP/////AAADAAAAAAABAMAAAAAAAAAAAAAAA9zhjAAH///+AAAAAAAAHgAAP/8AAvAAAAAAAAAAdAAAAAAD///+AAAAAAAAYAAD//gAAAAAAAAAAAAAf8xq3AAA///YAAAAAAABgDA///7/wCAAAAwAEAAAI/wMb/gAf//sAAAAAAAAgHb/////z/+AABAB//wPI/+sEn4Bv//wAAAA/8AADHf////////+C8wH/////gQ3mF4AP/8AAAAB//xjf/v///////////7A////////+B/gf/gAAAAH/94//9f///////////GH////////0P5Af4AH4AAHx+H///////////////AAf//////9NA+AP4ADAAA/3////////////////+AD///////8COMAHwAAAQD/P////////////////4AB/7/////4APwABwAAAAH/P//////////////wfAAA+AH////4APzAAAAAAAH/D////////////+RhgAAAFAB////8AH/gAAAAAIAOj////////////4AHgAAAQAAP////gX/gAAAAAMBmP////////////wAPgAACAAAX////+f/4AAAAAyAwf////////////AAPAAAAAAAD////+f/+AAAAA3D//////////////8AOAAAAAAAB/////f/8AAAABHn//////////////9AIAAAAAAAB//////8QAAAAAMf//////////////9AQAAAAAAAAf/////2HAAAAAB///////////////4AAAAAAAAAAf/////+AgAAAAB///////////////4AAAAAAAAAAf//////AAAAAAB///yfx/////////wAAAAAAAAAAf/////yAAAAAAB/z/gPj/////////jAAAAAAAAAAf/////gAAAAAA/wY/gDx////////8HAAAAAAAAAAf////+AAAAAAA/gGfnn4////////wAAAAAAAAAAAf////+AAAAAAA/AAZ//4///////1gGAAAAAAAAAAP////8AAAAAAA/ACM//4///////hwEAAAAAAAAAAH////4AAAAAAAILgA3/9///////4wcAAAAAAAAAAH////4AAAAAAAN/gDC/////////wz8AAAAAAAAAAB////gAAAAAAAf/gAA/////////wLgAAAAAAAAAAA////AAAAAAAA//8YB/////////4EAAAAAAAAAAAAX///AAAAAAAB///f//////////4AAAAAAAAAAAAAf/5hAAAAAAAB//////z///////4AAAAAAAAAAAAAb/gBAAAAAAAH////8/5///////wAAAAAAAAAAAAAF/gBgAAAAAAP////+/4P//////wAAAAAAAAAAAAAE/gAAAAAAAAP////+f8wH/////gAAAAAAAAAAAAAAfgAAAAAAAAf/////P/4D/////IAAAAAAAAAAAAAAPgAQAAAAAAf/////v/8D//f/4AAAAAAAAAAAAAAAPgwOAAAAAAf/////n/4Af8P+AAAAAAAAAAAAAAAAHxwAwAAAAAf/////n/wAfwH8wAAAAAAAAAAAAAAAB/gAAAAAAAf/////z/gAfgH+AMAAAAAAAAAAAAAAAT8AAAAAAAf/////z+AAfAB/AIAAAAAAAAAAAAAAAB+AAAAAAAf/////94AAOAB/gIAAAAAAAAAAAAAAAAMAAAAAAAf//////AAAOAA/gAAAAAAAAAAAAAAAAAEBQAAAAAf/////+MAAGAAHgHAAAAAAAAAAAAAAAACDfgAAAAH//////8AAHAACAAAAAAAAAAAAAAAAAABP/wAAAAH//////4AAFAAgADAAAAAAAAAAAAAAAAAP/4AAAAD//////4AABgAQABAAAAAAAAAAAAAAAAAP//gAAAA+D////wAAAAGYBwAAAAAAAAAAAAAAAAAH//wAAAAAA////wAAAADYDAAAAAAAAAAAAAAAAAAP//wAAAAAAf///AAAAABoPgQAAAAAAAAAAAAAAAAf//wAAAAAA///+AAAAAAwfuQAAAAAAAAAAAAAAAA///+AAAAAA///8AAAAAAYfASgAAAAAAAAAAAAAAA////AAAAAA///4AAAAAA8fYCYAAAAAAAAAAAAAAA////8AAAAAf//4AAAAAAODEh/AAAAAAAAAAAAAAA/////AAAAAP//4AAAAAAGAAAPgAAAAAAAAAAAAAAf////gAAAAP//wAAAAAADAABHwAAAAAAAAAAAAAAf////gAAAAH//wAAAAAAAOCAPYAAAAAAAAAAAAAAP////AAAAAH//wAAAAAAAACAAMAAAAAAAAAAAAAAP///+AAAAAH//4AAAAAAAAAEAAAAAAAAAAAAAAAAH///+AAAAAH//4AAAAAAAAAHhAAAAAAAAAAAAAAAH///8AAAAAP//4IAAAAAAAAvjAAAAAAAAAAAAAAAD///8AAAAAP//4cAAAAAAAB/jgAAAAAAAAAAAAAAA///8AAAAAP//h4AAAAAAAH/7gAAAAAAAAAAAAAAAf//8AAAAAP//B4AAAAAAAH//wAAAAAAAAAAAAAAAf//4AAAAAH/+AwIAAAAAAf//4AAAAAAAAAAAAAAAf//4AAAAAH//BwAAAAAAB///8AIAAAAAAAAAAAAAf//AAAAAAD//BwAAAAAAD///+AAAAAAAAAAAAAAAf/8AAAAAAD/+BgAAAAAAD////AAAAAAAAAAAAAAAf/8AAAAAAD/8AAAAAAAAH////AAAAAAAAAAAAAAAf/8AAAAAAD/8AAAAAAAAD////AAAAAAAAAAAAAAA//4AAAAAAB/4AAAAAAAAB////AAAAAAAAAAAAAAA//wAAAAAAA/wAAAAAAAAB////AAAAAAAAAAAAAAA//gAAAAAAA/gAAAAAAAAB/h//AAAAAAAAAAAAAAA//AAAAAAAA+AAAAAAAAAB8Av+AAAAAAAAAAAAAAA/8AAAAAAAAAAAAAAAAAAAAAP8AAQAAAAAAAAAAAB/8AAAAAAAAAAAAAAAAAAAAAH8AAIAAAAAAAAAAAB/4AAAAAAAAAAAAAAAAAAAAADQAAOAAAAAAAAAAAB/gAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAB+AAAAAAAAAAAAAAAAAAAAAAA4AAIAAAAAAAAAAAB/AAAAAAAAAAAAAAAAAAAAAAAYAAwAAAAAAAAAAAB8AAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAAAAB4AAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAD8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","centroids":{"Zimbabwe":[-19,29.9],"Zambia":[-13.5,27.8],"Yemen":[15.9,47.5],"Vietnam":[16.5,106.3],"Venezuela":[7.1,-66.2],"Vatican":[41.9,12.4],"Vanuatu":[-15.2,166.8],"Uzbekistan":[41.8,63.3],"Uruguay":[-32.8,-56],"Micronesia":[6.9,158.2],"Marshall Is.":[7.1,171.2],"N. Mariana Is.":[15.2,145.7],"U.S. Virgin Is.":[17.7,-64.8],"Guam":[13.4,144.8],"American Samoa":[-14.3,-170.7],"Puerto Rico":[18.2,-66.5],"United States of America":[39.9,-98.8],"S. Geo. and the Is.":[-54.4,-36.7],"Br. Indian Ocean Ter.":[-7.3,72.4],"Saint Helena":[-16,-5.7],"Pitcairn Is.":[-24.4,-128.3],"Anguilla":[18.2,-63.1],"Falkland Is.":[-51.7,-58.8],"Cayman Is.":[19.3,-81.3],"Bermuda":[32.3,-64.8],"British Virgin Is.":[18.4,-64.6],"Turks and Caicos Is.":[21.8,-71.7],"Montserrat":[16.7,-62.2],"Jersey":[49.2,-2.1],"Guernsey":[49.5,-2.6],"Isle of Man":[54.2,-4.5],"United Kingdom":[53.8,-2.4],"United Arab Emirates":[23.9,54.3],"Ukraine":[49.2,31.3],"Uganda":[1.3,32.4],"Turkmenistan":[39.1,59.4],"Turkey":[39.1,35.4],"Tunisia":[34.1,9.6],"Trinidad and Tobago":[10.4,-61.3],"Tonga":[-21.2,-175.2],"Togo":[8.5,1],"Timor-Leste":[-8.8,125.9],"Thailand":[15.1,101],"Tanzania":[-6.3,34.8],"Tajikistan":[38.5,71],"Taiwan":[23.7,121],"Syria":[35,38.5],"Switzerland":[46.8,8.2],"Sweden":[62.4,16.2],"eSwatini":[-26.6,31.5],"Suriname":[4.1,-55.9],"S. Sudan":[7.3,30.3],"Sudan":[16,29.9],"Sri Lanka":[7.6,80.7],"Spain":[40.4,-3.6],"South Korea":[36.5,127.9],"South Africa":[-29,25.2],"Somalia":[4.7,45.7],"Somaliland":[9.7,46.3],"Solomon Is.":[-9.6,160.2],"Slovakia":[48.7,19.5],"Slovenia":[46.1,14.8],"Singapore":[1.4,103.8],"Sierra Leone":[8.6,-11.8],"Seychelles":[-4.7,55.5],"Serbia":[44.2,20.8],"Senegal":[14.4,-14.5],"Saudi Arabia":[24.1,44.7],"São Tomé and Principe":[0.2,6.6],"San Marino":[43.9,12.5],"Samoa":[-13.6,-172.4],"St. Vin. and Gren.":[13.3,-61.2],"Saint Lucia":[13.9,-61],"St. Kitts and Nevis":[17.3,-62.7],"Rwanda":[-2,29.9],"Russia":[65.9,95.5],"Romania":[45.8,25],"Qatar":[25.3,51.2],"Portugal":[39.7,-8],"Poland":[52.1,19.4],"Philippines":[15.9,121.4],"Peru":[-9.1,-74.4],"Paraguay":[-23.2,-58.4],"Papua New Guinea":[-6.6,144.2],"Panama":[8.5,-80.1],"Palau":[7.5,134.6],"Pakistan":[29.9,69.2],"Oman":[20.6,56.1],"Norway":[63.8,12.2],"North Korea":[40.1,127.2],"Nigeria":[9.6,8.1],"Niger":[17.4,9.3],"Nicaragua":[12.8,-85],"New Zealand":[-43.9,170.6],"Niue":[-19,-169.9],"Cook Is.":[-21.2,-159.8],"Netherlands":[52.3,5.6],"Aruba":[12.5,-70],"Curaçao":[12.2,-69],"Nepal":[28.3,83.9],"Nauru":[-0.5,166.9],"Namibia":[-22.1,17.2],"Mozambique":[-17.2,35.6],"Morocco":[29.8,-8.7],"W. Sahara":[24.2,-12.3],"Montenegro":[42.8,19.2],"Mongolia":[47,103.1],"Moldova":[47.2,28.5],"Monaco":[43.8,7.4],"Mexico":[23.9,-102.2],"Mauritius":[-20.3,57.6],"Mauritania":[20.2,-10.4],"Malta":[35.9,14.4],"Mali":[17.3,-3.6],"Maldives":[4.2,73.5],"Malaysia":[3.6,114.7],"Malawi":[-13.2,34.3],"Madagascar":[-19.3,46.7],"Macedonia":[41.6,21.7],"Luxembourg":[49.8,6.1],"Lithuania":[55.3,23.9],"Liechtenstein":[47.1,9.5],"Libya":[27,18.1],"Liberia":[6.5,-9.3],"Lesotho":[-29.6,28.2],"Lebanon":[33.9,35.9],"Latvia":[56.9,24.9],"Laos":[18.5,103.8],"Kyrgyzstan":[41.5,74.5],"Kuwait":[29.3,47.6],"Kosovo":[42.6,20.9],"Kiribati":[1.9,-157.4],"Kenya":[0.6,37.8],"Kazakhstan":[48.4,67.2],"Jordan":[31.2,36.8],"Japan":[36.6,137.9],"Jamaica":[18.2,-77.3],"Italy":[43.5,12.3],"Israel":[31.5,35],"Palestine":[31.9,35.2],"Ireland":[53.2,-8.1],"Iraq":[33,43.8],"Iran":[32.5,54.4],"Indonesia":[-0.2,114],"India":[22.8,79.5],"Iceland":[65,-18.6],"Hungary":[47.2,19.4],"Honduras":[14.8,-86.6],"Haiti":[18.9,-72.7],"Guyana":[4.8,-59],"Guinea-Bissau":[12.1,-14.9],"Guinea":[10.4,-10.9],"Guatemala":[15.7,-90.4],"Grenada":[12.1,-61.7],"Greece":[39.5,22.6],"Ghana":[7.9,-1.2],"Germany":[51,10.4],"Georgia":[42.2,43.5],"Gambia":[13.5,-15.4],"Gabon":[-0.6,11.8],"France":[46.6,2.5],"St. Pierre and Miquelon":[46.9,-56.3],"Wallis and Futuna Is.":[-14.3,-178.1],"St-Martin":[18.1,-63.1],"St-Barthélemy":[17.9,-62.8],"Fr. Polynesia":[-17.7,-149.4],"New Caledonia":[-21.3,165.5],"Fr. S. Antarctic Lands":[-49.3,69.5],"Åland":[60.2,19.9],"Finland":[64.3,26.2],"Fiji":[-17.8,178],"Ethiopia":[8.6,39.6],"Estonia":[58.7,25.8],"Eritrea":[15.4,38.8],"Eq. Guinea":[1.6,10.5],"El Salvador":[13.7,-88.9],"Egypt":[26.5,29.9],"Ecuador":[-1.4,-78.4],"Dominican Rep.":[18.9,-70.5],"Dominica":[15.4,-61.4],"Djibouti":[11.7,42.6],"Greenland":[73.1,-41.8],"Faeroe Is.":[62.2,-6.9],"Denmark":[56.2,9.3],"Czechia":[49.7,15.3],"N. Cyprus":[35.3,33.6],"Cyprus":[34.9,33],"Cuba":[21.6,-78.9],"Croatia":[45.2,16.4],"Côte d'Ivoire":[7.6,-5.6],"Costa Rica":[10,-84.2],"Dem. Rep. Congo":[-2.9,23.6],"Congo":[-0.8,15.2],"Comoros":[-11.7,43.3],"Colombia":[3.9,-73.1],"China":[36.8,103.3],"Macao":[22.2,113.5],"Hong Kong":[22.4,114.1],"Chile":[-34.4,-70.9],"Chad":[15.3,18.6],"Central African Rep.":[6.6,20.5],"Cabo Verde":[15.1,-23.6],"Canada":[58.6,-99],"Cameroon":[5.7,12.7],"Cambodia":[12.7,104.9],"Myanmar":[21.1,96.5],"Burundi":[-3.4,29.9],"Burkina Faso":[12.3,-1.8],"Bulgaria":[42.8,25.2],"Brunei":[4.5,114.6],"Brazil":[-10.7,-53.2],"Botswana":[-22.2,23.8],"Bosnia and Herz.":[44.2,17.8],"Bolivia":[-16.7,-64.7],"Bhutan":[27.4,90.4],"Benin":[9.6,2.3],"Belize":[17.2,-88.7],"Belgium":[50.6,4.6],"Belarus":[53.5,28],"Barbados":[13.2,-59.6],"Bangladesh":[23.9,90.2],"Bahrain":[26,50.5],"Bahamas":[24.7,-78],"Azerbaijan":[40.3,47.7],"Austria":[47.6,14.1],"Australia":[-25.6,134.2],"Indian Ocean Ter.":[-10.5,105.7],"Heard I. and McDonald Is.":[-53.1,73.5],"Norfolk Island":[-29.1,167.9],"Ashmore and Cartier Is.":[-12.4,123.6],"Armenia":[40.3,44.9],"Argentina":[-34.5,-64.7],"Antigua and Barb.":[17.1,-61.8],"Angola":[-12.3,17.6],"Andorra":[42.5,1.6],"Algeria":[28.1,2.6],"Albania":[41.1,20.1],"Afghanistan":[33.8,65.9],"Siachen Glacier":[35.4,77.2],"Antarctica":[-84.7,83],"Sint Maarten":[18.1,-63.1]},"regions":{"pacific":{"lon0":110,"lat0":12,"step":0.5,"cols":250,"rows":124,"dots":"AAAAggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEBIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgCEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAO+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAjoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//wAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//AAAQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA//+CBBgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//w/4GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/+AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//4QABAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//hAgOB8QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/8G4AAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//gfBACPDYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/+D8AAAQH4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/4OwAAC4/+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADfA7gMeH3/+AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaBuAQEL///AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGcAAAD///AAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAZAAAAB//+ABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAABhAAAAB//8AMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABID//4fgQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgH//4YAgAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAACAP//AABAAAAAAAAAAAAAAAAAAAAAAAAAAPgAAAAAAAB//8AAAgAAAAAAAAAAAAAAAAAAAAAAAAA/4AAAIAgAP/z4AAEQAAAAAAAAAAAAAAAAAAAAAAAAA/4AA8AAABz+DwAAMAAAAAAAAAAAAAAAAAAAAAAAAAAArjwPAAAAH4HgAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAABAPIAAAgAAAAAAAAAAAAAAAAAAAAAAAAAABgcAAAAAAAfAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACgAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAxgAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv9AHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH/4AOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//AB4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/+AHgAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA4f/0AeAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPx/+AB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/f/8AH+AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAH///4Af4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABf///4B/gAAAAAACAAAEAAAAAAAAAAAAAAAAAAAAAAX////4P+AAAAAAAIAABAAAAAAAAAAAAAAAAAAAAAAD/////w/8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///////wAAAAAAAAABgAAAAAAAAABAAAAAAAAAAAA////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH///////+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf///////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH////////4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/////////4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//////////wAAAAEIAAAAAAAAAAAAAAAAAAAAAAAA///////////AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAP//////////+AAAAAYAAAAAAAAAAAAAAAAAAAAAAAB///////////4AAAAAQAAAAAAAAAAAAAAAAAAAAAAAf///////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAA////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAH////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAAf////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAB////////////+gAAAAAAAAAAAAAAAAAAAAAAAAAAAD////////////6AAAAAAAAAAAAAAAAAAAAAAAAAAAAP////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAC/////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAH////////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAP////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAB////////////+AAAAAAAAAAAAAAAAAAAAAAAAAAAAH////////////4AAAAAAAAAAAAAAAAAAAAAAAAAAAAP////////////gAAAAAAAAAAAAAAAAAAAAAAAAAAAA////////////+AAAAAAAAAAAAAAAAAAAAAAAAAAAAD////////////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAP////////////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAf///////////8AAAAAAAAAAAAAAAAAAAAAAAAAAAAB////wP//////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAH///4AH/////+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAf//wAAP/////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//8AAAfv///+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//gAAA9////4AAAAAAAAAAAAAAAAAAAAAAAAAAAAA/4AAAABn////AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+AAAAAEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf///gAAAAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY///8AAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///AAAAAAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP//8AAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf//gAAAAAAADmAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfvgAAAAAAAAf4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB/AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAADgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf4AAAAAAAN8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAAAAB+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB8AAAAAAAHwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwAAAAAAA+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAAAAAAPgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/AAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="},"aotearoa":{"lon0":164,"lat0":-33.5,"step":0.2,"cols":85,"rows":71,"dots":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAEAAAAAAAAAAAAABgAAAAAAAAAAAAA+AAAAAAAAAAAAAXgAAAAAAAAAAAAH4AAAAAAAAAAAAB4AAAAAAAAAAAAAeAAAAAAAAAAAAABiAAAAAAAAAAAAAwAAAAAAAAAAAAA4gAAAAAAAAAAAAMYAAAAAAAAAAAAB0AAAAAAAAAAAAB7AAAAAAAAAAAAAfgAAAAAAAAAAAAPwAwAAAAAAAAAAD/B4AAAAAAAAAAD//8AAAAAAAAAAB//+AAAAAAAAAAB///AAAAAAAAAAA///AAAAAAAAAAAf//AAAAAAAAAAA///gAAAAAAAAAB//8QAAAAAAAAAA//8AAAAAAAAAAAH/+AAAAAAAAAAAA//AAAAAAAAAAAAH/gAAAAAAAAAAAB/gAAAAAAAAAAAA/gAAAAAAAAAAgAfgAAAAAAAAABwQfgAAAAAAAAAA8IfwAAAAAAAAAA+bPwAAAAAAAAAAf+HwAAAAAAAAAAf/ggAAAAAAAAAA//wAAAAAAAAAAAf/wAAAAAAAAAAAP/wAAAAAAAAAAAP/wAAAAAAAAAAAH/wAAAAAAAAAAAP/4AAAAAAAAAAAP/4AAAAAAAAAAAf/wAAAAAAAAAAAf/wAAAAAAAAAAA//8AAAAAAAAAAB//7gAAAAAAAAAH//wAAAAAAAAAAP//AAAAAAAAAAAP//AAAAAAAAAAAP//gAAAAAAAAAAf//wAAAAAAAAAAf//4AAAAAAAAAAf//4AAAAAAAAAAP//4AAAAAAAAAAP//8AAAAAAAAAAP//+AAAAAAAAAAH//8AAAAAAAAAAB3/8AAAAAAAAAAAAf4AAAAAAAAAAAAAwAAAAAAAAAAAAQAAAAAAAAAAAAAMAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="}}};
+
+// Town and city coordinates for Aotearoa, so pins can sit where people
+// live rather than in the middle of the country. Add more as needed.
+const PLACES = {
+  "auckland":[-36.85,174.76],"tamaki makaurau":[-36.85,174.76],"wellington":[-41.29,174.78],"te whanganui-a-tara":[-41.29,174.78],
+  "christchurch":[-43.53,172.64],"otautahi":[-43.53,172.64],"hamilton":[-37.79,175.28],"kirikiriroa":[-37.79,175.28],
+  "tauranga":[-37.69,176.17],"dunedin":[-45.87,170.5],"otepoti":[-45.87,170.5],"palmerston north":[-40.36,175.61],
+  "napier":[-39.49,176.91],"hastings":[-39.64,176.84],"nelson":[-41.27,173.28],"rotorua":[-38.14,176.25],
+  "new plymouth":[-39.06,174.08],"whangarei":[-35.73,174.32],"invercargill":[-46.41,168.35],"gisborne":[-38.66,178.02],
+  "queenstown":[-45.03,168.66],"whanganui":[-39.93,175.05],"blenheim":[-41.51,173.95],"timaru":[-44.4,171.25],
+  "taupo":[-38.69,176.07],"kerikeri":[-35.23,173.95],"masterton":[-40.95,175.66],"lower hutt":[-41.21,174.91],
+  "porirua":[-41.13,174.84],"upper hutt":[-41.12,175.07],"levin":[-40.62,175.29],"ashburton":[-43.9,171.75],
+  "oamaru":[-45.1,170.97],"greymouth":[-42.45,171.21],"thames":[-37.14,175.54],"whakatane":[-37.95,176.99],
+  "apia":[-13.83,-171.76],"nuku'alofa":[-21.14,-175.2],"suva":[-18.14,178.44],"rarotonga":[-21.23,-159.78],"avarua":[-21.21,-159.78],
+  "sydney":[-33.87,151.21],"melbourne":[-37.81,144.96],"brisbane":[-27.47,153.03],"perth":[-31.95,115.86],
+  "london":[51.51,-0.13],"manila":[14.6,120.98],"mumbai":[19.08,72.88],"delhi":[28.61,77.21],"new delhi":[28.61,77.21],
+  "beijing":[39.9,116.4],"shanghai":[31.23,121.47],"singapore":[1.35,103.82],"tokyo":[35.68,139.69],"seoul":[37.57,126.98],
+  "los angeles":[34.05,-118.24],"new york":[40.71,-74.01],"san francisco":[37.77,-122.42],"toronto":[43.65,-79.38],
+  "vancouver":[49.28,-123.12],"johannesburg":[-26.2,28.05],"cape town":[-33.92,18.42],"dubai":[25.2,55.27]
+};
+// Other names people might type for a country.
+const ALIASES = {
+  "nz":"New Zealand","aotearoa":"New Zealand","aotearoa new zealand":"New Zealand","new zealand aotearoa":"New Zealand",
+  "usa":"United States of America","us":"United States of America","united states":"United States of America","america":"United States of America",
+  "uk":"United Kingdom","england":"United Kingdom","scotland":"United Kingdom","wales":"United Kingdom","northern ireland":"United Kingdom","great britain":"United Kingdom",
+  "cook islands":"Cook Is.","korea":"South Korea","republic of korea":"South Korea","russia":"Russia","holland":"Netherlands",
+  "uae":"United Arab Emirates","czech republic":"Czechia","ivory coast":"Côte d'Ivoire","solomon islands":"Solomon Is.",
+  "marshall islands":"Marshall Is.","french polynesia":"Fr. Polynesia","tahiti":"Fr. Polynesia","dominican republic":"Dominican Rep.",
+  "drc":"Dem. Rep. Congo","democratic republic of the congo":"Dem. Rep. Congo","bosnia":"Bosnia and Herz.","hong kong":"Hong Kong",
+  "png":"Papua New Guinea","new caledonia":"New Caledonia","american samoa":"American Samoa","viet nam":"Vietnam","türkiye":"Turkey","turkiye":"Turkey"
+};
+const SHORT = {"United States of America":"USA","United Kingdom":"UK","New Zealand":"Aotearoa New Zealand","Cook Is.":"Cook Islands"};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
+
+const ICONS = {
+  door:'<rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="15" cy="12" r="1"/>',
+  sofa:'<path d="M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3"/><path d="M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v5H2z"/><path d="M5 18v2M19 18v2"/>',
+  frame:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m3 16 5-5 4 4 3-3 6 6"/><circle cx="15.5" cy="8.5" r="1.5"/>',
+  portal:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 3.8 5.5 3.8 9s-1.3 6.5-3.8 9c-2.5-2.5-3.8-5.5-3.8-9S9.5 5.5 12 3Z"/>',
+  pin:'<path d="M12 21s-6-6.2-6-11a6 6 0 0 1 12 0c0 4.8-6 11-6 11Z"/><circle cx="12" cy="10" r="2.2"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4.5-6 8-6s7 2 8 6"/>',
+  briefcase:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',
+  heart:'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/>',
+  link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  star:'<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+  wave:'<path d="M7 11V6a1.5 1.5 0 0 1 3 0v4M10 10V4.5a1.5 1.5 0 0 1 3 0V10M13 10V5.5a1.5 1.5 0 0 1 3 0V12"/><path d="M16 9.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-.5A6.5 6.5 0 0 1 6 18l-2.6-4.4a1.5 1.5 0 0 1 2.6-1.5L7 14"/>',
+  question:'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.6M12 17v.5"/>',
+  hand:'<path d="M8 13V5.5a1.5 1.5 0 0 1 3 0V12M11 11V4a1.5 1.5 0 0 1 3 0v7M14 11V5.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7 6 6 0 0 1-5.2-3L3 14.5a1.5 1.5 0 0 1 2.6-1.5L8 16"/>',
+  nodes:'<circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="7" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M7 7l3.6 3M17 8l-3.6 2.4M12 12.6V16"/><circle cx="12" cy="11" r="1.6"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  ext:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>'
+};
+const ico = (n, sw=1.9) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
+
+const ROOMS = [
+  {id:"foyer", label:"Foyer", ico:"door", tone:"paper"},
+  {id:"lounge", label:"The Lounge", ico:"sofa", tone:"lilac", sub:"People", desc:"Meet students, alumni and staff"},
+  {id:"gallery", label:"The Gallery", ico:"frame", tone:"butter", sub:"Work and moments", desc:"See work and moments from every Gen"},
+  {id:"portal", label:"The Portal", ico:"portal", tone:"sky", sub:"FrameVR", desc:"Step into our FrameVR space"},
+  {id:"commons", label:"The Commons", ico:"chat", tone:"mint", sub:"Message board", desc:"Ask, share and chat in Slack"},
+  {id:"map", label:"The Map Wall", ico:"globe", tone:"peach", sub:"Where we're from", desc:"See where we're from and call home"}
+];
+
+const state = { people:[], gallery:[], shoutouts:[], sample:{}, role:"all", gen:"all", q:"", type:"all", galGen:"all", mapMode:"home", zoom:"world" };
+
+/* ---------- Data loading ---------- */
+function parseCSV(text){
+  const rows = []; let row = [], cell = "", q = false;
+  for(let i = 0; i < text.length; i++){
+    const c = text[i];
+    if(q){
+      if(c === '"'){ if(text[i+1] === '"'){ cell += '"'; i++; } else q = false; }
+      else cell += c;
+    } else if(c === '"') q = true;
+    else if(c === ","){ row.push(cell); cell = ""; }
+    else if(c === "\n" || c === "\r"){ if(c === "\r" && text[i+1] === "\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; }
+    else cell += c;
+  }
+  if(cell !== "" || row.length){ row.push(cell); rows.push(row); }
+  if(!rows.length) return [];
+  const head = mapHeaders(rows[0]);
+  return rows.slice(1).filter(r => r.some(v => v.trim())).map(r => Object.fromEntries(head.map((h,i) => [h, (r[i]||"").trim()])));
+}
+// Match Google Form question titles to the fields the page uses, so
+// "Where are you from (country)?" still lands in the right place.
+const COLUMNS = [
+  ["timestamp", /^timestamp|submitted|^date/],
+  ["lat", /^lat/], ["lng", /^(lng|lon)/],
+  ["fromcountry", /from|origin|heritage|grewup/],
+  ["askmeabout", /askme|expertise|helpwith|skills/],
+  ["interests", /interest|hobbies/],
+  ["profession", /profession|occupation|job|workin|whatdoyoudo|context/],
+  ["photo", /photo|picture|headshot|avatar/],
+  ["image", /image|upload|file|pictureofwork/],
+  ["city", /city|town|basedin|live|location|callhome/],
+  ["country", /country/],
+  ["gen", /^(gen|cohort)(?!der)|yourgen|whichgen/],
+  ["role", /role|areyoua|iama|typeofmember/],
+  ["course", /course|assessment|module/],
+  ["type", /^type|kind|category|projectorcommunity/],
+  ["title", /title|nameofwork|nameofpiece|projectname/],
+  ["description", /descri|tellus|caption|aboutthe/],
+  ["link", /link|url|website|portfolio|linkedin/],
+  ["message", /message|shoutout|whatwould/],
+  ["maker", /maker|madeby|creator|artist|whomade/],
+  ["from", /^from$|whosent|sentby/],
+  ["name", /name/]
+];
+function mapHeaders(raw){
+  const used = new Set();
+  return raw.map(h => {
+    const k = norm(h).replace(/[^a-z0-9 ]/g,"").replace(/\s+/g,"");
+    for(const [canon, re] of COLUMNS){
+      if(!used.has(canon) && re.test(k)){ used.add(canon); return canon; }
+    }
+    return k;
+  });
+}
+async function load(key){
+  if(key === "gallery"){
+    if(GALLERY.length) return GALLERY.map(x => ({...x}));
+    state.sample.gallery = true; return SAMPLE.gallery.map(x => ({...x}));
+  }
+  const url = SETTINGS.sheets[key];
+  if(!url){ state.sample[key] = true; return SAMPLE[key].map(x => ({...x})); }
+  try{
+    const res = await fetch(url, {cache:"no-store"});
+    if(!res.ok) throw new Error(res.status);
+    return parseCSV(await res.text());
+  }catch(e){
+    console.warn("Couldn't load " + key + " sheet:", e);
+    state.failed = (state.failed || []).concat(key);
+    return [];
+  }
+}
+
+/* ---------- Helpers ---------- */
+function roleOf(r){
+  const s = norm(r);
+  if(/staff|kaimahi|lecturer|team/.test(s)) return "staff";
+  if(/alum|past|graduate/.test(s)) return "alumni";
+  if(/future|incoming|starting|prospective/.test(s)) return "future";
+  return "student";
+}
+const ROLE_LABEL = {student:"Current student", alumni:"Alumni", staff:"Staff", future:"Future student"};
+const ROLE_TONE = {student:"lilac", alumni:"butter", staff:"mint", future:"peach"};
+function displayName(n){
+  n = String(n||"").trim();
+  if(SETTINGS.showFullNames) return n;
+  const p = n.split(/\s+/); return p.length > 1 ? `${p[0]} ${p[p.length-1][0]}.` : n;
+}
+const initials = n => String(n||"?").trim().split(/\s+/).map(p => p[0]).slice(0,2).join("").toUpperCase();
+function imgURL(u){
+  u = String(u||"").trim(); if(!u) return "";
+  const m = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]+)/);
+  if(m) return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w1200`;
+  if(/^https?:\/\//.test(u)) return u;
+  // Images uploaded to the repo, e.g. gallery/kai-futures.jpg
+  return /^[\w\-./]+\.(jpe?g|png|gif|webp|avif)$/i.test(u) && !u.includes("..") ? u : "";
+}
+function safeURL(u){ u = String(u||"").trim(); return /^https?:\/\//.test(u) ? u : ""; }
+function countryName(c){
+  const k = norm(c); if(!k) return "";
+  if(ALIASES[k]) return ALIASES[k];
+  const hit = Object.keys(MAP.centroids).find(n => norm(n) === k);
+  return hit || String(c).trim();
+}
+const countryLabel = n => SHORT[n] || n;
+function genNum(g){ const m = String(g||"").match(/\d+/); return m ? +m[0] : -1; }
+function dateOf(s){
+  s = String(s||"").trim(); if(!s) return null;
+  // Google Sheets in NZ format: 24/11/2026 10:00:00
+  const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})(?:[ T](\d{1,2}):(\d{2}))?/);
+  if(m) return new Date(+m[3], +m[2]-1, +m[1], +(m[4]||0), +(m[5]||0));
+  const d = new Date(s); return isNaN(d) ? null : d;
+}
+const fmt = (d,o) => d.toLocaleDateString("en-NZ", o);
+function avatarHTML(p, cls=""){
+  const tone = ROLE_TONE[p._role];
+  const src = SETTINGS.showPhotos ? imgURL(p.photo) : "";
+  return src
+    ? `<span class="av ${cls}" style="background-image:url('${esc(src)}')" role="img" aria-label="${esc(displayName(p.name))}"></span>`
+    : `<span class="av ${cls}" style="background:var(--${tone});color:var(--${tone}-ink)" aria-hidden="true">${esc(initials(p.name))}</span>`;
+}
+// Placeholder artwork for gallery items without an image.
+function placeholderArt(seed, title){
+  let h = 2166136261; for(const c of title) h = Math.imul(h ^ c.charCodeAt(0), 16777619) >>> 0;
+  const rnd = () => { h = (h + 0x6D2B79F5) >>> 0; let t = h; t = Math.imul(t ^ t >>> 15, t | 1); t ^= t + Math.imul(t ^ t >>> 7, t | 61); return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  const tones = ["#FFD5C2","#DDD7FF","#CBEFD8","#FFEDA8","#CFE6FF"], inks = ["#3651F5","#172038","#9A3B12","#4B3AB0","#1D6B3E"];
+  const bi = Math.floor(rnd()*5), bg = tones[bi];
+  const others = tones.filter((_,i) => i !== bi);
+  const ht = [190, 240, 210, 270][Math.floor(rnd()*4)];
+  const shapes = [];
+  for(let i = 0; i < 5; i++){
+    const r = 16 + rnd()*34, x = 40 + rnd()*240, y = 34 + rnd()*(ht-68);
+    const fill = i < 2 ? inks[Math.floor(rnd()*5)] : others[Math.floor(rnd()*4)];
+    shapes.push(rnd() > .45 ? `<circle cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${r.toFixed(0)}" fill="${fill}"/>` : `<rect x="${(x-r).toFixed(0)}" y="${(y-r/2).toFixed(0)}" width="${(r*2.2).toFixed(0)}" height="${r.toFixed(0)}" rx="${(r/2).toFixed(0)}" fill="${fill}"/>`);
+  }
+  return `<svg class="w-img" viewBox="0 0 320 ${ht}" role="img" aria-label="${esc(title)} (placeholder image)"><rect width="320" height="${ht}" fill="${bg}"/>${shapes.reverse().join("")}</svg>`;
+}
+
+// If a photo can't load (e.g. a Drive file that isn't shared), show artwork instead.
+window.phSwap = img => { const t = document.createElement("div"); t.innerHTML = placeholderArt(0, img.dataset.t || ""); img.replaceWith(t.firstChild); };
+
+/* ---------- Navigation ---------- */
+function renderNav(){
+  $("#nav").innerHTML = ROOMS.map((r,i) =>
+    `${i===1?"<hr>":""}<button data-view="${r.id}">${ico(r.ico)}<span>${esc(r.label)}</span></button>`).join("");
+  $("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if(b) go(b.dataset.view); });
+}
+// Go back to the top. Inside the Google Sites embed, also ask the outer
+// page to scroll up to the top of the embed.
+function toTop(){
+  window.scrollTo(0, 0);
+  try{ document.documentElement.scrollIntoView({block:"start", behavior:"instant"}); }catch(e){}
+}
+function go(id, opts = {}){
+  if(!ROOMS.some(r => r.id === id)) id = "foyer";
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-"+id));
+  document.querySelectorAll("#nav button").forEach(b => b.dataset.view === id ? b.setAttribute("aria-current","page") : b.removeAttribute("aria-current"));
+  if(history.replaceState) history.replaceState(null, "", "#"+id);
+  if(!opts.initial) toTop();
+  if(id === "map") renderMap();
+}
+document.addEventListener("click", e => { const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); go(g.dataset.go); } });
+
+/* ---------- Building (isometric map of the space) ---------- */
+const ISO_S = 34;
+const isoP = (x, y, z = 0) => [(x - y) * 0.866 * ISO_S, (x + y) * 0.5 * ISO_S - z * ISO_S];
+const pstr = arr => arr.map(a => isoP(...a).map(n => n.toFixed(1)).join(",")).join(" ");
+const poly = (arr, fill, extra = "") => `<polygon points="${pstr(arr)}" fill="${fill}" ${extra}/>`;
+function shade(hex, f){
+  const n = parseInt(hex.slice(1), 16);
+  return "#" + [n >> 16, n >> 8 & 255, n & 255].map(v => Math.round(Math.min(255, v * f)).toString(16).padStart(2, "0")).join("");
+}
+function box(x, y, z, w, d, h, c){
+  return poly([[x,y+d,z],[x+w,y+d,z],[x+w,y+d,z+h],[x,y+d,z+h]], shade(c,.86)) +
+         poly([[x+w,y,z],[x+w,y+d,z],[x+w,y+d,z+h],[x+w,y,z+h]], shade(c,.72)) +
+         poly([[x,y,z+h],[x+w,y,z+h],[x+w,y+d,z+h],[x,y+d,z+h]], c);
+}
+function isoEllipse(cx, cy, z, r, attrs){
+  const [X, Y] = isoP(cx, cy, z);
+  return `<ellipse cx="${X.toFixed(1)}" cy="${Y.toFixed(1)}" rx="${(r*ISO_S*1.2247).toFixed(1)}" ry="${(r*ISO_S*0.7071).toFixed(1)}" ${attrs}/>`;
+}
+const floorQuad = (x, y, w, d, fill, extra = "") => poly([[x,y,.01],[x+w,y,.01],[x+w,y+d,.01],[x,y+d,.01]], fill, extra);
+const panelY = (x, yw, z, w, h, fill) => poly([[x,yw,z],[x+w,yw,z],[x+w,yw,z+h],[x,yw,z+h]], fill);
+const panelX = (xw, y, z, w, h, fill) => poly([[xw,y,z],[xw,y+w,z],[xw,y+w,z+h],[xw,y,z+h]], fill);
+const dot = (x, y, z, r, fill, extra = "") => { const [X, Y] = isoP(x, y, z); return `<circle cx="${X.toFixed(1)}" cy="${Y.toFixed(1)}" r="${r}" fill="${fill}" ${extra}/>`; };
+
+const RS = 4, GAP = 0.3, WH = 1.15, WT = 0.16;
+const LAYOUT = {
+  lounge:  {gx:0, gy:0, tone:"#DDD7FF", back:null,      left:null},
+  gallery: {gx:1, gy:0, tone:"#FFEDA8", back:null,      left:[1.4,2.6]},
+  portal:  {gx:2, gy:0, tone:"#CFE6FF", back:null,      left:[1.4,2.6]},
+  commons: {gx:0, gy:1, tone:"#CBEFD8", back:[1.4,2.6], left:null},
+  foyer:   {gx:1, gy:1, tone:"#EEF1F7", back:[1.4,2.6], left:[1.4,2.6]},
+  map:     {gx:2, gy:1, tone:"#FFD5C2", back:[2.9,3.8], left:[1.4,2.6]}
+};
+const ORDER = ["lounge","gallery","commons","portal","foyer","map"];
+const org = id => [LAYOUT[id].gx * (RS + GAP), LAYOUT[id].gy * (RS + GAP)];
+const WALL = "#FBFBFE";
+function walls(id){
+  const [ox, oy] = org(id), L = LAYOUT[id];
+  const segs = door => door ? [[0, door[0]], [door[1], RS]] : [[0, RS]];
+  let out = "";
+  segs(L.left).forEach(([a,b]) => out += box(ox, oy + a, 0, WT, b - a, WH, WALL));
+  segs(L.back).forEach(([a,b]) => out += box(ox + a, oy, 0, b - a, WT, WH, WALL));
+  return out;
+}
+function furniture(id){
+  const [ox, oy] = org(id);
+  const B = (x,y,z,w,d,h,c) => box(ox+x, oy+y, z, w, d, h, c);
+  const plant = (x, y) => B(x, y, 0, .38, .38, .38, "#C9744B") + dot(ox+x+.19, oy+y+.19, .78, ISO_S*.36, "#3FA36B") + dot(ox+x+.1, oy+y+.25, 1.0, ISO_S*.22, "#57BD80");
+  switch(id){
+    case "lounge": return floorQuad(ox+.7, oy+1.7, 2.6, 1.9, "#EEEBFF") +
+      B(.6,.45,0,2.6,.32,.95,"#7B6CF0") + B(.6,.77,0,2.6,.75,.42,"#8E81F5") +
+      B(.6,.77,0,.3,.75,.62,"#7B6CF0") + B(2.9,.77,0,.3,.75,.62,"#7B6CF0") +
+      B(1.3,2.15,0,1.2,.75,.3,"#F2C48D") + plant(.3,3.3) +
+      B(3.0,2.5,0,.75,.8,.4,"#FF9F7A") + B(3.45,2.5,0,.3,.8,.82,"#F2865F");
+    case "gallery": {
+      const yw = oy + WT + .005, xw = ox + WT + .005;
+      const frame = (x, w, art) => panelY(ox+x, yw, .28, w, .66, "#2A3354") + panelY(ox+x+.07, yw, .35, w-.14, .52, art);
+      return frame(.35,.85,"#FF8A65") + frame(1.5,1.2,"#7B6CF0") + frame(3.0,.75,"#3FA36B") +
+        panelX(xw, oy+.35, .3, .8, .62, "#2A3354") + panelX(xw, oy+.42, .37, .66, .48, "#3651F5") +
+        panelX(xw, oy+3.0, .3, .7, .62, "#2A3354") + panelX(xw, oy+3.07, .37, .56, .48, "#FFB74D") +
+        B(.4,2.9,0,1.3,.42,.3,"#B58A55") + B(3.05,3.0,0,.55,.55,.68,WALL) + dot(ox+3.33, oy+3.28, .98, ISO_S*.22, "#3651F5");
+    }
+    case "portal": return `<defs><radialGradient id="pg" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#ffffff" stop-opacity=".95"/><stop offset=".55" stop-color="#9CC2FF" stop-opacity=".75"/><stop offset="1" stop-color="#3651F5" stop-opacity=".9"/></radialGradient></defs>` +
+      isoEllipse(ox+2.2, oy+2.1, .01, 1.35, `fill="#3651F5" class="portal-glow" opacity=".22"`) +
+      isoEllipse(ox+2.2, oy+2.1, .0, .95, `fill="#8DB4F0"`) + isoEllipse(ox+2.2, oy+2.1, .14, .95, `fill="#B9D4FA"`) +
+      (() => { const [X, Y] = isoP(ox+2.2, oy+2.1, 1.25); return `<ellipse cx="${X.toFixed(1)}" cy="${Y.toFixed(1)}" rx="${(ISO_S*.62).toFixed(1)}" ry="${(ISO_S*1.05).toFixed(1)}" fill="url(#pg)" stroke="#3651F5" stroke-width="6" class="portal-glow"/>`; })() +
+      dot(ox+1.3, oy+1.5, 1.9, 2.5, "#fff", `opacity=".8"`) + dot(ox+3.0, oy+2.6, 2.3, 2, "#fff", `opacity=".6"`) + dot(ox+2.9, oy+1.2, 1.5, 1.6, "#fff", `opacity=".7"`) +
+      plant(3.3,.35);
+    case "commons": {
+      const stool = (x,y) => B(x,y,0,.36,.36,.3,"#2F9E63");
+      const bubble = (x, y, z, fill, ink, w) => { const [X, Y] = isoP(ox+x, oy+y, z); return `<g><rect x="${(X-w/2).toFixed(1)}" y="${(Y-15).toFixed(1)}" width="${w}" height="28" rx="12" fill="${fill}"/><path d="M${(X-5).toFixed(1)} ${(Y+12).toFixed(1)}l4 8 6-8z" fill="${fill}"/>${[-8,0,8].map(d => `<circle cx="${(X+d).toFixed(1)}" cy="${(Y-1).toFixed(1)}" r="2.6" fill="${ink}"/>`).join("")}</g>`; };
+      return stool(1.0,1.0) + stool(1.8,1.0) + stool(2.6,1.0) +
+        B(.8,1.45,0,2.4,1.05,.42,WALL) + B(1.25,1.7,.42,.45,.32,.03,"#172038") + B(2.3,1.85,.42,.4,.3,.03,"#172038") +
+        stool(1.0,2.75) + stool(1.8,2.75) + stool(2.6,2.75) + plant(.3,3.3) +
+        bubble(1.3, 1.7, 2.0, "#FFFFFF", "#1D6B3E", 44) + bubble(2.6, 2.2, 1.65, "#3651F5", "#FFFFFF", 44);
+    }
+    case "map": {
+      const yw = oy + WT + .005;
+      let m = panelY(ox+.3, yw, .22, 2.4, .82, "#9A3B12") + panelY(ox+.36, yw, .27, 2.28, .72, "#FFF4EE");
+      const pattern = ["..xxx..x....xx.",".xxxx.xxx..xxx.","..xx...xx.xxxx.","...x...x...xx..","...xx........x."];
+      pattern.forEach((row, r) => [...row].forEach((c, i) => { if(c === "x") m += dot(ox+.5+i*.14, yw, .9-r*.14, 2, "#E2A68A"); }));
+      m += dot(ox+.95, yw, .62, 4, "#3651F5", `stroke="#fff" stroke-width="1.5"`) + dot(ox+1.9, yw, .78, 4, "#3651F5", `stroke="#fff" stroke-width="1.5"`) + dot(ox+2.35, yw, .42, 4, "#3651F5", `stroke="#fff" stroke-width="1.5"`);
+      return m + B(2.9,2.5,0,.5,.5,.5,WALL) + dot(ox+3.15, oy+2.75, .95, ISO_S*.34, "#5B8DEF") + dot(ox+3.05, oy+2.65, 1.02, ISO_S*.12, "#9FD08A") + plant(.35,3.3);
+    }
+    case "foyer": {
+      const [X, Y] = isoP(ox+2.0, oy+2.6, 0);
+      return floorQuad(ox+1.25, oy+3.35, 1.5, .55, "#3651F5", `opacity=".9"`) + plant(.3,.35) + plant(3.3,.35) +
+        isoEllipse(ox+2.0, oy+2.6, .02, .5, `fill="none" stroke="#3651F5" stroke-width="3" class="you-ring"`) +
+        isoEllipse(ox+2.0, oy+2.6, .02, .22, `fill="rgba(23,32,56,.18)"`) +
+        `<rect x="${(X-8).toFixed(1)}" y="${(Y-30).toFixed(1)}" width="16" height="27" rx="8" fill="#3651F5"/><circle cx="${X.toFixed(1)}" cy="${(Y-38).toFixed(1)}" r="7.5" fill="#FFD5C2" stroke="#3651F5" stroke-width="2"/>`;
+    }
+  }
+  return "";
+}
+const ROUTES_ISO = {
+  lounge:  [[6.3,6.9],[6.3,4.3],[6.3,2.0],[4.3,2.0],[3.0,2.0]],
+  gallery: [[6.3,6.9],[6.3,4.3],[6.3,2.4]],
+  portal:  [[6.3,6.9],[6.3,4.3],[6.3,2.0],[8.6,2.0],[9.6,2.0]],
+  commons: [[6.3,6.9],[5.4,6.3],[4.3,6.3],[3.4,6.3]],
+  map:     [[6.3,6.9],[7.2,6.3],[8.6,6.3],[9.8,6.3]]
+};
+function roomCounts(){
+  return {
+    lounge: `${state.people.length} ${state.people.length === 1 ? "person" : "people"}`,
+    gallery: `${state.gallery.length} ${state.gallery.length === 1 ? "piece" : "pieces"}`,
+    portal: "FrameVR",
+    commons: `${SETTINGS.channels.length} channels`,
+    map: `${new Set(state.people.map(p => p._home && p._home.country).filter(Boolean)).size} countries`,
+    foyer: "You are here"
+  };
+}
+function renderPlan(){
+  const counts = roomCounts();
+  let slabs = "", rooms = "", hits = "", routes = "";
+  const XT = 3*RS + 2*GAP, YT = 2*RS + GAP;
+  const base = poly([[-.35,-.35,-.32],[XT+.35,-.35,-.32],[XT+.35,YT+.35,-.32],[-.35,YT+.35,-.32]], "rgba(255,255,255,.05)");
+  ORDER.forEach((id, i) => {
+    const [ox, oy] = org(id), t = LAYOUT[id].tone;
+    slabs += `<g class="vis" data-vis="${id}" style="--i:${i}">${box(ox, oy, -.28, RS, RS, .28, t)}</g>`;
+    rooms += `<g class="vis" data-vis="${id}" style="--i:${i}">${walls(id)}${furniture(id)}</g>`;
+  });
+  Object.entries(ROUTES_ISO).forEach(([id, pts]) => {
+    routes += `<polyline class="route" data-route="${id}" points="${pts.map(([x,y]) => isoP(x, y, .02).map(n => n.toFixed(1)).join(",")).join(" ")}"/>`;
+  });
+  ORDER.forEach(id => {
+    const [ox, oy] = org(id);
+    const r = ROOMS.find(r => r.id === id);
+    const [lx, ly] = id === "foyer" ? isoP(ox + 2.0, oy + 2.6, 1.75) : isoP(ox + RS/2, oy + RS/2, 1.45);
+    const w = Math.max(r.label.length * 8.4, counts[id].length * 6.6) + 30;
+    const label = `<g class="label" data-label="${id}"><rect x="${(lx - w/2).toFixed(1)}" y="${(ly - 40).toFixed(1)}" width="${w.toFixed(0)}" height="40" rx="14"/><path d="M${(lx-6).toFixed(1)} ${ly.toFixed(1)}l6 7 6-7z" fill="${id === "foyer" ? "#3651F5" : "#fff"}" class="tail"/>
+      <text class="ln" x="${lx.toFixed(1)}" y="${(ly - 22).toFixed(1)}" text-anchor="middle">${esc(r.label)}</text><text class="lc" x="${lx.toFixed(1)}" y="${(ly - 8).toFixed(1)}" text-anchor="middle">${esc(counts[id])}</text></g>`;
+    if(id === "foyer"){ hits += label.replace('class="label"', 'class="label foyer-label"'); return; }
+    const sil = [[ox,oy,WH],[ox+RS,oy,WH],[ox+RS,oy,-.28],[ox+RS,oy+RS,-.28],[ox,oy+RS,-.28],[ox,oy+RS,WH]];
+    hits += `<g class="hitg" data-room="${id}"><polygon class="hit" points="${pstr(sil)}"/>${label}</g>`;
+  });
+  const plan = $("#plan");
+  // Fit the drawing
+  const corners = [isoP(-.4, YT+.4, -.4), isoP(XT+.4, -.4, -.4), isoP(-.4, -.4, 2.2), isoP(XT+.4, YT+.4, -.4)];
+  const xs = corners.map(c => c[0]), ys = corners.map(c => c[1]);
+  const minX = Math.min(...xs) - 10, maxX = Math.max(...xs) + 10, minY = Math.min(...ys), maxY = Math.max(...ys) + 8;
+  plan.setAttribute("viewBox", `${minX.toFixed(0)} ${minY.toFixed(0)} ${(maxX-minX).toFixed(0)} ${(maxY-minY).toFixed(0)}`);
+  plan.setAttribute("aria-hidden", "true");
+  plan.innerHTML = base + slabs + routes + rooms + hits;
+  $("#dir").innerHTML = ROOMS.slice(1).map(r => `<li><button data-go="${r.id}" data-dir="${r.id}" style="--tone:var(--${r.tone});--tone-ink:var(--${r.tone}-ink)">
+    <span class="d-ico">${ico(r.ico)}</span><span class="d-txt"><b>${esc(r.label)}</b><span>${esc(r.desc)}</span></span><span class="d-n">${esc(counts[r.id])}</span></button></li>`).join("");
+}
+function setHot(id){
+  document.querySelectorAll(".plan .hot, .dir .hot").forEach(el => el.classList.remove("hot"));
+  if(!id) return;
+  document.querySelectorAll(`[data-vis="${id}"], [data-route="${id}"], [data-label="${id}"], [data-dir="${id}"]`).forEach(el => el.classList.add("hot"));
+}
+function wirePlan(){
+  const plan = $("#plan"), dir = $("#dir");
+  plan.addEventListener("click", e => { const r = e.target.closest("[data-room]"); if(r) go(r.dataset.room); });
+  plan.addEventListener("mouseover", e => { const r = e.target.closest("[data-room]"); setHot(r ? r.dataset.room : null); });
+  plan.addEventListener("mouseleave", () => setHot(null));
+  dir.addEventListener("mouseover", e => { const b = e.target.closest("[data-dir]"); if(b) setHot(b.dataset.dir); });
+  dir.addEventListener("mouseleave", () => setHot(null));
+  dir.addEventListener("focusin", e => { const b = e.target.closest("[data-dir]"); if(b) setHot(b.dataset.dir); });
+  dir.addEventListener("focusout", () => setHot(null));
+  setTimeout(() => plan.classList.remove("animate"), 1400);
+}
+
+/* ---------- Foyer ---------- */
+function renderFoyer(){
+  const sh = state.shoutouts.slice().sort((a,b) => (dateOf(b.timestamp)||0) - (dateOf(a.timestamp)||0)).slice(0,3);
+  $("#shouts").innerHTML = sh.length ? sh.map(s => {
+    const d = dateOf(s.timestamp);
+    return `<li><span class="s-ico">${ico("star")}</span><div><p>${esc(s.message)}</p><small>${esc(s.from || "Someone in the community")}${d ? ", " + fmt(d,{day:"numeric",month:"short"}) : ""}</small></div></li>`;
+  }).join("") : `<li><span class="s-ico">${ico("star")}</span><div><p>No shout-outs yet. Be the first to celebrate someone.</p></div></li>`;
+  const recent = state.people.slice().sort((a,b) => (dateOf(b.timestamp)||0) - (dateOf(a.timestamp)||0)).slice(0,5);
+  $("#arrivals").innerHTML = recent.length ? recent.map(p => `<div class="mini">${avatarHTML(p,"sm")}<div><b>${esc(displayName(p.name))}</b><span>${esc([ROLE_LABEL[p._role], p.gen].filter(Boolean).join(", "))}${p._home ? ". " + esc(p._home.label) : ""}</span></div></div>`).join("")
+    : `<p class="note">No profiles yet. Add yours to be the first.</p>`;
+  const F = SETTINGS.forms;
+  $("#contribBtns").innerHTML = [
+    ["profile","user","Add your profile and pin"],["gallery","frame","Send us work for the Gallery"],["shoutout","star","Send a shout-out"]
+  ].map(([k,i,l]) => `<a href="${esc(F[k])}" target="_blank" rel="noopener">${ico(i,2.2)}${l}</a>`).join("");
+  $("#shoutForm").href = F.shoutout;
+}
+
+/* ---------- Lounge ---------- */
+function genOptions(list){
+  return [...new Set(list.map(x => x.gen).filter(Boolean))].sort((a,b) => genNum(b) - genNum(a));
+}
+function renderLoungeControls(){
+  const roles = [["all","Everyone"],["student","Current students"],["alumni","Alumni"],["future","Future students"],["staff","Staff"]];
+  $("#roleChips").innerHTML = roles.map(([k,l]) => `<button class="chip" data-role="${k}" aria-pressed="${state.role===k}">${l}</button>`).join("");
+  const gens = genOptions(state.people);
+  $("#genSel").innerHTML = `<option value="all">All Gens</option>` + gens.map(g => `<option>${esc(g)}</option>`).join("");
+  $("#genSel").value = state.gen;
+}
+function renderPeople(){
+  const q = norm(state.q);
+  const list = state.people.filter(p =>
+    (state.role === "all" || p._role === state.role) &&
+    (state.gen === "all" || p.gen === state.gen) &&
+    (!q || norm([p.name,p.profession,p.interests,p.askmeabout,p.city,p.country,p.gen].join(" ")).includes(q))
+  ).sort((a,b) => (a._role === "staff") - (b._role === "staff") || genNum(b.gen) - genNum(a.gen) || String(a.name).localeCompare(b.name));
+  $("#people").innerHTML = list.length ? list.map(p => {
+    const link = safeURL(p.link);
+    const interests = String(p.interests||"").split(/[,;]+/).map(s => s.trim()).filter(Boolean).slice(0,5);
+    return `<article class="person">
+      <div class="p-top">${avatarHTML(p)}<div><h3>${esc(displayName(p.name))}</h3>
+        <div class="p-meta"><span class="pill ${p._role}">${ROLE_LABEL[p._role]}</span>${p.gen ? `<span class="pill plain">${esc(p.gen)}</span>` : ""}</div></div></div>
+      ${p.profession ? `<div class="p-line">${ico("briefcase")}<span>${esc(p.profession)}</span></div>` : ""}
+      ${p._home ? `<div class="p-line">${ico("pin")}<span>${esc(p._home.label)}${p._from && p._from.country !== p._home.country ? `, from ${esc(countryLabel(p._from.country))}` : ""}</span></div>` : ""}
+      ${interests.length ? `<div class="tags">${interests.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div>` : ""}
+      ${p.askmeabout ? `<div class="ask"><b>Ask me about</b>${esc(p.askmeabout)}</div>` : ""}
+      ${link ? `<div class="p-link"><a class="link-btn" href="${esc(link)}" target="_blank" rel="noopener">Portfolio or LinkedIn</a></div>` : ""}
+    </article>`;
+  }).join("") : `<div class="empty" style="grid-column:1/-1"><b>No one matches that yet</b>Try a different filter or search word, or add your own profile.</div>`;
+}
+
+/* ---------- Gallery ---------- */
+const typeOf = t => /community|moment|event|life|non/i.test(t||"") ? "community" : "project";
+function renderGalleryControls(){
+  const types = [["all","Everything"],["project","Project work"],["community","Community moments"]];
+  $("#typeChips").innerHTML = types.map(([k,l]) => `<button class="chip" data-type="${k}" aria-pressed="${state.type===k}">${l}</button>`).join("");
+  $("#galGen").innerHTML = `<option value="all">All Gens</option>` + genOptions(state.gallery).map(g => `<option>${esc(g)}</option>`).join("");
+  $("#galGen").value = state.galGen;
+}
+function galleryList(){
+  return state.gallery.filter(w => (state.type === "all" || w._type === state.type) && (state.galGen === "all" || w.gen === state.galGen));
+}
+function renderGallery(){
+  const list = galleryList();
+  $("#gallery").innerHTML = list.length ? list.map(w => {
+    const src = imgURL(w.image);
+    return `<button class="work" data-work="${state.gallery.indexOf(w)}" aria-label="Open ${esc(w.title)}">
+      ${src ? `<img class="w-img" src="${esc(src)}" alt="" loading="lazy" data-t="${esc(w.title || "Untitled")}" onerror="phSwap(this)">` : placeholderArt(0, w.title || "Untitled")}
+      <div class="w-body"><h3>${esc(w.title || "Untitled")}</h3><p>${esc([...new Set([w.maker && displayName(w.maker), w.gen].filter(Boolean))].join(", "))}</p>
+      <div class="w-tags"><span class="pill ${w._type}">${w._type === "project" ? "Project" : "Community"}</span>${w.course ? `<span class="pill plain">${esc(w.course)}</span>` : ""}</div></div>
+    </button>`;
+  }).join("") : `<div class="empty"><b>Nothing here yet</b>Be the first to share something for this filter.</div>`;
+}
+let lbIndex = -1;
+function openWork(i){
+  const w = state.gallery[i]; if(!w) return; lbIndex = i;
+  const src = imgURL(w.image); const link = safeURL(w.link);
+  $("#lbMedia").innerHTML = src ? `<img class="lb-img" src="${esc(src)}" alt="${esc(w.title)}">` : placeholderArt(0, w.title || "Untitled").replace('class="w-img"','class="lb-img"');
+  $("#lbBody").innerHTML = `<div class="w-tags" style="display:flex;gap:6px;flex-wrap:wrap"><span class="pill ${w._type}">${w._type === "project" ? "Project" : "Community"}</span>${w.course ? `<span class="pill plain">${esc(w.course)}</span>` : ""}${w.gen ? `<span class="pill plain">${esc(w.gen)}</span>` : ""}</div>
+    <h2 id="lbTitle">${esc(w.title || "Untitled")}</h2>
+    ${w.maker ? `<p><b>By ${esc(displayName(w.maker))}</b></p>` : ""}
+    ${w.description ? `<p>${esc(w.description)}</p>` : ""}
+    <div class="lb-nav">${link ? `<a class="solid-btn" href="${esc(link)}" target="_blank" rel="noopener">See the full piece</a>` : ""}
+      <button class="ghost-btn" data-lb="-1">Previous</button><button class="ghost-btn" data-lb="1">Next</button></div>`;
+  const d = $("#lightbox"); if(!d.open) d.showModal();
+}
+
+/* ---------- Portal ---------- */
+function renderPortal(){
+  const url = safeURL(SETTINGS.frame.url);
+  $("#frameOpen").href = url || "#";
+  $("#frameLoad").hidden = !url;
+  const s = SETTINGS.frame.sessions.slice().sort((a,b) => (a.date ? new Date(a.date) : Infinity) - (b.date ? new Date(b.date) : Infinity));
+  const today = new Date(); today.setHours(0,0,0,0);
+  const up = s.filter(x => !x.date || new Date(x.date+"T00:00:00") >= today);
+  $("#sessions").innerHTML = up.length ? up.map(x => {
+    const d = x.date ? new Date(x.date+"T00:00:00") : null;
+    return `<li><div class="date-chip">${d ? `<small>${fmt(d,{month:"short"})}</small><b>${fmt(d,{day:"numeric"})}</b>` : `<small>Date</small><b>TBC</b>`}</div><div><b class="t">${esc(x.title)}</b><span>${esc(x.detail || "")}</span></div></li>`;
+  }).join("") : `<li><div><b class="t">Nothing scheduled right now</b><span>Watch the Slack channel for the next session.</span></div></li>`;
+}
+
+/* ---------- Commons ---------- */
+function renderCommons(){
+  $("#channels").innerHTML = SETTINGS.channels.map(c => {
+    const url = safeURL(c.url);
+    const tag = url ? "a" : "div";
+    return `<${tag} class="channel" ${url ? `href="${esc(url)}" target="_blank" rel="noopener"` : ""}>
+      <span class="c-ico" style="background:var(--${c.tone});color:var(--${c.tone}-ink)">${ico(c.ico)}</span>
+      <h3>${esc(c.title)}</h3><p>${esc(c.desc)}</p>
+      ${c.eg ? `<p class="c-ex">For example: "${esc(c.eg)}"</p>` : ""}
+      <span class="c-name">${esc(c.name)}${url ? "" : " (link to be added)"}</span>
+    </${tag}>`;
+  }).join("");
+}
+
+/* ---------- Map ---------- */
+const CENTER_LON = 150; // Pacific-centred map
+const W = 1000, H = Math.round(W * MAP.rows / MAP.cols);
+const lonToX = lon => (((lon - CENTER_LON + 540) % 360) / 360) * W;
+const latToY = lat => ((MAP.latTop - lat) / (MAP.latTop - MAP.latBot)) * H;
+const dotCache = {};
+function dotsFor(zoom){
+  if(dotCache[zoom]) return dotCache[zoom];
+  const g = zoom === "world" ? {lon0:-180, lat0:MAP.latTop, step:MAP.step, cols:MAP.cols, rows:MAP.rows, dots:MAP.dots} : MAP.regions[zoom];
+  const bin = atob(g.dots), out = [];
+  const r = (g.step / 360 * W * 0.36).toFixed(3), d = (2 * r).toFixed(3);
+  for(let i = 0; i < g.cols * g.rows; i++){
+    if(bin.charCodeAt(i >> 3) & (1 << (7 - (i & 7)))){
+      const row = Math.floor(i / g.cols), col = i % g.cols;
+      const x = lonToX(g.lon0 + (col + .5) * g.step), y = latToY(g.lat0 - (row + .5) * g.step);
+      out.push(`M${(x - r).toFixed(2)} ${y.toFixed(2)}a${r} ${r} 0 1 0 ${d} 0a${r} ${r} 0 1 0 -${d} 0`);
+    }
+  }
+  return dotCache[zoom] = `<path class="land" d="${out.join("")}"/>`;
+}
+function locate(city, country, lat, lng){
+  const cn = countryName(country);
+  const la = parseFloat(lat), lo = parseFloat(lng);
+  if(!isNaN(la) && !isNaN(lo)) return {lat:la, lng:lo, country:cn, label:[city, countryLabel(cn)].filter(Boolean).join(", "), key:`${la.toFixed(1)},${lo.toFixed(1)}`};
+  const c = norm(city).replace(/[āēīōū]/g, m => "aeiou"["āēīōū".indexOf(m)]);
+  if(c && PLACES[c]){ const [a,b] = PLACES[c]; return {lat:a, lng:b, country:cn, label:[city.trim(), countryLabel(cn)].filter(Boolean).join(", "), key:c}; }
+  if(cn && MAP.centroids[cn]){ const [a,b] = MAP.centroids[cn]; return {lat:a, lng:b, country:cn, label:[city && city.trim(), countryLabel(cn)].filter(Boolean).join(", "), key:"c:"+cn}; }
+  return cn ? {lat:null, lng:null, country:cn, label:[city, countryLabel(cn)].filter(Boolean).join(", ")} : null;
+}
+const ZOOMS = {
+  world:   {x0:0, x1:W, y0:0, y1:H},
+  pacific: {lon0:110, lon1:235, lat0:12, lat1:-50},
+  aotearoa:{lon0:164, lon1:181, lat0:-33.5, lat1:-47.8}
+};
+function zoomBox(z){
+  const Z = ZOOMS[z]; if(Z.x1) return Z;
+  const toX = l => ((l - CENTER_LON + 540) % 360) / 360 * W;
+  return {x0:toX(Z.lon0), x1:toX(Z.lon0) + (Z.lon1 - Z.lon0) / 360 * W, y0:latToY(Z.lat0), y1:latToY(Z.lat1)};
+}
+let pinGroups = [];
+function renderMap(){
+  const mode = state.mapMode;
+  const groups = new Map();
+  state.people.forEach(p => {
+    const loc = mode === "home" ? p._home : p._from;
+    if(!loc || loc.lat === null) return;
+    // In "from" mode, group by country only
+    const key = mode === "from" ? "c:" + loc.country : loc.key;
+    if(!groups.has(key)){
+      const base = mode === "from" && MAP.centroids[loc.country] ? {lat:MAP.centroids[loc.country][0], lng:MAP.centroids[loc.country][1], label:countryLabel(loc.country)} : loc;
+      groups.set(key, {lat:base.lat, lng:base.lng, label:base.label, people:[]});
+    }
+    groups.get(key).people.push(p);
+  });
+  pinGroups = [...groups.values()].sort((a,b) => b.people.length - a.people.length);
+  const box = zoomBox(state.zoom);
+  const scale = (box.x1 - box.x0) / W;
+  const pins = pinGroups.slice().reverse().map((g, i) => {
+    const x = lonToX(g.lng), y = latToY(g.lat), n = g.people.length;
+    const r = (5 + Math.sqrt(n) * 3.2) * Math.max(scale, .12);
+    const idx = pinGroups.indexOf(g);
+    return `<g class="pin ${mode}" data-pin="${idx}" tabindex="0" role="button" aria-label="${esc(g.label)}: ${n} ${n === 1 ? "person" : "people"}">
+      <circle class="halo" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${(r*1.9).toFixed(2)}"/>
+      <circle class="core" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(2)}" stroke-width="${(1.5*scale).toFixed(2)}"/>
+      ${n > 1 ? `<text x="${x.toFixed(1)}" y="${(y + r*.36).toFixed(1)}" text-anchor="middle" font-size="${(r*1.05).toFixed(2)}">${n}</text>` : ""}
+    </g>`;
+  }).join("");
+  const svg = $("#map");
+  svg.setAttribute("viewBox", `${box.x0.toFixed(1)} ${box.y0.toFixed(1)} ${(box.x1-box.x0).toFixed(1)} ${(box.y1-box.y0).toFixed(1)}`);
+  svg.innerHTML = dotsFor(state.zoom) + pins;
+  $("#tip").hidden = true;
+  renderMapStats();
+}
+function showTip(idx, el){
+  const g = pinGroups[idx]; if(!g) return;
+  document.querySelectorAll(".pin.on").forEach(p => p.classList.remove("on"));
+  el.classList.add("on");
+  const names = g.people.map(p => displayName(p.name).split(" ")[0]);
+  const tip = $("#tip");
+  tip.innerHTML = `<b>${esc(g.label)}</b><span>${g.people.length} ${g.people.length === 1 ? "person" : "people"}</span><ul>${names.slice(0,6).map(n => `<li>${esc(n)}</li>`).join("")}${names.length > 6 ? `<li>and ${names.length - 6} more</li>` : ""}</ul>`;
+  const card = $(".map-card").getBoundingClientRect(), r = el.querySelector(".core").getBoundingClientRect();
+  let left = r.left + r.width/2 - card.left; left = Math.max(130, Math.min(card.width - 130, left));
+  tip.style.left = left + "px"; tip.style.top = (r.top - card.top) + "px";
+  tip.hidden = false;
+}
+function renderMapStats(){
+  const home = state.people.filter(p => p._home);
+  const homeC = new Set(home.map(p => p._home.country));
+  const fromC = new Set(state.people.map(p => p._from && p._from.country).filter(Boolean));
+  const allC = new Set([...homeC, ...fromC]);
+  $("#stats").innerHTML = `
+    <div class="stat" style="background:var(--peach);color:var(--peach-ink)"><b>${home.length}</b><span>pins on the map</span></div>
+    <div class="stat" style="background:var(--lilac);color:var(--lilac-ink)"><b>${fromC.size}</b><span>countries we come from</span></div>
+    <div class="stat" style="background:var(--mint);color:var(--mint-ink)"><b>${homeC.size}</b><span>countries we call home</span></div>`;
+  const key = state.mapMode === "home" ? "_home" : "_from";
+  const tally = {};
+  state.people.forEach(p => { const c = p[key] && p[key].country; if(c) tally[c] = (tally[c]||0) + 1; });
+  const rows = Object.entries(tally).sort((a,b) => b[1] - a[1]);
+  const max = rows.length ? rows[0][1] : 1;
+  $("#placesNote").textContent = state.mapMode === "home" ? "Where we call home" : "Where we're from";
+  $("#bars").innerHTML = rows.length ? rows.map(([c,n]) => `<div class="bar-row"><button data-country="${esc(c)}" title="${esc(countryLabel(c))}">${esc(countryLabel(c))}</button><span class="bt"><i style="width:${n/max*100}%"></i></span><b>${n}</b></div>`).join("")
+    : `<p class="note">No pins yet. Add yours to start the map.</p>`;
+}
+
+/* ---------- Wiring ---------- */
+function wire(){
+  $("#roleChips").addEventListener("click", e => { const b = e.target.closest("[data-role]"); if(!b) return; state.role = b.dataset.role; renderLoungeControls(); renderPeople(); });
+  $("#genSel").addEventListener("change", e => { state.gen = e.target.value; renderPeople(); });
+  $("#peopleQ").addEventListener("input", e => { state.q = e.target.value; renderPeople(); });
+  $("#typeChips").addEventListener("click", e => { const b = e.target.closest("[data-type]"); if(!b) return; state.type = b.dataset.type; renderGalleryControls(); renderGallery(); });
+  $("#galGen").addEventListener("change", e => { state.galGen = e.target.value; renderGallery(); });
+  $("#gallery").addEventListener("click", e => { const b = e.target.closest("[data-work]"); if(b) openWork(+b.dataset.work); });
+  $("#lightbox").addEventListener("click", e => {
+    if(e.target === $("#lightbox")) $("#lightbox").close();
+    const n = e.target.closest("[data-lb]");
+    if(n){ const list = galleryList(); const pos = list.indexOf(state.gallery[lbIndex]); const next = list[(pos + +n.dataset.lb + list.length) % list.length]; openWork(state.gallery.indexOf(next)); }
+  });
+  $("#lbClose").addEventListener("click", () => $("#lightbox").close());
+  $("#frameLoad").addEventListener("click", () => {
+    const slot = $("#frameSlot"); const url = safeURL(SETTINGS.frame.url); if(!url) return;
+    slot.innerHTML = `<iframe class="frame-embed" src="${esc(url)}" title="PlayLab FrameVR space" allow="camera; microphone; fullscreen; xr-spatial-tracking; autoplay" allowfullscreen></iframe>`;
+    slot.hidden = false; $("#frameLoad").hidden = true; slot.scrollIntoView({block:"center"});
+  });
+  document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => {
+    state.mapMode = b.dataset.mode; document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b)); renderMap();
+  }));
+  document.querySelectorAll("[data-zoom]").forEach(b => b.addEventListener("click", () => {
+    state.zoom = b.dataset.zoom; document.querySelectorAll("[data-zoom]").forEach(x => x.setAttribute("aria-pressed", x === b)); renderMap();
+  }));
+  const map = $("#map");
+  map.addEventListener("mouseover", e => { const p = e.target.closest("[data-pin]"); if(p) showTip(+p.dataset.pin, p); });
+  map.addEventListener("click", e => { const p = e.target.closest("[data-pin]"); if(p) showTip(+p.dataset.pin, p); else $("#tip").hidden = true; });
+  map.addEventListener("focusin", e => { const p = e.target.closest("[data-pin]"); if(p) showTip(+p.dataset.pin, p); });
+  map.addEventListener("mouseleave", () => { $("#tip").hidden = true; document.querySelectorAll(".pin.on").forEach(p => p.classList.remove("on")); });
+  $("#bars").addEventListener("click", e => {
+    const b = e.target.closest("[data-country]"); if(!b) return;
+    const i = pinGroups.findIndex(g => g.people.some(p => (state.mapMode === "home" ? p._home : p._from)?.country === b.dataset.country));
+    const el = document.querySelector(`[data-pin="${i}"]`); if(el){ el.scrollIntoView({block:"center"}); showTip(i, el); }
+  });
+  document.querySelectorAll("[data-form]").forEach(a => a.href = SETTINGS.forms[a.dataset.form] || "#");
+  ["slackSide","slackJoin"].forEach(id => $("#"+id).href = SETTINGS.slackJoin);
+  document.querySelectorAll("[data-ico]").forEach(el => el.innerHTML = ico(el.dataset.ico));
+  window.addEventListener("resize", () => { $("#tip").hidden = true; });
+}
+
+async function init(){
+  renderNav(); wire();
+  const [people, gallery, shoutouts] = await Promise.all([load("people"), load("gallery"), load("shoutouts")]);
+  state.people = people.filter(p => p.name).map(p => ({...p,
+    _role: roleOf(p.role),
+    _home: locate(p.city || "", p.country || "", p.lat, p.lng),
+    _from: p.fromcountry ? locate("", p.fromcountry) : null }));
+  state.gallery = gallery.map(w => ({...w, maker: w.maker || w.name || "", image: w.image || w.photo || ""}))
+    .filter(w => w.title || w.image).map(w => ({...w, _type: typeOf(w.type)}))
+    .sort((a,b) => (dateOf(b.timestamp)||0) - (dateOf(a.timestamp)||0));
+  state.shoutouts = shoutouts.map(s => ({...s, from: s.from || s.fromcountry || s.name || ""})).filter(s => s.message);
+  $("#sampleFlag").hidden = !Object.keys(state.sample).length;
+  renderPlan(); wirePlan(); renderFoyer();
+  renderLoungeControls(); renderPeople();
+  renderGalleryControls(); renderGallery();
+  renderPortal(); renderCommons();
+  go((location.hash || "#foyer").slice(1), {initial:true});
+}
+init();
+</script>
+</body>
+</html>
