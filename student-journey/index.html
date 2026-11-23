@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Journey · PlayLab · Master of Technological Futures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PlayLab · Student Journey dashboard
+   Edit the DATA section in the <script> at the bottom to update
+   dates, links and contacts. No build step needed.
+   ============================================================ */
+:root{
+  --paper:#EEF1F7;
+  --card:#FFFFFF;
+  --ink:#172038;
+  --ink-2:#4A5372;
+  --ink-3:#7D86A3;
+  --line:#E1E5EF;
+  --blue:#3651F5;
+  --blue-deep:#2238C4;
+  --blue-soft:#E4E8FF;
+  --peach:#FFD5C2;   --peach-ink:#9A3B12;
+  --lilac:#DDD7FF;   --lilac-ink:#4B3AB0;
+  --mint:#CBEFD8;    --mint-ink:#1D6B3E;
+  --butter:#FFEDA8;  --butter-ink:#7A5A00;
+  --r-xl:28px; --r-lg:20px; --r-md:14px; --r-sm:10px;
+  --shadow:0 1px 0 rgba(23,32,56,.04), 0 8px 24px -12px rgba(34,56,196,.18);
+  --display:"Bricolage Grotesque", "Figtree", system-ui, sans-serif;
+  --body:"Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--blue-deep)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.01em;line-height:1.15}
+p{margin:0}
+
+/* ---------- App shell ---------- */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh;gap:18px;padding:18px}
+.side{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center}
+.brand b{font-family:var(--display);font-size:19px;display:block;line-height:1.1}
+.brand small{opacity:.75;font-size:12.5px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:14px;font-weight:500;font-size:14.5px;color:rgba(255,255,255,.82)}
+.nav button svg{width:19px;height:19px;flex:none}
+.nav button:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav button[aria-current="page"]{background:#fff;color:var(--blue-deep);font-weight:700}
+.nav button:focus-visible{outline:3px solid #fff;outline-offset:1px}
+.side-foot{margin-top:auto;background:rgba(255,255,255,.12);border-radius:var(--r-lg);padding:16px;font-size:13.5px}
+.side-foot p{opacity:.9;margin-bottom:10px}
+.side-foot a{display:inline-block;background:#fff;color:var(--blue-deep);text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px;font-size:13px}
+
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.topbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.search{flex:1;min-width:220px;position:relative}
+.search input{width:100%;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:12px 18px 12px 44px;font-size:14.5px}
+.search input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;color:var(--ink-3)}
+.results{position:absolute;top:calc(100% + 8px);left:0;right:0;background:var(--card);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:8px;z-index:20;max-height:360px;overflow:auto;display:none}
+.results.open{display:block}
+.results button{all:unset;cursor:pointer;display:block;width:100%;box-sizing:border-box;padding:10px 12px;border-radius:12px}
+.results button:hover,.results button:focus-visible{background:var(--blue-soft);outline:none}
+.results b{display:block;font-weight:600;font-size:14px}
+.results span{font-size:12.5px;color:var(--ink-3)}
+.results .empty{padding:12px;color:var(--ink-3);font-size:14px}
+.week-picker{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:5px 6px 5px 16px;font-size:14px;font-weight:500}
+.week-picker label{color:var(--ink-2)}
+.week-picker select{border:none;background:var(--blue-soft);color:var(--blue-deep);font-weight:700;border-radius:999px;padding:7px 10px;cursor:pointer}
+
+.wk-auto{display:flex;flex-direction:column;line-height:1.15;padding:3px 12px 3px 0}
+.wk-auto b{color:var(--blue-deep);font-size:14.5px}
+.wk-auto small{font-size:11.5px;color:var(--ink-3);font-weight:500}
+.week-picker[hidden]{display:none}
+.cohort-prompt{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 26px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.cohort-prompt h2{font-size:20px;font-weight:700}
+.cohort-prompt p{opacity:.85;font-size:14px;margin-top:2px}
+.cohort-prompt .opts{display:flex;gap:8px;flex-wrap:wrap}
+.cohort-prompt button{all:unset;cursor:pointer;background:#fff;color:var(--blue-deep);font-weight:700;font-size:14px;padding:10px 16px;border-radius:999px}
+.cohort-prompt button:hover{background:var(--blue-soft)}
+.cohort-prompt button:focus-visible{outline:3px solid #fff;outline-offset:2px}
+
+/* ---------- Views ---------- */
+.view{display:none}
+.view.active{display:block}
+.view-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:4px 4px 16px}
+.view-head h1{font-size:clamp(26px,3vw,34px);font-weight:800}
+.view-head p{color:var(--ink-2);max-width:62ch;margin-top:6px}
+
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.card{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:19px;font-weight:700}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.link-btn{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--blue-deep);padding:6px 12px;border-radius:999px;background:var(--blue-soft)}
+.link-btn:hover{background:#d4daff}
+.grid>.s12{grid-column:span 12}.grid>.s8{grid-column:span 8}.grid>.s7{grid-column:span 7}.grid>.s6{grid-column:span 6}.grid>.s5{grid-column:span 5}.grid>.s4{grid-column:span 4}.grid>.s3{grid-column:span 3}
+
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.pill.onsite{background:var(--peach);color:var(--peach-ink)}
+.pill.online{background:var(--lilac);color:var(--lilac-ink)}
+.pill.formative{background:var(--mint);color:var(--mint-ink)}
+.pill.summative{background:var(--butter);color:var(--butter-ink)}
+.pill.tbc{background:var(--paper);color:var(--ink-2)}
+
+/* ---------- Hero: the journey strip ---------- */
+.hero{background:var(--ink);color:#fff;border-radius:var(--r-xl);padding:30px 30px 26px;position:relative;overflow:hidden}
+.hero-top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-start}
+.hero h1{font-size:clamp(30px,4.2vw,50px);font-weight:800;max-width:15ch;line-height:1.02;letter-spacing:-.025em}
+.hero-intro{max-width:46ch;color:rgba(255,255,255,.78);font-size:15.5px}
+.hero-intro p+p{margin-top:8px}
+.strip{margin-top:30px;position:relative}
+.strip-blocks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:38px;font-size:13px;color:rgba(255,255,255,.7)}
+.strip-blocks div{border-top:2px solid rgba(255,255,255,.22);padding-top:8px}
+.strip-blocks b{color:#fff;font-weight:600}
+.track{display:grid;grid-template-columns:repeat(20,1fr);gap:4px;align-items:end;position:relative}
+.node{all:unset;cursor:pointer;position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:6px 0;border-radius:10px}
+.node .dot{width:100%;max-width:34px;height:12px;border-radius:999px;background:rgba(255,255,255,.18);transition:height .25s ease, background .25s ease}
+.node.past .dot{background:rgba(255,255,255,.55)}
+.node.onsite .dot{height:34px;background:var(--peach);border-radius:12px}
+.node.onsite.past .dot{background:#E8B49C}
+.node.current .dot{background:#fff;box-shadow:0 0 0 4px var(--blue)}
+.node.onsite.current .dot{background:var(--peach)}
+.node.selected .dot{outline:2px dashed #fff;outline-offset:3px}
+.node span{font-size:12px;color:rgba(255,255,255,.6);font-weight:600;font-variant-numeric:tabular-nums}
+.node.current span{color:#fff}
+.node:hover .dot{background:#fff}
+.node:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.strip-legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:rgba(255,255,255,.7)}
+.strip-legend i{display:inline-block;width:14px;height:10px;border-radius:4px;margin-right:6px;vertical-align:middle}
+.you{position:absolute;top:-30px;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;pointer-events:none;transition:left .35s cubic-bezier(.2,.8,.2,1)}
+.you::after{content:"";position:absolute;left:var(--ax,50%);bottom:-5px;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--blue);border-bottom:0}
+
+/* ---------- Week detail ---------- */
+.week-detail .wk-num{font-family:var(--display);font-weight:800;font-size:64px;line-height:.9;color:var(--blue);letter-spacing:-.04em}
+.wk-layout{display:flex;gap:20px;align-items:flex-start}
+.wk-body h3{font-size:22px;font-weight:700;margin:4px 0 8px}
+.wk-body p{color:var(--ink-2)}
+.wk-meta{display:flex;gap:8px;flex-wrap:wrap}
+.assess-box{margin-top:16px;background:var(--paper);border-radius:var(--r-md);padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.assess-box svg{flex:none;width:22px;height:22px;color:var(--blue);margin-top:1px}
+.assess-box small{display:block;color:var(--ink-3);font-size:12.5px;font-weight:600}
+.assess-box b{font-weight:600}
+.wk-nav{display:flex;gap:8px;margin-top:16px}
+.ghost-btn{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2)}
+.ghost-btn:hover{border-color:var(--blue);color:var(--blue-deep)}
+.ghost-btn[disabled]{opacity:.4;pointer-events:none}
+
+/* ---------- Progress ring ---------- */
+.ring-wrap{display:flex;align-items:center;gap:22px}
+.ring{width:132px;height:132px;flex:none;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring circle{fill:none;stroke-width:12;stroke-linecap:round}
+.ring .bg{stroke:var(--blue-soft)}
+.ring .fg{stroke:var(--blue);transition:stroke-dashoffset .6s cubic-bezier(.2,.8,.2,1)}
+.ring .fg.alt{stroke:var(--mint-ink)}
+.ring-label{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.ring-label b{font-family:var(--display);font-size:30px;font-weight:800;display:block;line-height:1}
+.ring-label span{font-size:12px;color:var(--ink-3)}
+.ring-stats{display:flex;flex-direction:column;gap:10px;font-size:14px}
+.ring-stats div{display:flex;flex-direction:column}
+.ring-stats b{font-size:16px}
+.ring-stats span{color:var(--ink-3);font-size:13px}
+
+/* ---------- Tiles ---------- */
+.tile{all:unset;box-sizing:border-box;cursor:pointer;border-radius:var(--r-lg);padding:18px;display:flex;flex-direction:column;gap:8px;min-height:132px;position:relative}
+.tile:hover{filter:brightness(.97)}
+.tile:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tile .t-ico{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.6);display:grid;place-items:center}
+.tile .t-ico svg{width:20px;height:20px}
+.tile small{font-size:13px;font-weight:600;opacity:.85}
+.tile b{font-family:var(--display);font-size:18px;font-weight:700;line-height:1.2}
+.tile.peach{background:var(--peach);color:var(--peach-ink)}
+.tile.lilac{background:var(--lilac);color:var(--lilac-ink)}
+.tile.mint{background:var(--mint);color:var(--mint-ink)}
+.tile.butter{background:var(--butter);color:var(--butter-ink)}
+
+/* ---------- Assessment tracker (gantt) ---------- */
+.gantt{display:grid;grid-template-columns:190px 1fr;row-gap:12px;column-gap:16px;align-items:center}
+.gantt .g-name b{display:block;font-size:14px;font-weight:600;line-height:1.3}
+.gantt .g-name span{font-size:12.5px;color:var(--ink-3)}
+.g-track{position:relative;height:34px;background:repeating-linear-gradient(90deg,var(--paper) 0 calc(5% - 2px),transparent calc(5% - 2px) 5%);border-radius:10px}
+.g-bar{position:absolute;top:0;bottom:0;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 8px;font-size:12px;font-weight:700;overflow:hidden;white-space:nowrap}
+.g-bar.formative{background:var(--mint);color:var(--mint-ink)}
+.g-bar.summative{background:var(--butter);color:var(--butter-ink)}
+.g-axis{grid-column:2;display:grid;grid-template-columns:repeat(20,1fr);font-size:10.5px;color:var(--ink-3);text-align:center;font-variant-numeric:tabular-nums}
+.g-rows{display:contents}
+.g-now{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--blue);border-radius:2px;pointer-events:none}
+.g-now::before{content:"";position:absolute;top:-4px;left:-4px;width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.g-wrap{position:relative}
+
+/* ---------- Upcoming list ---------- */
+.dates{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+.dates li{display:flex;gap:14px;align-items:center;padding:10px;border-radius:var(--r-md);background:var(--paper)}
+.date-chip{flex:none;width:54px;height:54px;border-radius:14px;background:var(--card);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.date-chip small{font-size:10.5px;color:var(--ink-3);font-weight:600}
+.date-chip b{font-family:var(--display);font-size:21px;font-weight:800;color:var(--blue-deep)}
+.dates li div:last-child{min-width:0}
+.dates li b.t{display:block;font-size:14px;font-weight:600;line-height:1.3}
+.dates li span{font-size:12.5px;color:var(--ink-3)}
+.note{font-size:13px;color:var(--ink-3);margin-top:14px}
+
+/* ---------- Timeline view ---------- */
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.chip{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.block-head{margin:22px 4px 12px}
+.block-head h2{font-size:21px;font-weight:700}
+.block-head p{color:var(--ink-2);font-size:14px;margin-top:2px}
+.weeks{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.wcard{all:unset;box-sizing:border-box;cursor:pointer;background:var(--card);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;border:2px solid transparent}
+.wcard:hover{border-color:var(--blue-soft)}
+.wcard:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wcard.current{border-color:var(--blue)}
+.wcard.onsite-card{background:linear-gradient(var(--card),var(--card)) padding-box, var(--peach) border-box;border-color:transparent}
+.wcard.onsite-card.current{border-color:var(--blue);background:var(--card)}
+.wcard .wc-top{display:flex;justify-content:space-between;align-items:center}
+.wcard .wc-n{font-family:var(--display);font-weight:800;font-size:28px;color:var(--blue);line-height:1}
+.wcard h3{font-size:16.5px;font-weight:700}
+.wcard p{font-size:13.5px;color:var(--ink-2)}
+.wcard .wc-a{font-size:12.5px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:8px;margin-top:auto}
+.wcard .wc-a b{color:var(--ink-2);font-weight:600}
+.now-tag{font-size:11.5px;font-weight:700;background:var(--blue);color:#fff;padding:3px 8px;border-radius:999px}
+
+/* ---------- Checklist view ---------- */
+.ms{background:var(--card);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow)}
+.ms-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px}
+.ms-head h3{font-size:17px;font-weight:700}
+.ms-count{font-size:13px;font-weight:700;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--paper);border-radius:999px;overflow:hidden;margin:6px 0 12px}
+.bar i{display:block;height:100%;background:var(--mint-ink);border-radius:999px;transition:width .4s ease}
+.ms.is-now{box-shadow:0 0 0 2px var(--blue), var(--shadow)}
+.check{display:flex;gap:12px;align-items:flex-start;padding:8px 6px;border-radius:10px;cursor:pointer;font-size:14px}
+.check:hover{background:var(--paper)}
+.check input{appearance:none;flex:none;width:20px;height:20px;border:2px solid #C3C9DB;border-radius:7px;margin:1px 0 0;display:grid;place-items:center;cursor:pointer;background:#fff}
+.check input:checked{background:var(--mint-ink);border-color:var(--mint-ink)}
+.check input:checked::after{content:"";width:5px;height:10px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.check input:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.check input:checked + span{color:var(--ink-3);text-decoration:line-through;text-decoration-color:rgba(125,134,163,.5)}
+.ms-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.callout{background:var(--blue-soft);color:var(--blue-deep);border-radius:var(--r-lg);padding:16px 18px;font-size:14.5px;display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.callout svg{flex:none;width:22px;height:22px;margin-top:1px}
+.callout.warm{background:var(--butter);color:var(--butter-ink)}
+
+/* ---------- Find view ---------- */
+.find-search{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.find-search input{flex:1;min-width:240px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:11px 18px;font-size:14.5px}
+.find-search input:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.cats{columns:3 300px;column-gap:16px}
+.cat{break-inside:avoid;background:var(--card);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
+.cat h3{font-size:17px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.cat h3 i{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-style:normal}
+.cat h3 i svg{width:17px;height:17px}
+.cat ul{list-style:none;margin:0;padding:0}
+.cat li{padding:9px 0;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:2px}
+.cat li:first-of-type{border-top:0}
+.cat li b{font-weight:600;font-size:14px}
+.cat li a,.cat li span{font-size:13px}
+.cat li a{color:var(--blue-deep);font-weight:600;text-decoration:none}
+.cat li a:hover{text-decoration:underline}
+.cat li span{color:var(--ink-3)}
+.cat li .todo{color:var(--peach-ink);font-weight:600}
+mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
+
+/* ---------- How do I view ---------- */
+.how-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;align-items:start}
+details.how{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+details.how summary{list-style:none;cursor:pointer;padding:18px 20px;display:flex;gap:14px;align-items:center;min-height:118px}
+details.how summary>div{flex:1;min-width:0}
+details.how summary::-webkit-details-marker{display:none}
+details.how summary:focus-visible{outline:3px solid var(--blue);outline-offset:-3px;border-radius:var(--r-lg)}
+.how-ico{flex:none;width:42px;height:42px;border-radius:14px;display:grid;place-items:center}
+.how-ico svg{width:21px;height:21px}
+details.how summary h3{font-size:16px;font-weight:700;line-height:1.25}
+details.how summary p{font-size:13px;color:var(--ink-3);margin-top:3px;line-height:1.4}
+.chev{margin-left:auto;flex:none;width:20px;height:20px;color:var(--ink-3);transition:transform .2s ease}
+details.how[open] .chev{transform:rotate(180deg)}
+.how-body{padding:0 20px 20px;font-size:14px;color:var(--ink-2);display:flex;flex-direction:column;gap:12px}
+.how-body h4{margin:0 0 4px;font-size:13px;color:var(--ink);font-weight:700}
+.how-body ul,.how-body ol{margin:0;padding-left:18px}
+.how-body li{margin:2px 0}
+.tag-row{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12.5px;background:var(--paper);border-radius:999px;padding:4px 10px;color:var(--ink-2);font-weight:500}
+.help-link{font-weight:600;font-size:13.5px}
+
+/* ---------- Who view ---------- */
+.router{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.answer{background:var(--card);border-radius:var(--r-lg);padding:20px;box-shadow:var(--shadow);display:flex;gap:16px;align-items:center;margin-bottom:22px;min-height:96px}
+.answer .av{width:56px;height:56px;font-size:19px}
+.answer b{font-family:var(--display);font-size:19px;display:block}
+.answer p{color:var(--ink-2);font-size:14px}
+.people{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.person{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px}
+.person.hl{box-shadow:0 0 0 2px var(--blue), var(--shadow)}
+.av{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:18px;flex:none}
+.person h3{font-size:18px;font-weight:700}
+.person .role{font-size:13.5px;color:var(--ink-3);font-weight:600}
+.person ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--ink-2)}
+.person .contact{margin-top:auto;display:flex;gap:8px}
+
+.foot{font-size:12.5px;color:var(--ink-3);text-align:center;padding:10px 0 4px}
+
+/* ---------- Motion: one orchestrated hero moment ---------- */
+@keyframes rise{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.strip.animate .node .dot{transform-origin:bottom;animation:rise .5s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i) * 28ms)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width:1180px){
+  .grid>.s8,.grid>.s7,.grid>.s5,.grid>.s4{grid-column:span 12}
+  .grid>.s3{grid-column:span 6}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;padding:12px;gap:12px}
+  .side{position:static;height:auto;flex-direction:row;align-items:center;padding:10px;border-radius:var(--r-lg);overflow-x:auto}
+  .brand{padding:0 8px 0 4px}
+  .brand small,.side-foot{display:none}
+  .nav{flex-direction:row}
+  .nav button{white-space:nowrap;padding:9px 12px}
+  .nav button span{display:none}
+  .nav button[aria-current="page"] span{display:inline}
+  .gantt{grid-template-columns:1fr}
+  .g-axis{grid-column:1}
+}
+@media (max-width:600px){
+  .grid>.s3{grid-column:span 12}
+  .hero{padding:22px 18px}
+  .track{gap:2px}
+  .node span{font-size:10px}
+  .node:nth-child(even) span{visibility:hidden}
+  .wk-layout{flex-direction:column;gap:6px}
+  .week-detail .wk-num{font-size:48px}
+  .ring-wrap{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ===== Sidebar ===== -->
+  <aside class="side" aria-label="Student Journey sections">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24"><path d="M4 18c3-8 6-12 9-12s4 3 2 6-6 3-6 0 5-6 11-5" fill="none" stroke="#3651F5" stroke-width="2.6" stroke-linecap="round"/></svg>
+      </div>
+      <div><b>My Journey</b><small id="brandSub">Master of Technological Futures</small></div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <p>Can't find what you need? Ask the cohort and the PlayLab team.</p>
+      <a id="slackLink" href="#" target="_top">Open PlayLab Slack</a>
+    </div>
+  </aside>
+
+  <!-- ===== Main ===== -->
+  <main class="main">
+    <div class="topbar">
+      <div class="search" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search weeks, resources, how-tos and people" aria-label="Search the Student Journey" autocomplete="off" aria-controls="results">
+        <div class="results" id="results" role="listbox" aria-label="Search results"></div>
+      </div>
+      <div class="week-picker">
+        <label for="cohortSel">Gen</label>
+        <select id="cohortSel" aria-label="Your Gen"></select>
+      </div>
+      <div class="week-picker" id="weekBox" aria-live="polite"></div>
+    </div>
+
+    <!-- Dashboard -->
+    <section class="view" id="view-home" aria-labelledby="h-home">
+      <div class="grid">
+        <div class="s12" id="cohortPrompt" hidden></div>
+        <div class="hero s12">
+          <div class="hero-top">
+            <h1 id="h-home">Find your way through the MTF.</h1>
+            <div class="hero-intro">
+              <p>Not sure where you are, what comes next or where to find something? Start here for a quick answer about your progress, upcoming milestones, resources or who can help.</p>
+            </div>
+          </div>
+          <div class="strip" id="strip">
+            <div class="strip-blocks">
+              <div><b>Block 1</b> &nbsp;Weeks 1–10</div>
+              <div><b>Block 2: Shaping Responsible Futures in Context</b> &nbsp;Weeks 11–20</div>
+            </div>
+            <div class="track" id="track" role="group" aria-label="Part 1 weeks. Select a week to see its details."></div>
+            <div class="strip-legend">
+              <span><i style="background:var(--peach)"></i>Onsite</span>
+              <span><i style="background:rgba(255,255,255,.35)"></i>Online</span>
+              <span><i style="background:#fff;box-shadow:0 0 0 2px var(--blue)"></i>Your week</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card s7 week-detail" id="weekDetail" aria-live="polite"></div>
+
+        <div class="card s5">
+          <div class="card-head"><h2>Am I on track?</h2><button class="link-btn" data-go="checklist">Open checklist</button></div>
+          <div class="ring-wrap">
+            <div class="ring" aria-hidden="true">
+              <svg viewBox="0 0 140 140"><circle class="bg" cx="70" cy="70" r="58"/><circle class="fg" id="ringPart" cx="70" cy="70" r="58"/></svg>
+              <div class="ring-label"><div><b id="ringPct">0%</b><span>of Part 1</span></div></div>
+            </div>
+            <div class="ring-stats" id="ringStats"></div>
+          </div>
+        </div>
+
+        <button class="tile peach s3" data-go="timeline" id="tileOnsite"></button>
+        <button class="tile butter s3" data-go="timeline" id="tileAssess"></button>
+        <button class="tile lilac s3" data-go="dates" id="tileDate"></button>
+        <button class="tile mint s3" data-go="who" id="tileWho"></button>
+
+        <div class="card s8">
+          <div class="card-head"><h2>Assessment tracker</h2><span class="pill tbc" id="ganttWeek"></span></div>
+          <div class="g-wrap"><div class="gantt" id="gantt"></div></div>
+          <p class="note">For formal assessment deadlines, always check the assessment information in the LMS.</p>
+        </div>
+
+        <div class="card s4">
+          <div class="card-head"><h2>Coming up</h2><button class="link-btn" data-go="dates">All dates</button></div>
+          <ul class="dates" id="upcoming"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Where am I now? -->
+    <section class="view" id="view-timeline" aria-labelledby="h-tl">
+      <div class="view-head">
+        <div>
+          <h1 id="h-tl">Where am I now?</h1>
+          <p>Part 1: Explore and Reframe runs for 20 weeks across two blocks. Select any week to see what it covers and which assessment step goes with it.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filter weeks">
+          <button class="chip" data-filter="all" aria-pressed="true">All weeks</button>
+          <button class="chip" data-filter="onsite" aria-pressed="false">Onsite</button>
+          <button class="chip" data-filter="online" aria-pressed="false">Online</button>
+        </div>
+      </div>
+      <div id="timeline"></div>
+    </section>
+
+    <!-- What should I have done by now? -->
+    <section class="view" id="view-checklist" aria-labelledby="h-ck">
+      <div class="view-head">
+        <div>
+          <h1 id="h-ck">What should I have done by now?</h1>
+          <p>What learners usually have completed or started by each stage of Part 1. Tick things off as you go. Your ticks are saved in this browser only.</p>
+        </div>
+        <button class="ghost-btn" id="resetChecks">Clear my ticks</button>
+      </div>
+      <div class="callout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11Z"/></svg>
+        <p>Everyone's pace is a little different. If you're behind, or unsure about anything, talk to your advisor or the PlayLab team early. We're here to help.</p>
+      </div>
+      <div class="ms-grid" id="checklist"></div>
+    </section>
+
+    <!-- When is the next important date? -->
+    <section class="view" id="view-dates" aria-labelledby="h-dt">
+      <div class="view-head">
+        <div>
+          <h1 id="h-dt">When is the next important date?</h1>
+          <p>Upcoming programme milestones, assessment dates, onsite days and other key points in the MTF calendar.</p>
+        </div>
+      </div>
+      <div class="callout warm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>
+        <p>For formal assessment deadlines, always refer to the assessment information in the LMS. Dates marked "TBC" will be added once confirmed.</p>
+      </div>
+      <div class="grid">
+        <div class="card s12"><ul class="dates" id="allDates"></ul></div>
+      </div>
+    </section>
+
+    <!-- Where can I find... -->
+    <section class="view" id="view-find" aria-labelledby="h-fd">
+      <div class="view-head">
+        <div>
+          <h1 id="h-fd">Where can I find…</h1>
+          <p>Everything you might go looking for, and where it lives.</p>
+        </div>
+      </div>
+      <div class="find-search">
+        <input id="findQ" type="search" placeholder="Filter, for example portfolio, AI, venue" aria-label="Filter resources">
+      </div>
+      <div class="cats" id="cats"></div>
+      <p class="note">Can't find what you need? Check the FAQs or ask in the PlayLab Slack channel.</p>
+    </section>
+
+    <!-- How do I... -->
+    <section class="view" id="view-how" aria-labelledby="h-hw">
+      <div class="view-head">
+        <div>
+          <h1 id="h-hw">How do I…</h1>
+          <p>Start here when you're trying to do something but aren't sure which tool, method or resource to use. There isn't always one correct tool for every task.</p>
+        </div>
+      </div>
+      <div class="how-grid" id="how"></div>
+    </section>
+
+    <!-- Who do I ask about... -->
+    <section class="view" id="view-who" aria-labelledby="h-wh">
+      <div class="view-head">
+        <div>
+          <h1 id="h-wh">Who do I ask about…</h1>
+          <p>Find the right person for academic questions, PlayLab support, technical issues, programme administration and learner support.</p>
+        </div>
+      </div>
+      <div class="router" role="group" aria-label="Choose what your question is about" id="router"></div>
+      <div class="answer" id="answer" aria-live="polite"></div>
+      <div class="people" id="people"></div>
+    </section>
+
+    <p class="foot">PlayLab · Master of Technological Futures · academyEX</p>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   DATA: edit this section to update the page.
+   ============================================================ */
+
+const CONFIG = {
+  // Links. Replace "#" with your Google Sites page URLs or external links.
+  // Google Sites links open in the top window (not inside the embed).
+  links: {
+    lms: "#",
+    slack: "#",
+    faq: "#",
+    calendar: "#",
+    events: "#",
+    news: "#",
+    aboutMTF: "#",
+    aboutAcademyEX: "#",
+    contacts: "#",
+    guides: "#",
+    resourcesLinks: "#",
+    tools: "#",
+    playTools: "#",
+    playExperiment: "#",
+    policies: "#",
+    portfolios: "#",
+    gallery: "#",
+    xrGallery: "#",
+    profiles: "#",
+    connect: "#",
+    externalResources: "#",
+    privacy: "https://academyex.com/privacy-policy",
+    wellbeing: null,   // add link
+    library: null,     // add link
+    itHelp: null,      // add link
+    reflection: null,  // add link
+    venue: null,       // add link
+    whatToBring: null  // add link
+  }
+};
+
+/* GENS (cohorts)
+   One entry per Gen. Students choose their Gen once (it's remembered in
+   their browser) and the page works out their current week from the real
+   dates.
+   - id:     short code used in links, e.g. "gen29"
+   - name:   what students see, e.g. "Gen29"
+   - start:  the Monday of Week 1, "YYYY-MM-DD". Use null if dates aren't
+             confirmed yet: students then choose their week by hand.
+   - breaks: Mondays of any non-teaching weeks (holidays, study breaks).
+             Teaching weeks after a break shift back automatically.
+   You can link straight to a Gen, e.g. .../index.html?gen=gen29
+   Put the newest Gen first. GEN29'S DATES BELOW ARE EXAMPLES: replace them. */
+const COHORTS = [
+  {id:"gen31", name:"Gen31", start:null, breaks:[]},
+  {id:"gen30", name:"Gen30", start:null, breaks:[]},
+  {id:"gen29", name:"Gen29", start:"2026-10-05", breaks:["2026-12-21","2026-12-28","2027-01-04"]}
+];
+
+const WEEKS = [
+  {n:1, t:"Entering Technological Futures", mode:"onsite", len:"Two days onsite", d:"Programme kaupapa, getting to know your cohort, your context, creativity, the five pillars and Contextual Adaptation. Includes a context and futures studio and an introductory design sprint.", a:"Emerging Technology Explainer introduced"},
+  {n:2, t:"Understanding Emerging Technologies", mode:"online", d:"Trends, trajectories and critical technological literacy.", a:"Emerging Technology Explainer – exploration"},
+  {n:3, t:"Technological Frontiers and Possibilities", mode:"online", d:"Capabilities, affordances, limits and dependencies.", a:"Emerging Technology Explainer – development"},
+  {n:4, t:"Making Emerging Technology Understandable", mode:"online", d:"Bringing evidence together, writing for a target audience, and explaining through digital media.", a:"Emerging Technology Explainer – completion"},
+  {n:5, t:"Connecting Technologies", mode:"online", d:"Synergies, infrastructures, dependencies and ecosystems.", a:"Emerging Technology Explainer due; Disruption Report introduced"},
+  {n:6, t:"Systems, Complexity and Futures Studio", mode:"onsite", len:"Full day onsite", d:"Systems mapping, convergence, drivers, scenarios and critical making. Includes a Systems and Futures Sprint where you create a future artefact.", a:"Disruption Report – framing"},
+  {n:7, t:"Technology in Complex Systems", mode:"online", d:"Feedback, emergence, autopoiesis and unintended consequences.", a:"Disruption Report – development"},
+  {n:8, t:"Foresight and Alternative Futures", mode:"online", d:"Signals, drivers, scenarios and preferable futures.", a:"Disruption Report – development"},
+  {n:9, t:"Evaluating Technological Disruption", mode:"online", d:"Professional, social, community and ecological consequences.", a:"Disruption Report – synthesis"},
+  {n:10,t:"From Disruption to Strategic Direction", mode:"online", d:"Strategic interpretation and audience-focused recommendations.", a:"Disruption Report due"},
+  {n:11,t:"People, Experience and Technology", mode:"online", d:"Third-wave HCI, enaction, 4E+ cognition and entangled experience.", a:"Ethical Case Study and Reflection introduced"},
+  {n:12,t:"Ethics, Power and Responsible Technology", mode:"online", d:"Values, agency, equity, inclusion and algorithmic justice.", a:"Ethical Case Study – preparation"},
+  {n:13,t:"Indigenous and Plural Technological Futures", mode:"online", d:"Kaupapa Māori, Te Tiriti, data sovereignty and authority.", a:"Ethical Case Study – preparation"},
+  {n:14,t:"Technology, People and Planet", mode:"online", d:"Ecological responsibility, stakeholder tension and ethical synthesis.", a:"Ethical Case Study – preparation"},
+  {n:15,t:"Ethics, Culture and Responsibility Forum", mode:"onsite", len:"Full day onsite", d:"Group presentations, dialogue, ethical reframing and critical making. Includes a studio where you redesign, govern, limit or refuse a technology.", a:"Ethical Case Study – presentation"},
+  {n:16,t:"From Ethical Case to Personal Context", mode:"online", d:"Individual reflection, reflexivity and Contextual Adaptation.", a:"Ethical Case Study complete; Emerging Project Idea introduced"},
+  {n:17,t:"Reading the Context", mode:"online", d:"Stakeholders, place, history, regulation, capability and positionality.", a:"Emerging Project Idea – development"},
+  {n:18,t:"Reframing Challenges and Designing Possibilities", mode:"online", d:"Systemic design, alternative frames, ideation and low-fidelity concepts.", a:"Emerging Project Idea – development"},
+  {n:19,t:"Shaping an Emerging Project Idea", mode:"online", d:"Evidence, gaps, aims, questions, scope and peer critique.", a:"Emerging Project Idea – refinement"},
+  {n:20,t:"Emerging Project Ideas Forum", mode:"onsite", len:"Onsite", d:"Present your project idea, receive peer feedback, revise and submit. No new content this week.", a:"Emerging Project Idea due"}
+];
+
+const BLOCKS = [
+  {name:"Block 1", weeks:[1,10], q:"Understanding emerging technologies, systems and disruption."},
+  {name:"Block 2: Shaping Responsible Futures in Context", weeks:[11,20], q:"What future is desirable, for whom, and how might it be responsibly investigated in context?"}
+];
+
+const ASSESSMENTS = [
+  {name:"Emerging Technology Explainer", type:"formative", start:1, end:5},
+  {name:"Disruption Report", type:"summative", credits:30, start:5, end:10},
+  {name:"Ethical Case Study and Reflection", type:"formative", start:11, end:16},
+  {name:"Emerging Project Idea", type:"summative", credits:30, start:16, end:20}
+];
+
+// Key dates. Each is tied to a week, so its date is worked out from the
+// student's Gen. To give an exact day for a Gen, add for example:
+//   dates:{"gen29":"2026-11-06"}
+const KEY_DATES = [
+  {week:1,  t:"Onsite orientation (two days)", kind:"onsite", date:null},
+  {week:5,  t:"Emerging Technology Explainer due", kind:"formative", date:null},
+  {week:6,  t:"Systems, Complexity and Futures Studio", kind:"onsite", date:null},
+  {week:10, t:"Disruption Report due (30 credits)", kind:"summative", date:null},
+  {week:15, t:"Ethics, Culture and Responsibility Forum", kind:"onsite", date:null},
+  {week:16, t:"Ethical Case Study and Reflection complete", kind:"formative", date:null},
+  {week:20, t:"Emerging Project Ideas Forum", kind:"onsite", date:null},
+  {week:20, t:"Emerging Project Idea due (30 credits)", kind:"summative", date:null}
+];
+
+const CHECKLIST = [
+  {id:"w1", by:1, items:[
+    "Attended both onsite orientation days and met your cohort.",
+    "Have a basic understanding of the five pillars and Contextual Adaptation.",
+    "Thought about the context you're bringing into the programme: your organisation, profession or community.",
+    "Know about the Emerging Technology Explainer assessment."]},
+  {id:"w5", by:5, items:[
+    "Explored a range of emerging technologies and how they connect.",
+    "Chosen an emerging technology to focus on for your explainer.",
+    "Submitted your Emerging Technology Explainer (formative).",
+    "Read the Disruption Report brief."]},
+  {id:"w10", by:10, items:[
+    "Attended the Week 6 Systems, Complexity and Futures Studio onsite.",
+    "Mapped a system and explored how technologies could disrupt it.",
+    "Explored foresight tools such as signals, drivers and scenarios.",
+    "Submitted your Disruption Report (summative, 30 credits)."]},
+  {id:"w16", by:16, items:[
+    "Explored people, ethics, power, kaupapa Māori and ecological responsibility in relation to technology.",
+    "Prepared and presented your Ethical Case Study at the Week 15 onsite forum.",
+    "Completed your Ethical Case Study and Reflection (formative).",
+    "Started reflecting on how your own position and assumptions shape your thinking.",
+    "Read the Emerging Project Idea brief."]},
+  {id:"w19", by:19, items:[
+    "Explored your own context in depth: stakeholders, place, history, regulation and capability.",
+    "Generated and reframed possible project directions.",
+    "Drafted your emerging project idea, including aims, questions and scope.",
+    "Shared your idea with peers for feedback."]},
+  {id:"w20", by:20, items:[
+    "Presented your project idea at the Emerging Project Ideas Forum.",
+    "Revised your idea based on feedback.",
+    "Submitted your Emerging Project Idea (summative, 30 credits).",
+    "Completed Part 1 and are ready to move into Part 2: Investigate and Design."]},
+  {id:"always", by:null, label:"Throughout Part 1", items:[
+    "Adding work, reflections and feedback to your MTF Digital Portfolio.",
+    "Joining your context group for peer feedback and discussion.",
+    "Trying out creative and digital tools. The PlayLab Guides and Tools sections can help."]}
+];
+
+const L = CONFIG.links;
+const FIND = [
+  {cat:"Programme and assessment", ico:"doc", tone:"butter", items:[
+    ["Assessment briefs and due dates","LMS, under each course",L.lms],
+    ["Assessment submission","LMS",L.lms],
+    ["Week-by-week schedule for Part 1","Student Journey: Where am I now?","#timeline"],
+    ["Milestone checklist","Student Journey: What should I have done by now?","#checklist"],
+    ["Upcoming key dates","Student Journey: When is the next important date?","#dates"],
+    ["Session recordings and weekly content","LMS",L.lms],
+    ["Course outlines and learning outcomes","LMS",L.lms],
+    ["About the MTF programme and its five pillars","About: MTF Programme",L.aboutMTF]]},
+  {cat:"Onsite days", ico:"pin", tone:"peach", items:[
+    ["Onsite day schedules (Weeks 1, 6, 15 and 20)","What's On: Calendar, and LMS",L.calendar],
+    ["Venue and travel information","To be added",L.venue],
+    ["What to bring to onsite studios","To be added",L.whatToBring]]},
+  {cat:"Learning resources", ico:"book", tone:"lilac", items:[
+    ["Step-by-step guides and walkthroughs","Resources: Guides",L.guides],
+    ["Video tutorials, software links, podcasts and videos","Resources: Resources & Links",L.resourcesLinks],
+    ["Recommended digital and creative tools","Resources: Tools",L.tools],
+    ["Tools you can try hands-on","Play: Play with tools",L.playTools],
+    ["Interactive activities and experiments","Play: Learn through experimentation",L.playExperiment]]},
+  {cat:"Policies and guidance", ico:"shield", tone:"mint", items:[
+    ["Responsible AI use guidance","Resources: Policies",L.policies],
+    ["Copyright, privacy and intellectual property","Resources: Policies",L.policies],
+    ["Accessibility guidance","Resources: Policies",L.policies],
+    ["academyEX privacy policy","academyex.com",L.privacy]]},
+  {cat:"Your MTF Digital Portfolio", ico:"folder", tone:"butter", items:[
+    ["Portfolio templates and guidance","Resources: Tools and Software: Portfolios",L.portfolios],
+    ["Examples of portfolio entries","Community Space: Gallery",L.gallery]]},
+  {cat:"People and community", ico:"people", tone:"lilac", items:[
+    ["PlayLab and MTF contacts","About: Contacts",L.contacts],
+    ["The right person for your question","Student Journey: Who do I ask about…?","#who"],
+    ["Learner and staff profiles","Community Space: Community Profiles",L.profiles],
+    ["The PlayLab Slack channel","Community Space: Connect",L.connect]]},
+  {cat:"Events and news", ico:"cal", tone:"peach", items:[
+    ["Workshops, talks and events","What's On: Events",L.events],
+    ["PlayLab and community dates","What's On: Calendar",L.calendar],
+    ["PlayLab and MTF news","What's On: News",L.news]]},
+  {cat:"Other", ico:"spark", tone:"mint", items:[
+    ["Learner work and projects","Community Space: Gallery and XR Gallery",L.gallery],
+    ["Learner support and wellbeing services","Link to be added",L.wellbeing],
+    ["Library and research databases","Link to be added",L.library],
+    ["IT help and log-in support","Link to be added",L.itHelp],
+    ["About academyEX","About: About academyEX",L.aboutAcademyEX]]}
+];
+
+const HOW = [
+  {t:"Explain an emerging technology to an audience", ico:"mega", tone:"butter", use:"Useful for your Emerging Technology Explainer.",
+   intro:"Start with who your audience is and what they need to understand, then pick a format that suits them.",
+   approaches:["A visual explainer or infographic","A short video or audio piece","An illustrated slide story","An interactive walkthrough"],
+   tools:["Canva (an easy starting point)","Adobe Express","Premiere Pro (more advanced video)","Figma (interactive layouts)"],
+   help:[["Resources: Guides",L.guides]]},
+  {t:"Map a system", ico:"nodes", tone:"lilac", use:"Useful for the Week 6 studio and your Disruption Report.",
+   intro:"Systems maps help you see relationships, feedback loops and leverage points.",
+   approaches:["A stakeholder map","A causal loop diagram","An ecosystem map","A rich picture (a hand-drawn sketch of a whole situation)"],
+   tools:["Miro (collaborative whiteboards)","Figma or FigJam","Pen and paper, photographed for your portfolio"],
+   help:[["Resources: Guides",L.guides]]},
+  {t:"Explore possible futures", ico:"compass", tone:"peach", use:"Useful for foresight work and your Disruption Report.",
+   approaches:["Horizon scanning for signals of change","A drivers analysis","Scenario building, for example a 2×2 matrix of uncertainties","A speculative artefact: an object or story from a possible future"],
+   tools:["Miro for scenario mapping","Canva or generative AI tools for visualising future artefacts"],
+   help:[["Resources: External Resources",L.externalResources]]},
+  {t:"Make a quick prototype", ico:"cube", tone:"mint", use:"Useful in studios and when shaping your emerging project idea.",
+   intro:"Low-fidelity is fine. The goal is to test an idea, not to polish it.",
+   approaches:["Paper sketches","Storyboards","Clickable mock-ups","Physical models","A simple 3D or XR concept"],
+   tools:["Figma (screen mock-ups)","No-code platforms (working apps)","Blender (3D)","Cardboard and craft materials"],
+   help:[["Play: Play with tools",L.playTools]]},
+  {t:"Use AI tools responsibly", ico:"spark", tone:"lilac", use:"Your thinking and judgement stay at the centre.",
+   intro:"AI can help you research, brainstorm, visualise and draft, but your thinking and judgement must stay at the centre of your work.",
+   approaches:["Use AI for idea generation, summarising or creating visuals","Check every output against reliable sources","Acknowledge your AI use clearly and critically in your assessments"],
+   help:[["Resources: Policies (responsible AI use guidance)",L.policies]]},
+  {t:"Find good evidence", ico:"search", tone:"butter", use:"Useful for every assessment.",
+   intro:"Strong work draws on a mix of scholarly and professional sources.",
+   approaches:["Search academic databases","Follow references in key articles","Look at industry and government reports","Use credible news for recent developments"],
+   help:[["Library (link to be added)",L.library],["Resources: External Resources",L.externalResources]]},
+  {t:"Reflect on my own position and assumptions", ico:"mirror", tone:"peach", use:"Reflexivity is a thread through the whole MTF.",
+   questionsLabel:"A useful set of questions",
+   questions:["What is my relationship to this context?","How have I framed the issue, and what other framings are possible?","How do my methods and actions affect the system?","What feedback has changed my thinking?"],
+   help:[["Reflection guidance (link to be added)",L.reflection]]},
+  {t:"Add an entry to my Digital Portfolio", ico:"folder", tone:"mint", use:"Capture work as you go rather than at the end.",
+   questionsLabel:"For each entry, ask yourself",
+   questions:["What did I do or produce?","What did I learn?","What assumptions or perspectives shaped my approach?","What feedback changed my thinking?","What will I adapt next?"],
+   help:[["Portfolio templates and guidance",L.portfolios]]},
+  {t:"Present my emerging project idea", ico:"mega", tone:"lilac", use:"Useful for the Week 20 forum.",
+   intro:"Focus on clarity: the context, the challenge or opportunity, why it matters, and your emerging questions.",
+   approaches:["A short slide deck","A visual one-pager","A poster","A short video"],
+   tools:["Canva","Google Slides","Adobe Express"],
+   help:[["Resources: Guides",L.guides]]},
+  {t:"Give useful feedback to peers", ico:"chat", tone:"butter", use:"Useful in context groups and onsite forums.",
+   intro:"Good feedback is specific, kind and helpful.",
+   approaches:["Start with what's working","Ask questions rather than prescribing fixes","Suggest one or two things to explore further"]},
+  {t:"Choose between tools", ico:"tools", tone:"peach", use:"The most powerful tool isn't always the right one.",
+   intro:"Think about your purpose, your audience, your context and your current skill level.",
+   help:[["Resources: Tools",L.tools],["Try before you commit in Play: Play with tools",L.playTools]]}
+];
+
+// People. Add email addresses (mailto:) and what each person helps with.
+const PEOPLE = [
+  {id:"claudio", name:"Claudio Aguayo", role:"Programme Lead", tone:"lilac", email:null,
+   helps:["Programme direction and course content","Academic questions about your learning"]},
+  {id:"dylan", name:"Dylan Verdonkschot", role:"Student Support", tone:"mint", email:null,
+   helps:["Support while you study","Programme administration questions"]},
+  {id:"richard", name:"Richard Roa", role:"Extensions", tone:"peach", email:null,
+   helps:["Assessment extension requests"]}
+];
+
+// "What's your question about?" router.
+const ROUTES = [
+  {label:"Course content or ideas", to:"claudio", why:"For academic questions about the programme and your learning, start with the Programme Lead."},
+  {label:"I need an extension", to:"richard", why:"Extension requests go to Richard. Ask as early as you can."},
+  {label:"Support or wellbeing", to:"dylan", why:"Dylan can help with support while you study and point you to wellbeing services."},
+  {label:"Admin or enrolment", to:"dylan", why:"Start with Student Support for programme administration questions."},
+  {label:"PlayLab tools and resources", to:"slack", why:"Ask in the PlayLab Slack channel. The PlayLab team and your cohort can help."},
+  {label:"IT or log-in problems", to:"it", why:"Contact IT help for log-in and technical support."}
+];
+
+/* ============================================================
+   APP: you shouldn't need to edit below this line.
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem("mtf-sj-"+k); return v===null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem("mtf-sj-"+k, JSON.stringify(v)); }catch(e){} }
+};
+
+const ICONS = {
+  home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+  route:'<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
+  check:'<rect x="4" y="4" width="16" height="16" rx="4"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+  cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+  tools:'<path d="M14.5 6.5a4 4 0 0 0 5 5L12 19a2.1 2.1 0 0 1-3-3l7.5-7.5"/><path d="M5 5l4 4"/>',
+  people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.8-3.3 3.2-5 6-5s5.2 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c2.6 0 4.3 1.5 5 4"/>',
+  doc:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',
+  pin:'<path d="M12 21s-6-6.2-6-11a6 6 0 0 1 12 0c0 4.8-6 11-6 11Z"/><circle cx="12" cy="10" r="2.2"/>',
+  book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20"/>',
+  shield:'<path d="M12 3 4.5 6v6c0 4.5 3.2 7.8 7.5 9 4.3-1.2 7.5-4.5 7.5-9V6z"/><path d="m9 12 2 2 4-4"/>',
+  folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+  spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/>',
+  mega:'<path d="M4 10v4h3l7 4V6L7 10z"/><path d="M18 9a4 4 0 0 1 0 6"/>',
+  nodes:'<circle cx="5" cy="6" r="2.2"/><circle cx="19" cy="7" r="2.2"/><circle cx="12" cy="18" r="2.2"/><circle cx="12" cy="11" r="1.6"/><path d="M7 7l3.6 3M17 8l-3.6 2.4M12 12.6V16"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+  cube:'<path d="M12 3 4 7.5v9L12 21l8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/>',
+  mirror:'<ellipse cx="12" cy="9.5" rx="6" ry="6.5"/><path d="M12 16v5M9 21h6M9.5 7.5a3 3 0 0 1 2.5-1.5"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/>',
+  flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  chev:'<path d="m6 9 6 6 6-6"/>'
+};
+const ico = (n, sw=1.9) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
+
+const VIEWS = [
+  {id:"home", label:"Dashboard", ico:"home"},
+  {id:"timeline", label:"Where am I now?", ico:"route"},
+  {id:"checklist", label:"Am I on track?", ico:"check"},
+  {id:"dates", label:"Key dates", ico:"cal"},
+  {id:"find", label:"Where can I find…", ico:"search"},
+  {id:"how", label:"How do I…", ico:"tools"},
+  {id:"who", label:"Who do I ask…", ico:"people"}
+];
+
+/* ---------- State ---------- */
+const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const cohort = () => COHORTS.find(c => c.id === state.cohort) || null;
+
+// Monday of each of the 20 teaching weeks for a Gen, skipping breaks.
+function buildSchedule(c){
+  if(!c || !c.start) return null;
+  const br = new Set(c.breaks || []);
+  const out = [];
+  const d = new Date(c.start+"T00:00:00");
+  for(let guard = 0; out.length < 20 && guard < 80; guard++){
+    if(!br.has(iso(d))) out.push(new Date(d));
+    d.setDate(d.getDate() + 7);
+  }
+  return out;
+}
+// Which week is it today? phase: before | during | break | after
+function autoWeek(sched){
+  const now = new Date(); now.setHours(0,0,0,0);
+  if(now < sched[0]) return {week:1, phase:"before"};
+  const end = new Date(sched[19]); end.setDate(end.getDate() + 7);
+  if(now >= end) return {week:20, phase:"after"};
+  let i = 0; while(i < 19 && sched[i+1] <= now) i++;
+  const wkEnd = new Date(sched[i]); wkEnd.setDate(wkEnd.getDate() + 7);
+  if(now >= wkEnd) return {week:i+2, phase:"break"};
+  return {week:i+1, phase:"during"};
+}
+
+const urlCohort = (new URLSearchParams(location.search).get("gen") || "").toLowerCase().replace(/\s+/g,"");
+const state = {
+  cohort: COHORTS.some(c => c.id === urlCohort) ? urlCohort : store.get("cohort", COHORTS.length === 1 ? COHORTS[0].id : null),
+  sched: null,
+  phase: "manual",
+  week: 1,
+  focus: 1,              // week being viewed on the dashboard
+  checks: new Set(store.get("checks", [])),
+  filter: "all",
+  route: null
+};
+if(!COHORTS.some(c => c.id === state.cohort)) state.cohort = null;
+
+function syncWeek(){
+  state.sched = buildSchedule(cohort());
+  if(state.sched){ const a = autoWeek(state.sched); state.week = a.week; state.phase = a.phase; }
+  else { state.week = store.get("week", 1); state.phase = "manual"; }
+  state.focus = state.week;
+}
+syncWeek();
+
+function weekDate(n){ return state.sched ? state.sched[n-1] : null; }
+function exactDate(k){
+  const d = k.dates && k.dates[state.cohort];
+  return d ? new Date(d+"T00:00:00") : null;
+}
+const fmt = (d, o) => d.toLocaleDateString("en-NZ", o);
+
+/* ---------- Navigation ---------- */
+function renderNav(){
+  $("#nav").innerHTML = VIEWS.map(v =>
+    `<button data-view="${v.id}">${ico(v.ico)}<span>${esc(v.label)}</span></button>`).join("");
+  $("#nav").addEventListener("click", e => {
+    const b = e.target.closest("button"); if(b) go(b.dataset.view);
+  });
+}
+function go(id, opts={}){
+  if(!VIEWS.some(v => v.id === id)) id = "home";
+  document.querySelectorAll(".view").forEach(s => s.classList.toggle("active", s.id === "view-"+id));
+  document.querySelectorAll("#nav button").forEach(b => { if(b.dataset.view === id) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current"); });
+  if(history.replaceState) history.replaceState(null, "", "#"+id);
+  if(!opts.keepScroll) window.scrollTo({top:0});
+  if(opts.scrollTo){ const el = document.getElementById(opts.scrollTo); if(el){ el.scrollIntoView({block:"center"}); el.focus({preventScroll:true}); } }
+}
+document.addEventListener("click", e => {
+  const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); go(g.dataset.go); }
+});
+
+/* ---------- Week picker ---------- */
+function renderPicker(){
+  const sel = $("#cohortSel");
+  sel.innerHTML = (state.cohort ? "" : `<option value="">Choose…</option>`) +
+    COHORTS.map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+  sel.value = state.cohort || "";
+  sel.onchange = () => setCohort(sel.value);
+}
+function setCohort(id){
+  state.cohort = id || null; store.set("cohort", state.cohort);
+  syncWeek(); renderPicker(); renderAll();
+}
+function renderWeekBox(){
+  const box = $("#weekBox");
+  box.hidden = !state.cohort;
+  if(state.sched){
+    const note = {
+      before:"Starts " + fmt(state.sched[0],{day:"numeric",month:"short"}),
+      during:"Based on today's date",
+      break:"Study break, back " + fmt(state.sched[state.week-1],{day:"numeric",month:"short"}),
+      after:"Part 1 complete"
+    }[state.phase];
+    box.innerHTML = `<span class="wk-auto"><b>${state.phase === "after" ? "Finished" : "Week " + state.week}</b><small>${esc(note)}</small></span>`;
+  } else {
+    box.innerHTML = `<label for="weekSel">I'm in</label><select id="weekSel" aria-label="Your current week">${WEEKS.map(w => `<option value="${w.n}">Week ${w.n}</option>`).join("")}</select>`;
+    const sel = $("#weekSel"); sel.value = state.week;
+    sel.onchange = () => { state.week = state.focus = +sel.value; store.set("week", state.week); renderAll(); };
+  }
+}
+function renderPrompt(){
+  const el = $("#cohortPrompt");
+  if(state.cohort || !COHORTS.length){ el.hidden = true; el.innerHTML = ""; return; }
+  el.hidden = false;
+  el.innerHTML = `<div class="cohort-prompt"><div><h2>Which Gen are you in?</h2><p>We'll load your dates and show where you are in the programme. You only need to do this once.</p></div>
+    <div class="opts">${COHORTS.map(c => `<button data-cohort="${esc(c.id)}">${esc(c.name)}</button>`).join("")}</div></div>`;
+}
+
+/* ---------- Dashboard ---------- */
+function renderStrip(){
+  const track = $("#track");
+  track.innerHTML = WEEKS.map((w,i) => {
+    const cls = [w.mode, w.n < state.week ? "past" : "", w.n === state.week ? "current" : "", w.n === state.focus && w.n !== state.week ? "selected" : ""].join(" ");
+    return `<button class="node ${cls}" style="--i:${i}" data-week="${w.n}" aria-label="Week ${w.n}: ${esc(w.t)}, ${w.mode}${w.n===state.week?", your current week":""}" aria-pressed="${w.n===state.focus}"><i class="dot"></i><span>${w.n}</span></button>`;
+  }).join("") + `<div class="you" id="you">${{before:"Starts here", break:"Up next", after:"Finished"}[state.phase] || "You're here"}</div>`;
+  const you = $("#you");
+  you.style.left = ((state.week - .5) / 20 * 100) + "%";
+  const shift = state.week <= 2 ? 22 : state.week >= 19 ? 78 : 50;
+  you.style.transform = `translateX(-${shift}%)`;
+  you.style.setProperty("--ax", shift + "%");
+}
+
+function renderWeekDetail(){
+  const w = WEEKS[state.focus-1];
+  const d = weekDate(w.n);
+  const isNow = w.n === state.week;
+  $("#weekDetail").innerHTML = `
+    <div class="card-head"><h2>${isNow ? ({before:"Your first week", break:"After the break", after:"Your last week"}[state.phase] || "This week") : (w.n < state.week ? "Looking back" : "Looking ahead")}</h2>
+      ${isNow ? "" : `<button class="link-btn" id="backNow">Back to week ${state.week}</button>`}</div>
+    <div class="wk-layout">
+      <div class="wk-num" aria-hidden="true">${String(w.n).padStart(2,"0")}</div>
+      <div class="wk-body">
+        <div class="wk-meta">
+          <span class="pill ${w.mode}">${esc(w.len || "Online")}</span>
+          <span class="pill tbc">${w.n <= 10 ? "Block 1" : "Block 2"}</span>
+          ${d ? `<span class="pill tbc">Week of ${fmt(d,{day:"numeric",month:"short"})}</span>` : ""}
+        </div>
+        <h3>Week ${w.n}: ${esc(w.t)}</h3>
+        <p>${esc(w.d)}</p>
+      </div>
+    </div>
+    <div class="assess-box">${ico("flag")}<div><small>Assessment this week</small><b>${esc(w.a)}</b></div></div>
+    <div class="wk-nav">
+      <button class="ghost-btn" data-step="-1" ${w.n===1?"disabled":""}>Previous week</button>
+      <button class="ghost-btn" data-step="1" ${w.n===20?"disabled":""}>Next week</button>
+      <button class="ghost-btn" data-go="timeline">See all 20 weeks</button>
+    </div>`;
+}
+
+function checklistProgress(){
+  const total = CHECKLIST.reduce((a,g) => a + g.items.length, 0);
+  const done = CHECKLIST.reduce((a,g) => a + g.items.filter((_,i) => state.checks.has(g.id+"-"+i)).length, 0);
+  // items expected by now: groups with by <= current week
+  const due = CHECKLIST.filter(g => g.by && g.by <= state.week);
+  const dueTotal = due.reduce((a,g) => a + g.items.length, 0);
+  const dueDone = due.reduce((a,g) => a + g.items.filter((_,i) => state.checks.has(g.id+"-"+i)).length, 0);
+  return {total, done, dueTotal, dueDone};
+}
+
+function renderRing(){
+  const pct = Math.round(state.week / 20 * 100);
+  const C = 2 * Math.PI * 58;
+  const fg = $("#ringPart");
+  fg.style.strokeDasharray = C;
+  fg.style.strokeDashoffset = C * (1 - pct/100);
+  $("#ringPct").textContent = pct + "%";
+  const p = checklistProgress();
+  const nextGroup = CHECKLIST.find(g => g.by && g.by >= state.week);
+  const nextDone = nextGroup ? nextGroup.items.filter((_,i) => state.checks.has(nextGroup.id+"-"+i)).length : 0;
+  $("#ringStats").innerHTML = `
+    <div><b>Week ${state.week} of 20</b><span>Part 1: Explore and Reframe</span></div>
+    ${nextGroup ? `<div><b>${nextDone} of ${nextGroup.items.length} ticked</b><span>for the end of Week ${nextGroup.by}</span></div>` : ""}
+    <div><b>${p.done} of ${p.total}</b><span>milestones ticked overall</span></div>`;
+}
+
+function nextOnsite(){ return WEEKS.find(w => w.mode === "onsite" && w.n >= state.week); }
+function nextDue(){ return ASSESSMENTS.find(a => a.end >= state.week); }
+function nextDate(){ return KEY_DATES.find(k => k.week >= state.week); }
+
+function tileHTML(icon, label, value){ return `<span class="t-ico">${ico(icon)}</span><small>${label}</small><b>${value}</b>`; }
+function renderTiles(){
+  const o = nextOnsite();
+  $("#tileOnsite").innerHTML = tileHTML("pin", "Next onsite day", o ? (o.n === state.week ? `This week: ${esc(o.t)}` : `Week ${o.n}: ${esc(o.t)}`) : "No more onsite days in Part 1");
+  const a = nextDue();
+  $("#tileAssess").innerHTML = tileHTML("flag", "Next assessment due", a ? `${esc(a.name)}, Week ${a.end}` : "All Part 1 assessments complete");
+  const k = nextDate();
+  const kx = k && exactDate(k);
+  const kd = k && (kx ? fmt(kx,{weekday:"short",day:"numeric",month:"short"}) : (weekDate(k.week) ? "Week of " + fmt(weekDate(k.week),{day:"numeric",month:"short"}) : `Week ${k.week}, date TBC`));
+  $("#tileDate").innerHTML = tileHTML("cal", "Next key date", k ? `${esc(k.t)}<br><span style="font-family:var(--body);font-size:13.5px;font-weight:600">${esc(kd)}</span>` : "Nothing coming up");
+  $("#tileWho").innerHTML = tileHTML("people", "Need help?", "Find the right person to ask");
+}
+
+function renderGantt(){
+  $("#ganttWeek").textContent = "Week " + state.week;
+  const rows = ASSESSMENTS.map(a => {
+    const left = (a.start-1)/20*100, width = (a.end-a.start+1)/20*100;
+    return `<div class="g-name"><b>${esc(a.name)}</b><span>${a.type === "summative" ? `Summative, ${a.credits} credits` : "Formative"}</span></div>
+      <div class="g-track" role="img" aria-label="${esc(a.name)}: introduced week ${a.start}, due week ${a.end}">
+        <div class="g-bar ${a.type}" style="left:${left}%;width:${width}%"><span>Weeks ${a.start}–${a.end}</span></div>
+        <div class="g-now" style="left:calc(${(state.week-.5)/20*100}% - 1px)"></div>
+      </div>`;
+  }).join("");
+  const axis = `<div class="g-axis" aria-hidden="true">${WEEKS.map(w => `<span>${w.n}</span>`).join("")}</div>`;
+  $("#gantt").innerHTML = rows + (window.matchMedia("(max-width:900px)").matches ? axis : `<div></div>`+axis);
+}
+
+function dateItem(k){
+  const ex = exactDate(k);
+  const d = ex || weekDate(k.week);
+  const chip = d
+    ? `<small>${fmt(d,{month:"short"})}</small><b>${fmt(d,{day:"numeric"})}</b>`
+    : `<small>Week</small><b>${k.week}</b>`;
+  const kindLabel = {onsite:"Onsite", formative:"Formative assessment", summative:"Summative assessment"}[k.kind] || "";
+  const when = ex ? fmt(d,{weekday:"long", day:"numeric", month:"long"}) : (d ? "Week of " + fmt(d,{day:"numeric",month:"long"}) : "Date TBC");
+  return `<li><div class="date-chip">${chip}</div><div><b class="t">${esc(k.t)}</b><span>${esc(kindLabel)}. ${esc(when)}</span></div></li>`;
+}
+function renderUpcoming(){
+  const list = KEY_DATES.filter(k => k.week >= state.week).slice(0,4);
+  $("#upcoming").innerHTML = list.length ? list.map(dateItem).join("") : `<li><div><b class="t">You've reached the end of Part 1</b><span>Part 2 dates will appear here.</span></div></li>`;
+  $("#allDates").innerHTML = KEY_DATES.map(k => {
+    const html = dateItem(k);
+    return k.week < state.week ? html.replace("<li>", '<li style="opacity:.55">') : html;
+  }).join("");
+}
+
+/* ---------- Timeline ---------- */
+function renderTimeline(){
+  $("#timeline").innerHTML = BLOCKS.map(b => {
+    const ws = WEEKS.filter(w => w.n >= b.weeks[0] && w.n <= b.weeks[1] && (state.filter === "all" || w.mode === state.filter));
+    if(!ws.length) return "";
+    return `<div class="block-head"><h2>${esc(b.name)}</h2><p>Weeks ${b.weeks[0]}–${b.weeks[1]}. ${esc(b.q)}</p></div>
+      <div class="weeks">${ws.map(w => `
+        <button class="wcard ${w.mode==="onsite"?"onsite-card":""} ${w.n===state.week?"current":""}" id="wk-${w.n}" data-open-week="${w.n}">
+          <div class="wc-top"><span class="wc-n">${w.n}</span>${w.n===state.week ? '<span class="now-tag">You\'re here</span>' : `<span class="pill ${w.mode}">${esc(w.len || "Online")}</span>`}</div>
+          <h3>${esc(w.t)}</h3>
+          <p>${esc(w.d)}</p>
+          <div class="wc-a"><b>Assessment:</b> ${esc(w.a)}</div>
+        </button>`).join("")}</div>`;
+  }).join("");
+}
+
+/* ---------- Checklist ---------- */
+function renderChecklist(){
+  const nowGroup = CHECKLIST.find(g => g.by && g.by >= state.week);
+  $("#checklist").innerHTML = CHECKLIST.map(g => {
+    const done = g.items.filter((_,i) => state.checks.has(g.id+"-"+i)).length;
+    const label = g.label || `By the end of Week ${g.by}`;
+    const isNow = nowGroup && g.id === nowGroup.id;
+    return `<div class="ms ${isNow ? "is-now" : ""}">
+      <div class="ms-head"><h3>${esc(label)}</h3>${isNow ? '<span class="now-tag">Up next</span>' : `<span class="ms-count">${done}/${g.items.length}</span>`}</div>
+      <div class="bar" role="progressbar" aria-label="${esc(label)} progress" aria-valuemin="0" aria-valuemax="${g.items.length}" aria-valuenow="${done}"><i style="width:${done/g.items.length*100}%"></i></div>
+      ${g.items.map((it,i) => `<label class="check"><input type="checkbox" data-check="${g.id}-${i}" ${state.checks.has(g.id+"-"+i)?"checked":""}><span>${esc(it)}</span></label>`).join("")}
+    </div>`;
+  }).join("");
+}
+
+/* ---------- Find ---------- */
+function linkAttrs(url){
+  if(!url) return null;
+  if(url.startsWith("#")) return `href="${url}" data-go="${url.slice(1)}"`;
+  const ext = /^https?:/.test(url) && !/sites\.google\.com/.test(url);
+  return `href="${esc(url)}" target="${ext ? "_blank" : "_top"}" ${ext ? 'rel="noopener"' : ""}`;
+}
+function hl(text, q){
+  const t = esc(text);
+  if(!q) return t;
+  const re = new RegExp("(" + q.replace(/[.*+?^${}()|[\]\\]/g,"\\$&") + ")", "ig");
+  return t.replace(re, "<mark>$1</mark>");
+}
+function renderFind(q=""){
+  q = q.trim().toLowerCase();
+  const html = FIND.map(c => {
+    const items = c.items.filter(([l,w]) => !q || (l+" "+w+" "+c.cat).toLowerCase().includes(q));
+    if(!items.length) return "";
+    return `<div class="cat"><h3><i style="background:var(--${c.tone});color:var(--${c.tone}-ink)">${ico(c.ico)}</i>${esc(c.cat)}</h3><ul>
+      ${items.map(([l,w,u]) => {
+        const a = linkAttrs(u);
+        return `<li><b>${hl(l,q)}</b>${a && u !== "#" ? `<a ${a}>${hl(w,q)}</a>` : `<span class="${u===null?"todo":""}">${hl(w,q)}</span>`}</li>`;
+      }).join("")}</ul></div>`;
+  }).join("");
+  $("#cats").innerHTML = html || `<div class="cat"><h3>No matches for "${esc(q)}"</h3><p style="color:var(--ink-2);font-size:14px">Try a shorter word, or ask in the PlayLab Slack channel.</p></div>`;
+}
+
+/* ---------- How do I ---------- */
+function renderHow(){
+  $("#how").innerHTML = HOW.map((h,i) => `
+    <details class="how" id="how-${i}">
+      <summary>
+        <span class="how-ico" style="background:var(--${h.tone});color:var(--${h.tone}-ink)">${ico(h.ico)}</span>
+        <div><h3>${esc(h.t)}</h3><p>${esc(h.use)}</p></div>
+        <span class="chev">${ico("chev",2.2)}</span>
+      </summary>
+      <div class="how-body">
+        ${h.intro ? `<p>${esc(h.intro)}</p>` : ""}
+        ${h.approaches ? `<div><h4>Approaches</h4><ul>${h.approaches.map(a => `<li>${esc(a)}</li>`).join("")}</ul></div>` : ""}
+        ${h.questions ? `<div><h4>${esc(h.questionsLabel)}</h4><ul>${h.questions.map(a => `<li>${esc(a)}</li>`).join("")}</ul></div>` : ""}
+        ${h.tools ? `<div><h4>Tools to consider</h4><div class="tag-row">${h.tools.map(t => `<span class="tag">${esc(t)}</span>`).join("")}</div></div>` : ""}
+        ${h.help ? `<div><h4>Find help</h4>${h.help.map(([l,u]) => { const a = linkAttrs(u); return a && u !== "#" ? `<a class="help-link" ${a}>${esc(l)}</a>` : `<span class="help-link">${esc(l)}</span>`; }).join("<br>")}</div>` : ""}
+      </div>
+    </details>`).join("");
+}
+
+/* ---------- Who ---------- */
+const initials = n => n.split(" ").map(p => p[0]).slice(0,2).join("");
+function renderWho(){
+  $("#router").innerHTML = ROUTES.map((r,i) => `<button class="chip" data-route="${i}" aria-pressed="${state.route===i}">${esc(r.label)}</button>`).join("");
+  const r = state.route !== null ? ROUTES[state.route] : null;
+  const p = r && PEOPLE.find(x => x.id === r.to);
+  let ans;
+  if(!r){
+    ans = `<span class="av" style="background:var(--blue-soft);color:var(--blue-deep)">?</span><div><b>What's your question about?</b><p>Choose a topic above and we'll point you to the right person.</p></div>`;
+  } else if(p){
+    ans = `<span class="av" style="background:var(--${p.tone});color:var(--${p.tone}-ink)">${initials(p.name)}</span><div><b>${esc(p.name)}, ${esc(p.role)}</b><p>${esc(r.why)}</p></div>`;
+  } else {
+    const isSlack = r.to === "slack";
+    const url = isSlack ? L.slack : L.itHelp;
+    const a = linkAttrs(url);
+    ans = `<span class="av" style="background:var(--butter);color:var(--butter-ink)">${isSlack ? ico("chat") : ico("tools")}</span><div><b>${isSlack ? "PlayLab Slack channel" : "IT help"}</b><p>${esc(r.why)} ${a && url !== "#" ? `<a ${a}>Open</a>` : ""}</p></div>`;
+  }
+  $("#answer").innerHTML = ans;
+  $("#people").innerHTML = PEOPLE.map(x => `
+    <div class="person ${p && p.id===x.id ? "hl" : ""}">
+      <div style="display:flex;gap:14px;align-items:center"><span class="av" style="background:var(--${x.tone});color:var(--${x.tone}-ink)">${initials(x.name)}</span>
+      <div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div></div></div>
+      <ul>${x.helps.map(h => `<li>${esc(h)}</li>`).join("")}</ul>
+      <div class="contact">${x.email ? `<a class="link-btn" href="mailto:${esc(x.email)}" target="_top">Email ${esc(x.name.split(" ")[0])}</a>` : `<span class="pill tbc">Contact details to be added</span>`}</div>
+    </div>`).join("");
+}
+
+/* ---------- Global search ---------- */
+function buildIndex(){
+  const idx = [];
+  WEEKS.forEach(w => idx.push({title:`Week ${w.n}: ${w.t}`, sub:w.d, view:"timeline", target:"wk-"+w.n, text:`week ${w.n} ${w.t} ${w.d} ${w.a}`}));
+  FIND.forEach(c => c.items.forEach(([l,w]) => idx.push({title:l, sub:`${c.cat}. ${w}`, view:"find", q:l, text:`${l} ${w} ${c.cat}`})));
+  HOW.forEach((h,i) => idx.push({title:"How do I " + h.t.charAt(0).toLowerCase() + h.t.slice(1) + "?", sub:h.use, view:"how", target:"how-"+i, text:`${h.t} ${h.use} ${h.intro||""} ${(h.tools||[]).join(" ")} ${(h.approaches||[]).join(" ")}`}));
+  PEOPLE.forEach(p => idx.push({title:p.name, sub:p.role, view:"who", text:`${p.name} ${p.role} ${p.helps.join(" ")}`}));
+  CHECKLIST.forEach(g => idx.push({title:g.label || `Checklist: end of Week ${g.by}`, sub:g.items[0], view:"checklist", text:g.items.join(" ")}));
+  return idx;
+}
+let INDEX = [];
+function runSearch(q){
+  const box = $("#results");
+  q = q.trim().toLowerCase();
+  if(q.length < 2){ box.classList.remove("open"); box.innerHTML = ""; return; }
+  const terms = q.split(/\s+/);
+  const hits = INDEX.filter(i => terms.every(t => i.text.toLowerCase().includes(t))).slice(0,8);
+  box.innerHTML = hits.length
+    ? hits.map((h,i) => `<button role="option" data-hit="${INDEX.indexOf(h)}"><b>${hl(h.title, terms[0])}</b><span>${esc(h.sub.length > 90 ? h.sub.slice(0,90)+"…" : h.sub)}</span></button>`).join("")
+    : `<div class="empty">Nothing found for "${esc(q)}". Try another word or ask in the PlayLab Slack channel.</div>`;
+  box.classList.add("open");
+}
+function openHit(h){
+  $("#results").classList.remove("open");
+  $("#q").value = "";
+  if(h.view === "find"){ $("#findQ").value = h.q; renderFind(h.q); go("find"); return; }
+  if(h.view === "timeline"){ state.filter = "all"; syncFilters(); renderTimeline(); }
+  go(h.view, {scrollTo:h.target});
+  if(h.view === "how" && h.target){ const d = document.getElementById(h.target); if(d) d.open = true; }
+}
+
+/* ---------- Wiring ---------- */
+function syncFilters(){ document.querySelectorAll("[data-filter]").forEach(b => b.setAttribute("aria-pressed", b.dataset.filter === state.filter)); }
+
+function renderBrand(){
+  const c = cohort();
+  $("#brandSub").textContent = c ? `${c.name}, Part 1` : "Master of Technological Futures";
+}
+function renderAll(){
+  renderBrand(); renderWeekBox(); renderPrompt();
+  renderStrip(); renderWeekDetail(); renderRing(); renderTiles(); renderGantt(); renderUpcoming();
+  renderTimeline(); renderChecklist(); renderWho();
+}
+
+function init(){
+  renderNav(); renderPicker(); renderFind(); renderHow(); renderAll();
+  INDEX = buildIndex();
+  if(L.slack && L.slack !== "#") $("#slackLink").href = L.slack; else $("#slackLink").addEventListener("click", e => { if(L.slack==="#"){ e.preventDefault(); go("who"); } });
+
+  $("#cohortPrompt").addEventListener("click", e => {
+    const b = e.target.closest("[data-cohort]"); if(b) setCohort(b.dataset.cohort);
+  });
+  $("#track").addEventListener("click", e => {
+    const n = e.target.closest("[data-week]"); if(!n) return;
+    state.focus = +n.dataset.week; renderStrip(); renderWeekDetail();
+  });
+  $("#weekDetail").addEventListener("click", e => {
+    const s = e.target.closest("[data-step]");
+    if(s){ state.focus = Math.min(20, Math.max(1, state.focus + +s.dataset.step)); renderStrip(); renderWeekDetail(); }
+    if(e.target.closest("#backNow")){ state.focus = state.week; renderStrip(); renderWeekDetail(); }
+  });
+  $("#timeline").addEventListener("click", e => {
+    const c = e.target.closest("[data-open-week]"); if(!c) return;
+    state.focus = +c.dataset.openWeek; renderStrip(); renderWeekDetail(); go("home");
+    document.getElementById("weekDetail").scrollIntoView({block:"start"});
+  });
+  document.querySelectorAll("[data-filter]").forEach(b => b.addEventListener("click", () => { state.filter = b.dataset.filter; syncFilters(); renderTimeline(); }));
+  $("#checklist").addEventListener("change", e => {
+    const c = e.target.closest("[data-check]"); if(!c) return;
+    c.checked ? state.checks.add(c.dataset.check) : state.checks.delete(c.dataset.check);
+    store.set("checks", [...state.checks]);
+    renderChecklist(); renderRing();
+    const again = document.querySelector(`[data-check="${c.dataset.check}"]`); if(again) again.focus();
+  });
+  $("#resetChecks").addEventListener("click", () => { state.checks.clear(); store.set("checks", []); renderChecklist(); renderRing(); });
+  $("#findQ").addEventListener("input", e => renderFind(e.target.value));
+  $("#router").addEventListener("click", e => {
+    const b = e.target.closest("[data-route]"); if(!b) return;
+    state.route = state.route === +b.dataset.route ? null : +b.dataset.route; renderWho();
+    const again = document.querySelector(`[data-route="${b.dataset.route}"]`); if(again) again.focus();
+  });
+  const q = $("#q");
+  q.addEventListener("input", () => runSearch(q.value));
+  q.addEventListener("keydown", e => {
+    if(e.key === "Escape"){ $("#results").classList.remove("open"); }
+    if(e.key === "ArrowDown"){ const f = $("#results button"); if(f){ e.preventDefault(); f.focus(); } }
+    if(e.key === "Enter"){ const f = $("#results button"); if(f){ e.preventDefault(); openHit(INDEX[+f.dataset.hit]); } }
+  });
+  $("#results").addEventListener("click", e => { const b = e.target.closest("[data-hit]"); if(b) openHit(INDEX[+b.dataset.hit]); });
+  $("#results").addEventListener("keydown", e => {
+    const bs = [...document.querySelectorAll("#results button")]; const i = bs.indexOf(document.activeElement);
+    if(e.key === "ArrowDown" && bs[i+1]){ e.preventDefault(); bs[i+1].focus(); }
+    if(e.key === "ArrowUp"){ e.preventDefault(); (bs[i-1] || q).focus(); }
+    if(e.key === "Escape"){ $("#results").classList.remove("open"); q.focus(); }
+  });
+  document.addEventListener("click", e => { if(!e.target.closest(".search")) $("#results").classList.remove("open"); });
+  window.matchMedia("(max-width:900px)").addEventListener?.("change", renderGantt);
+
+  go((location.hash || "#home").slice(1), {keepScroll:true});
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+    $("#strip").classList.add("animate");
+    setTimeout(() => $("#strip").classList.remove("animate"), 1400);
+  }
+}
+init();
+</script>
+</body>
+</html>
