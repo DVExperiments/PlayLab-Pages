@@ -8,6 +8,7 @@ Changes go live within about two minutes. If you don't see a change, refresh the
 - [Editing the page safely](#editing-the-page-safely)
 - [Add a student project to the Gallery](#add-a-student-project-to-the-gallery)
 - [Change or remove a Gallery piece](#change-or-remove-a-gallery-piece)
+- [Add pins to the Map Wall](#add-pins-to-the-map-wall)
 - [Approve a profile or shout-out](#approve-a-profile-or-shout-out)
 - [Add or change links (forms, Slack, FrameVR)](#add-or-change-links-forms-slack-framevr)
 - [Add a FrameVR session](#add-a-framevr-session)
@@ -91,6 +92,50 @@ When the first real piece is added, the sample gallery disappears.
 
 ---
 
+## Add pins to the Map Wall
+
+People fill in the **Map Wall Google Form** (the "Drop your pin" buttons open it). Their answers stay private. The PlayLab team then adds pins to the page.
+
+### Option A: type pins into the page (simplest)
+
+1. Open `community/index.html` and click the pencil icon.
+2. Search for `const PINS = [`.
+3. On the empty line under it, add one line per person (newest first):
+
+```js
+  {name:"Aroha", role:"Student", city:"Rotorua", country:"New Zealand", from:"Aotearoa"},
+```
+
+| Part | What to put |
+|---|---|
+| `name` | Their first name, or `""` if they didn't give one. Unnamed pins show as "name not shared" |
+| `role` | `"Student"` or `"Staff"` |
+| `city` | Their answer to "Where do you currently live (Town or City)" |
+| `country` | The country they live in. The form doesn't ask this, so add it yourself. It makes sure the pin lands in the right place |
+| `from` | Their answer to "Where are you from?", e.g. `"Samoa"` or `"Mumbai, India"` |
+
+4. Click **Commit changes**.
+
+### Option B: point the page at your own sheet
+
+If you keep the responses in a Google Sheet and you're allowed to use **File → Share → Publish to web**:
+
+1. Give the sheet these column headings: `First name`, `Are you a...`, `Town or city`, `Country`, `Where are you from?`
+2. Publish just that tab as **Comma-separated values (.csv)** and copy the link.
+3. In `community/index.html`, search for `pins: ""` and paste the link between the quote marks.
+
+New rows then appear on the map within about five minutes, without editing the page. Only put rows in this sheet that you're happy to show. Anyone with the published link can read it.
+
+### Tips for the map
+
+- **Where the pin goes:** on the person's town if the page knows it (most towns in Aotearoa and some big cities worldwide), otherwise in the middle of their country.
+- **Always fill in `country`** if you can. A town the page doesn't know, with no country, can't be placed.
+- **"Where are you from?" answers** can be a country (`"Tonga"`), a town and country (`"Apia, Samoa"`), or a town in Aotearoa (`"Christchurch"`).
+- **People with a profile** in the Lounge appear on the map automatically, so you don't need to add them twice.
+- **To remove a pin**, delete its line (Option A) or its row (Option B).
+
+---
+
 ## Approve a profile or shout-out
 
 Profiles (the Lounge and the Map Wall) and shout-outs come from their Google Forms automatically. Nothing appears until you approve it.
@@ -118,7 +163,8 @@ Buttons without a link are greyed out and say "Link coming soon" when you point 
 | Setting | Controls | Where to get the link |
 |---|---|---|
 | `forms: profile` | "Add your profile" and "Add your pin" buttons | Profile Google Form → **Send** → link icon |
-| `forms: gallery` | "Send us your work" buttons | Gallery Google Form → **Send** → link icon |
+| `forms: gallery` | "Send us your work" buttons (already added) | Gallery Google Form → **Send** → link icon |
+| `forms: pin` | "Drop your pin" buttons (already added) | Map Wall Google Form → **Send** → link icon |
 | `forms: shoutout` | "Send a shout-out" buttons | Shout-out Google Form → **Send** → link icon |
 | `slackJoin` | "Open PlayLab Slack" and "Join PlayLab Slack" | See below |
 | `frame: url` | "Enter the space" in the Portal | Your FrameVR space's address, e.g. `https://framevr.io/playlab` |

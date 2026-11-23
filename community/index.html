@@ -349,7 +349,7 @@ a.channel:hover{border-color:var(--mint)}
 
         <div class="card contrib s12">
           <h2>Add yourself to the space</h2>
-          <p>Add a profile and a pin on the map, send us work for the Gallery, or celebrate someone. The PlayLab team checks everything before it appears here.</p>
+          <p>Add a profile, drop a pin on the map, send us work for the Gallery, or celebrate someone. The PlayLab team checks everything before it appears here.</p>
           <div class="contrib-btns" id="contribBtns"></div>
         </div>
 
@@ -456,7 +456,7 @@ a.channel:hover{border-color:var(--mint)}
     <!-- ===== Map Wall ===== -->
     <section class="view" id="view-map" aria-labelledby="h-map">
       <div class="view-head"><div class="vh-title"><span class="room-badge" style="background:var(--peach);color:var(--peach-ink)" data-ico="globe"></span><div><h1 id="h-map">The Map Wall</h1><p>Where we come from and where we call home. Every pin is someone in the MTF community.</p></div></div>
-        <a class="solid-btn" data-form="profile">Add your pin</a></div>
+        <a class="solid-btn" data-form="pin">Drop your pin</a></div>
       <div class="grid">
         <div class="map-card s12">
           <div class="map-top">
@@ -503,13 +503,15 @@ const SETTINGS = {
   // the sample content further down. See README for the full setup.
   sheets: {
     people: "",
-    shoutouts: ""
+    shoutouts: "",
+    pins: ""      // optional: published CSV of your Map Wall sheet (see PINS below)
   },
   // Google Form links people use to add things.
   forms: {
     profile: "#",
-    gallery: "#",
-    shoutout: "#"
+    gallery: "https://docs.google.com/forms/d/e/1FAIpQLSewvTRZY9cSprORVV0dWLFyCoDlgE_WKDEUJ6Fv3eCM40B2og/viewform",
+    shoutout: "#",
+    pin: "https://docs.google.com/forms/d/e/1FAIpQLSelcn49SqqFbQFv8UNPwx97LpR_M5PODfgivk-vVmZABPW9iw/viewform"
   },
   // Where "Open PlayLab Slack" and "Join PlayLab Slack" go. Best: your
   // workspace's invite link (in Slack: workspace name > Invite people >
@@ -559,6 +561,25 @@ const SETTINGS = {
       link:""},                  // optional link to the full piece
    ============================================================ */
 const GALLERY = [
+
+];
+
+/* ============================================================
+   MAP WALL PINS: added by the PlayLab team from the Map Wall form.
+   Two ways to add pins (use either, or both):
+   A. Type them in below, one line per person, newest first:
+        {name:"Aroha", role:"Student", city:"Rotorua", country:"New Zealand", from:"Aotearoa"},
+      - name: first name, or "" to leave them unnamed
+      - role: "Student" or "Staff" (also "Alumni" or "Future student")
+      - city: town or city they live in
+      - country: optional but recommended, so the pin lands in the right place
+      - from: where they're from: a country, or a place like "Apia, Samoa"
+   B. Keep your own Google Sheet with the columns First name, Are you a...,
+      Town or city, Country, Where are you from? and paste its published
+      CSV link into SETTINGS.sheets.pins above.
+   People with a profile in the Lounge appear on the map automatically.
+   ============================================================ */
+const PINS = [
 
 ];
 
@@ -673,7 +694,7 @@ const ROOMS = [
   {id:"map", label:"The Map Wall", ico:"globe", tone:"peach", sub:"Where we're from", desc:"See where we're from and call home"}
 ];
 
-const state = { people:[], gallery:[], shoutouts:[], sample:{}, role:"all", gen:"all", q:"", type:"all", galGen:"all", mapMode:"home", zoom:"world" };
+const state = { people:[], mapPeople:[], gallery:[], shoutouts:[], sample:{}, role:"all", gen:"all", q:"", type:"all", galGen:"all", mapMode:"home", zoom:"world" };
 
 /* ---------- Data loading ---------- */
 function parseCSV(text){
@@ -729,12 +750,13 @@ function mapHeaders(raw){
   });
 }
 async function load(key){
+  if(key === "pins" && !SETTINGS.sheets.pins) return PINS.map(x => ({...x}));
   if(key === "gallery"){
     if(GALLERY.length) return GALLERY.map(x => ({...x}));
     return SETTINGS.showSamples ? SAMPLE.gallery.map(x => ({...x})) : [];
   }
   const url = SETTINGS.sheets[key];
-  if(!url) return SETTINGS.showSamples ? SAMPLE[key].map(x => ({...x})) : [];
+  if(!url) return SETTINGS.showSamples && SAMPLE[key] ? SAMPLE[key].map(x => ({...x})) : [];
   try{
     const res = await fetch(url, {cache:"no-store"});
     if(!res.ok) throw new Error(res.status);
@@ -949,7 +971,7 @@ function roomCounts(){
     gallery: `${state.gallery.length} ${state.gallery.length === 1 ? "piece" : "pieces"}`,
     portal: "FrameVR",
     commons: `${SETTINGS.channels.length} channels`,
-    map: `${new Set(state.people.map(p => p._home && p._home.country).filter(Boolean)).size} countries`,
+    map: `${new Set(state.mapPeople.map(p => p._home && p._home.country).filter(Boolean)).size} countries`,
     foyer: "You are here"
   };
 }
@@ -1017,7 +1039,7 @@ function renderFoyer(){
     : `<p class="note">No profiles yet. Add yours to be the first.</p>`;
   const F = SETTINGS.forms;
   $("#contribBtns").innerHTML = [
-    ["profile","user","Add your profile and pin"],["gallery","frame","Send us work for the Gallery"],["shoutout","star","Send a shout-out"]
+    ["profile","user","Add your profile"],["pin","pin","Drop a pin on the map"],["gallery","frame","Send us work for the Gallery"],["shoutout","star","Send a shout-out"]
   ].map(([k,i,l]) => `<a data-form="${k}">${ico(i,2.2)}${l}</a>`).join("");
   document.querySelectorAll("[data-form]").forEach(a => setLink(a, F[a.dataset.form]));
   setLink($("#shoutForm"), F.shoutout);
@@ -1140,11 +1162,32 @@ function dotsFor(zoom){
   }
   return dotCache[zoom] = `<path class="land" d="${out.join("")}"/>`;
 }
+// Which country a built-in town belongs to (towns not listed are in Aotearoa).
+const PLACE_COUNTRY = {"apia":"Samoa","nuku'alofa":"Tonga","suva":"Fiji","rarotonga":"Cook Is.","avarua":"Cook Is.",
+  "sydney":"Australia","melbourne":"Australia","brisbane":"Australia","perth":"Australia","london":"United Kingdom",
+  "manila":"Philippines","mumbai":"India","delhi":"India","new delhi":"India","beijing":"China","shanghai":"China",
+  "singapore":"Singapore","tokyo":"Japan","seoul":"South Korea","los angeles":"United States of America",
+  "new york":"United States of America","san francisco":"United States of America","toronto":"Canada","vancouver":"Canada",
+  "johannesburg":"South Africa","cape town":"South Africa","dubai":"United Arab Emirates"};
+const placeKey = t => norm(t).replace(/[āēīōū]/g, m => "aeiou"["āēīōū".indexOf(m)]);
+const isCountry = t => { const k = norm(t); return !!k && (!!ALIASES[k] || Object.keys(MAP.centroids).some(n => norm(n) === k)); };
+// Turn free text like "Apia, Samoa", "Rotorua" or "Samoa" into a town and a country.
+function splitPlace(text, country){
+  text = String(text || "").trim(); country = String(country || "").trim();
+  if(!country){
+    const parts = text.split(",").map(x => x.trim()).filter(Boolean);
+    if(parts.length > 1 && isCountry(parts[parts.length-1])){ country = parts.pop(); text = parts.join(", "); }
+    else if(isCountry(text)){ country = text; text = ""; }
+  }
+  if(!country && PLACES[placeKey(text)]) country = PLACE_COUNTRY[placeKey(text)] || "New Zealand";
+  return [text, country];
+}
 function locate(city, country, lat, lng){
+  [city, country] = splitPlace(city, country);
   const cn = countryName(country);
   const la = parseFloat(lat), lo = parseFloat(lng);
   if(!isNaN(la) && !isNaN(lo)) return {lat:la, lng:lo, country:cn, label:[city, countryLabel(cn)].filter(Boolean).join(", "), key:`${la.toFixed(1)},${lo.toFixed(1)}`};
-  const c = norm(city).replace(/[āēīōū]/g, m => "aeiou"["āēīōū".indexOf(m)]);
+  const c = placeKey(city);
   if(c && PLACES[c]){ const [a,b] = PLACES[c]; return {lat:a, lng:b, country:cn, label:[city.trim(), countryLabel(cn)].filter(Boolean).join(", "), key:c}; }
   if(cn && MAP.centroids[cn]){ const [a,b] = MAP.centroids[cn]; return {lat:a, lng:b, country:cn, label:[city && city.trim(), countryLabel(cn)].filter(Boolean).join(", "), key:"c:"+cn}; }
   return cn ? {lat:null, lng:null, country:cn, label:[city, countryLabel(cn)].filter(Boolean).join(", ")} : null;
@@ -1163,13 +1206,13 @@ let pinGroups = [];
 function renderMap(){
   const mode = state.mapMode;
   const groups = new Map();
-  state.people.forEach(p => {
+  state.mapPeople.forEach(p => {
     const loc = mode === "home" ? p._home : p._from;
     if(!loc || loc.lat === null) return;
     // In "from" mode, group by country only
-    const key = mode === "from" ? "c:" + loc.country : loc.key;
+    const key = mode === "from" && loc.country ? "c:" + loc.country : loc.key;
     if(!groups.has(key)){
-      const base = mode === "from" && MAP.centroids[loc.country] ? {lat:MAP.centroids[loc.country][0], lng:MAP.centroids[loc.country][1], label:countryLabel(loc.country)} : loc;
+      const base = mode === "from" && loc.country && MAP.centroids[loc.country] ? {lat:MAP.centroids[loc.country][0], lng:MAP.centroids[loc.country][1], label:countryLabel(loc.country)} : loc;
       groups.set(key, {lat:base.lat, lng:base.lng, label:base.label, people:[]});
     }
     groups.get(key).people.push(p);
@@ -1197,7 +1240,9 @@ function showTip(idx, el){
   const g = pinGroups[idx]; if(!g) return;
   document.querySelectorAll(".pin.on").forEach(p => p.classList.remove("on"));
   el.classList.add("on");
-  const names = g.people.map(p => displayName(p.name).split(" ")[0]);
+  const named = g.people.filter(p => String(p.name||"").trim()).map(p => displayName(p.name).split(" ")[0]);
+  const unnamed = g.people.length - named.length;
+  const names = unnamed ? named.concat(unnamed === 1 ? ["(name not shared)"] : [`(${unnamed} names not shared)`]) : named;
   const tip = $("#tip");
   tip.innerHTML = `<b>${esc(g.label)}</b><span>${g.people.length} ${g.people.length === 1 ? "person" : "people"}</span><ul>${names.slice(0,6).map(n => `<li>${esc(n)}</li>`).join("")}${names.length > 6 ? `<li>and ${names.length - 6} more</li>` : ""}</ul>`;
   const card = $(".map-card").getBoundingClientRect(), r = el.querySelector(".core").getBoundingClientRect();
@@ -1206,9 +1251,9 @@ function showTip(idx, el){
   tip.hidden = false;
 }
 function renderMapStats(){
-  const home = state.people.filter(p => p._home);
+  const home = state.mapPeople.filter(p => p._home && p._home.lat !== null);
   const homeC = new Set(home.map(p => p._home.country));
-  const fromC = new Set(state.people.map(p => p._from && p._from.country).filter(Boolean));
+  const fromC = new Set(state.mapPeople.map(p => p._from && p._from.country).filter(Boolean));
   const allC = new Set([...homeC, ...fromC]);
   $("#stats").innerHTML = `
     <div class="stat" style="background:var(--peach);color:var(--peach-ink)"><b>${home.length}</b><span>pins on the map</span></div>
@@ -1216,7 +1261,7 @@ function renderMapStats(){
     <div class="stat" style="background:var(--mint);color:var(--mint-ink)"><b>${homeC.size}</b><span>countries we call home</span></div>`;
   const key = state.mapMode === "home" ? "_home" : "_from";
   const tally = {};
-  state.people.forEach(p => { const c = p[key] && p[key].country; if(c) tally[c] = (tally[c]||0) + 1; });
+  state.mapPeople.forEach(p => { const c = p[key] && p[key].country; if(c) tally[c] = (tally[c]||0) + 1; });
   const rows = Object.entries(tally).sort((a,b) => b[1] - a[1]);
   const max = rows.length ? rows[0][1] : 1;
   $("#placesNote").textContent = state.mapMode === "home" ? "Where we call home" : "Where we're from";
@@ -1267,11 +1312,16 @@ function wire(){
 
 async function init(){
   renderNav(); wire();
-  const [people, gallery, shoutouts] = await Promise.all([load("people"), load("gallery"), load("shoutouts")]);
+  const [people, gallery, shoutouts, pins] = await Promise.all([load("people"), load("gallery"), load("shoutouts"), load("pins")]);
   state.people = people.filter(p => p.name).map(p => ({...p,
     _role: roleOf(p.role),
     _home: locate(p.city || "", p.country || "", p.lat, p.lng),
-    _from: p.fromcountry ? locate("", p.fromcountry) : null }));
+    _from: p.fromcountry ? locate(p.fromcountry, "") : null }));
+  const pinPeople = pins.filter(p => p.city || p.country || p.fromcountry || p.from).map(p => ({...p,
+    _role: roleOf(p.role),
+    _home: (p.city || p.country) ? locate(p.city || "", p.country || "", p.lat, p.lng) : null,
+    _from: (p.fromcountry || p.from) ? locate(p.fromcountry || p.from, "") : null }));
+  state.mapPeople = state.people.concat(pinPeople);
   state.gallery = gallery.map(w => ({...w, maker: w.maker || w.name || "", image: w.image || w.photo || ""}))
     .filter(w => w.title || w.image).map(w => ({...w, _type: typeOf(w.type)}))
     .sort((a,b) => (dateOf(b.timestamp)||0) - (dateOf(a.timestamp)||0));

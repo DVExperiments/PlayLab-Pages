@@ -148,6 +148,9 @@ The page can show images from a link (any `https://` image address) or from Goog
 
 ### The map
 
+Map Wall pins come from people's profiles plus the separate Map Wall form. Adding pins from that form is explained in `community/HOW-TO-UPDATE.md`.
+
+
 - Pins sit on the person's town or city when the page knows it (most towns in Aotearoa and some big cities worldwide are built in). Otherwise the pin goes in the middle of their country.
 - Country names are matched flexibly (NZ, Aotearoa, USA, UK and so on all work). To place a pin exactly, add `Lat` and `Lng` columns to the sheet with coordinates.
 - To add more towns, find `const PLACES` in the file and add a line like `"kaikoura":[-42.4,173.68],`.
