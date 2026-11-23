@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Entry helper · Community page · PlayLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EEF1F7; --card:#fff; --ink:#172038; --ink-2:#4A5372; --ink-3:#7D86A3; --line:#E1E5EF;
+  --blue:#3651F5; --blue-deep:#2238C4; --blue-soft:#E4E8FF;
+  --peach:#FFD5C2; --peach-ink:#9A3B12; --lilac:#DDD7FF; --lilac-ink:#4B3AB0;
+  --mint:#CBEFD8; --mint-ink:#1D6B3E; --butter:#FFEDA8; --butter-ink:#7A5A00;
+  --display:"Bricolage Grotesque","Figtree",system-ui,sans-serif; --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --shadow:0 1px 0 rgba(23,32,56,.04), 0 8px 24px -12px rgba(34,56,196,.18);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+h1,h2{font-family:var(--display);margin:0;letter-spacing:-.01em;line-height:1.15}
+p{margin:0}
+.wrap{max-width:980px;margin:0 auto;padding:28px 18px 60px;display:flex;flex-direction:column;gap:18px}
+.head{background:var(--blue);color:#fff;border-radius:28px;padding:28px 30px}
+.head h1{font-size:clamp(26px,3.6vw,38px);font-weight:800}
+.head p{opacity:.88;margin-top:8px;max-width:64ch}
+.private{display:inline-block;margin-top:14px;background:rgba(255,255,255,.16);border-radius:999px;padding:6px 14px;font-size:13.5px;font-weight:600}
+.card{background:var(--card);border-radius:20px;padding:22px;box-shadow:var(--shadow)}
+.card h2{font-size:19px;font-weight:700;margin-bottom:4px;display:flex;gap:10px;align-items:center}
+.card h2 i{font-style:normal;width:28px;height:28px;border-radius:9px;background:var(--blue-soft);color:var(--blue-deep);display:grid;place-items:center;font-size:14px;font-family:var(--body);font-weight:800}
+.hint{color:var(--ink-2);font-size:14px;margin-bottom:14px}
+.types{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.types button{all:unset;cursor:pointer;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:2px;border:2px solid transparent}
+.types button b{font-family:var(--display);font-size:16px}
+.types button span{font-size:12.5px;opacity:.8}
+.types button[aria-pressed="true"]{border-color:var(--ink)}
+.types button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.tabs{display:inline-flex;background:var(--paper);border-radius:999px;padding:4px;margin-bottom:14px}
+.tabs button{all:unset;cursor:pointer;padding:8px 16px;border-radius:999px;font-weight:600;font-size:14px;color:var(--ink-2)}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.tabs button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+textarea,input,select{width:100%;border:1px solid var(--line);border-radius:12px;padding:10px 12px;background:#fff}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+#paste{min-height:150px;font-size:13.5px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fields label{display:flex;flex-direction:column;gap:5px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.fields label.wide{grid-column:span 2}
+.fields small{font-weight:500;color:var(--ink-3)}
+.out{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12.5px;min-height:120px;background:#0F1A33;color:#E4E8FF;border:0}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:12px}
+.btn{all:unset;cursor:pointer;background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:10px 18px;border-radius:999px}
+.btn:hover{background:var(--blue-deep)}
+.btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.where{background:var(--blue-soft);color:var(--blue-deep);border-radius:14px;padding:12px 16px;font-size:14px;margin-top:12px}
+code{background:rgba(54,81,245,.1);border-radius:6px;padding:1px 6px;font-size:.92em}
+.notes{list-style:none;margin:12px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.notes li{border-radius:12px;padding:10px 14px;font-size:14px}
+.notes li.todo{background:var(--butter);color:var(--butter-ink)}
+.notes li.warn{background:var(--peach);color:var(--peach-ink)}
+.notes li.ok{background:var(--mint);color:var(--mint-ink)}
+.status{font-size:13.5px;font-weight:600;color:var(--mint-ink)}
+@media (max-width:700px){.types{grid-template-columns:1fr 1fr}.fields{grid-template-columns:1fr}.fields label.wide{grid-column:auto}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <h1>Community page entry helper</h1>
+    <p>Turn form responses into lines you can paste into the Community page. Copy rows from your private sheet, or type one entry in, then copy the result into <code style="background:rgba(255,255,255,.18);color:#fff">community/index.html</code> on GitHub.</p>
+    <span class="private">Nothing you paste here is saved or sent anywhere. It stays in this browser tab.</span>
+  </header>
+
+  <section class="card">
+    <h2><i>1</i>What are you adding?</h2>
+    <p class="hint">Choose the kind of entry.</p>
+    <div class="types" id="types" role="group" aria-label="Kind of entry"></div>
+  </section>
+
+  <section class="card">
+    <h2><i>2</i>Add the details</h2>
+    <div class="tabs" role="group" aria-label="How to add">
+      <button data-mode="paste" aria-pressed="true">Paste from your sheet</button>
+      <button data-mode="type" aria-pressed="false">Type one in</button>
+    </div>
+    <div id="pasteBox">
+      <p class="hint">In your sheet, select the <b>heading row</b> and the rows you want to add, copy them (Ctrl+C, or Cmd+C on a Mac) and paste them here. Column headings can be the form's own questions.</p>
+      <textarea id="paste" aria-label="Rows pasted from your sheet" placeholder="Paste rows here, including the heading row"></textarea>
+    </div>
+    <div id="typeBox" hidden><div class="fields" id="fields"></div></div>
+  </section>
+
+  <section class="card">
+    <h2><i>3</i>Copy into the page</h2>
+    <textarea class="out" id="out" readonly aria-label="Lines to paste into the page"></textarea>
+    <div class="row"><button class="btn" id="copy">Copy lines</button><span class="status" id="status" aria-live="polite"></span></div>
+    <div class="where" id="where"></div>
+    <ul class="notes" id="notes"></ul>
+  </section>
+</div>
+
+<script>
+const PLACES = {
+  "auckland":[-36.85,174.76],"tamaki makaurau":[-36.85,174.76],"wellington":[-41.29,174.78],"te whanganui-a-tara":[-41.29,174.78],
+  "christchurch":[-43.53,172.64],"otautahi":[-43.53,172.64],"hamilton":[-37.79,175.28],"kirikiriroa":[-37.79,175.28],
+  "tauranga":[-37.69,176.17],"dunedin":[-45.87,170.5],"otepoti":[-45.87,170.5],"palmerston north":[-40.36,175.61],
+  "napier":[-39.49,176.91],"hastings":[-39.64,176.84],"nelson":[-41.27,173.28],"rotorua":[-38.14,176.25],
+  "new plymouth":[-39.06,174.08],"whangarei":[-35.73,174.32],"invercargill":[-46.41,168.35],"gisborne":[-38.66,178.02],
+  "queenstown":[-45.03,168.66],"whanganui":[-39.93,175.05],"blenheim":[-41.51,173.95],"timaru":[-44.4,171.25],
+  "taupo":[-38.69,176.07],"kerikeri":[-35.23,173.95],"masterton":[-40.95,175.66],"lower hutt":[-41.21,174.91],
+  "porirua":[-41.13,174.84],"upper hutt":[-41.12,175.07],"levin":[-40.62,175.29],"ashburton":[-43.9,171.75],
+  "oamaru":[-45.1,170.97],"greymouth":[-42.45,171.21],"thames":[-37.14,175.54],"whakatane":[-37.95,176.99],
+  "apia":[-13.83,-171.76],"nuku'alofa":[-21.14,-175.2],"suva":[-18.14,178.44],"rarotonga":[-21.23,-159.78],"avarua":[-21.21,-159.78],
+  "sydney":[-33.87,151.21],"melbourne":[-37.81,144.96],"brisbane":[-27.47,153.03],"perth":[-31.95,115.86],
+  "london":[51.51,-0.13],"manila":[14.6,120.98],"mumbai":[19.08,72.88],"delhi":[28.61,77.21],"new delhi":[28.61,77.21],
+  "beijing":[39.9,116.4],"shanghai":[31.23,121.47],"singapore":[1.35,103.82],"tokyo":[35.68,139.69],"seoul":[37.57,126.98],
+  "los angeles":[34.05,-118.24],"new york":[40.71,-74.01],"san francisco":[37.77,-122.42],"toronto":[43.65,-79.38],
+  "vancouver":[49.28,-123.12],"johannesburg":[-26.2,28.05],"cape town":[-33.92,18.42],"dubai":[25.2,55.27]
+};
+const PLACE_COUNTRY_KEYS = {"apia":"Samoa","nuku'alofa":"Tonga","suva":"Fiji","rarotonga":"Cook Is.","avarua":"Cook Is.",
+  "sydney":"Australia","melbourne":"Australia","brisbane":"Australia","perth":"Australia","london":"United Kingdom",
+  "manila":"Philippines","mumbai":"India","delhi":"India","new delhi":"India","beijing":"China","shanghai":"China",
+  "singapore":"Singapore","tokyo":"Japan","seoul":"South Korea","los angeles":"United States of America",
+  "new york":"United States of America","san francisco":"United States of America","toronto":"Canada","vancouver":"Canada",
+  "johannesburg":"South Africa","cape town":"South Africa","dubai":"United Arab Emirates"};
+const ALIASES = {
+  "nz":"New Zealand","aotearoa":"New Zealand","aotearoa new zealand":"New Zealand","new zealand aotearoa":"New Zealand",
+  "usa":"United States of America","us":"United States of America","united states":"United States of America","america":"United States of America",
+  "uk":"United Kingdom","england":"United Kingdom","scotland":"United Kingdom","wales":"United Kingdom","northern ireland":"United Kingdom","great britain":"United Kingdom",
+  "cook islands":"Cook Is.","korea":"South Korea","republic of korea":"South Korea","russia":"Russia","holland":"Netherlands",
+  "uae":"United Arab Emirates","czech republic":"Czechia","ivory coast":"Côte d'Ivoire","solomon islands":"Solomon Is.",
+  "marshall islands":"Marshall Is.","french polynesia":"Fr. Polynesia","tahiti":"Fr. Polynesia","dominican republic":"Dominican Rep.",
+  "drc":"Dem. Rep. Congo","democratic republic of the congo":"Dem. Rep. Congo","bosnia":"Bosnia and Herz.","hong kong":"Hong Kong",
+  "png":"Papua New Guinea","new caledonia":"New Caledonia","american samoa":"American Samoa","viet nam":"Vietnam","türkiye":"Turkey","turkiye":"Turkey"
+};
+const COUNTRIES = ["Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barb.", "Argentina", "Armenia", "Aruba", "Ashmore and Cartier Is.", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herz.", "Botswana", "Br. Indian Ocean Ter.", "Brazil", "British Virgin Is.", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Cayman Is.", "Central African Rep.", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Cook Is.", "Costa Rica", "Croatia", "Cuba", "Curaçao", "Cyprus", "Czechia", "Côte d'Ivoire", "Dem. Rep. Congo", "Denmark", "Djibouti", "Dominica", "Dominican Rep.", "Ecuador", "Egypt", "El Salvador", "Eq. Guinea", "Eritrea", "Estonia", "Ethiopia", "Faeroe Is.", "Falkland Is.", "Fiji", "Finland", "Fr. Polynesia", "Fr. S. Antarctic Lands", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Greenland", "Grenada", "Guam", "Guatemala", "Guernsey", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard I. and McDonald Is.", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indian Ocean Ter.", "Indonesia", "Iran", "Iraq", "Ireland", "Isle of Man", "Israel", "Italy", "Jamaica", "Japan", "Jersey", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Macao", "Macedonia", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Is.", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Montserrat", "Morocco", "Mozambique", "Myanmar", "N. Cyprus", "N. Mariana Is.", "Namibia", "Nauru", "Nepal", "Netherlands", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "North Korea", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn Is.", "Poland", "Portugal", "Puerto Rico", "Qatar", "Romania", "Russia", "Rwanda", "S. Geo. and the Is.", "S. Sudan", "Saint Helena", "Saint Lucia", "Samoa", "San Marino", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Siachen Glacier", "Sierra Leone", "Singapore", "Sint Maarten", "Slovakia", "Slovenia", "Solomon Is.", "Somalia", "Somaliland", "South Africa", "South Korea", "Spain", "Sri Lanka", "St-Barthélemy", "St-Martin", "St. Kitts and Nevis", "St. Pierre and Miquelon", "St. Vin. and Gren.", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "São Tomé and Principe", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Is.", "U.S. Virgin Is.", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States of America", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican", "Venezuela", "Vietnam", "W. Sahara", "Wallis and Futuna Is.", "Yemen", "Zambia", "Zimbabwe", "eSwatini", "Åland"];
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm = s => String(s ?? "").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim();
+const placeKey = t => norm(t).replace(/[āēīōū]/g, m => "aeiou"["āēīōū".indexOf(m)]);
+const countrySet = new Set(COUNTRIES.map(norm));
+const isCountry = t => { const k = norm(t); return !!k && (!!ALIASES[k] || countrySet.has(k)); };
+const slug = t => norm(t).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,40) || "image";
+
+// Same column matching as the Community page
+const COLUMNS = [
+  ["consent", /consent|imhappy|iagree|permission|imokay|iamhappy/],
+  ["onmap", /mapwall|onthemap|showmeon|addmetothemap/],
+  ["lastname", /lastname|surname|familyname/],
+  ["timestamp", /^timestamp|submitted|^date/],
+  ["lat", /^lat/], ["lng", /^(lng|lon)/],
+  ["fromcountry", /from|origin|heritage|grewup/],
+  ["askmeabout", /askme|expertise|helpwith|skills/],
+  ["interests", /interest|hobbies/],
+  ["profession", /profession|occupation|job|workin|whatdoyoudo|context/],
+  ["photo", /photo|picture|headshot|avatar/],
+  ["image", /image|upload|file|pictureofwork/],
+  ["city", /city|town|basedin|live|location|callhome/],
+  ["country", /country/],
+  ["gen", /^(gen|cohort)(?!der)|yourgen|whichgen/],
+  ["role", /role|areyoua|iama|typeofmember/],
+  ["course", /course|assessment|module/],
+  ["type", /^type|kind|category|projectorcommunity/],
+  ["title", /title|nameofwork|nameofpiece|projectname/],
+  ["description", /descri|tellus|caption|aboutthe/],
+  ["link", /link|url|website|portfolio|linkedin/],
+  ["message", /message|shoutout|whatwould/],
+  ["maker", /maker|madeby|creator|artist|whomade/],
+  ["from", /^from$|whosent|sentby/],
+  ["name", /name/]
+];
+function mapHeaders(raw){
+  const used = new Set();
+  return raw.map(h => {
+    const k = norm(h).replace(/[^a-z0-9 ]/g,"").replace(/\s+/g,"");
+    for(const [canon, re] of COLUMNS){ if(!used.has(canon) && re.test(k)){ used.add(canon); return canon; } }
+    return k;
+  });
+}
+function parseTSV(text){
+  const rows = []; let row = [], cell = "", q = false;
+  for(let i = 0; i < text.length; i++){
+    const c = text[i];
+    if(q){ if(c === '"'){ if(text[i+1] === '"'){ cell += '"'; i++; } else q = false; } else cell += c; }
+    else if(c === '"' && cell === "") q = true;
+    else if(c === "\t"){ row.push(cell); cell = ""; }
+    else if(c === "\n" || c === "\r"){ if(c === "\r" && text[i+1] === "\n") i++; row.push(cell); rows.push(row); row = []; cell = ""; }
+    else cell += c;
+  }
+  if(cell !== "" || row.length){ row.push(cell); rows.push(row); }
+  return rows.filter(r => r.some(v => v.trim()));
+}
+function isoDate(s){
+  s = String(s||"").trim(); if(!s) return "";
+  const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+  if(m) return `${m[3]}-${m[2].padStart(2,"0")}-${m[1].padStart(2,"0")}`;
+  const d = new Date(s); return isNaN(d) ? "" : d.toISOString().slice(0,10);
+}
+const today = () => new Date().toISOString().slice(0,10);
+function roleText(r, kind){
+  const s = norm(r);
+  if(/staff|kaimahi|lecturer|team/.test(s)) return "Staff";
+  if(/alum|past|graduate/.test(s)) return "Alumni";
+  if(/future|incoming|starting|prospective/.test(s)) return "Future student";
+  return kind === "pin" ? "Student" : "Current student";
+}
+
+const TYPES = {
+  profile: {label:"Profile", sub:"The Lounge", tone:"lilac", list:"PEOPLE",
+    fields:[["name","First and last name"],["role","Are you a…","select",["Current student","Alumni","Future student","Staff"]],["gen","Gen","",null,"e.g. Gen31. Leave blank for staff"],
+      ["city","Town or city they live in"],["country","Country they live in"],["fromcountry","Where they're from","",null,"Optional"],
+      ["profession","What they do (profession or context)","wide"],["interests","Interests","wide",null,"Separate with commas"],["askmeabout","Ask me about","wide"],
+      ["link","Portfolio or LinkedIn link","",null,"Optional, starts with https://"],["photo","Photo file name","",null,"Optional, e.g. people/aroha-tane.jpg"],["onmap","Show on the Map Wall?","select",["Yes","No"]]]},
+  pin: {label:"Map pin", sub:"The Map Wall", tone:"peach", list:"PINS",
+    fields:[["name","First name","",null,"Optional"],["role","Are you a…","select",["Student","Staff","Alumni","Future student"]],["city","Town or city they live in"],["country","Country they live in","",null,"Recommended, so the pin lands in the right place"],["from","Where they're from","wide",null,"A country, or a place like Apia, Samoa"]]},
+  gallery: {label:"Gallery piece", sub:"The Gallery", tone:"butter", list:"GALLERY",
+    fields:[["title","Title of the work"],["maker","Made by","",null,"Everyone who made it"],["gen","Gen"],["type","Type","select",["Project","Community"]],["course","Course or assessment","",null,"Optional"],
+      ["image","Image file name","",null,"Filled in from the title. Upload the image with this name"],["description","About the work","wide textarea"],["link","Link to the full piece","wide",null,"Optional, starts with https://"]]},
+  shoutout: {label:"Shout-out", sub:"The Foyer", tone:"mint", list:"SHOUTOUTS",
+    fields:[["message","Shout-out message","wide textarea"],["from","From","",null,"Optional"]]}
+};
+const KEYS = {
+  profile:["name","role","gen","city","country","fromcountry","profession","interests","askmeabout","link","photo","onmap","timestamp"],
+  pin:["name","role","city","country","from"],
+  gallery:["title","maker","gen","type","course","description","image","link"],
+  shoutout:["message","from","timestamp"]
+};
+const state = {type:"profile", mode:"paste"};
+
+function line(kind, o){
+  return "  {" + KEYS[kind].map(k => `${k}:${JSON.stringify(String(o[k] ?? "").trim())}`).join(", ") + "},";
+}
+
+// Turn one row (an object keyed by field) into a page entry, plus notes
+function build(kind, r, notes, who){
+  const yes = v => /^(yes|y|true|ticked|i agree|agree)/i.test(String(v||"").trim()) || (String(v||"").trim().length > 3 && !/^(no|n|false)$/i.test(String(v).trim()));
+  if("consent" in r && !yes(r.consent)){ notes.push(["warn", `Skipped ${who}: the consent box wasn't ticked.`]); return null; }
+  if(kind === "profile"){
+    const name = [r.name, r.lastname].filter(x => x && x.trim()).join(" ");
+    if(!name){ notes.push(["warn", `Skipped a row with no name.`]); return null; }
+    let photo = (r.photo || "").trim();
+    if(photo && !/^people\//.test(photo)){ const f = `people/${slug(name)}.jpg`; notes.push(["todo", `Photo for ${name}: download it, resize to about 600px wide, and upload it to the community/people folder named <code>${esc(f.slice(7))}</code>.`]); photo = f; }
+    const o = {name, role: roleText(r.role), gen: r.gen, city: r.city, country: r.country, fromcountry: r.fromcountry || r.from, profession: r.profession, interests: r.interests, askmeabout: r.askmeabout, link: /^https?:\/\//.test(r.link||"") ? r.link : "", photo, onmap: /^n/i.test(r.onmap||"") ? "No" : "Yes", timestamp: isoDate(r.timestamp) || today()};
+    if(o.onmap !== "No") pinCheck(o.city, o.country, name, notes);
+    return o;
+  }
+  if(kind === "pin"){
+    const o = {name: r.name, role: roleText(r.role, "pin"), city: r.city, country: r.country, from: r.from || r.fromcountry};
+    if(!o.city && !o.country){ notes.push(["warn", `Skipped ${who}: no town or country.`]); return null; }
+    pinCheck(o.city, o.country, o.name || who, notes);
+    return o;
+  }
+  if(kind === "gallery"){
+    const title = r.title || "";
+    if(!title){ notes.push(["warn", `Skipped a row with no title.`]); return null; }
+    const t = norm(r.type);
+    let image = (r.image || r.photo || "").trim();
+    const file = /^gallery\//.test(image) ? image : `gallery/${slug(title)}.jpg`;
+    notes.push(["todo", `Image for "${esc(title)}": download it, resize to about 1600px wide, and upload it to the community/gallery folder named <code>${esc(file.slice(8))}</code>.`]);
+    return {title, maker: r.maker || r.name, gen: r.gen, type: /community|moment|event|life/.test(t) ? "Community" : "Project", course: r.course, description: r.description, image: file, link: /^https?:\/\//.test(r.link||"") ? r.link : ""};
+  }
+  if(kind === "shoutout"){
+    if(!r.message){ notes.push(["warn", `Skipped a row with no message.`]); return null; }
+    return {message: r.message, from: r.from || r.fromcountry || r.name, timestamp: isoDate(r.timestamp) || today()};
+  }
+}
+function pinCheck(city, country, who, notes){
+  let c = String(city||"").trim(), k = String(country||"").trim();
+  if(!k && c.includes(",")){ const last = c.split(",").pop(); if(isCountry(last)) k = last; }
+  if(k && !isCountry(k)) notes.push(["warn", `${esc(who)}: "${esc(k)}" isn't a country the map recognises. Check the spelling.`]);
+  else if(!k && c && !PLACES[placeKey(c)] && !isCountry(c)) notes.push(["warn", `${esc(who)}: the map doesn't know "${esc(c)}". Add their country, or their pin won't show.`]);
+}
+
+function render(){
+  const T = TYPES[state.type], notes = [];
+  let entries = [];
+  if(state.mode === "paste"){
+    const rows = parseTSV($("#paste").value);
+    if(rows.length){
+      const head = mapHeaders(rows[0]);
+      const known = new Set(Object.values(KEYS).flat().concat(["lastname","consent","fromcountry","photo","maker"]));
+      if(head.filter(h => known.has(h)).length < 2){
+        notes.push(["warn", "The first row doesn't look like a heading row. Copy the heading row from your sheet along with the responses."]);
+      } else {
+        rows.slice(1).forEach((r, i) => {
+          const o = Object.fromEntries(head.map((h, j) => [h, (r[j] || "").trim()]));
+          const e = build(state.type, o, notes, `row ${i + 1}`); if(e) entries.push(e);
+        });
+        if(entries[0] && entries[0].timestamp) entries.sort((a,b) => String(b.timestamp).localeCompare(String(a.timestamp)));
+      }
+    }
+  } else {
+    const o = {}; document.querySelectorAll("#fields [data-k]").forEach(el => o[el.dataset.k] = el.value);
+    const filled = Object.entries(o).some(([k,v]) => v && !["role","type","onmap","image"].includes(k));
+    if(filled){ const e = build(state.type, o, notes, "this entry"); if(e) entries.push(e); }
+  }
+  $("#out").value = entries.map(e => line(state.type, e)).join("\n");
+  $("#where").innerHTML = `In <code>community/index.html</code> on GitHub, click the pencil icon, search for <code>const ${T.list} = [</code> and paste on the empty line just under it. Then click <b>Commit changes</b>.`;
+  if(entries.length) notes.unshift(["ok", `${entries.length} ${entries.length === 1 ? "entry" : "entries"} ready to copy.`]);
+  $("#notes").innerHTML = notes.map(([c, t]) => `<li class="${c}">${t}</li>`).join("");
+  $("#status").textContent = "";
+}
+function renderFields(){
+  $("#fields").innerHTML = TYPES[state.type].fields.map(([k, label, kind = "", opts, help]) => {
+    const wide = /wide/.test(kind) ? "wide" : "";
+    const ctrl = kind === "select" ? `<select data-k="${k}">${opts.map(o => `<option>${esc(o)}</option>`).join("")}</select>`
+      : /textarea/.test(kind) ? `<textarea data-k="${k}" rows="3"></textarea>` : `<input data-k="${k}" type="text">`;
+    return `<label class="${wide}">${esc(label)}${ctrl}${help ? `<small>${esc(help)}</small>` : ""}</label>`;
+  }).join("");
+}
+function renderTypes(){
+  $("#types").innerHTML = Object.entries(TYPES).map(([k, t]) => `<button data-type="${k}" aria-pressed="${state.type === k}" style="background:var(--${t.tone});color:var(--${t.tone}-ink)"><b>${t.label}</b><span>${t.sub}</span></button>`).join("");
+}
+$("#types").addEventListener("click", e => { const b = e.target.closest("[data-type]"); if(!b) return; state.type = b.dataset.type; renderTypes(); renderFields(); render(); });
+document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => {
+  state.mode = b.dataset.mode; document.querySelectorAll("[data-mode]").forEach(x => x.setAttribute("aria-pressed", x === b));
+  $("#pasteBox").hidden = state.mode !== "paste"; $("#typeBox").hidden = state.mode !== "type"; render();
+}));
+$("#paste").addEventListener("input", render);
+$("#fields").addEventListener("input", e => {
+  if(state.type === "gallery" && e.target.dataset.k === "title"){
+    const img = document.querySelector('#fields [data-k="image"]');
+    if(!img.dataset.touched) img.value = e.target.value ? `gallery/${slug(e.target.value)}.jpg` : "";
+  }
+  if(e.target.dataset.k === "image") e.target.dataset.touched = "1";
+  render();
+});
+$("#copy").addEventListener("click", async () => {
+  const v = $("#out").value; if(!v){ $("#status").textContent = "Nothing to copy yet."; return; }
+  try{ await navigator.clipboard.writeText(v); }catch(e){ $("#out").select(); document.execCommand("copy"); }
+  $("#status").textContent = "Copied. Now paste it into the page on GitHub.";
+});
+renderTypes(); renderFields(); render();
+</script>
+</body>
+</html>

@@ -170,6 +170,8 @@ a.is-off{opacity:.5;cursor:not-allowed}
 .person{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:20px;display:flex;flex-direction:column;gap:12px}
 .p-top{display:flex;gap:14px;align-items:center}
 .av{width:56px;height:56px;border-radius:18px;flex:none;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px;overflow:hidden;background-size:cover;background-position:center}
+.av{position:relative}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .av.sm{width:40px;height:40px;border-radius:13px;font-size:14px}
 .person h3{font-size:18px;font-weight:700}
 .p-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px}
@@ -508,9 +510,9 @@ const SETTINGS = {
   },
   // Google Form links people use to add things.
   forms: {
-    profile: "#",
+    profile: "https://docs.google.com/forms/d/e/1FAIpQLScg_OTMVa2-RHqp4SxrPaTYL2dzrtZH9hp_vH4RmWxPqdX5cQ/viewform",
     gallery: "https://docs.google.com/forms/d/e/1FAIpQLSewvTRZY9cSprORVV0dWLFyCoDlgE_WKDEUJ6Fv3eCM40B2og/viewform",
-    shoutout: "#",
+    shoutout: "https://docs.google.com/forms/d/e/1FAIpQLSe4pK2tjNr3399a1bKSQBOC0BGAbvDMLX4E_qArdNj9Cq4DPQ/viewform",
     pin: "https://docs.google.com/forms/d/e/1FAIpQLSelcn49SqqFbQFv8UNPwx97LpR_M5PODfgivk-vVmZABPW9iw/viewform"
   },
   // Where "Open PlayLab Slack" and "Join PlayLab Slack" go. Best: your
@@ -580,6 +582,19 @@ const GALLERY = [
    People with a profile in the Lounge appear on the map automatically.
    ============================================================ */
 const PINS = [
+
+];
+
+/* ============================================================
+   PROFILES AND SHOUT-OUTS added by the PlayLab team.
+   The easiest way to make these lines is the entry helper page
+   (community/add.html): paste rows from your sheet and copy the result.
+   ============================================================ */
+const PEOPLE = [
+
+];
+
+const SHOUTOUTS = [
 
 ];
 
@@ -717,6 +732,9 @@ function parseCSV(text){
 // Match Google Form question titles to the fields the page uses, so
 // "Where are you from (country)?" still lands in the right place.
 const COLUMNS = [
+  ["consent", /consent|imhappy|iagree|permission|imokay|iamhappy/],
+  ["onmap", /mapwall|onthemap|showmeon|addmetothemap/],
+  ["lastname", /lastname|surname|familyname/],
   ["timestamp", /^timestamp|submitted|^date/],
   ["lat", /^lat/], ["lng", /^(lng|lon)/],
   ["fromcountry", /from|origin|heritage|grewup/],
@@ -750,7 +768,8 @@ function mapHeaders(raw){
   });
 }
 async function load(key){
-  if(key === "pins" && !SETTINGS.sheets.pins) return PINS.map(x => ({...x}));
+  const LISTS = {pins:PINS, people:PEOPLE, shoutouts:SHOUTOUTS};
+  if(LISTS[key] && !SETTINGS.sheets[key] && (key === "pins" || LISTS[key].length)) return LISTS[key].map(x => ({...x}));
   if(key === "gallery"){
     if(GALLERY.length) return GALLERY.map(x => ({...x}));
     return SETTINGS.showSamples ? SAMPLE.gallery.map(x => ({...x})) : [];
@@ -820,7 +839,7 @@ function avatarHTML(p, cls=""){
   const tone = ROLE_TONE[p._role];
   const src = SETTINGS.showPhotos ? imgURL(p.photo) : "";
   return src
-    ? `<span class="av ${cls}" style="background-image:url('${esc(src)}')" role="img" aria-label="${esc(displayName(p.name))}"></span>`
+    ? `<span class="av ${cls}" style="background:var(--${tone});color:var(--${tone}-ink)"><span aria-hidden="true">${esc(initials(p.name))}</span><img src="${esc(src)}" alt="${esc(displayName(p.name))}" loading="lazy" onerror="this.remove()"></span>`
     : `<span class="av ${cls}" style="background:var(--${tone});color:var(--${tone}-ink)" aria-hidden="true">${esc(initials(p.name))}</span>`;
 }
 // Placeholder artwork for gallery items without an image.
@@ -1313,7 +1332,8 @@ function wire(){
 async function init(){
   renderNav(); wire();
   const [people, gallery, shoutouts, pins] = await Promise.all([load("people"), load("gallery"), load("shoutouts"), load("pins")]);
-  state.people = people.filter(p => p.name).map(p => ({...p,
+  const no = v => /^(no|n|false|0)$/i.test(String(v || "").trim());
+  state.people = people.map(p => ({...p, name: [p.name, p.lastname].filter(x => x && String(x).trim()).join(" ")})).filter(p => p.name).map(p => ({...p,
     _role: roleOf(p.role),
     _home: locate(p.city || "", p.country || "", p.lat, p.lng),
     _from: p.fromcountry ? locate(p.fromcountry, "") : null }));
@@ -1321,7 +1341,7 @@ async function init(){
     _role: roleOf(p.role),
     _home: (p.city || p.country) ? locate(p.city || "", p.country || "", p.lat, p.lng) : null,
     _from: (p.fromcountry || p.from) ? locate(p.fromcountry || p.from, "") : null }));
-  state.mapPeople = state.people.concat(pinPeople);
+  state.mapPeople = state.people.filter(p => !no(p.onmap)).concat(pinPeople);
   state.gallery = gallery.map(w => ({...w, maker: w.maker || w.name || "", image: w.image || w.photo || ""}))
     .filter(w => w.title || w.image).map(w => ({...w, _type: typeOf(w.type)}))
     .sort((a,b) => (dateOf(b.timestamp)||0) - (dateOf(a.timestamp)||0));

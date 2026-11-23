@@ -5,17 +5,40 @@ A plain-language guide for the PlayLab team. Everything here is done in the brow
 Changes go live within about two minutes. If you don't see a change, refresh the Google Site with **Ctrl+Shift+R** (Windows) or **Cmd+Shift+R** (Mac).
 
 **Contents**
+- [The quick way: the entry helper](#the-quick-way-the-entry-helper)
 - [Editing the page safely](#editing-the-page-safely)
 - [Add a student project to the Gallery](#add-a-student-project-to-the-gallery)
 - [Change or remove a Gallery piece](#change-or-remove-a-gallery-piece)
 - [Add pins to the Map Wall](#add-pins-to-the-map-wall)
-- [Approve a profile or shout-out](#approve-a-profile-or-shout-out)
+- [Add profiles and shout-outs](#add-profiles-and-shout-outs)
 - [Add or change links (forms, Slack, FrameVR)](#add-or-change-links-forms-slack-framevr)
 - [Add a FrameVR session](#add-a-framevr-session)
 - [Change the Slack channels](#change-the-slack-channels)
 - [Hide the sample content before launch](#hide-the-sample-content-before-launch)
 - [Add a town to the map](#add-a-town-to-the-map)
 - [If something goes wrong](#if-something-goes-wrong)
+
+---
+
+## The quick way: the entry helper
+
+Every kind of entry (profiles, map pins, Gallery pieces and shout-outs) is added the same way: copy the responses from your private sheet into the **entry helper**, then paste what it gives you into the page.
+
+The helper is at `https://YOUR-USERNAME.github.io/playlab-pages/community/add.html` (bookmark it). It isn't linked from the site. Nothing you paste into it is saved or sent anywhere.
+
+1. **In your responses sheet**, select the heading row and the rows you want to add, and copy them (Ctrl+C or Cmd+C). You can select rows that aren't next to each other by holding Ctrl (Cmd on a Mac).
+2. **In the helper**, choose what you're adding (Profile, Map pin, Gallery piece or Shout-out) and paste into the box.
+3. **Read the notes** under the result:
+   - yellow notes are things to do, like uploading a photo with a given file name
+   - orange notes are problems, like a town the map doesn't know, or a row skipped because consent wasn't ticked
+4. Click **Copy lines**.
+5. **On GitHub**, open `community/index.html`, click the pencil icon, search for the list the helper names (for example `const PEOPLE = [`), paste on the empty line just under it, and click **Commit changes**.
+
+To add one entry without a sheet, use **Type one in** in the helper.
+
+**Keep track of what you've added**, for example with a "On the page" checkbox column in your sheet, so you don't add someone twice.
+
+The sections below explain each kind of entry in more detail, and how to do it by hand.
 
 ---
 
@@ -34,7 +57,7 @@ When editing, keep the punctuation exactly as it is:
 - Each entry ends with a comma: `},`
 - Don't delete square brackets `[ ]` or curly brackets `{ }`
 
-If you need an apostrophe inside text, that's fine: `"Aroha's project"` works because the text is wrapped in double quotes. Don't put a double quote mark inside the text.
+If you need an apostrophe inside text, that's fine: `"Aroha's project"` works because the text is wrapped in double quotes. Don't put a double quote mark inside the text. (The entry helper handles all of this for you.)
 
 ---
 
@@ -56,6 +79,8 @@ Students send their work through the private Gallery Google Form. Only pieces yo
 3. Drag the image in, then click **Commit changes**.
 
 ### 3. Add the piece to the page
+
+The entry helper can write this line for you, and suggests the image file name too (do this before step 2 if you want to use its file name). To do it by hand:
 
 1. Open `community/index.html` and click the pencil icon.
 2. Search for `const GALLERY = [`.
@@ -96,7 +121,9 @@ When the first real piece is added, the sample gallery disappears.
 
 People fill in the **Map Wall Google Form** (the "Drop your pin" buttons open it). Their answers stay private. The PlayLab team then adds pins to the page.
 
-### Option A: type pins into the page (simplest)
+### Option A: add pins to the page (simplest)
+
+The entry helper (Map pin) writes these lines for you from your sheet. To do it by hand:
 
 1. Open `community/index.html` and click the pencil icon.
 2. Search for `const PINS = [`.
@@ -136,19 +163,21 @@ New rows then appear on the map within about five minutes, without editing the p
 
 ---
 
-## Approve a profile or shout-out
+## Add profiles and shout-outs
 
-Profiles (the Lounge and the Map Wall) and shout-outs come from their Google Forms automatically. Nothing appears until you approve it.
+Profiles come from the **Join the Lounge** form and shout-outs from the **Send a shout-out** form (questions for both are in `FORMS.md`).
 
-1. Open the form's responses sheet.
-2. Check the entry is appropriate and the consent box was ticked.
-3. Tick the **Approved** checkbox on that row.
+1. Check each response is appropriate and the consent box was ticked.
+2. Use the entry helper (Profile or Shout-out) to make the lines.
+3. Paste them under `const PEOPLE = [` (profiles) or `const SHOUTOUTS = [` (shout-outs) in `community/index.html` and commit.
 
-It appears on the page within about five minutes. To hide it again, untick the box.
+**Profile photos:** if someone uploaded a photo, the helper gives you a file name like `aroha-tane.jpg`. Download the photo from the form's upload folder, resize it to about 600px wide, and upload it to the `community/people` folder on GitHub with that name (**Add file → Upload files**). Until the photo is uploaded, their profile shows their initials.
 
-To fix a typo in someone's profile, edit the cell in the responses sheet. To remove someone, untick Approved (or delete their row).
+**Map Wall:** profiles appear on the map automatically, unless the person answered "No" to "Show me on the Map Wall?".
 
-*(Setting the forms and sheets up for the first time is covered in the main README.)*
+**To change or remove someone:** search for their name in `community/index.html`, edit or delete their line, and commit.
+
+*(The README also explains an optional automatic set-up using a published sheet. You don't need it if you add entries with the helper.)*
 
 ---
 
@@ -162,7 +191,7 @@ Buttons without a link are greyed out and say "Link coming soon" when you point 
 
 | Setting | Controls | Where to get the link |
 |---|---|---|
-| `forms: profile` | "Add your profile" and "Add your pin" buttons | Profile Google Form → **Send** → link icon |
+| `forms: profile` | "Add your profile" buttons | Join the Lounge form → **Send** → link icon |
 | `forms: gallery` | "Send us your work" buttons (already added) | Gallery Google Form → **Send** → link icon |
 | `forms: pin` | "Drop your pin" buttons (already added) | Map Wall Google Form → **Send** → link icon |
 | `forms: shoutout` | "Send a shout-out" buttons | Shout-out Google Form → **Send** → link icon |
