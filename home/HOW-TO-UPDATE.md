@@ -22,6 +22,10 @@ If a page's address doesn't follow that pattern (for example you renamed it, or 
 
 Don't use the links from the Google Sites editor (the ones with `/u/0/d/` and `/preview`). Only people who can edit the site can open those.
 
+### Why the links open in a new tab
+
+Google Sites shows embedded pages in a protected box that isn't allowed to change the page around it. A link that tries to open in the same tab does nothing at all. So links from this page to other pages of the site open in a new tab instead. The site's own menu at the top still moves between pages in the same tab.
+
 ## Change a page's description or order
 
 Edit `PAGES`. The order in the list is the order in the sidebar and the tiles. `about` is the description on its tile. Set `tile:false` to show a page in the sidebar only.

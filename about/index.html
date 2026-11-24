@@ -382,7 +382,7 @@ p{margin:0}
     <!-- ===== Journey ===== -->
     <section class="view" id="view-journey" aria-labelledby="h-jr">
       <div class="view-head"><div class="vh-title"><span class="badge" style="background:var(--mint);color:var(--mint-ink)" data-ico="route"></span><div><h1 id="h-jr">The learner journey</h1><p>180 credits across three parts. Each part builds on the last, moving from guided exploration to independent, work-based research.</p></div></div>
-        <a class="solid-btn" id="journeyLink" target="_top"><span data-ico="route"></span>Part 1 week by week</a></div>
+        <a class="solid-btn" id="journeyLink" target="_blank" rel="noopener"><span data-ico="route"></span>Part 1 week by week</a></div>
       <div class="track" role="tablist" aria-label="Programme parts" id="track"></div>
       <div class="scale" id="scale" aria-hidden="true"></div>
       <div class="part" role="tabpanel" id="partPanel" aria-live="polite"></div>
@@ -679,7 +679,7 @@ function renderPeople(){
 function renderVisit(){
   const S = SETTINGS;
   $("#contactList").innerHTML = `<div>${ico("pin")}<span><small>Visit us</small>${S.address.map(esc).join("<br>")}<br>New Zealand</span></div>
-    <a href="mailto:${esc(S.email)}" target="_top">${ico("mail")}<span><small>Email</small>${esc(S.email)}</span></a>
+    <a href="mailto:${esc(S.email)}" target="_blank" rel="noopener">${ico("mail")}<span><small>Email</small>${esc(S.email)}</span></a>
     <a href="${esc(S.slack)}" target="_blank" rel="noopener">${ico("chat")}<span><small>Message us</small>Futures PlayLab Slack</span></a>`;
   $("#feeRow").innerHTML = `<div><small>Domestic students</small><b>Up to ${esc(S.fees.domestic)}</b><span>${esc(S.fees.intake)}, NZD incl. GST</span></div><div><small>International students</small><b>Up to ${esc(S.fees.international)}</b><span>${esc(S.fees.intake)}, NZD incl. GST</span></div>`;
   $("#starts").innerHTML = S.startDates.map(d => `<span>${esc(d)}</span>`).join("");

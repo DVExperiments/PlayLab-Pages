@@ -351,10 +351,11 @@ function pageUrl(p){
   if(!/^https?:\/\//.test(base)) return "";
   return base.replace(/\/?$/, "/") + p.slug;
 }
-// Pages open in the whole browser window, not inside this embedded box.
+// Google Sites doesn't let an embedded page change the page around it, so
+// links to other pages of the site open in a new tab.
 function wireLink(a, p){
   const u = p ? pageUrl(p) : "";
-  if(u){ a.href = u; a.target = "_top"; a.classList.remove("is-off"); a.removeAttribute("aria-disabled"); a.removeAttribute("title"); }
+  if(u){ a.href = u; a.target = "_blank"; a.rel = "noopener"; a.classList.remove("is-off"); a.removeAttribute("aria-disabled"); a.removeAttribute("title"); }
   else { a.removeAttribute("href"); a.classList.add("is-off"); a.setAttribute("aria-disabled", "true"); a.title = "Link coming soon"; }
 }
 

@@ -430,7 +430,7 @@ div.wcard:hover{border-color:transparent}
     <nav class="nav" id="nav"></nav>
     <div class="side-foot">
       <p>Can't find what you need? Ask the cohort and the Futures PlayLab team.</p>
-      <a id="slackLink" href="#" target="_top">Open Slack</a>
+      <a id="slackLink" href="#" target="_blank" rel="noopener">Open Slack</a>
     </div>
   </aside>
 
@@ -1601,7 +1601,7 @@ function linkAttrs(url){
   if(!url) return null;
   if(url.startsWith("#")) return `href="${url}" data-go="${url.slice(1)}"`;
   const ext = /^https?:/.test(url) && !/sites\.google\.com/.test(url);
-  return `href="${esc(url)}" target="${ext ? "_blank" : "_top"}" ${ext ? 'rel="noopener"' : ""}`;
+  return `href="${esc(url)}" target="_blank" rel="noopener"`;   // Google Sites blocks links that try to replace the page
 }
 function hl(text, q){
   const t = esc(text);
@@ -1665,7 +1665,7 @@ function renderWho(){
       <div style="display:flex;gap:14px;align-items:center"><span class="av" style="background:var(--${x.tone});color:var(--${x.tone}-ink)">${initials(x.name)}</span>
       <div><h3>${esc(x.name)}</h3><div class="role">${esc(x.role)}</div></div></div>
       <ul>${x.helps.map(h => `<li>${esc(h)}</li>`).join("")}</ul>
-      <div class="contact">${x.email ? `<a class="link-btn" href="mailto:${esc(x.email)}" target="_top">Email ${esc(x.name.split(" ")[0])}</a>` : `<span class="pill tbc">Contact details to be added</span>`}</div>
+      <div class="contact">${x.email ? `<a class="link-btn" href="mailto:${esc(x.email)}" target="_blank" rel="noopener">Email ${esc(x.name.split(" ")[0])}</a>` : `<span class="pill tbc">Contact details to be added</span>`}</div>
     </div>`).join("");
 }
 
