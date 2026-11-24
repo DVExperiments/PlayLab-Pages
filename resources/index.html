@@ -219,6 +219,18 @@ dialog.dlg::backdrop{background:rgba(23,32,56,.6)}
 .policy li{margin:3px 0}
 .policy .p-link{margin-top:auto;padding-top:6px}
 
+.law-group{margin-bottom:16px;scroll-margin-top:18px}
+.law-group.flash{box-shadow:0 0 0 3px var(--blue), var(--shadow)}
+.law-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.law-list li{border-top:1px solid var(--line)}
+.law-list li:first-child{border-top:0}
+.law-list a{display:grid;grid-template-columns:minmax(0,1fr) auto 18px;gap:14px;align-items:center;padding:12px 4px;text-decoration:none;color:var(--ink);border-radius:10px}
+.law-list a:hover b{color:var(--blue-deep);text-decoration:underline}
+.law-list a svg{width:16px;height:16px;color:var(--ink-3)}
+.law-list b{display:block;font-size:15px;font-weight:700}
+.law-list .l-txt span{font-size:13.5px;color:var(--ink-2)}
+@media (max-width:700px){.law-list a{grid-template-columns:minmax(0,1fr) 18px}.law-list .pill{display:none}}
+
 /* ---------- FAQs ---------- */
 .faq-group{margin-bottom:22px}
 .faq-group h2{font-size:18px;font-weight:700;margin:0 4px 10px}
@@ -342,8 +354,9 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
 
     <!-- ===== Policies ===== -->
     <section class="view" id="view-policies" aria-labelledby="h-po">
-      <div class="view-head"><div class="vh-title"><span class="badge t-mint" data-ico="shield"></span><div><h1 id="h-po">Policies and guidelines</h1><p>What you need to know about using AI, sharing work, privacy and accessibility. These are summaries: the full policy is always the version that applies.</p></div></div></div>
+      <div class="view-head"><div class="vh-title"><span class="badge t-mint" data-ico="shield"></span><div><h1 id="h-po">Policies and guidelines</h1><p>What you need to know about using AI, conduct, sharing work, privacy and accessibility, plus the New Zealand laws behind them. Policy cards are summaries: the full policy is always the version that applies.</p></div></div></div>
       <div class="policies" id="policies"></div>
+      <div id="laws"></div>
     </section>
 
     <!-- ===== FAQs ===== -->
@@ -438,7 +451,7 @@ const POLICIES = [
   {title:"Copyright, privacy and intellectual property", ico:"copy", tone:"peach",
    summary:"Respect other people's work and privacy when you make, share and publish.",
    points:["Only use images, music and media you have permission to use, and credit the source","Ask before sharing someone else's work, words or photo","Name everyone who worked on a piece, including any AI tools you used","Keep personal information about participants and colleagues private"],
-   link:""},
+   link:"", more:"copyright", moreLabel:"Copyright and privacy law"},
   {title:"Accessibility", ico:"access", tone:"mint",
    summary:"Make your work usable by as many people as possible, and ask for support if you need it.",
    points:["Add captions to videos and alt text to images","Use clear headings, plain language and good colour contrast","Talk to the PlayLab team or Student Support about any accessibility needs"],
@@ -446,6 +459,28 @@ const POLICIES = [
   {title:"academyEX privacy policy", ico:"shield", tone:"sky",
    summary:"How academyEX collects, uses and protects your personal information.",
    points:[], link:"https://academyex.com/privacy-policy"}
+];
+
+/* ============================================================
+   LAWS AND REGULATIONS (shown under the policy cards)
+   Each link: [title, who publishes it, one-line description, url]
+   ============================================================ */
+const LAWS = [
+  {id:"copyright", group:"Copyright", intro:"What you can and can't use, and how your own work is protected.", links:[
+    ["Copyright", "Intellectual Property Office of NZ", "What copyright protects in New Zealand and how it works.", "https://www.iponz.govt.nz/get-ip/copyright/"],
+    ["Copyright Act 1994", "NZ Legislation", "The law that sets out copyright in New Zealand.", "https://www.legislation.govt.nz/act/public/1994/143/en/latest/#DLM345634"],
+    ["AI and copyright in New Zealand: what businesses need to know", "MOMAC", "How copyright applies to AI-generated content and AI training in New Zealand.", "https://www.momac.co.nz/ai-and-copyright-in-new-zealand-what-businesses-need-to-know"],
+    ["Standards and guidance", "Digital.govt.nz", "Government standards and guidance for digital work, including accessibility and design.", "https://www.digital.govt.nz/standards-and-guidance"],
+    ["Digital policy", "Ministry of Business, Innovation and Employment", "The government's digital policy work, including AI and emerging technology.", "https://www.mbie.govt.nz/business-and-employment/economic-growth/digital-policy"]
+  ]},
+  {id:"other", group:"Other relevant laws and regulations", intro:"Privacy, online behaviour, education and sharing your code.", links:[
+    ["Privacy Act 2020", "NZ Legislation", "How personal information must be collected, used, stored and shared in New Zealand.", "https://www.legislation.govt.nz/act/public/2020/0031/latest/LMS23223.html"],
+    ["Privacy: frequently asked questions", "Office of the Privacy Commissioner", "Answers to common questions about privacy rights and responsibilities.", "https://www.privacy.org.nz/your-privacy/frequently-asked-questions/"],
+    ["Education and Training Act 2020", "NZ Legislation", "The main law governing education and training in New Zealand.", "https://www.legislation.govt.nz/act/public/2020/0038/latest/LMS170676.html"],
+    ["Harmful Digital Communications Act 2015", "NZ Legislation", "Protects people from serious harm caused by digital communications, such as online harassment.", "https://www.legislation.govt.nz/act/public/2015/0063/latest/whole.html"],
+    ["PTE Enrolment and Academic Records Rules", "NZQA", "How private training establishments like academyEX must handle enrolments and academic records.", "https://www2.nzqa.govt.nz/about-us/rules-fees-policies/nzqa-rules/pte-enrolment-and-academic-records-rules/"],
+    ["Licensing a repository", "GitHub Docs", "How to add a licence to a GitHub repository, so others know how they can use your code.", "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/licensing-a-repository"]
+  ]}
 ];
 
 /* ============================================================
@@ -506,7 +541,7 @@ const VIEWS = [
   {id:"guides", label:"Guides and tutorials", ico:"play", tone:"lilac", desc:"Step-by-step videos and walkthroughs from the PlayLab team"},
   {id:"tools", label:"Tools and software", ico:"tools", tone:"sky", desc:"Find the right tool for what you want to make"},
   {id:"external", label:"External resources", ico:"globe", tone:"peach", desc:"Talks, videos and articles from elsewhere worth your time"},
-  {id:"policies", label:"Policies and guidelines", ico:"shield", tone:"mint", desc:"AI use, copyright, privacy and accessibility"},
+  {id:"policies", label:"Policies and guidelines", ico:"shield", tone:"mint", desc:"AI use, conduct, copyright, privacy and the laws behind them"},
   {id:"faqs", label:"FAQs", ico:"question", tone:"butter", desc:"Quick answers to common questions"}
 ];
 const TONES = ["lilac","sky","mint","butter","peach","blue"];
@@ -660,7 +695,11 @@ function openTool(id){
 function renderPolicies(){
   $("#policies").innerHTML = POLICIES.map(p => `<article class="card policy"><span class="p-ico t-${p.tone}">${ico(p.ico)}</span><h2>${esc(p.title)}</h2><p>${esc(p.summary)}</p>
     ${p.points.length ? `<ul>${p.points.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
-    <div class="p-link">${/^https?:\/\//.test(p.link || "") ? `<a class="link-btn" href="${esc(p.link)}" target="_blank" rel="noopener">Read the full policy</a>` : `<span class="note">Full policy link coming soon</span>`}</div></article>`).join("");
+    <div class="p-link">${/^https?:\/\//.test(p.link || "") ? `<a class="link-btn" href="${esc(p.link)}" target="_blank" rel="noopener">Read the full policy</a>` : p.more ? `<button class="link-btn" data-law="${esc(p.more)}">${esc(p.moreLabel || "See related laws")}</button>` : `<span class="note">Full policy link coming soon</span>`}</div></article>`).join("");
+  $("#laws").innerHTML = `<h2 class="section-title" style="margin-top:26px">Laws and regulations in Aotearoa</h2>
+    <p class="note" style="margin:-6px 4px 14px;color:var(--ink-2)">Official sources for the rules behind these guidelines. Links open the publisher's website.</p>` +
+    LAWS.map(g => `<div class="card law-group" id="law-${esc(g.id)}"><h2>${esc(g.group)}</h2><p class="note" style="color:var(--ink-2);margin:2px 0 10px">${esc(g.intro)}</p>
+      <ul class="law-list">${g.links.map(([t, src, d, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener"><span class="l-txt"><b>${esc(t)}</b><span>${esc(d)}</span></span><span class="pill t-blue">${esc(src)}</span>${ico("ext")}</a></li>`).join("")}</ul></div>`).join("");
 }
 const faqText = s => esc(s).replace(/\[([^\]]+)\]\((#[\w-]+)\)/g, '<a href="$2">$1</a>');
 function renderFaqs(){
@@ -682,26 +721,28 @@ function searchAll(q){
     guides: GUIDES.map((r, i) => [r, i]).filter(([r]) => hit([r.title, r.summary, r.topic].join(" "))),
     tools: (state.tools || []).filter(t => hit([t.name, t.category, t.best_for, t.description].join(" "))).sort((a, b) => a.rank - b.rank),
     external: EXTERNAL.map((r, i) => [r, i]).filter(([r]) => hit([r.title, r.summary, r.topic, r.source].join(" "))),
-    faqs: FAQS.flatMap(g => g.items).filter(([qq, a]) => hit(qq + " " + a))
+    faqs: FAQS.flatMap(g => g.items).filter(([qq, a]) => hit(qq + " " + a)),
+    laws: [...POLICIES.map(p => [p.title, "Policy", p.summary + " " + p.points.join(" "), p.link || ""]), ...LAWS.flatMap(g => g.links.map(([t, src, d, u]) => [t, src, d + " " + g.group, u]))].filter(([t, src, d]) => hit(t + " " + src + " " + d))
   };
 }
 function renderResults(q){
   const box = $("#results"), r = searchAll(q);
   if(!r){ box.hidden = true; return; }
   const sec = (title, items, more, render) => items.length ? `<div><h3><span>${title} <span class="note">(${items.length})</span></span>${more ? `<button class="link-btn" data-go="${more}">See all</button>` : ""}</h3><div class="r-list">${items.slice(0, 6).map(render).join("")}</div></div>` : "";
-  const total = r.guides.length + r.tools.length + r.external.length + r.faqs.length;
+  const total = r.guides.length + r.tools.length + r.external.length + r.faqs.length + r.laws.length;
   box.innerHTML = total ? [
     sec("Guides", r.guides, "guides", ([g, i]) => `<button class="r-item" data-open="guide:${i}"><span class="r-ico ph t-lilac">${ico("play")}</span><span><b>${esc(g.title)}</b><span>${esc(g.topic || "Guide")}</span></span></button>`),
     sec("Tools", r.tools, "tools", t => `<button class="r-item" data-tool="${esc(t.id)}"><span class="r-ico ph t-${toneFor(t.category)}">${esc(initials(t.name))}</span><span><b>${esc(t.name)}</b><span>${esc(t.category)}</span></span></button>`),
     sec("External resources", r.external, "external", ([x, i]) => `<button class="r-item" data-open="ext:${i}"><span class="r-ico ph t-peach">${ico("globe")}</span><span><b>${esc(x.title)}</b><span>${esc(x.source || x.topic || "")}</span></span></button>`),
+    sec("Policies and laws", r.laws, "policies", ([t, src, d, u]) => u ? `<a class="r-item" href="${esc(u)}" target="_blank" rel="noopener"><span class="r-ico ph t-mint">${ico("shield")}</span><span><b>${esc(t)}</b><span>${esc(src)}</span></span></a>` : `<button class="r-item" data-go="policies"><span class="r-ico ph t-mint">${ico("shield")}</span><span><b>${esc(t)}</b><span>${esc(src)}</span></span></button>`),
     sec("Answers", r.faqs, "faqs", ([qq]) => `<button class="r-item" data-faq="${esc(qq)}"><span class="r-ico ph t-butter">${ico("question")}</span><span><b>${esc(qq)}</b><span>FAQ</span></span></button>`)
   ].join("") : `<p class="r-none">Nothing matches "${esc(q)}" yet. Try different words, browse the categories below, or <a data-req>ask the PlayLab team</a>.</p>`;
   box.hidden = false; wireReq();
 }
 function renderOverview(){
   $("#intents").innerHTML = INTENTS.map(([l, q]) => `<button data-intent="${esc(q)}" aria-pressed="${state.intent === q}">${esc(l)}</button>`).join("");
-  const counts = {guides:GUIDES.length, tools:state.tools ? state.tools.length : "…", external:EXTERNAL.length, policies:POLICIES.length, faqs:FAQS.reduce((a, g) => a + g.items.length, 0)};
-  const unit = {guides:"guides", tools:"tools", external:"resources", policies:"policies", faqs:"answers"};
+  const counts = {guides:GUIDES.length, tools:state.tools ? state.tools.length : "…", external:EXTERNAL.length, policies:POLICIES.length + LAWS.reduce((a, g) => a + g.links.length, 0), faqs:FAQS.reduce((a, g) => a + g.items.length, 0)};
+  const unit = {guides:"guides", tools:"tools", external:"resources", policies:"policies and laws", faqs:"answers"};
   $("#cats").innerHTML = VIEWS.slice(1).map(v => `<button class="cat t-${v.tone}" data-go="${v.id}"><span class="c-ico">${ico(v.ico)}</span><b>${esc(v.label)}</b><span>${esc(v.desc)}</span><span class="c-n">${counts[v.id]} ${unit[v.id]}</span></button>`).join("");
   const feat = [...GUIDES.map((r, i) => [r, i, "guide"]), ...EXTERNAL.map((r, i) => [r, i, "ext"])].filter(([r]) => r.featured || isNew(r.added)).slice(0, 6);
   $("#featured").innerHTML = feat.length ? feat.map(([r, i, l]) => mediaCard(r, i, l)).join("") : `<p class="note">Featured guides and resources will appear here.</p>`;
@@ -717,6 +758,7 @@ function init(){
   document.addEventListener("click", e => {
     const o = e.target.closest("[data-open]"); if(o){ const [l, i] = o.dataset.open.split(":"); openMedia(l, +i); return; }
     const t = e.target.closest("[data-tool]"); if(t){ openTool(t.dataset.tool); return; }
+    const lw = e.target.closest("[data-law]"); if(lw){ const g = document.getElementById("law-" + lw.dataset.law); if(g){ g.scrollIntoView({block:"start", behavior:"smooth"}); g.classList.add("flash"); setTimeout(() => g.classList.remove("flash"), 1600); } return; }
     const f = e.target.closest("[data-faq]"); if(f){ $("#faqQ").value = f.dataset.faq.split(" ").slice(0, 4).join(" "); renderFaqs(); go("faqs"); return; }
   });
   $("#dlgClose").addEventListener("click", () => $("#dlg").close());
@@ -737,6 +779,7 @@ function init(){
   ["#toolQ","#toolLC","#toolCost","#toolSort"].forEach(s => $(s).addEventListener("input", renderTools));
   $("#faqQ").addEventListener("input", renderFaqs);
   go((location.hash || "#overview").slice(1), {initial:true});
+  window.addEventListener("hashchange", () => go((location.hash || "#overview").slice(1)));
   loadTools().then(() => { renderTools(); renderOverview(); if($("#ask").value) renderResults($("#ask").value); });
 }
 init();

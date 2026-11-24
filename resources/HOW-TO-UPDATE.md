@@ -11,6 +11,7 @@ Changes go live within about two minutes. If you don't see a change, refresh wit
 - [Add an external resource](#add-an-external-resource)
 - [Update tools and software](#update-tools-and-software)
 - [Change a policy or add its link](#change-a-policy-or-add-its-link)
+- [Add a law or regulation link](#add-a-law-or-regulation-link)
 - [Add or change an FAQ](#add-or-change-an-faq)
 - [Connect the "Ask the PlayLab" form](#connect-the-ask-the-playlab-form)
 - [If something goes wrong](#if-something-goes-wrong)
@@ -25,6 +26,7 @@ Changes go live within about two minutes. If you don't see a change, refresh wit
 | Tools and software | The **PlayLab Tool Finder** repo (`dvexperiments/PlayLab-Tool-Finder`), using its Excel workbook. Nothing to change here |
 | External resources | `resources/index.html`, the `EXTERNAL` list |
 | Policies and guidelines | `resources/index.html`, the `POLICIES` list |
+| Laws and regulations | `resources/index.html`, the `LAWS` list |
 | FAQs | `resources/index.html`, the `FAQS` list |
 | "Ask the PlayLab" buttons | `resources/index.html`, `requestForm` in `SETTINGS` |
 
@@ -123,7 +125,25 @@ In `resources/index.html`, search for `const POLICIES = [`.
 - Paste the full policy's address between the quotes after `link:`. Until then, the card says "Full policy link coming soon".
 - Copy a whole entry (from `{title:` to `},`) to add another policy. `ico` can be `spark`, `copy`, `access` or `shield`. `tone` can be `lilac`, `peach`, `mint`, `sky` or `butter`.
 
-The AI guidelines, Tikanga (code of conduct) and privacy policy cards link to the full documents. Copyright and accessibility don't have links yet. These are summaries: ask the policy owner to check the wording before launch.
+The AI guidelines, Tikanga (code of conduct) and privacy policy cards link to the full documents. The Copyright card's button jumps to the copyright laws further down the page. Accessibility doesn't have a link yet.
+
+To make a card's button jump to a group of laws instead of a policy document, leave `link:""` and add `more:"copyright"` (or `"other"`) and `moreLabel:"Button text"`. These are summaries: ask the policy owner to check the wording before launch.
+
+---
+
+## Add a law or regulation link
+
+Under the policy cards is a "Laws and regulations in Aotearoa" section with two groups: **Copyright** and **Other relevant laws and regulations**.
+
+In `resources/index.html`, search for `const LAWS = [`. Each link is one line inside its group's `links:[ ... ]`:
+
+```js
+    ["Privacy Act 2020", "NZ Legislation", "How personal information must be collected, used, stored and shared in New Zealand.", "https://www.legislation.govt.nz/act/public/2020/0031/latest/LMS23223.html"],
+```
+
+The four parts are: title, who publishes it, a one-line description, and the link. To start a new group, copy a whole group (from `{id:` to `]},`) and give it a new `id`, `group` name and `intro`.
+
+These links are included in the "What do you want to do?" search.
 
 ---
 
