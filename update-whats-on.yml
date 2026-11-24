@@ -1,0 +1,51 @@
+# Updates the What's On page's calendar and tech news every few hours.
+# It reads the PlayLab Google Calendar and four news feeds, saves them to
+# whats-on/data/, and commits only if something changed.
+# Setup steps: whats-on/SETUP.md
+
+name: Update What's On
+
+on:
+  schedule:
+    - cron: "23 */3 * * *"   # every 3 hours (times are UTC)
+  workflow_dispatch:          # adds a "Run workflow" button in the Actions tab
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-whats-on
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      TZ: UTC
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch calendar and news
+        working-directory: whats-on/tools
+        env:
+          CALENDAR_ICS_URL: ${{ secrets.CALENDAR_ICS_URL }}
+        run: |
+          npm install --no-audit --no-fund --no-package-lock
+          node update-data.mjs
+
+      - name: Save changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git add whats-on/data
+          if git diff --cached --quiet; then
+            echo "Nothing new."
+          else
+            git commit -m "Update What's On calendar and news"
+            git push
+          fi

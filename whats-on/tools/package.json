@@ -1,0 +1,10 @@
+{
+  "name": "whats-on-update",
+  "private": true,
+  "type": "module",
+  "description": "Fetches the PlayLab calendar and tech news for the What's On page. Run by GitHub Actions.",
+  "dependencies": {
+    "fast-xml-parser": "^4.5.0",
+    "node-ical": "^0.20.1"
+  }
+}

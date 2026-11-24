@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's On · PlayLab · Master of Technological Futures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PlayLab · What's On
+   Settings are in the <script> at the bottom. The calendar and tech
+   news update themselves (see whats-on/SETUP.md).
+   ============================================================ */
+:root{
+  --paper:#EEF1F7; --card:#FFFFFF; --ink:#172038; --ink-2:#4A5372; --ink-3:#7D86A3; --line:#E1E5EF;
+  --blue:#3651F5; --blue-deep:#2238C4; --blue-soft:#E4E8FF;
+  --peach:#FFD5C2; --peach-ink:#9A3B12;
+  --lilac:#DDD7FF; --lilac-ink:#4B3AB0;
+  --mint:#CBEFD8;  --mint-ink:#1D6B3E;
+  --butter:#FFEDA8; --butter-ink:#7A5A00;
+  --sky:#CFE6FF;   --sky-ink:#1B4F8A;
+  --r-xl:28px; --r-lg:20px; --r-md:14px;
+  --shadow:0 1px 0 rgba(23,32,56,.04), 0 8px 24px -12px rgba(34,56,196,.18);
+  --display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--blue-deep)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.01em;line-height:1.15}
+p{margin:0}
+[hidden]{display:none!important}
+
+/* ---------- Shell (shared with the other PlayLab pages) ---------- */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh;gap:18px;padding:18px}
+.side{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none}
+.brand b{font-family:var(--display);font-size:19px;display:block;line-height:1.1}
+.brand small{opacity:.75;font-size:12.5px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;font-weight:500;font-size:14.5px;color:rgba(255,255,255,.85)}
+.nav button svg{width:19px;height:19px;flex:none}
+.nav button:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav button[aria-current="page"]{background:#fff;color:var(--blue-deep);font-weight:700}
+.nav button:focus-visible{outline:3px solid #fff;outline-offset:1px}
+.side-foot{margin-top:auto;background:rgba(255,255,255,.12);border-radius:var(--r-lg);padding:16px;font-size:13.5px}
+.side-foot p{opacity:.9;margin-bottom:10px}
+.btn-white{display:inline-block;background:#fff;color:var(--blue-deep);text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px;font-size:13px}
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.view{display:none}
+.view.active{display:block}
+.view-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:4px 4px 18px}
+.vh-title{display:flex;gap:14px;align-items:center}
+.badge{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex:none}
+.badge svg{width:26px;height:26px}
+.view-head h1{font-size:clamp(26px,3vw,34px);font-weight:800}
+.view-head p{color:var(--ink-2);max-width:62ch;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.grid>.s12{grid-column:span 12}.grid>.s8{grid-column:span 8}.grid>.s7{grid-column:span 7}.grid>.s5{grid-column:span 5}.grid>.s4{grid-column:span 4}
+.card{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:19px;font-weight:700}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.link-btn{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--blue-deep);padding:6px 12px;border-radius:999px;background:var(--blue-soft);text-decoration:none;display:inline-block}
+.link-btn:hover{background:#d4daff}
+.solid-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none}
+.solid-btn:hover{background:var(--blue-deep)}
+.solid-btn svg,.ghost-btn svg{width:17px;height:17px}
+.ghost-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:10px 16px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:var(--card);text-decoration:none}
+.ghost-btn:hover{border-color:var(--blue);color:var(--blue-deep)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.note{font-size:13px;color:var(--ink-3)}
+.chip{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-2)}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.toolbar .grow{flex:1}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px}
+.seg button{all:unset;cursor:pointer;padding:7px 14px;border-radius:999px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:#fff}
+.seg button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.empty{background:var(--card);border-radius:var(--r-lg);padding:28px;text-align:center;color:var(--ink-2);box-shadow:var(--shadow)}
+.empty b{display:block;font-family:var(--display);font-size:18px;color:var(--ink);margin-bottom:4px}
+.empty .solid-btn{margin-top:14px}
+.embed{width:100%;border:0;border-radius:var(--r-lg);background:#fff;display:block}
+
+/* ---------- Overview hero: what's next ---------- */
+.hero{background:var(--ink);color:#fff;border-radius:var(--r-xl);padding:30px;overflow:hidden}
+.hero-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:28px;align-items:start}
+.hero h1{font-size:clamp(34px,4.6vw,56px);font-weight:800;line-height:1;letter-spacing:-.03em}
+.hero-intro{color:rgba(255,255,255,.78);font-size:15.5px;margin-top:14px;max-width:50ch}
+.next{background:#fff;color:var(--ink);border-radius:var(--r-lg);padding:20px;display:flex;gap:18px;cursor:pointer;text-align:left;width:100%;border:0;font:inherit}
+.next:hover{box-shadow:0 0 0 3px var(--blue)}
+.next:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.next .big-date{flex:none;width:86px;border-radius:16px;background:var(--blue);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 0;line-height:1}
+.next .big-date small{font-size:12px;font-weight:700;opacity:.85}
+.next .big-date b{font-family:var(--display);font-size:40px;font-weight:800;margin:4px 0 2px}
+.next .n-body{min-width:0;display:flex;flex-direction:column;gap:6px}
+.next .n-kicker{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.count{background:var(--butter);color:var(--butter-ink)}
+.count.now{background:var(--mint);color:var(--mint-ink)}
+.next h2{font-size:22px;font-weight:800}
+.next .meta{font-size:14px;color:var(--ink-2);display:flex;flex-direction:column;gap:2px}
+.next .meta span{display:flex;gap:8px;align-items:flex-start}
+.next .meta svg{width:16px;height:16px;flex:none;margin-top:2px;color:var(--ink-3)}
+.also{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.also button{all:unset;cursor:pointer;display:flex;gap:12px;align-items:center;padding:9px 12px;border-radius:14px;background:rgba(255,255,255,.07)}
+.also button:hover{background:rgba(255,255,255,.14)}
+.also button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.also .mini-date{flex:none;width:44px;text-align:center;line-height:1.05}
+.also .mini-date small{display:block;font-size:10.5px;font-weight:700;color:rgba(255,255,255,.6)}
+.also .mini-date b{font-family:var(--display);font-size:19px;font-weight:800}
+.also .t{font-weight:600;font-size:14.5px;display:block;line-height:1.25}
+.also .s{font-size:12.5px;color:rgba(255,255,255,.62)}
+/* fortnight strip */
+.fortnight{margin-top:26px}
+.fortnight-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:10px}
+.fortnight-head b{font-size:14px;font-weight:600}
+.fortnight-head span{font-size:12.5px;color:rgba(255,255,255,.6)}
+.days{display:grid;grid-template-columns:repeat(14,1fr);gap:6px}
+.day{all:unset;box-sizing:border-box;cursor:default;border-radius:14px;background:rgba(255,255,255,.06);padding:8px 4px 10px;display:flex;flex-direction:column;align-items:center;gap:6px;min-height:84px;position:relative}
+.day.has{cursor:pointer;background:rgba(255,255,255,.11)}
+.day.has:hover,.day.sel{background:rgba(255,255,255,.2)}
+.day:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.day small{font-size:11px;font-weight:700;color:rgba(255,255,255,.55)}
+.day b{font-family:var(--display);font-size:19px;font-weight:800;line-height:1}
+.day.today{background:var(--blue)}
+.day.today small{color:#fff}
+.day.weekend small{color:rgba(255,255,255,.4)}
+.day .dots{display:flex;gap:3px;flex-wrap:wrap;justify-content:center;max-width:40px}
+.day .dots i{width:7px;height:7px;border-radius:50%;background:var(--peach)}
+.day .dots i.ad{background:var(--butter)}
+.day-detail{margin-top:12px;background:rgba(255,255,255,.07);border-radius:16px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.day-detail button{all:unset;cursor:pointer;display:flex;gap:10px;font-size:14px;padding:4px 6px;border-radius:8px}
+.day-detail button:hover{background:rgba(255,255,255,.1)}
+.day-detail button span{color:rgba(255,255,255,.65);flex:none;min-width:72px}
+.hero-empty{background:rgba(255,255,255,.07);border-radius:var(--r-lg);padding:20px}
+.hero-empty b{font-family:var(--display);font-size:19px;display:block;margin-bottom:6px}
+.hero-empty p{color:rgba(255,255,255,.75);font-size:14.5px;margin-bottom:14px}
+
+/* overview cards */
+.story-mini{display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.story-mini:first-child{border-top:0;padding-top:0}
+.story-mini:hover h3{color:var(--blue-deep);text-decoration:underline}
+.story-mini .thumb{flex:none;width:92px;height:66px;border-radius:12px;object-fit:cover;background:var(--paper)}
+.story-mini h3{font-family:var(--body);font-size:15px;font-weight:700;line-height:1.3}
+.story-mini .src{font-size:12.5px;color:var(--ink-3);margin-top:4px;display:flex;gap:8px;align-items:center}
+.meet-card{background:var(--mint);color:var(--mint-ink);display:flex;flex-direction:column;gap:12px}
+.meet-card h2{color:var(--ink)}
+.meet-card p{color:var(--ink-2);font-size:14.5px}
+.meet-card .av{width:56px;height:56px;border-radius:18px;background:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px;color:var(--mint-ink)}
+.aex-card{display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--lilac)}
+.aex-card h2{color:var(--ink)}
+.aex-card p{color:var(--ink-2);font-size:14.5px;margin-top:4px;max-width:60ch}
+
+/* ---------- Calendar ---------- */
+.month-label{font-family:var(--display);font-weight:700;font-size:20px;min-width:180px}
+.agenda{display:flex;flex-direction:column;gap:22px}
+.agenda h3{font-size:16px;font-weight:700;color:var(--ink-2);margin:0 4px 10px}
+.ev-list{display:flex;flex-direction:column;gap:10px}
+.ev{all:unset;box-sizing:border-box;cursor:pointer;width:100%;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:14px;display:flex;gap:16px;align-items:center}
+.ev:hover{box-shadow:0 0 0 2px var(--blue-soft), var(--shadow)}
+.ev:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.ev.past{opacity:.6}
+.date-chip{flex:none;width:58px;height:62px;border-radius:15px;background:var(--blue-soft);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.date-chip small{font-size:11px;color:var(--blue-deep);font-weight:700}
+.date-chip b{font-family:var(--display);font-size:24px;font-weight:800;color:var(--blue-deep);margin-top:3px}
+.ev.allday .date-chip{background:var(--butter)}
+.ev.allday .date-chip small,.ev.allday .date-chip b{color:var(--butter-ink)}
+.ev-body{min-width:0;flex:1}
+.ev-body b{display:block;font-size:15.5px;font-weight:700;line-height:1.3}
+.ev-body span{font-size:13.5px;color:var(--ink-2);display:block}
+.ev .count{flex:none}
+.cal-grid{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
+.cal-dow{display:grid;grid-template-columns:repeat(7,1fr);background:var(--paper);font-size:12px;font-weight:700;color:var(--ink-3)}
+.cal-dow span{padding:10px 12px}
+.cal-cells{display:grid;grid-template-columns:repeat(7,1fr)}
+.cell{min-height:110px;border-top:1px solid var(--line);border-left:1px solid var(--line);padding:8px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.cell:nth-child(7n+1){border-left:0}
+.cell.out{background:#FAFBFD}
+.cell.out .dn{color:#C3C9DB}
+.cell .dn{font-size:13px;font-weight:700;color:var(--ink-2)}
+.cell.today .dn{background:var(--blue);color:#fff;border-radius:999px;width:26px;height:26px;display:grid;place-items:center}
+.cell button{all:unset;cursor:pointer;font-size:12px;font-weight:600;padding:3px 7px;border-radius:7px;background:var(--blue-soft);color:var(--blue-deep);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cell button.ad{background:var(--butter);color:var(--butter-ink)}
+.cell button:hover{filter:brightness(.95)}
+.cell button:focus-visible{outline:2px solid var(--blue)}
+.cell .more{font-size:11.5px;color:var(--ink-3);font-weight:600;padding-left:4px}
+.tz-note{font-size:13px;color:var(--ink-3);margin:12px 4px 0}
+dialog.ev-dialog{border:0;padding:0;border-radius:var(--r-xl);max-width:min(560px,94vw);width:100%;box-shadow:0 30px 80px -20px rgba(23,32,56,.5)}
+dialog.ev-dialog::backdrop{background:rgba(23,32,56,.55)}
+.dlg-top{background:var(--blue);color:#fff;padding:22px 24px;position:relative}
+.dlg-top h2{font-size:24px;font-weight:800;padding-right:40px}
+.dlg-top .count{margin-bottom:10px}
+.dlg-close{all:unset;cursor:pointer;position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:999px;background:rgba(255,255,255,.18);display:grid;place-items:center}
+.dlg-close svg{width:18px;height:18px}
+.dlg-close:focus-visible{outline:2px solid #fff}
+.dlg-body{padding:20px 24px 24px;display:flex;flex-direction:column;gap:12px}
+.dlg-row{display:flex;gap:12px;font-size:14.5px;color:var(--ink-2)}
+.dlg-row svg{width:18px;height:18px;flex:none;color:var(--ink-3);margin-top:2px}
+.dlg-desc{font-size:14.5px;color:var(--ink-2);white-space:pre-line;background:var(--paper);border-radius:var(--r-md);padding:12px 14px;max-height:220px;overflow:auto;overflow-wrap:anywhere}
+.dlg-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+
+/* ---------- Tech news ---------- */
+.lead{display:grid;grid-template-columns:1.2fr 1fr;background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);overflow:hidden;text-decoration:none;color:inherit;margin-bottom:18px}
+.lead:hover h2{color:var(--blue-deep)}
+.lead .l-img{width:100%;height:100%;min-height:260px;object-fit:cover;background:var(--paper);display:block}
+.lead .l-body{padding:26px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.lead h2{font-size:clamp(22px,2.4vw,30px);font-weight:800;line-height:1.15}
+.lead p{color:var(--ink-2)}
+.stories{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.story{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.story:hover h3{color:var(--blue-deep);text-decoration:underline}
+.story:focus-visible,.lead:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.story .s-img{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--paper);display:block}
+.story .s-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+.story h3{font-family:var(--body);font-size:16px;font-weight:700;line-height:1.3}
+.story p{font-size:13.5px;color:var(--ink-2)}
+.story .s-meta,.lead .s-meta{display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--ink-3);margin-top:auto}
+.ph{display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:22px}
+.src-verge{background:var(--lilac)!important;color:var(--lilac-ink)!important}
+.src-wired{background:var(--butter)!important;color:var(--butter-ink)!important}
+.src-mit{background:var(--peach)!important;color:var(--peach-ink)!important}
+.src-ars{background:var(--mint)!important;color:var(--mint-ink)!important}
+.src-other{background:var(--sky)!important;color:var(--sky-ink)!important}
+.ph{display:grid!important;place-items:center}
+.lead .ph{font-size:56px}
+.story .ph{font-size:34px}
+.updated{font-size:13px;color:var(--ink-3);margin:16px 4px 0}
+
+/* ---------- Meeting ---------- */
+.meet-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:18px;align-items:start}
+.meet-info{display:flex;flex-direction:column;gap:14px}
+.meet-info ul{margin:0;padding-left:18px;color:var(--ink-2);font-size:14.5px}
+.meet-info li{margin:4px 0}
+.steps{counter-reset:s;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
+.steps li{counter-increment:s;display:flex;gap:12px;font-size:14.5px;color:var(--ink-2)}
+.steps li::before{content:counter(s);flex:none;width:28px;height:28px;border-radius:9px;background:var(--mint);color:var(--mint-ink);font-weight:800;display:grid;place-items:center;font-family:var(--display)}
+.form-card{padding:0;overflow:hidden}
+.form-card .embed{border-radius:0;height:760px}
+.form-card .fc-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);gap:10px;flex-wrap:wrap}
+.form-card .fc-head b{font-size:14.5px}
+
+.foot{font-size:12.5px;color:var(--ink-3);text-align:center;padding:10px 0 4px}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.days.animate .day{animation:rise .45s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*30ms)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media (max-width:1180px){
+  .grid>.s8,.grid>.s7,.grid>.s5,.grid>.s4{grid-column:span 12}
+  .hero-top{grid-template-columns:1fr}
+  .meet-layout{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;padding:12px;gap:12px}
+  .side{position:static;height:auto;flex-direction:row;align-items:center;padding:10px;border-radius:var(--r-lg);overflow-x:auto}
+  .brand{padding:0 8px 0 4px}
+  .brand small,.side-foot{display:none}
+  .brand b{white-space:nowrap}
+  .nav{flex-direction:row}
+  .nav button{white-space:nowrap;padding:9px 12px}
+  .nav button span{display:none}
+  .nav button[aria-current="page"] span{display:inline}
+  .lead{grid-template-columns:1fr}
+  .lead .l-img{min-height:200px;max-height:260px}
+  .cell{min-height:76px;padding:5px}
+  .cell button{font-size:10.5px;padding:2px 4px}
+}
+@media (max-width:600px){
+  .hero{padding:22px 18px}
+  .days{grid-template-columns:repeat(7,1fr)}
+  .next{flex-direction:column}
+  .next .big-date{width:100%;flex-direction:row;gap:10px;padding:10px}
+  .next .big-date b{font-size:26px;margin:0}
+  .ev .count{display:none}
+  .cal-dow span{padding:8px 4px;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side" aria-label="What's On sections">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3651F5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/><circle cx="12" cy="15" r="1.6" fill="#3651F5"/></svg>
+      </div>
+      <div><b>What's On</b><small>Events, dates and news</small></div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <p>Never miss a session: add the PlayLab calendar to your own.</p>
+      <a class="btn-white" id="subSide" target="_blank" rel="noopener">Add to my calendar</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ===== Overview ===== -->
+    <section class="view" id="view-overview" aria-labelledby="h-ov">
+      <div class="grid">
+        <div class="hero s12">
+          <div class="hero-top">
+            <div>
+              <h1 id="h-ov">What's on</h1>
+              <p class="hero-intro">Keep up with what's happening across the Futures PlayLab, the Master of Technological Futures (MTF) and the wider academyEX community. This space brings together upcoming events, important programme dates and relevant news, so you can find opportunities to participate, learn and connect.</p>
+            </div>
+            <div id="nextSlot" aria-live="polite"></div>
+          </div>
+          <div class="fortnight" id="fortnight"></div>
+        </div>
+
+        <div class="card s7">
+          <div class="card-head"><h2>Latest in tech</h2><button class="link-btn" data-go="news">All tech news</button></div>
+          <div id="newsMini"></div>
+        </div>
+
+        <div class="card s5 meet-card">
+          <div style="display:flex;gap:14px;align-items:center"><span class="av" aria-hidden="true">DV</span><div><h2>Book a meeting</h2><p>Meet with Dylan from the Futures PlayLab.</p></div></div>
+          <p>Choose a date and time that suits you. Dylan will confirm, depending on availability.</p>
+          <div><button class="solid-btn" data-go="meet">Request a meeting</button></div>
+        </div>
+
+        <div class="card s12 aex-card">
+          <div><h2>academyEX events</h2><p>Talks, briefings, meetups and info sessions from across academyEX, open to students, alumni and the wider community.</p></div>
+          <button class="solid-btn" data-go="aex">Browse academyEX events</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Calendar ===== -->
+    <section class="view" id="view-calendar" aria-labelledby="h-cal">
+      <div class="view-head">
+        <div class="vh-title"><span class="badge" style="background:var(--blue-soft);color:var(--blue-deep)" data-ico="cal"></span><div><h1 id="h-cal">PlayLab calendar</h1><p>Workshops, drop-ins, onsite days and other PlayLab sessions. Select an event for details.</p></div></div>
+        <a class="solid-btn" id="subMain" target="_blank" rel="noopener"><span data-ico="plus"></span>Add to my calendar</a>
+      </div>
+      <div id="calLive">
+        <div class="toolbar">
+          <div class="seg" role="group" aria-label="Calendar view">
+            <button data-cview="list" aria-pressed="true">List</button>
+            <button data-cview="month" aria-pressed="false">Month</button>
+          </div>
+          <span class="grow"></span>
+          <div id="monthNav" hidden style="display:flex;gap:8px;align-items:center">
+            <button class="ghost-btn" data-mstep="-1" aria-label="Previous month">‹</button>
+            <span class="month-label" id="monthLabel" aria-live="polite"></span>
+            <button class="ghost-btn" data-mstep="1" aria-label="Next month">›</button>
+            <button class="ghost-btn" data-mstep="0">Today</button>
+          </div>
+        </div>
+        <div id="agenda" class="agenda"></div>
+        <div id="month" hidden></div>
+        <p class="tz-note" id="tzNote" hidden></p>
+      </div>
+      <div id="calFallback" hidden>
+        <div class="card" style="padding:8px"><iframe class="embed" id="calEmbed" title="PlayLab Google Calendar" style="height:720px" loading="lazy"></iframe></div>
+      </div>
+    </section>
+
+    <!-- ===== academyEX events ===== -->
+    <section class="view" id="view-aex" aria-labelledby="h-aex">
+      <div class="view-head">
+        <div class="vh-title"><span class="badge" style="background:var(--lilac);color:var(--lilac-ink)" data-ico="star"></span><div><h1 id="h-aex">academyEX events</h1><p>Talks, briefings, meetups and info sessions from across academyEX.</p></div></div>
+        <a class="solid-btn" id="aexOpen" target="_blank" rel="noopener"><span data-ico="ext"></span>Open on academyex.com</a>
+      </div>
+      <div class="card" style="padding:8px"><iframe class="embed" id="aexEmbed" title="academyEX events" style="height:1100px" loading="lazy"></iframe></div>
+      <p class="tz-note">If the events don't show here, use "Open on academyex.com".</p>
+    </section>
+
+    <!-- ===== Tech news ===== -->
+    <section class="view" id="view-news" aria-labelledby="h-news">
+      <div class="view-head">
+        <div class="vh-title"><span class="badge" style="background:var(--peach);color:var(--peach-ink)" data-ico="news"></span><div><h1 id="h-news">Tech news</h1><p>The latest from leading technology publications. Headlines open the full story on the publisher's website.</p></div></div>
+      </div>
+      <div class="toolbar">
+        <div role="group" aria-label="Filter by source" id="srcChips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+        <span class="grow"></span>
+        <div class="seg" role="group" aria-label="Filter by time">
+          <button data-when="any" aria-pressed="true">Any time</button>
+          <button data-when="1" aria-pressed="false">Past 24 hours</button>
+          <button data-when="7" aria-pressed="false">Past 7 days</button>
+        </div>
+      </div>
+      <div id="news"></div>
+      <p class="updated" id="newsUpdated"></p>
+    </section>
+
+    <!-- ===== Book a meeting ===== -->
+    <section class="view" id="view-meet" aria-labelledby="h-meet">
+      <div class="view-head">
+        <div class="vh-title"><span class="badge" style="background:var(--mint);color:var(--mint-ink)" data-ico="people"></span><div><h1 id="h-meet">Book a meeting</h1><p>Request a time to meet with Dylan from the Futures PlayLab.</p></div></div>
+      </div>
+      <div class="meet-layout">
+        <div class="card meet-info">
+          <h2>How it works</h2>
+          <ol class="steps">
+            <li><div>Choose the date and time you'd like to meet, using the form.</div></li>
+            <li><div>Dylan checks his availability and gets back to you to confirm.</div></li>
+            <li><div>If that time doesn't work, he'll suggest another.</div></li>
+          </ol>
+          <div id="meetReasons"></div>
+        </div>
+        <div class="card form-card">
+          <div class="fc-head"><b>Meeting request form</b><a class="link-btn" id="meetOpen" target="_blank" rel="noopener">Open in a new tab</a></div>
+          <iframe class="embed" id="meetEmbed" title="Meeting request form" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <p class="foot">PlayLab · Master of Technological Futures · academyEX</p>
+  </main>
+</div>
+
+<dialog class="ev-dialog" id="evDialog" aria-labelledby="dlgTitle">
+  <div class="dlg-top"><div id="dlgCount"></div><h2 id="dlgTitle"></h2>
+    <button class="dlg-close" id="dlgClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="dlg-body" id="dlgBody"></div>
+</dialog>
+
+<script>
+/* ============================================================
+   SETTINGS: edit this section.
+   ============================================================ */
+const SETTINGS = {
+  // The PlayLab Google Calendar
+  calendarId: "c_9bb11eed863aae66c00be33d1fcd7f1e28012027822aa68d6f4e66d1cd969b0a@group.calendar.google.com",
+  // Where "Add to my calendar" goes
+  calendarSubscribe: "https://calendar.google.com/calendar/u/0?cid=Y185YmIxMWVlZDg2M2FhZTY2YzAwYmUzM2QxZmNkN2YxZTI4MDEyMDI3ODIyYWE2OGQ2ZjRlNjZkMWNkOTY5YjBhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20",
+  aexEvents: "https://academyex.com/browse/events",
+  meetingForm: "https://docs.google.com/forms/d/e/1FAIpQLSct_3YepEFVjF5kKT-GRhBWrAFIIg43TFlRS-huoe7rwq29-Q/viewform",
+  // Optional list shown under "How it works" on the Book a meeting page.
+  // Leave empty [] to hide it.
+  meetingReasons: [
+    "Getting started with a PlayLab tool or piece of equipment",
+    "Talking through an idea for a project or assessment",
+    "Questions about the PlayLab and what it offers"
+  ],
+  // Shown in Tech news until the automatic update has run for the first time
+  techNewsFallback: "https://dvexperiments.github.io/tech-brief/",
+  timeZone: "Pacific/Auckland"
+};
+
+/* ============================================================
+   APP: you shouldn't need to edit below this line.
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const TZ = SETTINGS.timeZone;
+const ICONS = {
+  home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+  cal:'<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  star:'<path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',
+  news:'<rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h2a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2H6M7 8h7M7 12h7M7 16h4"/>',
+  people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.8-3.3 3.2-5 6-5s5.2 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c2.6 0 4.3 1.5 5 4"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  pin:'<path d="M12 21s-6-6.2-6-11a6 6 0 0 1 12 0c0 4.8-6 11-6 11Z"/><circle cx="12" cy="10" r="2.2"/>',
+  link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  ext:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+  video:'<rect x="3" y="6" width="13" height="12" rx="2"/><path d="m16 10 5-3v10l-5-3"/>'
+};
+const ico = (n, sw=1.9) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
+const VIEWS = [
+  {id:"overview", label:"Overview", ico:"home"},
+  {id:"calendar", label:"PlayLab calendar", ico:"cal"},
+  {id:"aex", label:"academyEX events", ico:"star"},
+  {id:"news", label:"Tech news", ico:"news"},
+  {id:"meet", label:"Book a meeting", ico:"people"}
+];
+const state = { events:null, news:null, cview:"list", month:null, src:"all", when:"any", selDay:null };
+
+/* ---------- Dates (always shown in NZ time) ---------- */
+const nzYMD = d => new Intl.DateTimeFormat("en-CA", {timeZone:TZ, year:"numeric", month:"2-digit", day:"2-digit"}).format(d);
+const fmtNZ = (d, o) => new Intl.DateTimeFormat("en-NZ", {timeZone:TZ, ...o}).format(d);
+const ymdToDate = ymd => new Date(ymd + "T00:00:00Z");
+const fmtYMD = (ymd, o) => new Intl.DateTimeFormat("en-NZ", {timeZone:"UTC", ...o}).format(ymdToDate(ymd));
+const addDays = (ymd, n) => { const d = ymdToDate(ymd); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0,10); };
+const todayYMD = () => nzYMD(new Date());
+function evStartYMD(e){ return e.allDay ? e.start : nzYMD(new Date(e.start)); }
+function evDays(e){ // every NZ date an event touches
+  if(e.allDay){ const out = []; let d = e.start; const end = e.end || addDays(e.start, 1); while(d < end && out.length < 60){ out.push(d); d = addDays(d, 1); } return out; }
+  const s = nzYMD(new Date(e.start)), en = e.end ? nzYMD(new Date(new Date(e.end) - 1)) : s;
+  const out = []; let d = s; while(d <= en && out.length < 14){ out.push(d); d = addDays(d, 1); } return out;
+}
+const time = d => fmtNZ(d, {hour:"numeric", minute:"2-digit"}).replace(/\s/g, "").toLowerCase();
+function whenText(e, long){
+  if(e.allDay){
+    const end = e.end ? addDays(e.end, -1) : e.start;
+    const o = long ? {weekday:"long", day:"numeric", month:"long"} : {weekday:"short", day:"numeric", month:"short"};
+    return end > e.start ? `${fmtYMD(e.start, o)} to ${fmtYMD(end, o)}` : `${fmtYMD(e.start, o)}, all day`;
+  }
+  const s = new Date(e.start), en = e.end ? new Date(e.end) : null;
+  const day = fmtNZ(s, long ? {weekday:"long", day:"numeric", month:"long"} : {weekday:"short", day:"numeric", month:"short"});
+  return `${day}, ${time(s)}${en ? "–" + time(en) : ""}`;
+}
+function isNow(e){
+  const now = new Date();
+  if(e.allDay) return evDays(e).includes(todayYMD());
+  return new Date(e.start) <= now && now < new Date(e.end || e.start);
+}
+function isPast(e){
+  if(e.allDay) return (e.end ? addDays(e.end, -1) : e.start) < todayYMD();
+  return new Date(e.end || e.start) < new Date();
+}
+function countdown(e){
+  if(isNow(e)) return {t: e.allDay ? "Today" : "Happening now", now:true};
+  const days = Math.round((ymdToDate(evStartYMD(e)) - ymdToDate(todayYMD())) / 864e5);
+  if(days <= 0){
+    if(e.allDay) return {t:"Today"};
+    const mins = Math.round((new Date(e.start) - new Date()) / 6e4);
+    return {t: mins < 60 ? `Starts in ${Math.max(1, mins)} min` : `Today, ${time(new Date(e.start))}`};
+  }
+  if(days === 1) return {t:"Tomorrow"};
+  if(days < 14) return {t:`In ${days} days`};
+  return {t:`In ${Math.round(days / 7)} weeks`};
+}
+const upcoming = () => (state.events || []).filter(e => !isPast(e));
+function linkify(s){ return esc(s).replace(/https?:\/\/[^\s<]+/g, u => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`); }
+const safeURL = u => /^https?:\/\//.test(String(u||"").trim()) ? String(u).trim() : "";
+
+/* ---------- Navigation ---------- */
+function toTop(){ window.scrollTo(0, 0); try{ document.documentElement.scrollIntoView({block:"start", behavior:"instant"}); }catch(e){} }
+function renderNav(){
+  $("#nav").innerHTML = VIEWS.map(v => `<button data-view="${v.id}">${ico(v.ico)}<span>${esc(v.label)}</span></button>`).join("");
+  $("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if(b) go(b.dataset.view); });
+}
+const loaded = {};
+function go(id, opts = {}){
+  if(!VIEWS.some(v => v.id === id)) id = "overview";
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + id));
+  document.querySelectorAll("#nav button").forEach(b => b.dataset.view === id ? b.setAttribute("aria-current","page") : b.removeAttribute("aria-current"));
+  if(history.replaceState) history.replaceState(null, "", "#" + id);
+  if(!opts.initial) toTop();
+  // Load embeds only when their section is opened
+  if(id === "aex" && !loaded.aex){ $("#aexEmbed").src = SETTINGS.aexEvents; loaded.aex = true; }
+  if(id === "meet" && !loaded.meet){ $("#meetEmbed").src = SETTINGS.meetingForm.replace(/\?.*$/, "") + "?embedded=true"; loaded.meet = true; }
+  if(id === "calendar" && !state.events && !loaded.cal){
+    $("#calEmbed").src = `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(SETTINGS.calendarId)}&ctz=${encodeURIComponent(TZ)}&mode=AGENDA&showTitle=0&showPrint=0&showCalendars=0&showTz=0&wkst=2&bgcolor=%23ffffff`;
+    loaded.cal = true;
+  }
+}
+document.addEventListener("click", e => { const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); go(g.dataset.go); } });
+
+/* ---------- Overview ---------- */
+function dateBlock(e){
+  const ymd = evStartYMD(e);
+  return {dow: fmtYMD(ymd, {weekday:"short"}), d: fmtYMD(ymd, {day:"numeric"}), m: fmtYMD(ymd, {month:"short"})};
+}
+function renderNext(){
+  const slot = $("#nextSlot");
+  if(!state.events){
+    slot.innerHTML = `<div class="hero-empty"><b>See what's coming up</b><p>Workshops, drop-ins and onsite days are all in the PlayLab calendar.</p><button class="solid-btn" data-go="calendar">Open the PlayLab calendar</button></div>`;
+    return;
+  }
+  const up = upcoming();
+  if(!up.length){ slot.innerHTML = `<div class="hero-empty"><b>Nothing scheduled right now</b><p>New PlayLab sessions will appear here as soon as they're added to the calendar.</p><a class="solid-btn" href="${esc(SETTINGS.calendarSubscribe)}" target="_blank" rel="noopener">Add the calendar to yours</a></div>`; return; }
+  const n = up[0], b = dateBlock(n), c = countdown(n);
+  slot.innerHTML = `<button class="next" data-ev="${esc(n.id)}" aria-label="Next up: ${esc(n.title)}, ${esc(whenText(n, true))}. Open details.">
+      <span class="big-date"><small>${esc(b.dow)}</small><b>${esc(b.d)}</b><small>${esc(b.m)}</small></span>
+      <span class="n-body"><span class="n-kicker"><span class="pill" style="background:var(--blue-soft);color:var(--blue-deep)">Next up</span><span class="pill count ${c.now ? "now" : ""}">${esc(c.t)}</span></span>
+        <h2>${esc(n.title)}</h2>
+        <span class="meta"><span>${ico("clock")}${esc(n.allDay ? "All day" : whenText(n).split(", ").slice(1).join(", "))}</span>${n.location ? `<span>${ico("pin")}${esc(n.location)}</span>` : ""}</span></span>
+    </button>
+    <div class="also">${up.slice(1, 4).map(e => { const d = dateBlock(e); return `<button data-ev="${esc(e.id)}"><span class="mini-date"><small>${esc(d.m)}</small><b>${esc(d.d)}</b></span><span><span class="t">${esc(e.title)}</span><span class="s">${esc(countdown(e).t)}, ${esc(e.allDay ? "all day" : time(new Date(e.start)))}</span></span></button>`; }).join("")}</div>`;
+}
+function renderFortnight(){
+  const box = $("#fortnight");
+  if(!state.events){ box.innerHTML = ""; return; }
+  // Start on the Monday of this week
+  const t = todayYMD(); const dow = (ymdToDate(t).getUTCDay() + 6) % 7; const start = addDays(t, -dow);
+  const byDay = {};
+  upcoming().concat((state.events || []).filter(isPast)).forEach(e => evDays(e).forEach(d => (byDay[d] = byDay[d] || []).push(e)));
+  const days = Array.from({length:14}, (_, i) => addDays(start, i));
+  box.innerHTML = `<div class="fortnight-head"><b>The next two weeks</b><span>${esc(fmtYMD(days[0], {day:"numeric", month:"short"}))} to ${esc(fmtYMD(days[13], {day:"numeric", month:"short"}))}</span></div>
+    <div class="days animate" role="group" aria-label="Events in the next two weeks">${days.map((d, i) => {
+      const evs = (byDay[d] || []).sort((a, b) => (a.allDay ? 0 : 1) - (b.allDay ? 0 : 1) || a.start.localeCompare(b.start));
+      const wd = ymdToDate(d).getUTCDay();
+      const label = `${fmtYMD(d, {weekday:"long", day:"numeric", month:"long"})}: ${evs.length ? evs.length + (evs.length === 1 ? " event" : " events") : "no events"}`;
+      return `<button class="day ${d === t ? "today" : ""} ${evs.length ? "has" : ""} ${wd === 0 || wd === 6 ? "weekend" : ""} ${state.selDay === d ? "sel" : ""}" style="--i:${i}" data-day="${d}" aria-label="${esc(label)}" ${evs.length ? "" : 'tabindex="-1"'}>
+        <small>${esc(d === t ? "Today" : fmtYMD(d, {weekday:"short"}))}</small><b>${esc(fmtYMD(d, {day:"numeric"}))}</b>
+        <span class="dots">${evs.slice(0, 6).map(e => `<i class="${e.allDay ? "ad" : ""}"></i>`).join("")}</span></button>`;
+    }).join("")}</div>
+    <div id="dayDetail"></div>`;
+  setTimeout(() => { const dd = box.querySelector(".days"); if(dd) dd.classList.remove("animate"); }, 900);
+  renderDayDetail(byDay);
+}
+function renderDayDetail(byDay){
+  const el = $("#dayDetail"); if(!el) return;
+  if(!state.selDay || !byDay[state.selDay]){ el.innerHTML = ""; return; }
+  const evs = byDay[state.selDay];
+  el.innerHTML = `<div class="day-detail"><b style="font-size:14px">${esc(fmtYMD(state.selDay, {weekday:"long", day:"numeric", month:"long"}))}</b>${evs.map(e => `<button data-ev="${esc(e.id)}"><span>${esc(e.allDay ? "All day" : time(new Date(e.start)))}</span>${esc(e.title)}</button>`).join("")}</div>`;
+}
+function renderNewsMini(){
+  const box = $("#newsMini");
+  if(!state.news || !state.news.stories.length){
+    box.innerHTML = `<p class="note" style="margin-bottom:12px">The latest stories from The Verge, WIRED, MIT Technology Review and Ars Technica.</p><a class="solid-btn" href="${esc(SETTINGS.techNewsFallback)}" target="_blank" rel="noopener">Read the Tech Brief</a>`;
+    return;
+  }
+  box.innerHTML = state.news.stories.slice(0, 4).map(s => `<a class="story-mini" href="${esc(s.link)}" target="_blank" rel="noopener">${thumb(s, "thumb")}<div><h3>${esc(s.title)}</h3><div class="src"><span class="pill ${srcClass(s.source)}">${esc(s.source)}</span>${esc(ago(s.date))}</div></div></a>`).join("");
+}
+
+/* ---------- Calendar ---------- */
+function evButton(e){
+  const b = dateBlock(e), c = countdown(e);
+  return `<button class="ev ${e.allDay ? "allday" : ""} ${isPast(e) ? "past" : ""}" data-ev="${esc(e.id)}">
+    <span class="date-chip"><small>${esc(b.dow)}</small><b>${esc(b.d)}</b></span>
+    <span class="ev-body"><b>${esc(e.title)}</b><span>${esc(e.allDay ? whenText(e) : whenText(e).split(", ").slice(1).join(", "))}${e.location ? " · " + esc(e.location) : ""}</span></span>
+    ${isPast(e) ? "" : `<span class="pill count ${c.now ? "now" : ""}">${esc(c.t)}</span>`}
+  </button>`;
+}
+function renderAgenda(){
+  const up = upcoming();
+  if(!up.length){ $("#agenda").innerHTML = `<div class="empty"><b>Nothing scheduled right now</b>New sessions will appear here as soon as they're added to the PlayLab calendar.</div>`; return; }
+  const groups = {};
+  up.forEach(e => { const k = evStartYMD(e).slice(0, 7); (groups[k] = groups[k] || []).push(e); });
+  $("#agenda").innerHTML = Object.entries(groups).map(([k, evs]) => `<div><h3>${esc(fmtYMD(k + "-01", {month:"long", year:"numeric"}))}</h3><div class="ev-list">${evs.map(evButton).join("")}</div></div>`).join("");
+}
+function renderMonth(){
+  if(!state.month) state.month = todayYMD().slice(0, 7);
+  const first = state.month + "-01";
+  $("#monthLabel").textContent = fmtYMD(first, {month:"long", year:"numeric"});
+  const dow = (ymdToDate(first).getUTCDay() + 6) % 7; const start = addDays(first, -dow);
+  const byDay = {}; (state.events || []).forEach(e => evDays(e).forEach(d => (byDay[d] = byDay[d] || []).push(e)));
+  const t = todayYMD();
+  const cells = Array.from({length:42}, (_, i) => addDays(start, i));
+  const lastRowUsed = cells.slice(35).some(d => d.slice(0, 7) === state.month);
+  $("#month").innerHTML = `<div class="cal-grid"><div class="cal-dow">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d => `<span>${d}</span>`).join("")}</div>
+    <div class="cal-cells">${cells.slice(0, lastRowUsed ? 42 : 35).map(d => {
+      const evs = (byDay[d] || []).sort((a, b) => (a.allDay ? 0 : 1) - (b.allDay ? 0 : 1) || a.start.localeCompare(b.start));
+      return `<div class="cell ${d.slice(0, 7) !== state.month ? "out" : ""} ${d === t ? "today" : ""}"><span class="dn">${+d.slice(8)}</span>
+        ${evs.slice(0, 3).map(e => `<button class="${e.allDay ? "ad" : ""}" data-ev="${esc(e.id)}" title="${esc(e.title)}">${esc(e.allDay ? "" : time(new Date(e.start)) + " ")}${esc(e.title)}</button>`).join("")}
+        ${evs.length > 3 ? `<span class="more">+${evs.length - 3} more</span>` : ""}</div>`;
+    }).join("")}</div></div>`;
+}
+function renderCalendar(){
+  const live = !!state.events;
+  $("#calLive").hidden = !live; $("#calFallback").hidden = live;
+  if(!live) return;
+  $("#agenda").hidden = state.cview !== "list"; $("#month").hidden = state.cview !== "month"; $("#monthNav").hidden = state.cview !== "month";
+  state.cview === "list" ? renderAgenda() : renderMonth();
+  const here = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const tzn = $("#tzNote"); tzn.hidden = here === TZ; tzn.textContent = "Times are shown in New Zealand time.";
+}
+function gcalLink(e){
+  const fmt = d => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const dates = e.allDay ? `${e.start.replace(/-/g, "")}/${(e.end || addDays(e.start, 1)).replace(/-/g, "")}` : `${fmt(new Date(e.start))}/${fmt(new Date(e.end || e.start))}`;
+  const p = new URLSearchParams({action:"TEMPLATE", text:e.title, dates, details:(e.description || "") + (e.link ? "\n" + e.link : ""), location:e.location || ""});
+  return "https://calendar.google.com/calendar/render?" + p.toString();
+}
+function openEvent(id){
+  const e = (state.events || []).find(x => x.id === id); if(!e) return;
+  const c = countdown(e);
+  $("#dlgCount").innerHTML = isPast(e) ? `<span class="pill" style="background:rgba(255,255,255,.2);color:#fff">Finished</span>` : `<span class="pill count ${c.now ? "now" : ""}">${esc(c.t)}</span>`;
+  $("#dlgTitle").textContent = e.title;
+  const link = safeURL(e.link), online = /meet\.google|zoom\.us|teams\.microsoft|framevr/.test(link);
+  $("#dlgBody").innerHTML = `<div class="dlg-row">${ico("clock")}<span>${esc(whenText(e, true))}</span></div>
+    ${e.location ? `<div class="dlg-row">${ico("pin")}<span>${linkify(e.location)}</span></div>` : ""}
+    ${e.description ? `<div class="dlg-desc">${linkify(e.description)}</div>` : ""}
+    <div class="dlg-btns">${link ? `<a class="solid-btn" href="${esc(link)}" target="_blank" rel="noopener">${ico(online ? "video" : "link")}${online ? "Join online" : "More information"}</a>` : ""}
+      ${isPast(e) ? "" : `<a class="ghost-btn" href="${esc(gcalLink(e))}" target="_blank" rel="noopener">${ico("plus")}Add to Google Calendar</a>`}</div>`;
+  const d = $("#evDialog"); if(!d.open) d.showModal();
+}
+
+/* ---------- Tech news ---------- */
+function srcClass(s){ const k = String(s).toLowerCase(); return k.includes("verge") ? "src-verge" : k.includes("wired") ? "src-wired" : k.includes("mit") ? "src-mit" : k.includes("ars") ? "src-ars" : "src-other"; }
+function ago(iso){
+  const s = Math.min(-1, (new Date(iso) - new Date()) / 1000), rtf = new Intl.RelativeTimeFormat("en", {numeric:"auto"});
+  const a = Math.abs(s);
+  if(a < 60) return "just now";
+  if(a < 3600) return rtf.format(Math.round(s / 60), "minute");
+  if(a < 86400) return rtf.format(Math.round(s / 3600), "hour");
+  if(a < 86400 * 7) return rtf.format(Math.round(s / 86400), "day");
+  return fmtNZ(new Date(iso), {day:"numeric", month:"short"});
+}
+const initialsOf = s => String(s).replace(/^The /, "").split(/\s+/).map(w => w[0]).join("").slice(0, 3);
+function thumb(s, cls){
+  const ph = `<span class="${cls} ph ${srcClass(s.source)}" aria-hidden="true">${esc(initialsOf(s.source))}</span>`;
+  const img = safeURL(s.image);
+  return img ? `<img class="${cls}" src="${esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-src="${esc(s.source)}" onerror="phNews(this)">` : ph;
+}
+window.phNews = img => { const t = document.createElement("span"); t.className = img.className + " ph " + srcClass(img.dataset.src); t.setAttribute("aria-hidden","true"); t.textContent = initialsOf(img.dataset.src); img.replaceWith(t); };
+function renderNewsControls(){
+  const sources = state.news ? (state.news.sources || [...new Set(state.news.stories.map(s => s.source))]) : [];
+  $("#srcChips").innerHTML = [["all","All sources"], ...sources.map(s => [s, s])].map(([k, l]) => `<button class="chip" data-src="${esc(k)}" aria-pressed="${state.src === k}">${esc(l)}</button>`).join("");
+}
+function renderNews(){
+  const box = $("#news");
+  if(!state.news || !state.news.stories.length){
+    box.innerHTML = `<div class="empty"><b>Tech news is on its way</b>Stories from The Verge, WIRED, MIT Technology Review and Ars Technica will appear here shortly.<br><a class="solid-btn" href="${esc(SETTINGS.techNewsFallback)}" target="_blank" rel="noopener">Read the Tech Brief for now</a></div>`;
+    $("#newsUpdated").textContent = ""; return;
+  }
+  const cutoff = state.when === "any" ? 0 : Date.now() - (+state.when) * 864e5;
+  const list = state.news.stories.filter(s => (state.src === "all" || s.source === state.src) && new Date(s.date) >= cutoff);
+  if(!list.length){ box.innerHTML = `<div class="empty"><b>No stories for this filter</b>Try another source or a longer time period.</div>`; return; }
+  const [lead, ...rest] = list;
+  box.innerHTML = `<a class="lead" href="${esc(lead.link)}" target="_blank" rel="noopener">${thumb(lead, "l-img")}<div class="l-body"><span class="pill ${srcClass(lead.source)}" style="align-self:flex-start">${esc(lead.source)}</span><h2>${esc(lead.title)}</h2>${lead.summary ? `<p>${esc(lead.summary)}</p>` : ""}<span class="s-meta">${esc(ago(lead.date))}</span></div></a>
+    <div class="stories">${rest.map(s => `<a class="story" href="${esc(s.link)}" target="_blank" rel="noopener">${thumb(s, "s-img")}<div class="s-body"><span class="pill ${srcClass(s.source)}" style="align-self:flex-start">${esc(s.source)}</span><h3>${esc(s.title)}</h3>${s.summary ? `<p>${esc(s.summary)}</p>` : ""}<span class="s-meta">${esc(ago(s.date))}</span></div></a>`).join("")}</div>`;
+  $("#newsUpdated").textContent = state.news.updated ? `Updated ${ago(state.news.updated)}. Stories link to the original publishers.` : "";
+}
+
+/* ---------- Meeting ---------- */
+function renderMeeting(){
+  $("#meetOpen").href = SETTINGS.meetingForm;
+  const r = SETTINGS.meetingReasons || [];
+  $("#meetReasons").innerHTML = r.length ? `<h2 style="font-size:17px;margin-top:6px">Things you might meet about</h2><ul>${r.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
+}
+
+/* ---------- Data ---------- */
+async function getJSON(path){
+  try{ const res = await fetch(path, {cache:"no-cache"}); if(!res.ok) return null; return await res.json(); }catch(e){ return null; }
+}
+
+/* ---------- Wiring ---------- */
+function wire(){
+  document.querySelectorAll("[data-ico]").forEach(el => { if(el.classList.contains("badge")) el.innerHTML = ico(el.dataset.ico); else el.outerHTML = ico(el.dataset.ico); });
+  ["subSide","subMain"].forEach(id => $("#" + id).href = SETTINGS.calendarSubscribe);
+  $("#aexOpen").href = SETTINGS.aexEvents;
+  document.addEventListener("click", e => {
+    const ev = e.target.closest("[data-ev]"); if(ev){ openEvent(ev.dataset.ev); return; }
+    const day = e.target.closest("[data-day]");
+    if(day && day.classList.contains("has")){ state.selDay = state.selDay === day.dataset.day ? null : day.dataset.day; renderFortnight(); const b = document.querySelector(`[data-day="${state.selDay || day.dataset.day}"]`); if(b) b.focus(); }
+  });
+  $("#dlgClose").addEventListener("click", () => $("#evDialog").close());
+  $("#evDialog").addEventListener("click", e => { if(e.target === $("#evDialog")) $("#evDialog").close(); });
+  document.querySelectorAll("[data-cview]").forEach(b => b.addEventListener("click", () => {
+    state.cview = b.dataset.cview; document.querySelectorAll("[data-cview]").forEach(x => x.setAttribute("aria-pressed", x === b)); renderCalendar();
+  }));
+  document.querySelectorAll("[data-mstep]").forEach(b => b.addEventListener("click", () => {
+    const n = +b.dataset.mstep;
+    if(n === 0) state.month = todayYMD().slice(0, 7);
+    else { const [y, m] = state.month.split("-").map(Number); const d = new Date(Date.UTC(y, m - 1 + n, 1)); state.month = d.toISOString().slice(0, 7); }
+    renderMonth();
+  }));
+  $("#srcChips").addEventListener("click", e => { const b = e.target.closest("[data-src]"); if(!b) return; state.src = b.dataset.src; renderNewsControls(); renderNews(); });
+  document.querySelectorAll("[data-when]").forEach(b => b.addEventListener("click", () => {
+    state.when = b.dataset.when; document.querySelectorAll("[data-when]").forEach(x => x.setAttribute("aria-pressed", x === b)); renderNews();
+  }));
+}
+async function init(){
+  renderNav(); wire(); renderMeeting();
+  go((location.hash || "#overview").slice(1), {initial:true});
+  const [ev, news] = await Promise.all([getJSON("data/events.json"), getJSON("data/news.json")]);
+  state.events = ev && Array.isArray(ev.events) ? ev.events : null;
+  state.news = news && Array.isArray(news.stories) ? news : null;
+  renderNext(); renderFortnight(); renderNewsMini(); renderCalendar(); renderNewsControls(); renderNews();
+  if(location.hash === "#calendar" && !state.events) go("calendar", {initial:true});
+}
+init();
+</script>
+</body>
+</html>

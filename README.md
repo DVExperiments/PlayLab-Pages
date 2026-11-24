@@ -6,6 +6,7 @@ Interactive pages for the PlayLab Google Site (Master of Technological Futures, 
 |---|---|---|
 | Student Journey | `student-journey/` | `https://YOUR-USERNAME.github.io/playlab-pages/student-journey/` |
 | Community | `community/` | `https://YOUR-USERNAME.github.io/playlab-pages/community/` |
+| What's On | `whats-on/` | `https://YOUR-USERNAME.github.io/playlab-pages/whats-on/` |
 
 ## Updating a page
 
@@ -31,6 +32,10 @@ In `student-journey/index.html`, find `const COHORTS` and add a line at the top 
 - `breaks` lists the Mondays of non-teaching weeks, for example `["2027-09-27","2027-10-04"]`.
 - To link straight to a Gen, add `?gen=gen32` to the end of the page's link.
 
+
+## What's On
+
+The calendar and tech news update themselves through a scheduled GitHub job. One-off setup steps are in [`whats-on/SETUP.md`](whats-on/SETUP.md).
 
 ## Community: connecting Google Forms and Sheets
 
