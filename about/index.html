@@ -188,6 +188,18 @@ p{margin:0}
 .value small{font-weight:700;font-size:13.5px;opacity:.8}
 .value p{font-size:14.5px;color:var(--ink)}
 
+.tohu-card{display:grid;grid-template-columns:minmax(220px,.8fr) minmax(0,1.2fr);gap:28px;align-items:center;background:var(--card);border-radius:var(--r-xl);box-shadow:var(--shadow);padding:28px;margin-bottom:22px}
+.tohu-fig{margin:0;background:var(--butter);border-radius:var(--r-lg);padding:28px;display:grid;place-items:center;align-self:stretch}
+.tohu-fig img{width:100%;max-width:340px;height:auto;display:block}
+.tohu-text{display:flex;flex-direction:column;gap:10px}
+.tohu-text h2{font-size:clamp(24px,2.6vw,30px);font-weight:800}
+.tohu-text p{color:var(--ink-2);font-size:15px;max-width:62ch}
+.tohu-parts{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.tohu-parts li{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:baseline;background:var(--paper);border-radius:var(--r-md);padding:11px 14px;font-size:14.5px}
+.tohu-parts b{font-family:var(--display);font-size:16px}
+.tohu-parts span{color:var(--ink-2)}
+.values-head{font-size:20px;font-weight:700;margin:0 4px 12px}
+
 /* ---------- People ---------- */
 .people{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 .person{display:flex;flex-direction:column;gap:14px}
@@ -234,7 +246,7 @@ p{margin:0}
   .nav button{white-space:nowrap;padding:9px 12px}
   .nav button span{display:none}
   .nav button[aria-current="page"] span{display:inline}
-  .who,.values,.people{grid-template-columns:1fr}
+  .who,.values,.people,.tohu-card{grid-template-columns:1fr}
   .jump{grid-template-columns:1fr 1fr}
   .pillar-tabs{grid-template-columns:repeat(5,minmax(150px,1fr));overflow-x:auto;padding-bottom:4px}
   .track{overflow-x:auto;padding-bottom:4px}
@@ -244,6 +256,8 @@ p{margin:0}
   .loop{grid-template-columns:1fr 1fr}
   .facts b{font-size:18px}
   .fee-row,.blocks{grid-template-columns:1fr}
+  .tohu-card{padding:18px}
+  .tohu-parts li{grid-template-columns:1fr;gap:2px}
 }
 </style>
 </head>
@@ -369,6 +383,23 @@ p{margin:0}
     <!-- ===== Values ===== -->
     <section class="view" id="view-values" aria-labelledby="h-val">
       <div class="view-head"><div class="vh-title"><span class="badge" style="background:var(--peach);color:var(--peach-ink)" data-ico="heart"></span><div><h1 id="h-val">Our values</h1><p>The MTF is grounded in Te Ara Kōtihi, academyEX's values-based teaching and learning framework. It puts the learner at the centre, supported by people, structures and processes that together create a pathway to success.</p></div></div></div>
+      <div class="tohu-card">
+        <figure class="tohu-fig">
+          <img src="images/te-ara-kotihi.png" alt="The Te Ara Kōtihi tohu: a koru at the centre, surrounded by niho taniwha triangles, all enclosed in a triangular kōtihi (summit) shape." width="465" height="312">
+        </figure>
+        <div class="tohu-text">
+          <span class="pill" style="background:var(--butter);color:var(--butter-ink);align-self:flex-start">Our tohu</span>
+          <h2>Te Ara Kōtihi</h2>
+          <p>A working group was formed and consultation was undertaken, with students, staff and people we collaborate with. Our tohu, which already existed as a physical pin for each of our graduating students, became a visual representation of how we teach and learn.</p>
+          <p>It represents what we strive for at academyEX:</p>
+          <ul class="tohu-parts">
+            <li><b>Koru</b><span>Our students at the centre.</span></li>
+            <li><b>Niho taniwha</b><span>Our structures, people and processes, all linked together to support the learner.</span></li>
+            <li><b>Kōtihi</b><span>The summit shape enclosing everything else: together, forming a pathway to success.</span></li>
+          </ul>
+        </div>
+      </div>
+      <h2 class="values-head">Our four values</h2>
       <div class="values">
         <div class="value" style="background:var(--lilac);color:var(--lilac-ink)"><small>Self-determination</small><h3>Rangatiratanga</h3><p>We recognise diverse talents, identities, contexts and ways of learning, and support you to shape relevant inquiry, choose how you express your work and have a real say in technological futures.</p></div>
         <div class="value" style="background:var(--mint);color:var(--mint-ink)"><small>Care</small><h3>Manaaki</h3><p>We create inclusive, supportive environments where you can experiment, take intellectual and creative risks, receive feedback and build confidence and capability.</p></div>
@@ -528,7 +559,7 @@ const VIEWS = [
   {id:"programme", label:"The MTF programme", ico:"cap", tone:"sky", desc:"What the Master of Technological Futures is, and who it's for"},
   {id:"pillars", label:"Five pillars", ico:"columns", tone:"lilac", desc:"The lasting questions at the heart of the programme"},
   {id:"journey", label:"Learner journey", ico:"route", tone:"mint", desc:"Three parts, from exploring to an original project"},
-  {id:"values", label:"Our values", ico:"heart", tone:"peach", desc:"Te Ara Kōtihi and the Aotearoa grounding of the MTF"},
+  {id:"values", label:"Our values", ico:"heart", tone:"peach", desc:"Te Ara Kōtihi, our tohu, and the Aotearoa grounding of the MTF"},
   {id:"people", label:"People", ico:"people", tone:"butter", desc:"Meet the educators and advisors behind the PlayLab"},
   {id:"visit", label:"Visit and contact", ico:"pin", tone:"sky", desc:"Find us in Grafton, fees and start dates"}
 ];
