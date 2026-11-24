@@ -80,6 +80,7 @@ p{margin:0}
 .wk-auto b{color:var(--blue-deep);font-size:14.5px}
 .wk-auto small{font-size:11.5px;color:var(--ink-3);font-weight:500}
 .week-picker[hidden]{display:none}
+[hidden]{display:none!important}
 .cohort-prompt{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 26px;display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 .cohort-prompt h2{font-size:20px;font-weight:700}
 .cohort-prompt p{opacity:.85;font-size:14px;margin-top:2px}
@@ -320,6 +321,77 @@ details.how[open] .chev{transform:rotate(180deg)}
   .grid>.s8,.grid>.s7,.grid>.s5,.grid>.s4{grid-column:span 12}
   .grid>.s3{grid-column:span 6}
 }
+/* ---------- Official dates ---------- */
+.cohort-prompt button small{display:block;font-size:11.5px;font-weight:600;opacity:.7;margin-top:1px}
+.week-picker select#modeSel{margin-left:4px}
+/* Part 3: the whole programme as three parts */
+.prog{display:flex;gap:10px;align-items:stretch;margin-top:8px}
+.prog-empty{color:rgba(255,255,255,.75);font-size:14.5px}
+.seg{min-width:0;display:flex;flex-direction:column;gap:6px;color:rgba(255,255,255,.7);font-size:12.5px;position:relative}
+.seg b{color:#fff;font-size:14px;font-weight:700;line-height:1.25}
+.seg-bar{height:14px;border-radius:999px;background:rgba(255,255,255,.14);overflow:hidden;margin-bottom:6px}
+.seg-bar i{display:block;height:100%;background:rgba(255,255,255,.55);border-radius:999px}
+.seg.current .seg-bar{height:34px;border-radius:12px;box-shadow:0 0 0 3px var(--blue)}
+.seg.current .seg-bar i{background:var(--peach)}
+.seg em{font-style:normal;position:absolute;top:-28px;left:0;background:var(--blue);color:#fff;font-size:12px;font-weight:700;padding:3px 9px;border-radius:999px}
+/* items in a week */
+.it-head{font-family:var(--body);font-size:13px;font-weight:700;color:var(--ink-3);margin:18px 0 8px}
+.its{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.it{display:flex;gap:10px;align-items:flex-start;font-size:14px}
+.it b{display:block;font-weight:600;line-height:1.3}
+.it span{display:block;font-size:12.5px;color:var(--ink-3)}
+.it .it-note{color:var(--ink-2);margin-top:2px}
+.it-dot{flex:none;width:10px;height:10px;border-radius:50%;margin-top:5px;background:var(--lilac-ink)}
+.it-day .it-dot,.it.k-onsite .it-dot{background:var(--peach-ink)}
+.it-due.k-formative .it-dot{background:var(--mint-ink)}
+.it-due.k-summative .it-dot{background:var(--butter-ink)}
+.it-event .it-dot{background:var(--blue)}
+.it-none{color:var(--ink-3);font-size:14px}
+.pause-note{background:var(--butter);color:var(--butter-ink);border-radius:var(--r-md);padding:10px 14px;font-size:14px;margin:-4px 0 14px}
+.tile .t-sub{font-size:13.5px;font-weight:600;line-height:1.3;opacity:.9}
+/* tracker */
+.g-axis.months{display:block;position:relative;height:16px}
+.g-axis.months span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.g-bar.done{opacity:.55}
+/* key dates */
+.date-tools{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.date-tools .note{align-self:center;margin-right:2px}
+.part-list{display:flex;flex-direction:column;gap:16px}
+.part-dates .card-head{align-items:flex-start}
+.part-dates .card-head .note{margin-top:2px}
+details.part-dates summary{list-style:none;cursor:pointer;margin-bottom:0}
+details.part-dates summary::-webkit-details-marker{display:none}
+details.part-dates[open] summary{margin-bottom:14px}
+details.part-dates[open] .pill.tbc{display:none}
+details.part-dates summary:focus-visible{outline:3px solid var(--blue);outline-offset:4px;border-radius:12px}
+.dates li.past{opacity:.5}
+.dates li .d-note{display:block;color:var(--ink-2);margin-top:3px}
+.dates li.dk-due.dk-summative .date-chip b{color:var(--butter-ink)}
+.dates li.dk-due.dk-formative .date-chip b{color:var(--mint-ink)}
+.dates li.dk-day .date-chip b{color:var(--peach-ink)}
+.dates li.dk-break{background:transparent;border:1px dashed var(--line)}
+.next-pill{background:var(--blue);color:#fff;font-size:11.5px;padding:2px 8px;vertical-align:1px;margin-left:4px}
+.sessions{display:grid;grid-template-columns:200px minmax(0,1fr);gap:14px;align-items:start;background:var(--paper);border-radius:var(--r-md);padding:12px 14px;margin-bottom:10px}
+.sessions b{display:block;font-size:14px}
+.sessions span{font-size:12.5px;color:var(--ink-3)}
+.s-dates{display:flex;flex-wrap:wrap;gap:6px}
+.s-dates span{background:var(--card);border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600;color:var(--lilac-ink)}
+.s-dates span.past{opacity:.45;text-decoration:line-through}
+.s-dates span.next{background:var(--blue);color:#fff}
+/* week cards */
+.part-tabs{margin-top:12px}
+.wcard .wc-date{font-size:12.5px;font-weight:600;color:var(--ink-3);margin-top:-4px}
+.wcard .wc-items{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
+.wcard .wc-items li{font-size:12.5px;font-weight:600;color:var(--ink);padding-left:12px;position:relative}
+.wcard .wc-items li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;border-radius:50%;background:var(--peach-ink)}
+.wcard .wc-items li.k-due::before{background:var(--butter-ink)}
+.wcard .wc-items li.k-event::before{background:var(--blue)}
+.wcard.is-past{opacity:.7}
+div.wcard{cursor:default}
+div.wcard:hover{border-color:transparent}
+.wbreak{border:2px dashed var(--line);border-radius:var(--r-lg);padding:18px;display:flex;flex-direction:column;justify-content:center;gap:2px;color:var(--ink-3);font-size:13px}
+.wbreak b{color:var(--ink-2);font-size:15px}
+@media (max-width:900px){.prog{flex-direction:column;gap:18px}.seg em{position:static;align-self:flex-start;order:-1}.sessions{grid-template-columns:1fr}}
 @media (max-width:900px){
   .app{grid-template-columns:1fr;padding:12px;gap:12px}
   .side{position:static;height:auto;flex-direction:row;align-items:center;padding:10px;border-radius:var(--r-lg);overflow-x:auto}
@@ -389,12 +461,9 @@ details.how[open] .chev{transform:rotate(180deg)}
             </div>
           </div>
           <div class="strip" id="strip">
-            <div class="strip-blocks">
-              <div><b>Block 1: Exploring Technological Futures</b> &nbsp;Weeks 1–10</div>
-              <div><b>Block 2: Shaping Responsible Futures in Context</b> &nbsp;Weeks 11–20</div>
-            </div>
-            <div class="track" id="track" role="group" aria-label="Part 1 weeks. Select a week to see its details."></div>
-            <div class="strip-legend">
+            <div class="strip-blocks" id="stripBlocks"></div>
+            <div class="track" id="track" role="group" aria-label="Your weeks. Select a week to see its details."></div>
+            <div class="strip-legend" id="stripLegend">
               <span><i style="background:var(--peach)"></i>Onsite</span>
               <span><i style="background:rgba(255,255,255,.35)"></i>Online</span>
               <span><i style="background:#fff;box-shadow:0 0 0 2px var(--blue)"></i>Your week</span>
@@ -409,7 +478,7 @@ details.how[open] .chev{transform:rotate(180deg)}
           <div class="ring-wrap">
             <div class="ring" aria-hidden="true">
               <svg viewBox="0 0 140 140"><circle class="bg" cx="70" cy="70" r="58"/><circle class="fg" id="ringPart" cx="70" cy="70" r="58"/></svg>
-              <div class="ring-label"><div><b id="ringPct">0%</b><span>of Part 1</span></div></div>
+              <div class="ring-label"><div><b id="ringPct">0%</b><span id="ringOf">of Part 1</span></div></div>
             </div>
             <div class="ring-stats" id="ringStats"></div>
           </div>
@@ -438,9 +507,10 @@ details.how[open] .chev{transform:rotate(180deg)}
       <div class="view-head">
         <div>
           <h1 id="h-tl">Where am I now?</h1>
-          <p>Part 1: Explore and Reframe runs for 20 weeks across two blocks. Select any week to see what it covers and which assessment step goes with it.</p>
+          <p id="tlIntro">Your weeks, with the real dates for your Gen.</p>
+          <div class="filters part-tabs" id="partTabs" role="group" aria-label="Choose a part"></div>
         </div>
-        <div class="filters" role="group" aria-label="Filter weeks">
+        <div class="filters" id="filterBox" role="group" aria-label="Filter weeks">
           <button class="chip" data-filter="all" aria-pressed="true">All weeks</button>
           <button class="chip" data-filter="onsite" aria-pressed="false">Onsite</button>
           <button class="chip" data-filter="online" aria-pressed="false">Online</button>
@@ -462,6 +532,7 @@ details.how[open] .chev{transform:rotate(180deg)}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-4.5-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 6.5-7 11-7 11Z"/></svg>
         <p>Everyone's pace is a little different. If you're behind, or unsure about anything, talk to your advisor or the Futures PlayLab team early. We're here to help.</p>
       </div>
+      <div class="callout warm" id="checkNote" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg><p></p></div>
       <div class="ms-grid" id="checklist"></div>
     </section>
 
@@ -470,16 +541,15 @@ details.how[open] .chev{transform:rotate(180deg)}
       <div class="view-head">
         <div>
           <h1 id="h-dt">When is the next important date?</h1>
-          <p>Upcoming programme milestones, assessment dates, onsite days and other key points in the MTF calendar.</p>
+          <p>Every onsite day, weekly session, assessment and break for your Gen, from the official programme dates.</p>
         </div>
       </div>
       <div class="callout warm">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.5"/></svg>
-        <p>For formal assessment deadlines, always refer to the assessment information in the LMS. Dates marked "TBC" will be added once confirmed.</p>
+        <p>These dates come from your MTF student handbook. If anything here is different from the handbook or the LMS, go with the handbook and the LMS, and let the Futures PlayLab team know.</p>
       </div>
-      <div class="grid">
-        <div class="card s12"><ul class="dates" id="allDates"></ul></div>
-      </div>
+      <div class="date-tools"><div class="filters" id="dateFilters" role="group" aria-label="Filter dates"></div><div class="filters" id="modeFilters" role="group" aria-label="Part 3 study mode" hidden></div></div>
+      <div id="allDates" class="part-list"></div>
     </section>
 
     <!-- Where can I find... -->
@@ -565,23 +635,234 @@ const CONFIG = {
   }
 };
 
-/* GENS (cohorts)
-   One entry per Gen. Students choose their Gen once (it's remembered in
-   their browser) and the page works out their current week from the real
-   dates.
-   - id:     short code used in links, e.g. "gen29"
-   - name:   what students see, e.g. "Gen29"
-   - start:  the Monday of Week 1, "YYYY-MM-DD". Use null if dates aren't
-             confirmed yet: students then choose their week by hand.
-   - breaks: Mondays of any non-teaching weeks (holidays, study breaks).
-             Teaching weeks after a break shift back automatically.
-   You can link straight to a Gen, e.g. .../index.html?gen=gen29
-   Put the newest Gen first. GEN29'S DATES BELOW ARE EXAMPLES: replace them. */
-const COHORTS = [
-  {id:"gen31", name:"Gen31", start:null, breaks:[]},
-  {id:"gen30", name:"Gen30", start:null, breaks:[]},
-  {id:"gen29", name:"Gen29", start:"2026-10-05", breaks:["2026-12-21","2026-12-28","2027-01-04"]}
+/* GENS (cohorts) and their official key dates
+   ------------------------------------------------------------
+   These come from each Gen's MTF student handbook. If anything here is
+   different from the handbook, the handbook is right: fix it here.
+
+   Students choose their Gen once (it's remembered in their browser) and the
+   page works out where they are from today's date. You can also link
+   straight to a Gen: .../index.html?gen=gen31
+
+   Each Gen has:
+     id, name:  e.g. "gen31", "Gen31"
+     intake:    shown next to the name in the Gen menu
+     breaks:    [name, first day, last day]
+     parts:     Part 1, 2 and 3, each with:
+       start, end:  first and last day ("YYYY-MM-DD"). Part 3 has endFT
+                    (20 weeks, full time) and endPT (40 weeks, part time).
+       sessions:    regular sessions: when (shown to students), time, kind
+                    ("online" or "onsite"), and the list of dates
+       days:        onsite days, full online days and Part 3 workshops:
+                      d     the date
+                      t     what it is
+                      time  e.g. "9am–4pm"
+                      wk    the week the handbook gives it (helps the page
+                            count weeks across holidays; optional)
+                      kind  "onsite" (default), "online" or "workshop"
+                      note  shown under it (optional)
+                      mode  Part 3 only: "ft" or "pt" if it's only for one
+       due:         assessments: d, t, time, kind ("formative" or
+                    "summative"), note, mode (Part 3)
+       events:      presentations and pitches: d, t, end (last day of a
+                    range), note, mode (Part 3)
+       note:        a message shown with this part (optional)
+   Put the newest Gen first. Remove a Gen once it has finished. */
+const GENS = [
+  {id:"gen31", name:"Gen31", intake:"September 2026",
+   breaks:[["Study break","2027-03-04","2027-03-17"],["Study break","2027-06-10","2027-06-23"]],
+   parts:[
+    {n:1, start:"2026-09-24", end:"2027-03-04",
+     sessions:[{when:"Thursdays, 3:30–5:30pm", time:"3:30–5:30pm", kind:"online", dates:["2026-10-01","2026-10-08","2026-10-15","2026-10-22","2026-10-29","2026-11-12","2026-11-19","2026-11-26","2026-12-03","2026-12-10","2026-12-17","2027-01-14","2027-01-28","2027-02-04","2027-02-11","2027-02-18"]}],
+     days:[
+      {d:"2026-09-24", t:"Onsite day 1", time:"9am–5pm", wk:1},
+      {d:"2026-09-25", t:"Onsite day 2", time:"9am–5pm", wk:1},
+      {d:"2026-11-06", t:"Onsite day", time:"9am–4pm", wk:7},
+      {d:"2027-01-22", t:"Onsite day", time:"9am–4pm", wk:15},
+      {d:"2027-02-26", t:"Onsite day", time:"9am–4pm", wk:20}],
+     due:[
+      {d:"2026-10-19", t:"Formative Assessment 1: EDT ‘Explainer’", kind:"formative"},
+      {d:"2026-11-30", t:"Summative Assessment 1: Sector or System ‘Disruption Report’", kind:"summative"},
+      {d:"2027-01-25", t:"Formative Assessment 2: Applied Ethics – group case study", kind:"formative"},
+      {d:"2027-03-01", t:"Summative Assessment 2: Emerging Project Idea", kind:"summative"}],
+     events:[
+      {d:"2027-01-22", t:"Applied Ethics group case study presentations"},
+      {d:"2027-02-26", t:"Emerging Project Idea pitch"}]},
+    {n:2, start:"2027-03-18", end:"2027-06-09",
+     sessions:[{when:"Tuesdays, 3:30–5:30pm", time:"3:30–5:30pm", kind:"online", dates:["2027-03-23","2027-03-30","2027-04-06","2027-04-20","2027-04-27","2027-05-04","2027-05-11","2027-05-18","2027-05-25"]}],
+     days:[
+      {d:"2027-03-19", t:"Onsite day", time:"9am–4pm", wk:1},
+      {d:"2027-04-16", t:"Onsite day", time:"9am–4pm", wk:7},
+      {d:"2027-06-04", t:"Full day online", time:"9am–4pm", wk:12, kind:"online"}],
+     due:[
+      {d:"2027-04-12", t:"Formative Assessment 3: Draft Project Proposal", kind:"formative"},
+      {d:"2027-05-31", t:"Summative Assessment 3: Practice-Based Research Proposal, Ethics & Learning Agreement", kind:"summative"}],
+     events:[{d:"2027-06-04", t:"Research proposal presentations (online)"}]},
+    {n:3, start:"2027-06-24", endFT:"2027-11-10", endPT:"2028-04-19",
+     days:[
+      {d:"2027-07-02", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop"},
+      {d:"2027-08-20", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop"},
+      {d:"2027-10-01", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop"},
+      {d:"2027-11-19", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop", mode:"pt"},
+      {d:"2028-01-21", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop", mode:"pt"},
+      {d:"2028-03-03", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop", mode:"pt"}],
+     due:[
+      {d:"2027-08-30", t:"Formative Assessment 4: Project Update", kind:"formative", mode:"ft"},
+      {d:"2027-10-26", t:"Summative Assessment 4: Work-based Research Project", kind:"summative", mode:"ft"},
+      {d:"2027-11-08", t:"Formative Assessment 4: Project Update", kind:"formative", mode:"pt"},
+      {d:"2028-04-03", t:"Summative Assessment 4: Work-based Research Project", kind:"summative", mode:"pt"}],
+     events:[
+      {d:"2027-11-03", end:"2027-11-08", t:"Project presentations", mode:"ft"},
+      {d:"2028-04-10", end:"2028-04-13", t:"Project presentations", mode:"pt"}]}
+   ]},
+
+  {id:"gen30", name:"Gen30", intake:"June 2026",
+   breaks:[["Study break","2026-11-17","2026-11-30"],["Study break","2027-03-16","2027-03-29"]],
+   parts:[
+    {n:1, start:"2026-06-30", end:"2026-11-16",
+     note:"Onsite content sessions are compulsory, and attendance is recorded for visa purposes.",
+     sessions:[{when:"Tuesdays and Wednesdays, 8:30–11am (content 9–11am)", time:"8:30–11am", kind:"onsite", label:"Onsite content session", dates:["2026-07-07","2026-07-08","2026-07-14","2026-07-15","2026-07-21","2026-07-22","2026-07-28","2026-07-29","2026-08-04","2026-08-05","2026-08-11","2026-08-12","2026-08-18","2026-08-19","2026-08-25","2026-08-26","2026-09-01","2026-09-02","2026-09-08","2026-09-09","2026-09-15","2026-09-16","2026-09-22","2026-09-23","2026-09-29","2026-09-30","2026-10-06","2026-10-07","2026-10-13","2026-10-14","2026-10-20","2026-10-21","2026-10-27","2026-10-28","2026-11-03","2026-11-04","2026-11-10","2026-11-11"]}],
+     days:[
+      {d:"2026-06-30", t:"Onsite day 1", time:"9am–5pm", wk:1},
+      {d:"2026-07-01", t:"Onsite day 2", time:"9am–5pm", wk:1}],
+     due:[
+      {d:"2026-07-27", t:"Formative Assessment 1: EDT ‘Explainer’", kind:"formative"},
+      {d:"2026-09-07", t:"Summative Assessment 1: Sector or System ‘Disruption Report’", kind:"summative"},
+      {d:"2026-10-05", t:"Formative Assessment 2: Applied Ethics – group case study", kind:"formative"},
+      {d:"2026-11-16", t:"Summative Assessment 2: Emerging Project Idea", kind:"summative"}],
+     events:[
+      {d:"2026-09-30", t:"Applied Ethics group case study presentations"},
+      {d:"2026-11-11", t:"Emerging Project Idea pitch"}]},
+    {n:2, start:"2026-12-01", end:"2027-03-15",
+     note:"Part 2 has no Tuesday and Wednesday morning onsite sessions. Instead there are Tuesday online sessions and three onsite workshops. All of them are compulsory, and attendance is recorded for visa purposes.",
+     sessions:[{when:"Tuesdays, 3:30–5:30pm", time:"3:30–5:30pm", kind:"online", dates:["2026-12-08","2026-12-15","2027-01-12","2027-01-19","2027-02-02","2027-02-09","2027-02-16","2027-02-23","2027-03-02"]}],
+     days:[
+      {d:"2026-12-01", t:"Onsite workshop", time:"9am–4pm", wk:1},
+      {d:"2027-01-26", t:"Onsite workshop", time:"9am–4pm", wk:6},
+      {d:"2027-03-09", t:"Onsite workshop", time:"9am–4pm", wk:12}],
+     due:[
+      {d:"2027-02-01", t:"Formative Assessment 3: Draft Project Proposal", kind:"formative"},
+      {d:"2027-03-03", t:"Summative Assessment 3: Practice-Based Research Proposal, Ethics & Learning Agreement", kind:"summative"}],
+     events:[{d:"2027-03-09", end:"2027-03-10", t:"Research proposal presentations"}]},
+    {n:3, start:"2027-03-30", endFT:"2027-08-16", endPT:"2028-01-24",
+     days:[
+      {d:"2027-04-09", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop"},
+      {d:"2027-05-21", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop"},
+      {d:"2027-07-22", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop"},
+      {d:"2027-08-27", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop", mode:"pt"},
+      {d:"2027-10-08", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop", mode:"pt"},
+      {d:"2027-11-19", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop", mode:"pt"}],
+     due:[
+      {d:"2027-06-08", t:"Formative Assessment 4: Project Update", kind:"formative", mode:"ft"},
+      {d:"2027-08-09", t:"Summative Assessment 4: Work-based Research Project", kind:"summative", mode:"ft"},
+      {d:"2027-08-16", t:"Formative Assessment 4: Project Update", kind:"formative", mode:"pt"},
+      {d:"2028-01-11", t:"Summative Assessment 4: Work-based Research Project", kind:"summative", mode:"pt"}],
+     events:[
+      {d:"2027-08-13", t:"Project presentations", note:"13 and 16 August", mode:"ft"},
+      {d:"2028-01-18", t:"Project presentations", note:"18 and 21 January", mode:"pt"}]}
+   ]},
+
+  {id:"gen29", name:"Gen29", intake:"March 2026",
+   breaks:[["Study break","2026-07-30","2026-08-12"],["Study break","2026-11-05","2026-11-18"]],
+   parts:[
+    {n:1, start:"2026-03-12", end:"2026-07-29",
+     sessions:[{when:"Thursdays, 3:30–5:30pm", time:"3:30–5:30pm", kind:"online", dates:["2026-03-19","2026-03-26","2026-04-02","2026-04-09","2026-04-23","2026-04-30","2026-05-07","2026-05-14","2026-05-21","2026-05-28","2026-06-04","2026-06-11","2026-06-25","2026-07-02","2026-07-09","2026-07-16"]}],
+     days:[
+      {d:"2026-03-12", t:"Onsite day 1", time:"9am–4:30pm", wk:1},
+      {d:"2026-03-13", t:"Onsite day 2", time:"9am–4:30pm", wk:1},
+      {d:"2026-04-17", t:"Onsite day", time:"9am–4:30pm", wk:6},
+      {d:"2026-06-19", t:"Onsite day", time:"9am–4:30pm", wk:15}],
+     due:[
+      {d:"2026-03-30", time:"12pm", t:"Formative Assessment 1: EDT ‘Explainer’", kind:"formative"},
+      {d:"2026-05-18", time:"12pm", t:"Summative Assessment 1: Sector or System ‘Disruption Report’", kind:"summative"},
+      {d:"2026-06-22", time:"12pm", t:"Formative Assessment 2: Applied Ethics – group case study", kind:"formative"},
+      {d:"2026-07-27", time:"12pm", t:"Summative Assessment 2: Emerging Project Idea", kind:"summative"}],
+     events:[
+      {d:"2026-06-19", t:"Applied Ethics group case study presentations"},
+      {d:"2026-07-24", t:"Emerging Project Idea pitch"}]},
+    {n:2, start:"2026-08-13", end:"2026-11-04",
+     sessions:[{when:"Tuesdays, 3:30–5:30pm", time:"3:30–5:30pm", kind:"online", dates:["2026-08-18","2026-08-25","2026-09-01","2026-09-15","2026-09-22","2026-09-29","2026-10-06","2026-10-13","2026-10-20"]}],
+     days:[
+      {d:"2026-08-14", t:"Onsite day", time:"9am–4:30pm", wk:1},
+      {d:"2026-09-11", t:"Onsite day", time:"9am–4:30pm", wk:6},
+      {d:"2026-10-30", t:"Onsite day", time:"9am–4:30pm", wk:12}],
+     due:[
+      {d:"2026-09-07", time:"12pm", t:"Formative Assessment 3: Draft Project Proposal", kind:"formative", note:"The handbook gives two dates for this, 7 and 21 September. Check the LMS for the one that applies to you."},
+      {d:"2026-09-21", time:"12pm", t:"Formative Assessment 3: Draft Project Proposal", kind:"formative", note:"The handbook gives two dates for this, 7 and 21 September. Check the LMS for the one that applies to you."},
+      {d:"2026-10-23", time:"12pm", t:"Summative Assessment 3: Practice-Based Research Proposal, Ethics & Learning Agreement", kind:"summative"}],
+     events:[{d:"2026-10-30", t:"Research proposal presentations"}]},
+    {n:3, start:"2026-11-19",
+     days:[
+      {d:"2026-11-26", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop"},
+      {d:"2027-01-28", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop"},
+      {d:"2027-02-25", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop"},
+      {d:"2027-04-08", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop"},
+      {d:"2027-06-10", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop", mode:"pt"},
+      {d:"2027-07-22", t:"Part 3 workshop", time:"9am–4:30pm", kind:"workshop", mode:"pt"}],
+     due:[
+      {d:"2027-02-15", time:"12pm", t:"Formative Assessment 4: Project Update", kind:"formative", mode:"ft"},
+      {d:"2027-04-20", time:"12pm", t:"Summative Assessment 4: Work-based Research Project", kind:"summative", mode:"ft"},
+      {d:"2027-04-27", time:"12pm", t:"Formative Assessment 4: Project Update", kind:"formative", mode:"pt"},
+      {d:"2027-09-01", time:"12pm", t:"Summative Assessment 4: Work-based Research Project", kind:"summative", mode:"pt"}],
+     events:[
+      {d:"2027-04-27", end:"2027-04-28", t:"Project presentations", mode:"ft"},
+      {d:"2027-09-09", end:"2027-09-15", t:"Project presentations", mode:"pt"}]}
+   ]},
+
+  {id:"gen28", name:"Gen28", intake:"October 2025",
+   breaks:[["Christmas break","2025-12-18","2026-01-07"],["Study break","2026-04-09","2026-04-22"],["Study break","2026-07-16","2026-07-29"],["Christmas break","2026-12-24","2027-01-13"]],
+   parts:[
+    {n:1, start:"2025-10-30", end:"2026-04-08",
+     sessions:[{when:"Thursdays, 3:30–5:30pm", time:"3:30–5:30pm", kind:"online", dates:["2025-11-06","2025-11-13","2025-11-20","2025-11-27","2025-12-04","2025-12-18","2026-01-15","2026-01-22","2026-01-29","2026-02-05","2026-02-12","2026-02-19","2026-03-05","2026-03-12","2026-03-19","2026-03-26"]}],
+     days:[
+      {d:"2025-10-30", t:"Onsite day 1", time:"9am–5pm", wk:1},
+      {d:"2025-10-31", t:"Onsite day 2", time:"9am–5pm", wk:1},
+      {d:"2025-12-12", t:"Onsite day", time:"9am–4pm", wk:7},
+      {d:"2026-02-27", t:"Onsite day", time:"9am–4pm", wk:15},
+      {d:"2026-04-02", t:"Onsite day", time:"9am–4pm", wk:20, note:"On a Thursday because Friday is a public holiday."}],
+     due:[
+      {d:"2025-12-01", t:"Formative Assessment 1: EDT ‘Explainer’", kind:"formative"},
+      {d:"2026-01-27", t:"Summative Assessment 1: Sector or System ‘Disruption Report’", kind:"summative"},
+      {d:"2026-03-02", t:"Formative Assessment 2: Applied Ethics – group case study", kind:"formative"},
+      {d:"2026-03-30", t:"Summative Assessment 2: Emerging Project Idea", kind:"summative"}],
+     events:[
+      {d:"2026-02-27", t:"Applied Ethics group case study presentations"},
+      {d:"2026-04-02", t:"Emerging Project Idea pitch"}]},
+    {n:2, start:"2026-04-23", end:"2026-07-15",
+     sessions:[{when:"Tuesdays, 3:30–5:30pm", time:"3:30–5:30pm", kind:"online", dates:["2026-04-28","2026-05-05","2026-05-12","2026-05-19","2026-05-26","2026-06-09","2026-06-16","2026-06-23","2026-06-30"]}],
+     days:[
+      {d:"2026-04-24", t:"Onsite day", time:"9am–4pm", wk:1},
+      {d:"2026-06-05", t:"Onsite day", time:"9am–4pm", wk:7},
+      {d:"2026-07-09", t:"Full day online", time:"9am–4pm", wk:12, kind:"online", note:"On a Thursday because Friday is a public holiday."}],
+     due:[
+      {d:"2026-06-08", t:"Formative Assessment 3: Draft Project Proposal", kind:"formative"},
+      {d:"2026-07-01", t:"Summative Assessment 3: Practice-Based Research Proposal, Ethics & Learning Agreement", kind:"summative"}],
+     events:[{d:"2026-07-09", t:"Research proposal presentations (online)"}]},
+    {n:3, start:"2026-07-30", endFT:"2026-12-16", endPT:"2027-05-26",
+     days:[
+      {d:"2026-08-28", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop"},
+      {d:"2026-10-16", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop"},
+      {d:"2026-12-11", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop"},
+      {d:"2027-02-12", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop", mode:"pt"},
+      {d:"2027-04-09", t:"Part 3 workshop", time:"9am–4pm", kind:"workshop", mode:"pt"}],
+     due:[
+      {d:"2026-10-19", t:"Formative Assessment 4: Project Update", kind:"formative", mode:"ft"},
+      {d:"2026-12-02", t:"Summative Assessment 4: Work-based Research Project", kind:"summative", mode:"ft"},
+      {d:"2026-12-14", t:"Formative Assessment 4: Project Update", kind:"formative", mode:"pt"},
+      {d:"2027-05-17", t:"Summative Assessment 4: Work-based Research Project", kind:"summative", mode:"pt"}],
+     events:[
+      {d:"2026-12-11", t:"Project presentations", mode:"ft"},
+      {d:"2027-05-24", end:"2027-05-28", t:"Project presentations", mode:"pt"}]}
+   ]}
 ];
+
+// Names and questions for each part (from the MTF programme plan)
+const PARTS_INFO = {
+  1:{name:"Explore and Reframe", weeks:20, q:"What is changing, what might it mean, and how should I reframe my context?"},
+  2:{name:"Investigate and Design", weeks:12, q:"What must I understand, and how will I investigate and design responsibly?"},
+  3:{name:"Enact and Transform", q:"What changed through the project, and what original contribution does it make?",
+     about:"Your work-based research project. There are no weekly sessions in Part 3: you work on your project with your supervisor and come together for workshops."}
+};
 
 const WEEKS = [
   {n:1, t:"Entering Technological Futures", mode:"onsite", len:"Two days onsite", d:"Programme kaupapa, getting to know your cohort, your context, creativity, the five pillars and Contextual Adaptation. Includes a context and futures studio and an introductory design sprint.", a:"Emerging Technology Explainer introduced"},
@@ -611,27 +892,6 @@ const BLOCKS = [
   {name:"Block 2: Shaping Responsible Futures in Context", weeks:[11,20], q:"What future is desirable, for whom, and how might it be responsibly investigated in context?"}
 ];
 
-const ASSESSMENTS = [
-  {name:"Emerging Technology Explainer", type:"formative", start:1, end:5},
-  {name:"Disruption Report", type:"summative", credits:30, start:5, end:10},
-  {name:"Ethical Case Study and Reflection", type:"formative", start:11, end:16},
-  {name:"Emerging Project Idea", type:"summative", credits:30, start:16, end:20}
-];
-
-// Key dates. Each is tied to a week, so its date is worked out from the
-// student's Gen. To give an exact day for a Gen, add for example:
-//   dates:{"gen29":"2026-11-06"}
-const KEY_DATES = [
-  {week:1,  t:"Onsite orientation (two days)", kind:"onsite", date:null},
-  {week:5,  t:"Emerging Technology Explainer due", kind:"formative", date:null},
-  {week:6,  t:"Systems, Complexity and Futures Studio", kind:"onsite", date:null},
-  {week:10, t:"Disruption Report due (30 credits)", kind:"summative", date:null},
-  {week:15, t:"Ethics, Culture and Responsibility Forum", kind:"onsite", date:null},
-  {week:16, t:"Ethical Case Study and Reflection complete", kind:"formative", date:null},
-  {week:20, t:"Emerging Project Ideas Forum", kind:"onsite", date:null},
-  {week:20, t:"Emerging Project Idea due (30 credits)", kind:"summative", date:null}
-];
-
 const CHECKLIST = [
   {id:"w1", by:1, items:[
     "Attended both onsite orientation days and met your cohort.",
@@ -644,7 +904,7 @@ const CHECKLIST = [
     "Submitted your Emerging Technology Explainer (formative).",
     "Read the Disruption Report brief."]},
   {id:"w10", by:10, items:[
-    "Attended the Week 6 Systems, Complexity and Futures Studio onsite.",
+    "Attended the Systems, Complexity and Futures Studio onsite day.",
     "Mapped a system and explored how technologies could disrupt it.",
     "Explored foresight tools such as signals, drivers and scenarios.",
     "Submitted your Disruption Report (summative, 30 credits)."]},
@@ -682,7 +942,7 @@ const FIND = [
     ["Course outlines and learning outcomes","LMS",L.lms],
     ["About the MTF programme and its five pillars","About: MTF Programme",L.aboutMTF]]},
   {cat:"Onsite days", ico:"pin", tone:"peach", items:[
-    ["Onsite day schedules (Weeks 1, 6, 15 and 20)","What's On: Calendar, and LMS",L.calendar],
+    ["Onsite days and times for your Gen","My Journey: Key dates","#dates"],
     ["Venue and travel information","To be added",L.venue],
     ["What to bring to onsite studios","To be added",L.whatToBring]]},
   {cat:"Learning resources", ico:"book", tone:"lilac", items:[
@@ -722,7 +982,7 @@ const HOW = [
    approaches:["A visual explainer or infographic","A short video or audio piece","An illustrated slide story","An interactive walkthrough"],
    tools:["Canva (an easy starting point)","Adobe Express","Premiere Pro (more advanced video)","Figma (interactive layouts)"],
    help:[["Resources: Guides",L.guides]]},
-  {t:"Map a system", ico:"nodes", tone:"lilac", use:"Useful for the Week 6 studio and your Disruption Report.",
+  {t:"Map a system", ico:"nodes", tone:"lilac", use:"Useful for the systems and futures studio and your Disruption Report.",
    intro:"Systems maps help you see relationships, feedback loops and leverage points.",
    approaches:["A stakeholder map","A causal loop diagram","An ecosystem map","A rich picture (a hand-drawn sketch of a whole situation)"],
    tools:["Miro (collaborative whiteboards)","Figma or FigJam","Pen and paper, photographed for your portfolio"],
@@ -816,6 +1076,7 @@ const ICONS = {
   mirror:'<ellipse cx="12" cy="9.5" rx="6" ry="6.5"/><path d="M12 16v5M9 21h6M9.5 7.5a3 3 0 0 1 2.5-1.5"/>',
   chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/>',
   flag:'<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
   clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   chev:'<path d="m6 9 6 6 6-6"/>'
 };
@@ -832,60 +1093,146 @@ const VIEWS = [
 ];
 
 /* ---------- State ---------- */
+/* ---------- Dates ---------- */
+const D = s => new Date(s + "T00:00:00");
 const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-const cohort = () => COHORTS.find(c => c.id === state.cohort) || null;
+const addDays = (d, n) => { const x = new Date(d.getTime()); x.setDate(x.getDate() + n); return x; };
+const today0 = () => { const t = new Date(); t.setHours(0,0,0,0); return t; };
+const fmt = (d, o) => d.toLocaleDateString("en-NZ", o);
+const fShort = d => fmt(d, {day:"numeric", month:"short"});
+const fDay = d => fmt(d, {weekday:"short", day:"numeric", month:"short"});
+const fLong = d => fmt(d, {weekday:"long", day:"numeric", month:"long", year:"numeric"});
+const daysUntil = d => Math.round((d - today0()) / 864e5);
+const inDays = d => { const n = daysUntil(d); return n === 0 ? "today" : n === 1 ? "tomorrow" : n < 0 ? (n === -1 ? "yesterday" : `${-n} days ago`) : n < 14 ? `in ${n} days` : `in ${Math.round(n / 7)} weeks`; };
+const shortName = t => String(t).replace(/^(Formative|Summative) Assessment \d+:\s*/, "");
 
-// Monday of each of the 20 teaching weeks for a Gen, skipping breaks.
-function buildSchedule(c){
-  if(!c || !c.start) return null;
-  const br = new Set(c.breaks || []);
+const gen = () => GENS.find(c => c.id === state.cohort) || null;
+const modeOK = it => !it.mode || !state.mode || it.mode === state.mode;
+const MODE_LABEL = {ft:"Full time", pt:"Part time"};
+// The last day of a part. Part 3 depends on full or part time.
+function partEnd(p){
+  if(p.end) return D(p.end);
+  const e = state.mode === "ft" ? p.endFT : state.mode === "pt" ? p.endPT : (p.endPT || p.endFT);
+  return e ? D(e) : null;
+}
+
+// Everything that happens for a Gen, in date order
+const ORDER = {start:0, break:1, day:2, session:3, event:4, due:5};
+const itemCache = new Map();
+function itemsOf(g){
+  if(!g) return [];
+  if(itemCache.has(g.id)) return itemCache.get(g.id);
   const out = [];
-  const d = new Date(c.start+"T00:00:00");
-  for(let guard = 0; out.length < 20 && guard < 80; guard++){
-    if(!br.has(iso(d))) out.push(new Date(d));
-    d.setDate(d.getDate() + 7);
-  }
+  g.parts.forEach(p => {
+    out.push({t:`Part ${p.n} starts: ${PARTS_INFO[p.n].name}`, type:"start", part:p.n, date:D(p.start)});
+    (p.days || []).forEach(x => out.push({...x, type:"day", kind:x.kind || "onsite", part:p.n, date:D(x.d)}));
+    (p.due || []).forEach(x => out.push({...x, type:"due", part:p.n, date:D(x.d)}));
+    (p.events || []).forEach(x => out.push({...x, type:"event", kind:"event", part:p.n, date:D(x.d), endDate:x.end ? D(x.end) : null}));
+    (p.sessions || []).forEach((s, si) => s.dates.forEach(d => out.push({t:s.label || (s.kind === "onsite" ? "Onsite session" : "Online session"), time:s.time, type:"session", kind:s.kind, part:p.n, si, date:D(d)})));
+  });
+  (g.breaks || []).forEach(([t, a, b]) => out.push({t, type:"break", kind:"break", date:D(a), endDate:D(b)}));
+  out.sort((a, b) => a.date - b.date || ORDER[a.type] - ORDER[b.type]);
+  itemCache.set(g.id, out);
   return out;
 }
-// Which week is it today? phase: before | during | break | after
-function autoWeek(sched){
-  const now = new Date(); now.setHours(0,0,0,0);
-  if(now < sched[0]) return {week:1, phase:"before"};
-  const end = new Date(sched[19]); end.setDate(end.getDate() + 7);
-  if(now >= end) return {week:20, phase:"after"};
-  let i = 0; while(i < 19 && sched[i+1] <= now) i++;
-  const wkEnd = new Date(sched[i]); wkEnd.setDate(wkEnd.getDate() + 7);
-  if(now >= wkEnd) return {week:i+2, phase:"break"};
-  return {week:i+1, phase:"during"};
+const isOnsiteDay = i => i.type === "day" && (i.kind === "onsite" || i.kind === "workshop");
+const lastDay = i => i.endDate || i.date;
+
+// The weeks of Part 1 or 2, counted from the part's first day. Weeks with no
+// sessions over the holidays aren't counted, so week numbers match the handbook.
+const weekCache = new Map();
+function weeksOf(g, p){
+  if(!g || !p || p.n === 3 || !p.end) return null;
+  const key = g.id + p.n;
+  if(weekCache.has(key)) return weekCache.get(key);
+  const start = D(p.start), end = D(p.end);
+  const count = Math.max(1, Math.round(((end - start) / 864e5 + 1) / 7));
+  const items = itemsOf(g).filter(i => i.part === p.n && i.type !== "start");
+  const named = (g.breaks || []).map(([t, a, b]) => ({t, a:D(a), b:D(b)}));
+  const blocks = Array.from({length:count}, (_, i) => {
+    const s = addDays(start, 7 * i), e = addDays(s, 6);
+    return {i, start:s, end:e, items:items.filter(x => x.date >= s && x.date <= e), brk:false};
+  });
+  const inNamed = b => named.find(n => b.start <= n.b && b.end >= n.a);
+  const byPreference = (x, y) => (inNamed(y) ? 1 : 0) - (inNamed(x) ? 1 : 0) || x.i - y.i;
+  // Use the handbook's week labels (wk) to find the holiday weeks
+  let prev = {idx:0, wk:1};
+  blocks.forEach((b, idx) => {
+    const a = b.items.find(x => x.wk); if(!a || idx === 0) return;
+    const extra = (idx - prev.idx - 1) - (a.wk - prev.wk - 1);
+    if(extra < 0) return;                       // the label doesn't fit the dates: trust the dates
+    if(extra > 0) blocks.slice(prev.idx + 1, idx).filter(x => !x.items.length).sort(byPreference).slice(0, extra).forEach(x => x.brk = true);
+    prev = {idx, wk:a.wk};
+  });
+  const target = PARTS_INFO[p.n].weeks || count;
+  const teaching = blocks.filter(b => !b.brk);
+  if(teaching.length > target) teaching.filter(b => !b.items.length).sort(byPreference).slice(0, teaching.length - target).forEach(b => b.brk = true);
+  let n = 0;
+  blocks.forEach(b => { if(b.brk){ const nb = inNamed(b); b.brkName = nb ? nb.t : ""; } else b.n = ++n; });
+  weekCache.set(key, blocks);
+  return blocks;
+}
+const teachingWeeks = (g, p) => (weeksOf(g, p) || []).filter(b => !b.brk);
+
+// Where is this Gen today?
+// phase: before | week | pause (a week with no sessions) | part (Part 3) | between (study break) | after
+function statusOf(g){
+  if(!g) return null;
+  const t = today0(), parts = g.parts;
+  if(t < D(parts[0].start)) return {phase:"before", part:parts[0]};
+  for(const p of parts){
+    const end = partEnd(p);
+    if(t >= D(p.start) && (!end || t <= end)){
+      const weeks = weeksOf(g, p);
+      if(!weeks) return {phase:"part", part:p};
+      const b = weeks.find(x => t >= x.start && t <= x.end) || weeks[weeks.length - 1];
+      if(b.brk) return {phase:"pause", part:p, block:b, next:weeks.find(x => !x.brk && x.start > t) || null};
+      return {phase:"week", part:p, block:b, week:b.n};
+    }
+  }
+  const next = parts.find(p => D(p.start) > t);
+  if(next){ const br = (g.breaks || []).find(([, a, b]) => t >= D(a) && t <= D(b)); return {phase:"between", part:next, brk:br ? br[0] : ""}; }
+  return {phase:"after", part:parts[parts.length - 1]};
+}
+// The week the dashboard opens on
+function nowWeek(st){
+  if(!st) return 1;
+  if(st.phase === "week") return st.week;
+  if(st.phase === "pause") return st.next ? st.next.n : teachingWeeks(gen(), st.part).length;
+  if(st.phase === "after") return teachingWeeks(gen(), st.part).length || 1;
+  return 1;
+}
+// The Part 1 week, for the Part 1 checklist
+function part1Week(st){
+  if(!st) return store.get("week", 1);
+  if(st.part.n === 1){ if(st.phase === "week") return st.week; if(st.phase === "pause") return st.next ? st.next.n - 1 : 20; return st.phase === "after" ? 20 : 1; }
+  return 20;
 }
 
 const urlCohort = (new URLSearchParams(location.search).get("gen") || "").toLowerCase().replace(/\s+/g,"");
 const state = {
-  cohort: COHORTS.some(c => c.id === urlCohort) ? urlCohort : store.get("cohort", COHORTS.length === 1 ? COHORTS[0].id : null),
-  sched: null,
-  phase: "manual",
-  week: 1,
+  cohort: GENS.some(c => c.id === urlCohort) ? urlCohort : store.get("cohort", GENS.length === 1 ? GENS[0].id : null),
+  mode: store.get("mode", null),        // Part 3: "ft" or "pt"
+  st: null,
+  week: 1,               // this week in the current part
   focus: 1,              // week being viewed on the dashboard
+  p1week: 1,
   checks: new Set(store.get("checks", [])),
   filter: "all",
+  tab: null,             // part shown in "Where am I now?"
+  dateFilter: "all",
   route: null
 };
-if(!COHORTS.some(c => c.id === state.cohort)) state.cohort = null;
+if(!GENS.some(c => c.id === state.cohort)) state.cohort = null;
+if(!["ft","pt"].includes(state.mode)) state.mode = null;
 
 function syncWeek(){
-  state.sched = buildSchedule(cohort());
-  if(state.sched){ const a = autoWeek(state.sched); state.week = a.week; state.phase = a.phase; }
-  else { state.week = store.get("week", 1); state.phase = "manual"; }
-  state.focus = state.week;
+  state.st = statusOf(gen());
+  state.week = state.focus = nowWeek(state.st);
+  state.p1week = part1Week(state.st);
+  state.tab = state.st ? state.st.part.n : 1;
 }
 syncWeek();
-
-function weekDate(n){ return state.sched ? state.sched[n-1] : null; }
-function exactDate(k){
-  const d = k.dates && k.dates[state.cohort];
-  return d ? new Date(d+"T00:00:00") : null;
-}
-const fmt = (d, o) => d.toLocaleDateString("en-NZ", o);
 
 /* ---------- Navigation ---------- */
 function renderNav(){
@@ -913,11 +1260,11 @@ document.addEventListener("click", e => {
   const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); go(g.dataset.go); }
 });
 
-/* ---------- Week picker ---------- */
+/* ---------- Gen and study mode ---------- */
 function renderPicker(){
   const sel = $("#cohortSel");
   sel.innerHTML = (state.cohort ? "" : `<option value="">Choose…</option>`) +
-    COHORTS.map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
+    GENS.map(c => `<option value="${esc(c.id)}">${esc(c.name)}</option>`).join("");
   sel.value = state.cohort || "";
   sel.onchange = () => setCohort(sel.value);
 }
@@ -925,167 +1272,318 @@ function setCohort(id){
   state.cohort = id || null; store.set("cohort", state.cohort);
   syncWeek(); renderPicker(); renderAll();
 }
+function setMode(m){
+  state.mode = ["ft","pt"].includes(m) ? m : null; store.set("mode", state.mode);
+  syncWeek(); renderAll();
+}
+const showModePicker = () => state.st && state.st.part.n === 3;
+function modeSelectHTML(id){
+  return `<select id="${id}" aria-label="Part 3 study mode"><option value="">Full or part time?</option><option value="ft">Full time (20 weeks)</option><option value="pt">Part time (40 weeks)</option></select>`;
+}
 function renderWeekBox(){
-  const box = $("#weekBox");
-  box.hidden = !state.cohort;
-  if(state.sched){
-    const note = {
-      before:"Starts " + fmt(state.sched[0],{day:"numeric",month:"short"}),
-      during:"Based on today's date",
-      break:"Study break, back " + fmt(state.sched[state.week-1],{day:"numeric",month:"short"}),
-      after:"Part 1 complete"
-    }[state.phase];
-    box.innerHTML = `<span class="wk-auto"><b>${state.phase === "after" ? "Finished" : "Week " + state.week}</b><small>${esc(note)}</small></span>`;
-  } else {
-    box.innerHTML = `<label for="weekSel">I'm in</label><select id="weekSel" aria-label="Your current week">${WEEKS.map(w => `<option value="${w.n}">Week ${w.n}</option>`).join("")}</select>`;
-    const sel = $("#weekSel"); sel.value = state.week;
-    sel.onchange = () => { state.week = state.focus = +sel.value; store.set("week", state.week); renderAll(); };
-  }
+  const box = $("#weekBox"), st = state.st;
+  box.hidden = !st;
+  if(!st){ box.innerHTML = ""; return; }
+  const p = st.part, info = PARTS_INFO[p.n];
+  const [main, sub] = {
+    before:  [`Starts ${fShort(D(p.start))}`, `Part 1: ${info.name}`],
+    week:    [`Part ${p.n} · Week ${st.week}`, "Based on today's date"],
+    pause:   [`Part ${p.n} · ${st.brkName || (st.block && st.block.brkName) || "No sessions"}`, st.next ? `Back ${fShort(st.next.start)}` : "No sessions this week"],
+    part:    [`Part ${p.n}`, state.mode ? `${MODE_LABEL[state.mode]}, ${info.name}` : info.name],
+    between: [st.brk || "Between parts", `Part ${p.n} starts ${fShort(D(p.start))}`],
+    after:   ["Finished", "You've completed the programme"]
+  }[st.phase];
+  box.innerHTML = `<span class="wk-auto"><b>${esc(main)}</b><small>${esc(sub)}</small></span>${showModePicker() ? modeSelectHTML("modeSel") : ""}`;
+  const ms = $("#modeSel"); if(ms){ ms.value = state.mode || ""; ms.onchange = () => setMode(ms.value); }
 }
 function renderPrompt(){
   const el = $("#cohortPrompt");
-  if(state.cohort || !COHORTS.length){ el.hidden = true; el.innerHTML = ""; return; }
+  if(state.cohort || !GENS.length){ el.hidden = true; el.innerHTML = ""; return; }
   el.hidden = false;
   el.innerHTML = `<div class="cohort-prompt"><div><h2>Which Gen are you in?</h2><p>We'll load your dates and show where you are in the programme. You only need to do this once.</p></div>
-    <div class="opts">${COHORTS.map(c => `<button data-cohort="${esc(c.id)}">${esc(c.name)}</button>`).join("")}</div></div>`;
+    <div class="opts">${GENS.map(c => `<button data-cohort="${esc(c.id)}">${esc(c.name)}<small>${esc(c.intake || "")}</small></button>`).join("")}</div></div>`;
 }
 
 /* ---------- Dashboard ---------- */
 function renderStrip(){
-  const track = $("#track");
-  track.innerHTML = WEEKS.map((w,i) => {
-    const cls = [w.mode, w.n < state.week ? "past" : "", w.n === state.week ? "current" : "", w.n === state.focus && w.n !== state.week ? "selected" : ""].join(" ");
-    return `<button class="node ${cls}" style="--i:${i}" data-week="${w.n}" aria-label="Week ${w.n}: ${esc(w.t)}, ${w.mode}${w.n===state.week?", your current week":""}" aria-pressed="${w.n===state.focus}"><i class="dot"></i><span>${w.n}</span></button>`;
-  }).join("") + `<div class="you" id="you">${{before:"Starts here", break:"Up next", after:"Finished"}[state.phase] || "You're here"}</div>`;
-  const you = $("#you");
-  you.style.left = ((state.week - .5) / 20 * 100) + "%";
-  const shift = state.week <= 2 ? 22 : state.week >= 19 ? 78 : 50;
+  const g = gen(), st = state.st, track = $("#track"), blocksEl = $("#stripBlocks"), legend = $("#stripLegend");
+  const weeks = st ? teachingWeeks(g, st.part) : [];
+  if(!st || !weeks.length){
+    // Part 3 (or no Gen yet): the whole programme as three parts
+    blocksEl.hidden = true; legend.hidden = true;
+    track.className = "prog";
+    track.style.gridTemplateColumns = "";
+    if(!g){ track.innerHTML = `<p class="prog-empty">Choose your Gen to see where you are in the programme.</p>`; return; }
+    const t = today0();
+    track.innerHTML = g.parts.map(p => {
+      const s = D(p.start), e = partEnd(p), info = PARTS_INFO[p.n];
+      const cur = st.part.n === p.n && st.phase !== "between" && st.phase !== "before", past = e && e < t;
+      const pct = cur && e ? Math.max(0, Math.min(100, (t - s) / (e - s) * 100)) : past ? 100 : 0;
+      return `<div class="seg ${cur ? "current" : ""} ${past ? "past" : ""}" style="flex:${p.n === 3 ? (state.mode === "ft" || !p.endPT ? 20 : 40) : info.weeks}">
+        <div class="seg-bar"><i style="width:${pct}%"></i></div>
+        <b>Part ${p.n}: ${esc(info.name)}</b><span>${esc(fShort(s))}${e ? " to " + esc(fShort(e)) : ""}${p.n === 3 && !state.mode && e ? " (part time)" : ""}</span>
+        ${cur ? `<em>You're here</em>` : ""}</div>`;
+    }).join("");
+    return;
+  }
+  const p = st.part;
+  blocksEl.hidden = false; legend.hidden = false;
+  blocksEl.innerHTML = p.n === 1
+    ? BLOCKS.map(b => `<div><b>${esc(b.name)}</b> &nbsp;Weeks ${b.weeks[0]}–${b.weeks[1]}</div>`).join("")
+    : `<div><b>Part ${p.n}: ${esc(PARTS_INFO[p.n].name)}</b> &nbsp;Weeks 1–${weeks.length}</div>`;
+  blocksEl.style.gridTemplateColumns = p.n === 1 ? "1fr 1fr" : "1fr";
+  track.className = "track";
+  track.style.gridTemplateColumns = `repeat(${weeks.length},1fr)`;
+  const t = today0(), live = st.phase === "week";
+  track.innerHTML = weeks.map((b, i) => {
+    const onsite = b.items.some(isOnsiteDay);
+    const cls = [onsite ? "onsite" : "online", b.end < t ? "past" : "", live && b.n === state.week ? "current" : "", b.n === state.focus && !(live && b.n === state.week) ? "selected" : ""].join(" ");
+    const title = p.n === 1 && WEEKS[b.n - 1] ? WEEKS[b.n - 1].t : `Week ${b.n}`;
+    return `<button class="node ${cls}" style="--i:${i}" data-week="${b.n}" aria-label="Week ${b.n}, from ${esc(fShort(b.start))}: ${esc(title)}, ${onsite ? "onsite day" : "online"}${live && b.n === state.week ? ", your current week" : ""}" aria-pressed="${b.n === state.focus}"><i class="dot"></i><span>${b.n}</span></button>`;
+  }).join("") + `<div class="you" id="you">${{before:"Starts here", between:"Up next", pause:"Back soon", after:"Finished"}[st.phase] || "You're here"}</div>`;
+  const you = $("#you"), n = weeks.length;
+  you.style.left = ((state.week - .5) / n * 100) + "%";
+  const shift = state.week <= 2 ? 22 : state.week >= n - 1 ? 78 : 50;
   you.style.transform = `translateX(-${shift}%)`;
   you.style.setProperty("--ax", shift + "%");
 }
 
+function itemLine(i, opts = {}){
+  const range = i.endDate && iso(i.endDate) !== iso(i.date);
+  const when = opts.noDate ? "" : (range ? `${fDay(i.date)} to ${fDay(i.endDate)}` : fDay(i.date));
+  const kind = {day:{onsite:"Onsite day", online:"Full day online", workshop:"Workshop"}[i.kind], due:i.kind === "summative" ? "Summative assessment due" : "Formative assessment due", event:"Presentations", session:i.kind === "onsite" ? "Onsite session" : "Online session", break:"Break", start:"New part"}[i.type] || "";
+  const meta = [when, i.time, i.mode ? MODE_LABEL[i.mode] : ""].filter(Boolean).join(" · ");
+  const kindTxt = kind && kind.toLowerCase() !== String(i.t).toLowerCase() ? kind : "";
+  return `<li class="it it-${i.type} k-${i.kind || ""}"><i class="it-dot" aria-hidden="true"></i><div><b>${esc(i.t)}</b><span>${esc([kindTxt, meta].filter(Boolean).join(" · "))}</span>${i.note ? `<span class="it-note">${esc(i.note)}</span>` : ""}</div></li>`;
+}
+
 function renderWeekDetail(){
-  const w = WEEKS[state.focus-1];
-  const d = weekDate(w.n);
-  const isNow = w.n === state.week;
-  $("#weekDetail").innerHTML = `
-    <div class="card-head"><h2>${isNow ? ({before:"Your first week", break:"After the break", after:"Your last week"}[state.phase] || "This week") : (w.n < state.week ? "Looking back" : "Looking ahead")}</h2>
+  const g = gen(), st = state.st, box = $("#weekDetail");
+  if(!st){ box.innerHTML = `<div class="card-head"><h2>This week</h2></div><p style="color:var(--ink-2)">Choose your Gen at the top of the page to see your week.</p>`; return; }
+  const p = st.part, info = PARTS_INFO[p.n];
+  const weeks = teachingWeeks(g, p);
+  if(!weeks.length){
+    // Part 3, or the programme is finished
+    const up = itemsOf(g).filter(i => i.part === 3 && lastDay(i) >= today0() && modeOK(i) && (i.type === "day" || i.type === "due" || i.type === "event")).slice(0, 4);
+    box.innerHTML = `<div class="card-head"><h2>${st.phase === "after" ? "You've finished" : "Part 3"}</h2><button class="link-btn" data-go="dates">All key dates</button></div>
+      <div class="wk-body"><div class="wk-meta"><span class="pill online">${esc(st.phase === "after" ? "Programme complete" : state.mode ? MODE_LABEL[state.mode] : "Full or part time")}</span>${partEnd(p) ? `<span class="pill tbc">Ends ${esc(fShort(partEnd(p)))}</span>` : ""}</div>
+        <h3>Part 3: ${esc(info.name)}</h3><p>${esc(info.about)}</p></div>
+      ${!state.mode && st.phase !== "after" ? `<div class="assess-box">${ico("flag")}<div><small>Studying full or part time?</small><b>Choose at the top of the page to see only your workshops and deadlines.</b></div></div>` : ""}
+      ${up.length ? `<h4 class="it-head">Coming up in Part 3</h4><ul class="its">${up.map(i => itemLine(i)).join("")}</ul>` : ""}`;
+    return;
+  }
+  const n = weeks.length, b = weeks[state.focus - 1] || weeks[0], w = p.n === 1 ? WEEKS[b.n - 1] : null;
+  const isNow = b.n === state.week;
+  const items = b.items.filter(modeOK);
+  const onsite = items.some(isOnsiteDay);
+  const head = isNow ? ({before:"Your first week", between:`Part ${p.n} starts ${fShort(D(p.start))}`, pause:"Next week", after:`Last week of Part ${p.n}`}[st.phase] || "This week") : (b.n < state.week ? "Looking back" : "Looking ahead");
+  box.innerHTML = `
+    <div class="card-head"><h2>${esc(head)}</h2>
       ${isNow ? "" : `<button class="link-btn" id="backNow">Back to week ${state.week}</button>`}</div>
+    ${isNow && st.phase === "pause" ? `<p class="pause-note">${esc(st.block.brkName || "No sessions this week")}. Sessions start again on ${esc(fDay(st.next ? st.next.start : st.block.end))}.</p>` : ""}
+    ${isNow && st.phase === "between" && st.brk ? `<p class="pause-note">You're on a ${esc(st.brk.toLowerCase())}. Here's what's on when Part ${p.n} starts.</p>` : ""}
     <div class="wk-layout">
-      <div class="wk-num" aria-hidden="true">${String(w.n).padStart(2,"0")}</div>
+      <div class="wk-num" aria-hidden="true">${String(b.n).padStart(2,"0")}</div>
       <div class="wk-body">
         <div class="wk-meta">
-          <span class="pill ${w.mode}">${esc(w.len || "Online")}</span>
-          <span class="pill tbc">${w.n <= 10 ? "Block 1" : "Block 2"}</span>
-          ${d ? `<span class="pill tbc">Week of ${fmt(d,{day:"numeric",month:"short"})}</span>` : ""}
+          <span class="pill ${onsite ? "onsite" : "online"}">${onsite ? "Onsite day" : "Online"}</span>
+          <span class="pill tbc">${p.n === 1 ? (b.n <= 10 ? "Block 1" : "Block 2") : `Part ${p.n}`}</span>
+          <span class="pill tbc">${esc(fShort(b.start))} to ${esc(fShort(b.end))}</span>
         </div>
-        <h3>Week ${w.n}: ${esc(w.t)}</h3>
-        <p>${esc(w.d)}</p>
+        <h3>${w ? `Week ${b.n}: ${esc(w.t)}` : `Part ${p.n}, week ${b.n} of ${n}`}</h3>
+        <p>${esc(w ? w.d : info.q)}</p>
       </div>
     </div>
-    <div class="assess-box">${ico("flag")}<div><small>Assessment this week</small><b>${esc(w.a)}</b></div></div>
+    <h4 class="it-head">In your calendar this week</h4>
+    ${items.length ? `<ul class="its">${items.map(i => itemLine(i)).join("")}</ul>` : `<p class="it-none">No scheduled sessions or deadlines this week.</p>`}
+    ${w && w.a ? `<div class="assess-box">${ico("flag")}<div><small>Assessment focus</small><b>${esc(w.a)}</b></div></div>` : ""}
     <div class="wk-nav">
-      <button class="ghost-btn" data-step="-1" ${w.n===1?"disabled":""}>Previous week</button>
-      <button class="ghost-btn" data-step="1" ${w.n===20?"disabled":""}>Next week</button>
-      <button class="ghost-btn" data-go="timeline">See all 20 weeks</button>
+      <button class="ghost-btn" data-step="-1" ${b.n === 1 ? "disabled" : ""}>Previous week</button>
+      <button class="ghost-btn" data-step="1" ${b.n === n ? "disabled" : ""}>Next week</button>
+      <button class="ghost-btn" data-go="timeline">See all ${n} weeks</button>
     </div>`;
 }
 
 function checklistProgress(){
   const total = CHECKLIST.reduce((a,g) => a + g.items.length, 0);
   const done = CHECKLIST.reduce((a,g) => a + g.items.filter((_,i) => state.checks.has(g.id+"-"+i)).length, 0);
-  // items expected by now: groups with by <= current week
-  const due = CHECKLIST.filter(g => g.by && g.by <= state.week);
-  const dueTotal = due.reduce((a,g) => a + g.items.length, 0);
-  const dueDone = due.reduce((a,g) => a + g.items.filter((_,i) => state.checks.has(g.id+"-"+i)).length, 0);
-  return {total, done, dueTotal, dueDone};
+  return {total, done};
 }
-
 function renderRing(){
-  const pct = Math.round(state.week / 20 * 100);
-  const C = 2 * Math.PI * 58;
-  const fg = $("#ringPart");
+  const g = gen(), st = state.st, C = 2 * Math.PI * 58, fg = $("#ringPart");
+  let pct = 0, label = "of the programme", lines = [];
+  if(st){
+    const p = st.part, info = PARTS_INFO[p.n], weeks = teachingWeeks(g, p), n = weeks.length;
+    label = `of Part ${p.n}`;
+    if(n){
+      const doneWeeks = {week:state.week, pause:st.next ? st.next.n - 1 : n, after:n}[st.phase] || 0;
+      pct = Math.round(doneWeeks / n * 100);
+      lines.push([st.phase === "week" ? `Week ${state.week} of ${n}` : st.phase === "after" ? "Programme complete" : st.phase === "pause" ? `${doneWeeks} of ${n} weeks done` : `Starts ${fShort(D(p.start))}`, `Part ${p.n}: ${info.name}`]);
+    } else {
+      const s = D(p.start), e = partEnd(p), t = today0();
+      pct = e ? Math.round(Math.max(0, Math.min(1, (t - s) / (e - s))) * 100) : 0;
+      lines.push([e ? `Ends ${fShort(e)}` : `Started ${fShort(s)}`, `Part 3: ${info.name}${state.mode ? ", " + MODE_LABEL[state.mode].toLowerCase() : ""}`]);
+    }
+    const due = itemsOf(g).find(i => i.type === "due" && i.date >= today0() && modeOK(i));
+    if(due) lines.push([`Next due ${inDays(due.date)}`, shortName(due.t)]);
+    if(p.n === 1){ const c = checklistProgress(); lines.push([`${c.done} of ${c.total} ticked`, "on the Part 1 checklist"]); }
+  } else lines.push(["Choose your Gen", "to see your progress"]);
   fg.style.strokeDasharray = C;
   fg.style.strokeDashoffset = C * (1 - pct/100);
-  $("#ringPct").textContent = pct + "%";
-  const p = checklistProgress();
-  const nextGroup = CHECKLIST.find(g => g.by && g.by >= state.week);
-  const nextDone = nextGroup ? nextGroup.items.filter((_,i) => state.checks.has(nextGroup.id+"-"+i)).length : 0;
-  $("#ringStats").innerHTML = `
-    <div><b>Week ${state.week} of 20</b><span>Part 1: Explore and Reframe</span></div>
-    ${nextGroup ? `<div><b>${nextDone} of ${nextGroup.items.length} ticked</b><span>for the end of Week ${nextGroup.by}</span></div>` : ""}
-    <div><b>${p.done} of ${p.total}</b><span>milestones ticked overall</span></div>`;
+  $("#ringPct").textContent = st && !teachingWeeks(g, st.part).length && !partEnd(st.part) ? "–" : pct + "%";
+  $("#ringOf").textContent = label;
+  $("#ringStats").innerHTML = lines.map(([b, s]) => `<div><b>${esc(b)}</b><span>${esc(s)}</span></div>`).join("");
 }
 
-function nextOnsite(){ return WEEKS.find(w => w.mode === "onsite" && w.n >= state.week); }
-function nextDue(){ return ASSESSMENTS.find(a => a.end >= state.week); }
-function nextDate(){ return KEY_DATES.find(k => k.week >= state.week); }
-
-function tileHTML(icon, label, value){ return `<span class="t-ico">${ico(icon)}</span><small>${label}</small><b>${value}</b>`; }
+function nextItem(pred){ const t = today0(); return itemsOf(gen()).find(i => lastDay(i) >= t && modeOK(i) && pred(i)); }
+function tileHTML(icon, label, value, sub){ return `<span class="t-ico">${ico(icon)}</span><small>${label}</small><b>${value}</b>${sub ? `<span class="t-sub">${sub}</span>` : ""}`; }
 function renderTiles(){
-  const o = nextOnsite();
-  $("#tileOnsite").innerHTML = tileHTML("pin", "Next onsite day", o ? (o.n === state.week ? `This week: ${esc(o.t)}` : `Week ${o.n}: ${esc(o.t)}`) : "No more onsite days in Part 1");
-  const a = nextDue();
-  $("#tileAssess").innerHTML = tileHTML("flag", "Next assessment due", a ? `${esc(a.name)}, Week ${a.end}` : "All Part 1 assessments complete");
-  const k = nextDate();
-  const kx = k && exactDate(k);
-  const kd = k && (kx ? fmt(kx,{weekday:"short",day:"numeric",month:"short"}) : (weekDate(k.week) ? "Week of " + fmt(weekDate(k.week),{day:"numeric",month:"short"}) : `Week ${k.week}, date TBC`));
-  $("#tileDate").innerHTML = tileHTML("cal", "Next key date", k ? `${esc(k.t)}<br><span style="font-family:var(--body);font-size:13.5px;font-weight:600">${esc(kd)}</span>` : "Nothing coming up");
+  const has = !!gen();
+  const o = has && nextItem(isOnsiteDay);
+  $("#tileOnsite").innerHTML = tileHTML("pin", o && o.kind === "workshop" ? "Next workshop" : "Next onsite day", o ? esc(fDay(o.date)) : has ? "None scheduled" : "Choose your Gen", o ? esc([o.t, o.time].filter(Boolean).join(", ")) : "");
+  const a = has && nextItem(i => i.type === "due");
+  $("#tileAssess").innerHTML = tileHTML("flag", "Next assessment due", a ? esc(fDay(a.date)) + (a.time ? ", " + esc(a.time) : "") : has ? "Nothing due" : "Choose your Gen", a ? esc(shortName(a.t)) + (a.mode ? ` (${MODE_LABEL[a.mode].toLowerCase()})` : "") : "");
+  const s = has && nextItem(i => i.type === "session" || (i.type === "day" && i.kind === "online"));
+  const ev = !s && has && nextItem(i => i.type === "event");
+  $("#tileDate").innerHTML = s ? tileHTML("cal", s.kind === "onsite" && s.type === "session" ? "Next onsite session" : "Next online session", esc(fDay(s.date)), esc([s.type === "day" ? s.t : "", s.time].filter(Boolean).join(", ")))
+    : ev ? tileHTML("cal", "Next presentations", esc(fDay(ev.date)), esc(ev.t)) : tileHTML("cal", "Next session", has ? "None scheduled" : "Choose your Gen", has ? "Part 3 has workshops instead of weekly sessions" : "");
   $("#tileWho").innerHTML = tileHTML("people", "Need help?", "Find the right person to ask");
 }
 
 function renderGantt(){
-  $("#ganttWeek").textContent = "Week " + state.week;
-  const rows = ASSESSMENTS.map(a => {
-    const left = (a.start-1)/20*100, width = (a.end-a.start+1)/20*100;
-    return `<div class="g-name"><b>${esc(a.name)}</b><span>${a.type === "summative" ? `Summative, ${a.credits} credits` : "Formative"}</span></div>
-      <div class="g-track" role="img" aria-label="${esc(a.name)}: introduced week ${a.start}, due week ${a.end}">
-        <div class="g-bar ${a.type}" style="left:${left}%;width:${width}%"><span>Weeks ${a.start}–${a.end}</span></div>
-        <div class="g-now" style="left:calc(${(state.week-.5)/20*100}% - 1px)"></div>
+  const g = gen(), st = state.st, box = $("#gantt");
+  if(!st){ box.innerHTML = `<p class="note" style="grid-column:1/-1">Choose your Gen to see your assessments.</p>`; $("#ganttWeek").textContent = ""; return; }
+  const p = st.part, dues = itemsOf(g).filter(i => i.part === p.n && i.type === "due" && modeOK(i));
+  $("#ganttWeek").textContent = `Part ${p.n}`;
+  if(!dues.length){ box.innerHTML = `<p class="note" style="grid-column:1/-1">No assessments listed for Part ${p.n}.</p>`; return; }
+  const s = D(p.start), e = partEnd(p) || addDays(dues[dues.length - 1].date, 14), span = e - s || 1;
+  const pos = d => Math.max(0, Math.min(100, (d - s) / span * 100));
+  const t = today0();
+  const now = t >= s && t <= e ? `<div class="g-now" style="left:calc(${pos(t)}% - 1px)"></div>` : "";
+  let prev = s;
+  const rows = dues.map(a => {
+    const from = state.mode || !a.mode ? prev : dues.filter(x => x.mode === a.mode && x.date < a.date).map(x => x.date).pop() || s;
+    const left = pos(from), width = Math.max(4, pos(a.date) - left);
+    if(state.mode || !a.mode) prev = a.date;
+    return `<div class="g-name"><b>${esc(shortName(a.t))}</b><span>${a.kind === "summative" ? "Summative" : "Formative"}${a.mode && !state.mode ? ", " + MODE_LABEL[a.mode].toLowerCase() : ""}</span></div>
+      <div class="g-track" role="img" aria-label="${esc(shortName(a.t))}: due ${esc(fLong(a.date))}">
+        <div class="g-bar ${a.kind} ${a.date < t ? "done" : ""}" style="left:${left}%;width:${width}%"><span>Due ${esc(fShort(a.date))}</span></div>${now}
       </div>`;
   }).join("");
-  const axis = `<div class="g-axis" aria-hidden="true">${WEEKS.map(w => `<span>${w.n}</span>`).join("")}</div>`;
-  $("#gantt").innerHTML = rows + (window.matchMedia("(max-width:900px)").matches ? axis : `<div></div>`+axis);
+  // Month labels along the bottom
+  const months = []; const m = new Date(s.getFullYear(), s.getMonth() + 1, 1);
+  while(m <= e){ months.push(`<span style="left:${pos(m)}%">${esc(fmt(m, {month:"short"}))}</span>`); m.setMonth(m.getMonth() + 1); }
+  const axis = `<div class="g-axis months" aria-hidden="true">${months.join("")}</div>`;
+  box.innerHTML = rows + (window.matchMedia("(max-width:900px)").matches ? axis : `<div></div>` + axis);
 }
 
-function dateItem(k){
-  const ex = exactDate(k);
-  const d = ex || weekDate(k.week);
-  const chip = d
-    ? `<small>${fmt(d,{month:"short"})}</small><b>${fmt(d,{day:"numeric"})}</b>`
-    : `<small>Week</small><b>${k.week}</b>`;
-  const kindLabel = {onsite:"Onsite", formative:"Formative assessment", summative:"Summative assessment"}[k.kind] || "";
-  const when = ex ? fmt(d,{weekday:"long", day:"numeric", month:"long"}) : (d ? "Week of " + fmt(d,{day:"numeric",month:"long"}) : "Date TBC");
-  return `<li><div class="date-chip">${chip}</div><div><b class="t">${esc(k.t)}</b><span>${esc(kindLabel)}. ${esc(when)}</span></div></li>`;
+function dateItem(i, opts = {}){
+  const range = i.endDate && iso(i.endDate) !== iso(i.date);
+  const chip = `<small>${esc(fmt(i.date, {month:"short"}))}</small><b>${esc(fmt(i.date, {day:"numeric"}))}</b>`;
+  const kind = {day:{onsite:"Onsite day", online:"Full day online", workshop:"Part 3 workshop"}[i.kind], due:i.kind === "summative" ? "Summative assessment due" : "Formative assessment due", event:"Presentations", break:"Break", start:"Part starts"}[i.type] || "";
+  const when = range ? `${fmt(i.date, {weekday:"short", day:"numeric", month:"short"})} to ${fmt(i.endDate, {weekday:"short", day:"numeric", month:"short", year:"numeric"})}` : fLong(i.date);
+  const meta = [kind && kind.toLowerCase() !== String(i.t).toLowerCase() ? kind : "", when, i.time, i.mode ? MODE_LABEL[i.mode] : ""].filter(Boolean).join(" · ");
+  const past = lastDay(i) < today0();
+  return `<li class="${past ? "past" : ""} dk-${i.type} dk-${i.kind || ""}"><div class="date-chip">${chip}</div><div><b class="t">${esc(i.t)}${opts.next ? ` <span class="pill next-pill">Next</span>` : ""}</b><span>${esc(meta)}</span>${i.note ? `<span class="d-note">${esc(i.note)}</span>` : ""}</div></li>`;
 }
+const KEY_TYPES = new Set(["day","due","event","break","start"]);
 function renderUpcoming(){
-  const list = KEY_DATES.filter(k => k.week >= state.week).slice(0,4);
-  $("#upcoming").innerHTML = list.length ? list.map(dateItem).join("") : `<li><div><b class="t">You've reached the end of Part 1</b><span>Part 2 dates will appear here.</span></div></li>`;
-  $("#allDates").innerHTML = KEY_DATES.map(k => {
-    const html = dateItem(k);
-    return k.week < state.week ? html.replace("<li>", '<li style="opacity:.55">') : html;
-  }).join("");
+  const g = gen(), t = today0();
+  const list = g ? itemsOf(g).filter(i => KEY_TYPES.has(i.type) && lastDay(i) >= t && modeOK(i)).slice(0, 4) : [];
+  $("#upcoming").innerHTML = !g ? `<li><div><b class="t">Choose your Gen</b><span>Your key dates will appear here.</span></div></li>`
+    : list.length ? list.map(i => dateItem(i)).join("") : `<li><div><b class="t">No more key dates</b><span>You've reached the end of your programme dates.</span></div></li>`;
 }
 
-/* ---------- Timeline ---------- */
+/* ---------- Key dates ---------- */
+const DATE_FILTERS = [["all","All dates"],["onsite","Onsite days"],["due","Assessments"],["sessions","Weekly sessions"],["break","Breaks"]];
+function renderDates(){
+  const g = gen(), box = $("#allDates");
+  $("#dateFilters").innerHTML = DATE_FILTERS.map(([k, l]) => `<button class="chip" data-dfilter="${k}" aria-pressed="${state.dateFilter === k}">${l}</button>`).join("");
+  const hasP3 = g && g.parts.some(p => p.n === 3);
+  $("#modeFilters").hidden = !hasP3;
+  $("#modeFilters").innerHTML = hasP3 ? `<span class="note">Part 3:</span>` + [["","Full and part time"],["ft","Full time"],["pt","Part time"]].map(([k, l]) => `<button class="chip" data-mode="${k}" aria-pressed="${(state.mode || "") === k}">${l}</button>`).join("") : "";
+  if(!g){ box.innerHTML = `<div class="card"><p style="color:var(--ink-2)">Choose your Gen at the top of the page to see your key dates.</p></div>`; return; }
+  const t = today0(), f = state.dateFilter;
+  const all = itemsOf(g).filter(modeOK);
+  const nextKey = all.find(i => KEY_TYPES.has(i.type) && i.type !== "start" && lastDay(i) >= t);
+  const keep = i => f === "all" ? KEY_TYPES.has(i.type)
+    : f === "onsite" ? isOnsiteDay(i) : f === "due" ? (i.type === "due" || i.type === "event")
+    : f === "sessions" ? (i.type === "day" && i.kind === "online") : f === "break" ? i.type === "break" : false;
+  box.innerHTML = g.parts.map((p, k) => {
+    const s = D(p.start), e = partEnd(p), nextStart = g.parts[k + 1] ? D(g.parts[k + 1].start) : null, info = PARTS_INFO[p.n];
+    const inPart = i => i.part === p.n || (i.type === "break" && i.date >= s && (!nextStart || i.date < nextStart));
+    const list = all.filter(i => inPart(i) && i.type !== "start" && keep(i));
+    const sessions = (f === "all" || f === "sessions") ? (p.sessions || []) : [];
+    if(!list.length && !sessions.length) return "";
+    const isCur = state.st && state.st.part.n === p.n;
+    const done = e && e < t && !isCur;
+    const headHTML = `<div><h2>Part ${p.n}: ${esc(info.name)}</h2><p class="note">${esc(fLong(s))}${e ? " to " + esc(fLong(e)) : ""}${p.n === 3 && !state.mode && p.endFT ? ` (part time; full time ends ${esc(fShort(D(p.endFT)))})` : ""}</p></div>${isCur ? `<span class="now-tag">You're here</span>` : done ? `<span class="pill tbc">Finished · show dates</span>` : ""}`;
+    // Finished parts start folded away
+    return `<${done ? "details" : "section"} class="card part-dates ${done ? "is-past" : ""}">
+      ${done ? `<summary class="card-head">${headHTML}</summary>` : `<div class="card-head">${headHTML}</div>`}
+      ${p.note ? `<div class="callout" style="margin:0 0 12px">${ico("info")}<p>${esc(p.note)}</p></div>` : ""}
+      ${sessions.map(se => {
+        const next = se.dates.map(D).find(d => d >= t);
+        return `<div class="sessions"><div><b>${esc(se.kind === "onsite" ? "Onsite sessions" : "Online sessions")}</b><span>${esc(se.when)}</span></div>
+          <div class="s-dates">${se.dates.map(d => { const dd = D(d); return `<span class="${dd < t ? "past" : ""} ${next && iso(next) === d ? "next" : ""}" title="${esc(fLong(dd))}">${esc(fShort(dd))}</span>`; }).join("")}</div></div>`;
+      }).join("")}
+      ${list.length ? `<ul class="dates">${list.map(i => dateItem(i, {next: i === nextKey})).join("")}</ul>` : ""}
+    </${done ? "details" : "section"}>`;
+  }).join("") || `<div class="card"><p style="color:var(--ink-2)">Nothing to show for this filter.</p></div>`;
+}
+
+/* ---------- Where am I now? ---------- */
 function renderTimeline(){
-  $("#timeline").innerHTML = BLOCKS.map(b => {
-    const ws = WEEKS.filter(w => w.n >= b.weeks[0] && w.n <= b.weeks[1] && (state.filter === "all" || w.mode === state.filter));
-    if(!ws.length) return "";
-    return `<div class="block-head"><h2>${esc(b.name)}</h2><p>Weeks ${b.weeks[0]}–${b.weeks[1]}. ${esc(b.q)}</p></div>
-      <div class="weeks">${ws.map(w => `
-        <button class="wcard ${w.mode==="onsite"?"onsite-card":""} ${w.n===state.week?"current":""}" id="wk-${w.n}" data-open-week="${w.n}">
-          <div class="wc-top"><span class="wc-n">${w.n}</span>${w.n===state.week ? '<span class="now-tag">You\'re here</span>' : `<span class="pill ${w.mode}">${esc(w.len || "Online")}</span>`}</div>
-          <h3>${esc(w.t)}</h3>
-          <p>${esc(w.d)}</p>
-          <div class="wc-a"><b>Assessment:</b> ${esc(w.a)}</div>
-        </button>`).join("")}</div>`;
+  const g = gen(), box = $("#timeline");
+  if(!g){ $("#partTabs").innerHTML = ""; box.innerHTML = `<div class="card"><p style="color:var(--ink-2)">Choose your Gen at the top of the page to see your weeks.</p></div>`; return; }
+  const cur = state.st ? state.st.part.n : 1;
+  $("#partTabs").innerHTML = g.parts.map(p => `<button class="chip" data-tab="${p.n}" aria-pressed="${state.tab === p.n}">Part ${p.n}${p.n === cur ? " · now" : ""}</button>`).join("");
+  const p = g.parts.find(x => x.n === state.tab) || g.parts[0], info = PARTS_INFO[p.n];
+  $("#filterBox").hidden = p.n === 3;
+  $("#tlIntro").textContent = p.n === 3 ? `Part 3: ${info.name}. ${info.about}`
+    : `Part ${p.n}: ${info.name} runs for ${teachingWeeks(g, p).length} weeks${p.n === 1 ? " across two blocks" : ""}. ${p.n === state.st?.part.n ? "Select any week to see it on your dashboard." : ""}`;
+  if(p.n === 3){
+    const list = itemsOf(g).filter(i => i.part === 3 && (i.type === "day" || i.type === "due" || i.type === "event") && modeOK(i));
+    box.innerHTML = `<div class="card"><div class="card-head"><h2>Workshops and deadlines</h2>${!state.mode ? `<span class="pill tbc">Full and part time</span>` : `<span class="pill online">${MODE_LABEL[state.mode]}</span>`}</div><ul class="dates">${list.map(i => dateItem(i)).join("")}</ul></div>`;
+    return;
+  }
+  const weeks = weeksOf(g, p), t = today0(), clickable = state.st && p.n === state.st.part.n;
+  const live = state.st && state.st.phase === "week" && clickable;
+  const groups = p.n === 1 ? BLOCKS : [{name:`Part 2: ${info.name}`, weeks:[1, teachingWeeks(g, p).length], q:info.q}];
+  let lastN = 0; weeks.forEach(b => { if(!b.brk) lastN = b.n; b.grp = b.brk ? lastN : b.n; });   // a holiday week sits with the week before it
+  box.innerHTML = groups.map(gr => {
+    const bl = weeks.filter(b => b.grp >= gr.weeks[0] && b.grp <= gr.weeks[1]);
+    const cards = bl.map((b, k) => {
+      if(b.brk){
+        // One card for a run of holiday weeks
+        if(state.filter !== "all" || (bl[k - 1] && bl[k - 1].brk)) return "";
+        let last = b; for(let j = k + 1; bl[j] && bl[j].brk; j++) last = bl[j];
+        return `<div class="wbreak"><b>${esc(b.brkName || "No sessions")}</b><span>${esc(fShort(b.start))} to ${esc(fShort(last.end))}</span></div>`;
+      }
+      const onsite = b.items.some(isOnsiteDay), mode = onsite ? "onsite" : "online";
+      if(state.filter !== "all" && state.filter !== mode) return "";
+      const w = p.n === 1 ? WEEKS[b.n - 1] : null, isNow = live && b.n === state.week;
+      const tag = clickable ? "button" : "div";
+      const dues = b.items.filter(i => i.type === "due" || i.type === "event" || isOnsiteDay(i) || (i.type === "day" && i.kind === "online"));
+      return `<${tag} class="wcard ${onsite ? "onsite-card" : ""} ${isNow ? "current" : ""} ${b.end < t ? "is-past" : ""}" id="wk-${b.n}" ${clickable ? `data-open-week="${b.n}"` : ""}>
+          <div class="wc-top"><span class="wc-n">${b.n}</span>${isNow ? '<span class="now-tag">You\'re here</span>' : `<span class="pill ${mode}">${onsite ? "Onsite day" : "Online"}</span>`}</div>
+          <span class="wc-date">${esc(fShort(b.start))} to ${esc(fShort(b.end))}</span>
+          <h3>${w ? esc(w.t) : `Week ${b.n}`}</h3>
+          ${w ? `<p>${esc(w.d)}</p>` : ""}
+          ${dues.length ? `<ul class="wc-items">${dues.map(i => `<li class="k-${i.type}">${esc(fmt(i.date, {weekday:"short", day:"numeric"}))}: ${esc(i.type === "due" ? shortName(i.t) + " due" : i.t)}</li>`).join("")}</ul>` : ""}
+          ${w && w.a ? `<div class="wc-a"><b>Assessment:</b> ${esc(w.a)}</div>` : ""}
+        </${tag}>`;
+    }).join("");
+    if(!cards.trim()) return "";
+    return `<div class="block-head"><h2>${esc(gr.name)}</h2><p>Weeks ${gr.weeks[0]}–${gr.weeks[1]}. ${esc(gr.q)}</p></div><div class="weeks">${cards}</div>`;
   }).join("");
 }
 
 /* ---------- Checklist ---------- */
 function renderChecklist(){
-  const nowGroup = CHECKLIST.find(g => g.by && g.by >= state.week);
+  const nowGroup = CHECKLIST.find(g => g.by && g.by >= state.p1week);
+  const note = $("#checkNote");
+  if(note){ const st = state.st; note.hidden = !st || st.part.n === 1; if(st && st.part.n !== 1) note.querySelector("p").textContent = `This checklist covers Part 1. You're in Part ${st.part.n} now, so use it to look back over the foundations, or clear your ticks if you've finished with it.`; }
   $("#checklist").innerHTML = CHECKLIST.map(g => {
     const done = g.items.filter((_,i) => state.checks.has(g.id+"-"+i)).length;
     const label = g.label || `By the end of Week ${g.by}`;
@@ -1206,13 +1704,13 @@ function openHit(h){
 function syncFilters(){ document.querySelectorAll("[data-filter]").forEach(b => b.setAttribute("aria-pressed", b.dataset.filter === state.filter)); }
 
 function renderBrand(){
-  const c = cohort();
-  $("#brandSub").textContent = c ? `${c.name}, Part 1` : "Master of Technological Futures";
+  const c = gen(), st = state.st;
+  $("#brandSub").textContent = c ? `${c.name}${st && st.phase !== "after" ? ", Part " + st.part.n : ""}` : "Master of Technological Futures";
 }
 function renderAll(){
   renderBrand(); renderWeekBox(); renderPrompt();
   renderStrip(); renderWeekDetail(); renderRing(); renderTiles(); renderGantt(); renderUpcoming();
-  renderTimeline(); renderChecklist(); renderWho();
+  renderTimeline(); renderDates(); renderChecklist(); renderWho();
 }
 
 function init(){
@@ -1229,7 +1727,7 @@ function init(){
   });
   $("#weekDetail").addEventListener("click", e => {
     const s = e.target.closest("[data-step]");
-    if(s){ state.focus = Math.min(20, Math.max(1, state.focus + +s.dataset.step)); renderStrip(); renderWeekDetail(); }
+    if(s){ state.focus = Math.min(teachingWeeks(gen(), state.st.part).length || 1, Math.max(1, state.focus + +s.dataset.step)); renderStrip(); renderWeekDetail(); }
     if(e.target.closest("#backNow")){ state.focus = state.week; renderStrip(); renderWeekDetail(); }
   });
   $("#timeline").addEventListener("click", e => {
@@ -1238,6 +1736,9 @@ function init(){
     document.getElementById("weekDetail").scrollIntoView({block:"start"});
   });
   document.querySelectorAll("[data-filter]").forEach(b => b.addEventListener("click", () => { state.filter = b.dataset.filter; syncFilters(); renderTimeline(); }));
+  $("#partTabs").addEventListener("click", e => { const b = e.target.closest("[data-tab]"); if(b){ state.tab = +b.dataset.tab; renderTimeline(); } });
+  $("#dateFilters").addEventListener("click", e => { const b = e.target.closest("[data-dfilter]"); if(b){ state.dateFilter = b.dataset.dfilter; renderDates(); } });
+  $("#modeFilters").addEventListener("click", e => { const b = e.target.closest("[data-mode]"); if(b) setMode(b.dataset.mode); });
   $("#checklist").addEventListener("change", e => {
     const c = e.target.closest("[data-check]"); if(!c) return;
     c.checked ? state.checks.add(c.dataset.check) : state.checks.delete(c.dataset.check);
