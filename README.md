@@ -9,6 +9,7 @@ Interactive pages for the Futures PlayLab Google Site (Master of Technological F
 | What's On | `whats-on/` | `https://YOUR-USERNAME.github.io/playlab-pages/whats-on/` |
 | About | `about/` | `https://YOUR-USERNAME.github.io/playlab-pages/about/` |
 | Resources | `resources/` | `https://YOUR-USERNAME.github.io/playlab-pages/resources/` |
+| Play | `play/` | `https://YOUR-USERNAME.github.io/playlab-pages/play/` |
 
 ## Updating a page
 
@@ -38,6 +39,11 @@ In `student-journey/index.html`, find `const COHORTS` and add a line at the top 
 ## Resources
 
 Guides, external resources, policies and FAQs are lists in `resources/index.html`. Tools are read live from the Futures PlayLab Tool Finder repo, which you keep updating with its Excel workbook. Step-by-step instructions: [`resources/HOW-TO-UPDATE.md`](resources/HOW-TO-UPDATE.md).
+
+
+## Play
+
+The Studio Card and the playground tools are lists in `play/index.html`. Each tool runs inside the page, with a button to open its full page. Step-by-step instructions: [`play/HOW-TO-UPDATE.md`](play/HOW-TO-UPDATE.md).
 
 ## About
 

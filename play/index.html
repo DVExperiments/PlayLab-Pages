@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233651F5%27/%3E%3Cpath d=%27M8 22c3-8 6-12 9-12s4 3 2 6-6 3-6 0 5-6 10-5%27 fill=%27none%27 stroke=%27white%27 stroke-width=%273%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<title>Play · Futures PlayLab · Master of Technological Futures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Futures PlayLab · Play
+   The Studio Card and the tool list are in the <script> at the
+   bottom. See play/HOW-TO-UPDATE.md.
+   ============================================================ */
+:root{
+  --paper:#EEF1F7; --card:#FFFFFF; --ink:#172038; --ink-2:#4A5372; --ink-3:#7D86A3; --line:#E1E5EF;
+  --blue:#3651F5; --blue-deep:#2238C4; --blue-soft:#E4E8FF;
+  --peach:#FFD5C2; --peach-ink:#9A3B12;
+  --lilac:#DDD7FF; --lilac-ink:#4B3AB0;
+  --mint:#CBEFD8;  --mint-ink:#1D6B3E;
+  --butter:#FFEDA8; --butter-ink:#7A5A00;
+  --sky:#CFE6FF;   --sky-ink:#1B4F8A;
+  --r-xl:28px; --r-lg:20px; --r-md:14px;
+  --shadow:0 1px 0 rgba(23,32,56,.04), 0 8px 24px -12px rgba(34,56,196,.18);
+  --display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--blue-deep)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+h1,h2,h3,h4{font-family:var(--display);margin:0;letter-spacing:-.01em;line-height:1.15}
+p{margin:0}
+[hidden]{display:none!important}
+
+/* ---------- Shell (shared with the other Futures PlayLab pages) ---------- */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh;gap:18px;padding:18px}
+.side{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none}
+.brand b{font-family:var(--display);font-size:19px;display:block;line-height:1.1}
+.brand small{opacity:.75;font-size:12.5px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;font-weight:500;font-size:14.5px;color:rgba(255,255,255,.85)}
+.nav button svg{width:19px;height:19px;flex:none}
+.nav button:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav button[aria-current="page"],.nav button.on{background:#fff;color:var(--blue-deep);font-weight:700}
+.nav button:focus-visible{outline:3px solid #fff;outline-offset:1px}
+.nav-sub{display:flex;flex-direction:column;gap:1px;margin:2px 0 4px 22px;padding-left:10px;border-left:2px solid rgba(255,255,255,.18)}
+.nav-sub button{padding:6px 10px;font-size:13.5px;border-radius:10px;gap:10px}
+.nav-sub button i{width:9px;height:9px;border-radius:50%;flex:none;background:currentColor;opacity:.55}
+.nav-sub button[aria-current="page"]{background:rgba(255,255,255,.18);color:#fff;font-weight:700}
+.nav-sub button[aria-current="page"] i{opacity:1}
+.side-foot{margin-top:auto;background:rgba(255,255,255,.12);border-radius:var(--r-lg);padding:16px;font-size:13.5px}
+.side-foot p{opacity:.9;margin-bottom:10px}
+.btn-white{all:unset;cursor:pointer;display:inline-block;background:#fff;color:var(--blue-deep);text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px;font-size:13px}
+.btn-white:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.view{display:none}
+.view.active{display:block}
+.view-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:4px 4px 18px}
+.vh-title{display:flex;gap:14px;align-items:center;min-width:0}
+.badge{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex:none}
+.badge svg{width:26px;height:26px}
+.view-head h1{font-size:clamp(26px,3vw,34px);font-weight:800}
+.view-head p{color:var(--ink-2);max-width:66ch;margin-top:4px}
+.vh-btns{display:flex;gap:10px;flex-wrap:wrap}
+.card{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:19px;font-weight:700}
+.link-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--blue-deep);padding:7px 13px;border-radius:999px;background:var(--blue-soft);text-decoration:none}
+.link-btn:hover{background:#d4daff}
+.link-btn svg{width:15px;height:15px}
+.solid-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none}
+.solid-btn:hover{background:var(--blue-deep)}
+.solid-btn svg,.ghost-btn svg{width:17px;height:17px}
+.ghost-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;padding:10px 16px;border-radius:999px;border:1px solid var(--line);color:var(--ink-2);background:var(--card);text-decoration:none}
+.ghost-btn:hover{border-color:var(--blue);color:var(--blue-deep)}
+.solid-btn:focus-visible,.ghost-btn:focus-visible,.link-btn:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+a.is-off{opacity:.5;cursor:not-allowed}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.note{font-size:13px;color:var(--ink-3)}
+.t-sky{background:var(--sky);color:var(--sky-ink)}.t-lilac{background:var(--lilac);color:var(--lilac-ink)}.t-mint{background:var(--mint);color:var(--mint-ink)}
+.t-butter{background:var(--butter);color:var(--butter-ink)}.t-peach{background:var(--peach);color:var(--peach-ink)}.t-blue{background:var(--blue-soft);color:var(--blue-deep)}
+.section-title{font-size:20px;font-weight:700;margin:26px 4px 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* ---------- Start here: the loop ---------- */
+.hero{background:var(--ink);color:#fff;border-radius:var(--r-xl);padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:30px;align-items:center}
+.hero h1{font-size:clamp(34px,4.6vw,56px);font-weight:800;line-height:.98;letter-spacing:-.03em}
+.hero-intro{color:rgba(255,255,255,.8);font-size:15.5px;margin-top:14px;max-width:52ch}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+.hero-btns .btn-white{font-size:14px;padding:11px 18px}
+.btn-line{all:unset;cursor:pointer;display:inline-block;color:#fff;font-weight:600;font-size:14px;padding:10px 17px;border-radius:999px;border:1px solid rgba(255,255,255,.35)}
+.btn-line:hover{background:rgba(255,255,255,.1)}
+.btn-line:focus-visible{outline:3px solid #fff;outline-offset:2px}
+/* The loop is a real sequence, so it is drawn as one: try, notice, reflect, add */
+.loop{position:relative;aspect-ratio:1.25/1;max-width:500px;width:100%;justify-self:center}
+.loop svg.ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.loop .stop{position:absolute;width:43%;transform:translate(-50%,-50%);background:#fff;color:var(--ink);border-radius:18px;padding:12px 14px;box-shadow:0 10px 30px -10px rgba(0,0,0,.5)}
+.loop .stop b{display:flex;align-items:center;gap:8px;font-family:var(--display);font-size:16.5px}
+.loop .stop b span{width:24px;height:24px;border-radius:8px;display:grid;place-items:center;font-size:13px;flex:none}
+.loop .stop p{font-size:12.5px;color:var(--ink-2);margin-top:3px;line-height:1.35}
+.loop .s1{left:27%;top:17%}.loop .s2{left:73%;top:17%}.loop .s3{left:73%;top:83%}.loop .s4{left:27%;top:83%}
+.loop .core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;font-family:var(--display);font-weight:700;font-size:14px;color:rgba(255,255,255,.7);line-height:1.2}
+
+/* Studio Card feature */
+.feature{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:0;padding:0;overflow:hidden}
+.feature .f-img{position:relative;background:var(--butter);min-height:280px}
+.feature .f-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.feature .f-body{padding:26px;display:flex;flex-direction:column;gap:12px}
+.feature h2{font-size:26px;font-weight:800}
+.feature p{color:var(--ink-2)}
+.qs{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:6px;counter-reset:q}
+.qs li{display:flex;gap:10px;align-items:baseline;font-size:14.5px;font-weight:600;counter-increment:q}
+.qs li::before{content:counter(q);flex:none;width:22px;height:22px;border-radius:7px;background:var(--butter);color:var(--butter-ink);font-size:12px;font-weight:800;display:grid;place-items:center;transform:translateY(3px)}
+.f-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+
+/* ---------- Tool cards ---------- */
+.theme-row{margin-bottom:18px}
+.theme-row h3{font-size:16.5px;font-weight:700;margin:0 4px 4px;display:flex;align-items:center;gap:9px}
+.theme-row h3 i{width:12px;height:12px;border-radius:4px;flex:none}
+.theme-row > p{color:var(--ink-2);font-size:14px;margin:0 4px 12px}
+.theme-row .tools,#tools{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:1000px){.theme-row .tools,#tools{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
+.tool{all:unset;box-sizing:border-box;cursor:pointer;background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:transform .15s ease, box-shadow .15s ease}
+.tool:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(23,32,56,.04), 0 14px 30px -14px rgba(34,56,196,.35)}
+.tool:hover h4{color:var(--blue-deep)}
+.tool:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.thumb{position:relative;aspect-ratio:16/10;overflow:hidden}
+.thumb .ph{position:absolute;inset:0;display:grid;place-items:center}
+.thumb .ph svg{width:40px;height:40px}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.tool .t-body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:5px;flex:1}
+.tool h4{font-family:var(--body);font-size:16.5px;font-weight:700}
+.tool p{font-size:13.5px;color:var(--ink-2)}
+.tool .t-go{margin-top:auto;padding-top:8px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.5px;font-weight:700;color:var(--blue-deep)}
+.tool .t-go svg{width:17px;height:17px}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:18px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;padding:8px 14px;border-radius:999px;background:var(--card);border:1px solid var(--line);color:var(--ink-2);display:inline-flex;align-items:center;gap:7px}
+.chip i{width:10px;height:10px;border-radius:3px}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.chip:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.find{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:10px 16px;font-size:14.5px}
+.find:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px var(--blue-soft)}
+.empty{background:var(--card);border-radius:var(--r-lg);padding:28px;text-align:center;color:var(--ink-2);box-shadow:var(--shadow)}
+.empty b{display:block;font-family:var(--display);font-size:18px;color:var(--ink);margin-bottom:4px}
+
+/* ---------- Embedded tool stage ---------- */
+.stage{position:relative;background:var(--ink);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);height:clamp(560px,78vh,860px)}
+.stage.tall{height:clamp(640px,90vh,1100px)}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#fff}
+.stage .loading{position:absolute;inset:0;display:grid;place-items:center;background:var(--ink);color:#fff;transition:opacity .3s ease;z-index:1}
+.stage .loading img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.35;filter:blur(3px)}
+.stage .loading span{position:relative;background:rgba(23,32,56,.85);padding:10px 16px;border-radius:999px;font-weight:600;font-size:14px;display:flex;align-items:center;gap:10px}
+.stage .loading span::before{content:"";width:14px;height:14px;border-radius:50%;border:2.5px solid rgba(255,255,255,.3);border-top-color:#fff;animation:spin .8s linear infinite}
+.stage.ready .loading{opacity:0;pointer-events:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stage-bar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin:10px 4px 0}
+.phone-tip{display:none;background:var(--butter);color:var(--butter-ink);border-radius:var(--r-md);padding:12px 14px;font-size:14px;margin-bottom:12px;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.phone-tip a{font-weight:700;color:inherit}
+
+.tool-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 4px 14px;flex-wrap:wrap}
+.stepper{display:flex;gap:6px}
+.stepper button{all:unset;cursor:pointer;width:36px;height:36px;border-radius:999px;background:var(--card);border:1px solid var(--line);display:grid;place-items:center;color:var(--ink-2)}
+.stepper button:hover{border-color:var(--blue);color:var(--blue-deep)}
+.stepper button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.stepper svg{width:17px;height:17px}
+
+.below{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px;margin-top:18px}
+.below h2{font-size:17px;margin-bottom:10px}
+.ideas{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px}
+.ideas li{display:flex;gap:10px;font-size:14.5px;color:var(--ink)}
+.ideas li svg{width:18px;height:18px;flex:none;margin-top:2px}
+.know{margin:0;padding-left:18px;color:var(--ink-2);font-size:14px;display:flex;flex-direction:column;gap:6px}
+.reflect-card{background:var(--butter);color:var(--butter-ink)}
+.reflect-card h2{color:var(--ink)}
+.reflect-card p{font-size:14px;color:var(--ink)}
+.reflect-card .solid-btn{margin-top:12px}
+.pairs{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.pairs button{all:unset;cursor:pointer;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--paper);color:var(--ink-2);display:inline-flex;align-items:center;gap:7px}
+.pairs button i{width:9px;height:9px;border-radius:50%}
+.pairs button:hover{background:var(--blue-soft);color:var(--blue-deep)}
+.pairs button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+
+/* Studio Card view */
+.tips{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
+.tip{background:var(--card);border-radius:var(--r-lg);padding:16px 18px;box-shadow:var(--shadow);display:flex;gap:12px;align-items:flex-start}
+.tip .t-ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;flex:none}
+.tip .t-ico svg{width:20px;height:20px}
+.tip b{display:block;font-size:14.5px}
+.tip span{font-size:13.5px;color:var(--ink-2)}
+.reflecting{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--card);border-radius:var(--r-md);padding:10px 14px;margin-bottom:12px;box-shadow:var(--shadow);font-size:14px}
+.reflecting button{all:unset;cursor:pointer;color:var(--blue-deep);font-weight:600;font-size:13.5px;margin-left:auto}
+.reflecting button:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+
+.foot{font-size:12.5px;color:var(--ink-3);text-align:center;padding:10px 0 4px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media (max-width:1180px){
+  .hero{grid-template-columns:1fr}
+  .below{grid-template-columns:1fr 1fr}
+  .below .reflect-card{grid-column:1/-1}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;padding:12px;gap:12px}
+  .side{position:static;height:auto;flex-direction:row;align-items:center;padding:10px;border-radius:var(--r-lg);overflow-x:auto}
+  .brand{padding:0 8px 0 4px}
+  .brand small,.side-foot,.nav-sub{display:none}
+  .brand b{white-space:nowrap}
+  .nav{flex-direction:row}
+  .nav button{white-space:nowrap;padding:9px 12px}
+  .nav > button span{display:none}
+  .nav > button[aria-current="page"] span,.nav > button.on span{display:inline}
+  .feature{grid-template-columns:1fr}
+  .feature .f-img{min-height:0;aspect-ratio:16/10}
+  .tips{grid-template-columns:1fr}
+  .phone-tip{display:flex}
+}
+@media (max-width:600px){
+  .hero{padding:22px 18px}
+  .loop .stop{width:46%;padding:9px 10px}
+  .loop .stop p{display:none}
+  .below{grid-template-columns:1fr}
+  .stage{height:72vh}
+  .stage.tall{height:80vh}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side" aria-label="Play sections">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3651F5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8.5v7l6-3.5z" fill="#3651F5"/><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/></svg>
+      </div>
+      <div><b>Play</b><small>Try it, then reflect</small></div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <p>Tried something that changed your thinking? Capture it while it's fresh.</p>
+      <button class="btn-white" type="button" data-reflect>Make a Studio Card</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ===== Start here ===== -->
+    <section class="view" id="view-start" aria-labelledby="h-st">
+      <div class="hero">
+        <div>
+          <h1 id="h-st">Play, then reflect</h1>
+          <p class="hero-intro">Try experimental tools right here in the page: map a system, glitch an image, trace a word or watch a colony grow. When something shifts your thinking, capture it with a Studio Card and add it to your Digital Portfolio.</p>
+          <div class="hero-btns">
+            <button class="btn-white" type="button" data-go="playground">Browse the tools</button>
+            <button class="btn-line" type="button" data-reflect>Make a Studio Card</button>
+          </div>
+        </div>
+        <div class="loop" aria-label="How play turns into portfolio evidence: try a tool, notice what changes, reflect with a Studio Card, add it to your portfolio, then try again.">
+          <svg class="ring" viewBox="0 0 500 400" aria-hidden="true">
+            <path d="M 120 80 L 380 80 Q 440 80 440 140 L 440 260 Q 440 320 380 320 L 120 320 Q 60 320 60 260 L 60 140 Q 60 80 120 80 Z" fill="none" stroke="rgba(255,255,255,.22)" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round"/>
+            <circle r="7" fill="#FFEDA8"><animateMotion dur="9s" repeatCount="indefinite" path="M 120 80 L 380 80 Q 440 80 440 140 L 440 260 Q 440 320 380 320 L 120 320 Q 60 320 60 260 L 60 140 Q 60 80 120 80 Z"/></circle>
+          </svg>
+          <div class="stop s1"><b><span class="t-mint">1</span>Try</b><p>Open a tool and poke at it. Nothing breaks.</p></div>
+          <div class="stop s2"><b><span class="t-sky">2</span>Notice</b><p>What surprised you? What didn't work?</p></div>
+          <div class="stop s3"><b><span class="t-butter">3</span>Reflect</b><p>Answer five questions on a Studio Card.</p></div>
+          <div class="stop s4"><b><span class="t-lilac">4</span>Add to portfolio</b><p>Export it as evidence of your learning.</p></div>
+          <div class="core">and<br>again</div>
+        </div>
+      </div>
+
+      <h2 class="section-title">The Studio Card</h2>
+      <div class="card feature">
+        <div class="f-img"><img src="images/studio-card.jpg" alt="The Studio Card, with the form on the left and a live preview of the card on the right" loading="lazy" onerror="this.remove()"></div>
+        <div class="f-body">
+          <h2>Make your learning visible</h2>
+          <p>Use a Studio Card whenever an activity, project or experiment changes how you think. It works for any part of the programme, not just Futures PlayLab tools.</p>
+          <ol class="qs" aria-label="The five Studio Card questions">
+            <li>What did you explore?</li>
+            <li>What did you make or test?</li>
+            <li>What surprised you or what did you notice?</li>
+            <li>What changed?</li>
+            <li>What would you do next?</li>
+          </ol>
+          <div class="f-btns">
+            <button class="solid-btn" type="button" data-reflect>Make a Studio Card</button>
+            <a class="ghost-btn" data-studio-full>Open full page <span data-ico="ext"></span></a>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title"><span>In the playground</span><button class="link-btn" type="button" data-go="playground">See all tools</button></h2>
+      <div id="startThemes"></div>
+    </section>
+
+    <!-- ===== Studio Card ===== -->
+    <section class="view" id="view-studio" aria-labelledby="h-sc">
+      <div class="view-head">
+        <div class="vh-title"><span class="badge t-butter" data-ico="card"></span><div><h1 id="h-sc">Studio Card</h1><p>Capture what you explored, made, noticed and changed, then export it for your Digital Portfolio.</p></div></div>
+        <div class="vh-btns"><a class="ghost-btn" data-studio-full>Open full page <span data-ico="ext"></span></a></div>
+      </div>
+      <div class="tips">
+        <div class="tip"><span class="t-ico t-mint" data-ico="save"></span><div><b>Save a draft to keep it</b><span>Use <em>Save draft</em> to download your card, then <em>Open draft</em> to carry on later.</span></div></div>
+        <div class="tip"><span class="t-ico t-sky" data-ico="download"></span><div><b>Export for your portfolio</b><span>Download a PNG or save a PDF, then add it to your Digital Portfolio.</span></div></div>
+        <div class="tip"><span class="t-ico t-peach" data-ico="ext"></span><div><b>Writing a longer one?</b><span>Open the full page for more room. Some browsers don't keep drafts typed in an embedded page.</span></div></div>
+      </div>
+      <div class="reflecting" id="reflecting" hidden></div>
+      <div class="phone-tip"><span>On a phone? The Studio Card is easier to fill in on its own page.</span><a data-studio-full>Open full page</a></div>
+      <div class="stage tall" id="studioStage">
+        <div class="loading"><img src="images/studio-card.jpg" alt="" onerror="this.remove()"><span>Loading the Studio Card</span></div>
+      </div>
+    </section>
+
+    <!-- ===== Playground ===== -->
+    <section class="view" id="view-playground" aria-labelledby="h-pg">
+      <div class="view-head">
+        <div class="vh-title"><span class="badge t-mint" data-ico="grid"></span><div><h1 id="h-pg">Playground</h1><p>Experimental tools you can use right here in the page. Each one opens a different way into technological futures. Pick one and see where it takes you.</p></div></div>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="themeChips" role="group" aria-label="Filter tools by theme"></div>
+        <input class="find" id="toolQ" type="search" placeholder="Search tools, for example systems, images, news" aria-label="Search tools">
+      </div>
+      <div class="tools" id="tools"></div>
+    </section>
+
+    <!-- ===== One tool ===== -->
+    <section class="view" id="view-tool" aria-labelledby="h-tool">
+      <div class="tool-top">
+        <button class="link-btn" type="button" data-go="playground"><span data-ico="back"></span>All tools</button>
+        <div class="stepper"><button type="button" id="prevTool" aria-label="Previous tool"><span data-ico="back"></span></button><button type="button" id="nextTool" aria-label="Next tool"><span data-ico="next"></span></button></div>
+      </div>
+      <div class="view-head">
+        <div class="vh-title"><span class="badge" id="toolBadge"></span><div><h1 id="h-tool"></h1><p id="toolTagline"></p></div></div>
+        <div class="vh-btns">
+          <a class="ghost-btn" id="toolFull">Open full page <span data-ico="ext"></span></a>
+          <button class="solid-btn" type="button" id="toolReflect">Reflect on this</button>
+        </div>
+      </div>
+      <div class="phone-tip"><span>On a phone? This tool has more room on its own page.</span><a id="toolFullPhone">Open full page</a></div>
+      <div class="stage" id="toolStage"></div>
+      <div class="below">
+        <div class="card"><h2>Things to try</h2><ul class="ideas" id="toolIdeas"></ul></div>
+        <div class="card"><h2>Good to know</h2><ul class="know" id="toolKnow"></ul></div>
+        <div class="card reflect-card"><h2>Then reflect</h2><p id="toolReflectText"></p><button class="solid-btn" type="button" id="toolReflect2">Make a Studio Card</button><div id="toolPairs"></div></div>
+      </div>
+    </section>
+
+    <p class="foot">Futures PlayLab · Master of Technological Futures · academyEX</p>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+const SETTINGS = {
+  // The Studio Card. Its "Reflect on this" buttons add the tool's name to
+  // the card's "Tools" field.
+  studioCard: "https://dvexperiments.github.io/Studio-Card/"
+};
+
+/* ============================================================
+   THEMES
+   Each tool belongs to one theme. Add a theme here before using it.
+     tone: sky, lilac, mint, butter, peach or blue
+   ============================================================ */
+const THEMES = [
+  {id:"systems", name:"Think in systems", tone:"mint", about:"See how things connect, what depends on what, and what happens when something changes."},
+  {id:"signals", name:"Read the signals", tone:"sky",  about:"Work with words, news and data to spot patterns and tell stories with evidence."},
+  {id:"make",    name:"Make and remix",   tone:"lilac", about:"Treat images, sound and code as materials. Bend the rules and see what comes out."}
+];
+
+/* ============================================================
+   TOOLS
+   The order here is the order on the page.
+     id:      short name used in the page address, lower case with dashes
+     name:    the tool's name
+     tagline: one line for the card
+     about:   a sentence or two shown under the name on the tool's page
+     theme:   one of the theme ids above
+     url:     the tool's web address (opens in the page and in a new tab)
+     image:   a cover picture in play/images (optional)
+     ideas:   things to try, short sentences
+     know:    good to know: saving, data, privacy, limits
+     pairs:   ids of tools that go well with this one (optional)
+     allow:   browser permissions the tool needs, e.g. "geolocation" (optional)
+   ============================================================ */
+const TOOLS = [
+  {id:"ripple-map", name:"Ripple Map", theme:"systems", image:"images/ripple-map.jpg",
+   url:"https://dvexperiments.github.io/Ripple-Map/",
+   tagline:"Uncover the hidden systems behind everyday technology.",
+   about:"Pick a familiar technology or service and reveal the people, infrastructure, rules, data and ecosystems it depends on. Then break something and watch the ripples spread.",
+   ideas:["Choose a system and switch on one hidden layer at a time. Which surprised you most?","Make one part fail and trace everything it takes down with it.","Write your own hypothesis about a connection the map doesn't show.","Export your project and carry on designing a response in Feedback Lab."],
+   know:["Your maps save in this browser only. Export your work to keep it.","It's a teaching model, simplified on purpose. Question it."],
+   pairs:["feedback-lab","formicarium"]},
+
+  {id:"feedback-lab", name:"Feedback Lab", theme:"systems", image:"images/feedback-lab.jpg",
+   url:"https://dvexperiments.github.io/Feedback-Lab/",
+   tagline:"Design a response that learns and adapts.",
+   about:"A guided five-step workspace on feedback loops and cybernetics. Design a response to a real problem, test it as conditions change, and develop a better second version. Takes about 40 minutes.",
+   ideas:["Start the activity and set a clear goal for your intervention.","Change one condition in the simulation and watch how your response copes.","Import a Ripple Map project to start from a system you've already mapped.","Compare your first and second versions. What did feedback teach you?"],
+   know:["Progress saves in this browser. Export your project to keep it or move devices.","The models are simplified demonstrations, not predictions of a real situation."],
+   pairs:["ripple-map","openviz-studio"]},
+
+  {id:"formicarium", name:"Formicarium", theme:"systems", image:"images/formicarium.jpg",
+   url:"https://dvexperiments.github.io/formicarium/",
+   tagline:"Watch a living ant colony organise itself.",
+   about:"A real-time ant ecosystem you observe rather than control. Every ant follows simple rules, and trails, nests, booms and collapses emerge from them.",
+   ideas:["Drag some food onto the ground and watch a trail form.","Click an ant to see what it's doing and why, then follow it underground.","Found a second colony nearby and watch the territories meet.","Speed time up to 10× and notice what changes over a season."],
+   know:["Space pauses; keys 1 to 4 change the speed.","Nothing is saved. Take screenshots of moments worth reflecting on."],
+   pairs:["ripple-map","lumin"]},
+
+  {id:"earthwire", name:"Earthwire", theme:"signals", image:"images/earthwire.jpg",
+   url:"https://dvexperiments.github.io/earthwire/",
+   tagline:"The world's news from the last 24 hours, on a globe.",
+   about:"A holographic globe of world news, updated every 30 minutes from the GDELT project. Colour stories by what happened or by topic, and click a place to read what's being reported there.",
+   ideas:["Switch the colours to Topic and find where tech and science stories cluster.","Click Aotearoa New Zealand. What's being reported here today?","Compare the last hour with the last 24 hours.","Spot one story that hints at a possible future. Note it as a signal."],
+   know:["Drag to spin, scroll or pinch to zoom, space to pause.","Stories come from automated news analysis, so check the original article before relying on one."],
+   pairs:["openviz-studio","etymology"]},
+
+  {id:"openviz-studio", name:"OpenViz Studio", theme:"signals", image:"images/openviz-studio.jpg",
+   url:"https://dvexperiments.github.io/OpenViz-Studio/",
+   tagline:"Turn your data into charts, dashboards and stories.",
+   about:"Free data visualisation that runs in your browser. Bring an Excel, CSV or JSON file, or start from a template, and make charts, maps, dashboards, slides and scrolling stories.",
+   ideas:["Open a template and swap in your own numbers.","Drop in a spreadsheet from your project and let it suggest a chart.","Build a small dashboard where clicking one chart filters the others.","Turn three charts into a short scrolling story."],
+   know:["Your data stays on your device and needs no account.","Projects save in this browser only. Use Back up to keep a copy.","For bigger projects, open the full page."],
+   pairs:["earthwire","feedback-lab"]},
+
+  {id:"etymology", name:"Etymology", theme:"signals", image:"images/etymology.jpg",
+   url:"https://dvexperiments.github.io/etymology/",
+   tagline:"Trace any word back through its family tree.",
+   about:"Type a word and see every older form it came from, how each was pronounced, when and where it was spoken, and its relatives in other languages. Covers nine languages.",
+   ideas:["Trace technology, then future. Where do they meet?","Look up a word from your project. Does its history change how you see it?","Press Random word for one with a surprising history.","Follow a relative into another language and keep going."],
+   know:["Word histories come live from Wiktionary, so some entries are fuller than others."],
+   pairs:["earthwire","glyph-lab"]},
+
+  {id:"glyph-lab", name:"Glyph Lab", theme:"make", image:"images/glyph-lab.jpg",
+   url:"https://dvexperiments.github.io/glyph-lab/",
+   tagline:"Turn images into ASCII, pixel art and halftone.",
+   about:"Convert your own pictures into text art, colour ASCII, pixel mosaics and halftone dots. Then edit the characters by hand and watch the artwork redraw.",
+   ideas:["Upload a photo from your project and try all four styles.","Open the Character Workshop and type into the artwork.","Make your own character set, like 01 or your initials.","Export a PNG to use on a slide or your portfolio."],
+   know:["Images never leave your browser.","Files up to 25 MB."],
+   pairs:["wrong-machine","etymology"]},
+
+  {id:"wrong-machine", name:"Wrong Machine", theme:"make", image:"images/wrong-machine.jpg",
+   url:"https://dvexperiments.github.io/Wrong-Machine/",
+   tagline:"Data is a material. Glitch it, hear it, break it.",
+   about:"An experimental media lab where images become sound and sound becomes images. Edit a picture's pixels as text and watch it glitch.",
+   ideas:["Open the text glitcher and type a word into the pixel text.","Delete a block of pixels and see how everything after it shifts.","Send your glitched image to Image → Sound and listen to it.","Export a valid PNG of your favourite mistake."],
+   know:["Everything runs in your browser. Nothing is uploaded.","Turn your volume down before you try the sound tools."],
+   pairs:["glyph-lab","lumin"]},
+
+  {id:"lumin", name:"LUMIN", theme:"make", image:"images/lumin.jpg", allow:"geolocation",
+   url:"https://dvexperiments.github.io/LUMIN2/",
+   tagline:"A creature of light shaped by the weather it lives through.",
+   about:"A generative artwork that reacts to real weather and remembers it. Weeks of wind streamline it, cold makes it crystalline, storms leave growth rings. Come back in a few days and it will have changed.",
+   ideas:["Choose a place so it lives in real weather.","Move slowly near it, then fast. How does it react?","Tap it again and again. Notice how it stops responding as much.","Come back in a few days and read what happened while you were away."],
+   know:["Only the place you choose is sent anywhere, to get the weather.","No account, tracking, camera or microphone.","H hides the controls, O opens the Observatory and L the Laboratory."],
+   pairs:["formicarium","wrong-machine"]}
+];
+
+/* ============================================================
+   You shouldn't need to change anything below this line.
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ICONS = {
+  home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+  card:'<rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8 8h8M8 12h8M8 16h5"/>',
+  grid:'<rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/>',
+  ext:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+  back:'<path d="M15 6l-6 6 6 6"/>',
+  next:'<path d="M9 6l6 6-6 6"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  save:'<path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/>',
+  download:'<path d="M12 4v11M7 10l5 5 5-5M5 20h14"/>',
+  idea:'<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/>',
+  systems:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8.3 7.2l2.6 8.6M15.7 7.2l-2.6 8.6M8.5 6h7"/>',
+  signals:'<path d="M3 12h3l3-7 4 14 3-7h5"/>',
+  make:'<path d="M14 4l6 6-9 9H5v-6z"/><path d="M12 6l6 6"/>'
+};
+const ico = (n, sw=1.9) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
+const VIEWS = [
+  {id:"start", label:"Start here", ico:"home"},
+  {id:"studio", label:"Studio Card", ico:"card"},
+  {id:"playground", label:"Playground", ico:"grid"}
+];
+const themeOf = t => THEMES.find(x => x.id === t.theme) || {id:"", name:"Other", tone:"blue", about:""};
+const toolById = id => TOOLS.find(t => t.id === id);
+const isUrl = u => /^https?:\/\//.test(String(u || ""));
+const state = {theme:"all", tool:null, reflectOn:"", studioSrc:""};
+
+function setLink(a, url){
+  if(!a) return;
+  if(isUrl(url)){ a.href = url; a.target = "_blank"; a.rel = "noopener"; a.classList.remove("is-off"); a.removeAttribute("aria-disabled"); a.removeAttribute("title"); }
+  else { a.removeAttribute("href"); a.classList.add("is-off"); a.setAttribute("aria-disabled","true"); a.title = "Link coming soon"; }
+}
+
+/* ---------- Navigation ---------- */
+function toTop(){ window.scrollTo(0, 0); try{ document.documentElement.scrollIntoView({block:"start", behavior:"instant"}); }catch(e){} }
+function go(id, opts = {}){
+  let view = id, tool = null;
+  if(id.startsWith("tool-")){ tool = toolById(id.slice(5)); view = tool ? "tool" : "playground"; if(!tool) id = "playground"; }
+  if(!tool && !VIEWS.some(v => v.id === view)){ view = id = "start"; }
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + view));
+  document.querySelectorAll("#nav button").forEach(b => {
+    if(b.dataset.view === id) b.setAttribute("aria-current","page"); else b.removeAttribute("aria-current");
+    b.classList.toggle("on", !!tool && b.dataset.view === "playground");   // a tool is part of the Playground
+  });
+  if(view !== "tool") document.title = "Play · Futures PlayLab · Master of Technological Futures";
+  // Only the tool on screen runs: leaving a tool stops it (and any sound).
+  if(view === "tool") showTool(tool); else { state.tool = null; $("#toolStage").innerHTML = ""; }
+  if(view === "studio") loadStudio(); else { $("#studioStage").classList.remove("ready"); const f = $("#studioStage iframe"); if(f) f.remove(); state.studioSrc = ""; }
+  if(history.replaceState) history.replaceState(null, "", "#" + id);
+  if(!opts.initial) toTop();
+}
+function reflect(toolName){
+  state.reflectOn = toolName || "";
+  go("studio");
+}
+
+/* ---------- Embeds ---------- */
+function frameHTML(src, title, allow){
+  const perms = ["fullscreen","clipboard-read","clipboard-write","autoplay"].concat(allow ? String(allow).split(/[\s,;]+/) : []).join("; ");
+  return `<iframe src="${esc(src)}" title="${esc(title)}" allow="${esc(perms)}" allowfullscreen loading="eager"></iframe>`;
+}
+function mountFrame(stage, src, title, allow, cover, label){
+  stage.classList.remove("ready");
+  stage.innerHTML = `<div class="loading">${cover ? `<img src="${esc(cover)}" alt="" onerror="this.remove()">` : ""}<span>${esc(label)}</span></div>` + frameHTML(src, title, allow);
+  const f = stage.querySelector("iframe");
+  f.addEventListener("load", () => stage.classList.add("ready"));
+  setTimeout(() => stage.classList.add("ready"), 8000);   // never leave the cover up for long
+}
+function studioUrl(){
+  const base = SETTINGS.studioCard;
+  if(!state.reflectOn) return base;
+  return base + (base.includes("?") ? "&" : "?") + "tools=" + encodeURIComponent(state.reflectOn);
+}
+function loadStudio(){
+  const box = $("#reflecting");
+  if(state.reflectOn){
+    const t = TOOLS.find(x => x.name === state.reflectOn);
+    box.innerHTML = `<span class="pill t-${themeOf(t || {}).tone}">Reflecting on ${esc(state.reflectOn)}</span><span class="note">Its name is added to the card's Tools field.</span>${t ? `<button type="button" data-go="tool-${esc(t.id)}">Back to ${esc(t.name)}</button>` : ""}`;
+    box.hidden = false;
+  } else box.hidden = true;
+  const src = studioUrl();
+  if(state.studioSrc === src && $("#studioStage iframe")) return;
+  state.studioSrc = src;
+  mountFrame($("#studioStage"), src, "Studio Card", "", "images/studio-card.jpg", "Loading the Studio Card");
+}
+
+/* ---------- Tool cards ---------- */
+function toolCard(t){
+  const th = themeOf(t);
+  return `<button class="tool" type="button" data-go="tool-${esc(t.id)}">
+    <div class="thumb"><span class="ph t-${th.tone}" aria-hidden="true">${ico(th.id || "grid", 1.6)}</span>${t.image ? `<img src="${esc(t.image)}" alt="" loading="lazy" onerror="this.remove()">` : ""}</div>
+    <div class="t-body"><span class="pill t-${th.tone}" style="align-self:flex-start">${esc(th.name)}</span><h4>${esc(t.name)}</h4><p>${esc(t.tagline)}</p>
+    <span class="t-go">Try it here ${ico("arrow")}</span></div></button>`;
+}
+function renderStart(){
+  $("#startThemes").innerHTML = THEMES.map(th => {
+    const list = TOOLS.filter(t => t.theme === th.id);
+    if(!list.length) return "";
+    return `<div class="theme-row"><h3><i class="t-${th.tone}"></i>${esc(th.name)}</h3><p>${esc(th.about)}</p><div class="tools">${list.map(toolCard).join("")}</div></div>`;
+  }).join("");
+}
+const words = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+function renderPlayground(){
+  const counts = t => TOOLS.filter(x => t === "all" || x.theme === t).length;
+  $("#themeChips").innerHTML = [{id:"all", name:"All tools"}].concat(THEMES).map(th =>
+    `<button class="chip" type="button" data-theme="${th.id}" aria-pressed="${state.theme === th.id}">${th.tone ? `<i class="t-${th.tone}"></i>` : ""}${esc(th.name)} <small style="opacity:.6;font-weight:700">${counts(th.id)}</small></button>`).join("");
+  const q = words($("#toolQ").value.trim());
+  const list = TOOLS.filter(t => (state.theme === "all" || t.theme === state.theme) &&
+    (!q || q.split(/\s+/).every(w => words([t.name, t.tagline, t.about, themeOf(t).name, (t.ideas||[]).join(" ")].join(" ")).includes(w.replace(/s$/, "")))));
+  $("#tools").innerHTML = list.length ? list.map(toolCard).join("") :
+    `<div class="empty" style="grid-column:1/-1"><b>No tools match that</b>Try another word, or show all tools.</div>`;
+}
+
+/* ---------- One tool ---------- */
+function showTool(t){
+  if(state.tool === t.id && $("#toolStage iframe")) return;
+  state.tool = t.id;
+  const th = themeOf(t);
+  $("#toolBadge").className = "badge t-" + th.tone; $("#toolBadge").innerHTML = ico(th.id || "grid");
+  $("#h-tool").textContent = t.name;
+  $("#toolTagline").textContent = t.about || t.tagline;
+  setLink($("#toolFull"), t.url); setLink($("#toolFullPhone"), t.url);
+  $("#toolIdeas").innerHTML = (t.ideas || []).map(i => `<li><span style="color:var(--${th.tone}-ink, var(--blue-deep))">${ico("idea")}</span><span>${esc(i)}</span></li>`).join("");
+  $("#toolKnow").innerHTML = (t.know || []).map(i => `<li>${esc(i)}</li>`).join("");
+  $("#toolKnow").closest(".card").hidden = !(t.know || []).length;
+  $("#toolReflectText").textContent = `Did ${t.name} surprise you, or change how you think about your project? Capture it on a Studio Card while it's fresh.`;
+  const pairs = (t.pairs || []).map(toolById).filter(Boolean);
+  $("#toolPairs").innerHTML = pairs.length ? `<p class="note" style="margin-top:16px;color:var(--butter-ink)">Goes well with</p><div class="pairs" style="margin-top:6px">${pairs.map(p => `<button type="button" data-go="tool-${esc(p.id)}"><i style="background:var(--${themeOf(p).tone}-ink)"></i>${esc(p.name)}</button>`).join("")}</div>` : "";
+  const i = TOOLS.indexOf(t);
+  $("#prevTool").dataset.go = "tool-" + TOOLS[(i - 1 + TOOLS.length) % TOOLS.length].id;
+  $("#nextTool").dataset.go = "tool-" + TOOLS[(i + 1) % TOOLS.length].id;
+  $("#prevTool").setAttribute("aria-label", "Previous tool: " + TOOLS[(i - 1 + TOOLS.length) % TOOLS.length].name);
+  $("#nextTool").setAttribute("aria-label", "Next tool: " + TOOLS[(i + 1) % TOOLS.length].name);
+  if(isUrl(t.url)) mountFrame($("#toolStage"), t.url, t.name, t.allow, t.image, "Loading " + t.name);
+  else { $("#toolStage").classList.add("ready"); $("#toolStage").innerHTML = `<div class="empty" style="position:absolute;inset:0;display:grid;place-content:center;border-radius:0"><b>Coming soon</b>This tool isn't ready to try yet.</div>`; }
+  document.title = `${t.name} · Play · Futures PlayLab`;
+}
+
+/* ---------- Wiring ---------- */
+function init(){
+  $("#nav").innerHTML = VIEWS.map(v => `<button type="button" data-view="${v.id}">${ico(v.ico)}<span>${v.label}</span></button>` +
+    (v.id === "playground" ? `<div class="nav-sub">${TOOLS.map(t => `<button type="button" data-view="tool-${esc(t.id)}"><i style="color:var(--${themeOf(t).tone})"></i><span>${esc(t.name)}</span></button>`).join("")}</div>` : "")).join("");
+  document.querySelectorAll("[data-ico]").forEach(el => el.innerHTML = ico(el.dataset.ico));
+  document.querySelectorAll("[data-studio-full]").forEach(a => setLink(a, SETTINGS.studioCard));
+  renderStart(); renderPlayground();
+  document.addEventListener("click", e => {
+    const n = e.target.closest("#nav button"); if(n){ if(n.dataset.view === "studio") state.reflectOn = ""; go(n.dataset.view); return; }
+    const r = e.target.closest("[data-reflect]"); if(r){ reflect(""); return; }
+    const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); go(g.dataset.go); return; }
+    const c = e.target.closest("[data-theme]"); if(c){ state.theme = c.dataset.theme; renderPlayground(); return; }
+  });
+  ["#toolReflect","#toolReflect2"].forEach(s => $(s).addEventListener("click", () => { const t = toolById(state.tool); reflect(t ? t.name : ""); }));
+  $("#toolQ").addEventListener("input", renderPlayground);
+  go((location.hash || "#start").slice(1), {initial:true});
+  window.addEventListener("hashchange", () => { const id = (location.hash || "#start").slice(1); if(id !== (state.tool ? "tool-" + state.tool : "")) go(id); });
+}
+init();
+</script>
+</body>
+</html>
