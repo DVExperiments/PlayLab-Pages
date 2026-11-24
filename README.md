@@ -8,6 +8,7 @@ Interactive pages for the PlayLab Google Site (Master of Technological Futures, 
 | Community | `community/` | `https://YOUR-USERNAME.github.io/playlab-pages/community/` |
 | What's On | `whats-on/` | `https://YOUR-USERNAME.github.io/playlab-pages/whats-on/` |
 | About | `about/` | `https://YOUR-USERNAME.github.io/playlab-pages/about/` |
+| Resources | `resources/` | `https://YOUR-USERNAME.github.io/playlab-pages/resources/` |
 
 ## Updating a page
 
@@ -33,6 +34,10 @@ In `student-journey/index.html`, find `const COHORTS` and add a line at the top 
 - `breaks` lists the Mondays of non-teaching weeks, for example `["2027-09-27","2027-10-04"]`.
 - To link straight to a Gen, add `?gen=gen32` to the end of the page's link.
 
+
+## Resources
+
+Guides, external resources, policies and FAQs are lists in `resources/index.html`. Tools are read live from the PlayLab Tool Finder repo, which you keep updating with its Excel workbook. Step-by-step instructions: [`resources/HOW-TO-UPDATE.md`](resources/HOW-TO-UPDATE.md).
 
 ## About
 
