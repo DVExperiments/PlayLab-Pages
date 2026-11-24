@@ -109,12 +109,16 @@ a.is-off{opacity:.5;cursor:not-allowed}
 .results{margin-top:20px;background:#fff;color:var(--ink);border-radius:var(--r-lg);padding:18px;display:flex;flex-direction:column;gap:16px}
 .results h3{font-size:15px;font-weight:700;color:var(--ink-2);font-family:var(--body);display:flex;justify-content:space-between;align-items:center;gap:10px}
 .r-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px;margin-top:8px}
-.r-item{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;align-items:center;padding:10px;border-radius:14px;background:var(--paper)}
-.r-item:hover{background:var(--blue-soft)}
-.r-item:focus-visible{outline:3px solid var(--blue)}
+.r-item{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;align-items:center;padding:10px 12px 10px 10px;border-radius:14px;background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(23,32,56,.05);color:var(--ink);text-decoration:none;transition:border-color .15s ease, background .15s ease, transform .15s ease}
+.r-item:hover{border-color:var(--blue);background:var(--blue-soft);transform:translateY(-1px)}
+.r-item:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .r-item .r-ico{flex:none;width:40px;height:40px;border-radius:12px;font-size:14px}
-.r-item b{display:block;font-size:14.5px;line-height:1.25}
-.r-item span{font-size:12.5px;color:var(--ink-3)}
+.r-item .r-ico svg{width:20px;height:20px}
+.r-item .r-txt{flex:1;min-width:0}
+.r-item b{display:block;font-size:14.5px;line-height:1.25;color:var(--ink)}
+.r-item .r-sub{display:block;font-size:12.5px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.r-item .r-go{flex:none;width:18px;height:18px;color:var(--blue)}
+.r-item:hover b{color:var(--blue-deep)}
 .r-none{color:var(--ink-2);font-size:14.5px}
 /* category tiles */
 .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
@@ -725,17 +729,18 @@ function searchAll(q){
     laws: [...POLICIES.map(p => [p.title, "Policy", p.summary + " " + p.points.join(" "), p.link || ""]), ...LAWS.flatMap(g => g.links.map(([t, src, d, u]) => [t, src, d + " " + g.group, u]))].filter(([t, src, d]) => hit(t + " " + src + " " + d))
   };
 }
+const GO = '<svg class="r-go" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
 function renderResults(q){
   const box = $("#results"), r = searchAll(q);
   if(!r){ box.hidden = true; return; }
   const sec = (title, items, more, render) => items.length ? `<div><h3><span>${title} <span class="note">(${items.length})</span></span>${more ? `<button class="link-btn" data-go="${more}">See all</button>` : ""}</h3><div class="r-list">${items.slice(0, 6).map(render).join("")}</div></div>` : "";
   const total = r.guides.length + r.tools.length + r.external.length + r.faqs.length + r.laws.length;
   box.innerHTML = total ? [
-    sec("Guides", r.guides, "guides", ([g, i]) => `<button class="r-item" data-open="guide:${i}"><span class="r-ico ph t-lilac">${ico("play")}</span><span><b>${esc(g.title)}</b><span>${esc(g.topic || "Guide")}</span></span></button>`),
-    sec("Tools", r.tools, "tools", t => `<button class="r-item" data-tool="${esc(t.id)}"><span class="r-ico ph t-${toneFor(t.category)}">${esc(initials(t.name))}</span><span><b>${esc(t.name)}</b><span>${esc(t.category)}</span></span></button>`),
-    sec("External resources", r.external, "external", ([x, i]) => `<button class="r-item" data-open="ext:${i}"><span class="r-ico ph t-peach">${ico("globe")}</span><span><b>${esc(x.title)}</b><span>${esc(x.source || x.topic || "")}</span></span></button>`),
-    sec("Policies and laws", r.laws, "policies", ([t, src, d, u]) => u ? `<a class="r-item" href="${esc(u)}" target="_blank" rel="noopener"><span class="r-ico ph t-mint">${ico("shield")}</span><span><b>${esc(t)}</b><span>${esc(src)}</span></span></a>` : `<button class="r-item" data-go="policies"><span class="r-ico ph t-mint">${ico("shield")}</span><span><b>${esc(t)}</b><span>${esc(src)}</span></span></button>`),
-    sec("Answers", r.faqs, "faqs", ([qq]) => `<button class="r-item" data-faq="${esc(qq)}"><span class="r-ico ph t-butter">${ico("question")}</span><span><b>${esc(qq)}</b><span>FAQ</span></span></button>`)
+    sec("Guides", r.guides, "guides", ([g, i]) => `<button class="r-item" data-open="guide:${i}"><span class="r-ico ph t-lilac">${ico("play")}</span><span class="r-txt"><b>${esc(g.title)}</b><span class="r-sub">${esc(g.topic || "Guide")}</span></span>${GO}</button>`),
+    sec("Tools", r.tools, "tools", t => `<button class="r-item" data-tool="${esc(t.id)}"><span class="r-ico ph t-${toneFor(t.category)}">${esc(initials(t.name))}</span><span class="r-txt"><b>${esc(t.name)}</b><span class="r-sub">${esc(t.category)}</span></span>${GO}</button>`),
+    sec("External resources", r.external, "external", ([x, i]) => `<button class="r-item" data-open="ext:${i}"><span class="r-ico ph t-peach">${ico("globe")}</span><span class="r-txt"><b>${esc(x.title)}</b><span class="r-sub">${esc(x.source || x.topic || "")}</span></span>${GO}</button>`),
+    sec("Policies and laws", r.laws, "policies", ([t, src, d, u]) => u ? `<a class="r-item" href="${esc(u)}" target="_blank" rel="noopener"><span class="r-ico ph t-mint">${ico("shield")}</span><span class="r-txt"><b>${esc(t)}</b><span class="r-sub">${esc(src)}</span></span>${GO}</a>` : `<button class="r-item" data-go="policies"><span class="r-ico ph t-mint">${ico("shield")}</span><span class="r-txt"><b>${esc(t)}</b><span class="r-sub">${esc(src)}</span></span>${GO}</button>`),
+    sec("Answers", r.faqs, "faqs", ([qq]) => `<button class="r-item" data-faq="${esc(qq)}"><span class="r-ico ph t-butter">${ico("question")}</span><span class="r-txt"><b>${esc(qq)}</b><span class="r-sub">FAQ</span></span>${GO}</button>`)
   ].join("") : `<p class="r-none">Nothing matches "${esc(q)}" yet. Try different words, browse the categories below, or <a data-req>ask the PlayLab team</a>.</p>`;
   box.hidden = false; wireReq();
 }
