@@ -1,6 +1,6 @@
 # How to update the Resources page
 
-A plain-language guide for the PlayLab team. Everything is done in the browser on GitHub.
+A plain-language guide for the Futures PlayLab team. Everything is done in the browser on GitHub.
 
 Changes go live within about two minutes. If you don't see a change, refresh with **Ctrl+Shift+R** (Windows) or **Cmd+Shift+R** (Mac).
 
@@ -13,7 +13,7 @@ Changes go live within about two minutes. If you don't see a change, refresh wit
 - [Change a policy or add its link](#change-a-policy-or-add-its-link)
 - [Add a law or regulation link](#add-a-law-or-regulation-link)
 - [Add or change an FAQ](#add-or-change-an-faq)
-- [Connect the "Ask the PlayLab" form](#connect-the-ask-the-playlab-form)
+- [Connect the "Ask the Futures PlayLab" form](#connect-the-ask-the-playlab-form)
 - [If something goes wrong](#if-something-goes-wrong)
 
 ---
@@ -23,12 +23,12 @@ Changes go live within about two minutes. If you don't see a change, refresh wit
 | Section | Where you change it |
 |---|---|
 | Guides and tutorials | `resources/index.html`, the `GUIDES` list |
-| Tools and software | The **PlayLab Tool Finder** repo (`dvexperiments/PlayLab-Tool-Finder`), using its Excel workbook. Nothing to change here |
+| Tools and software | The **Futures PlayLab Tool Finder** repo (`dvexperiments/PlayLab-Tool-Finder`), using its Excel workbook. Nothing to change here |
 | External resources | `resources/index.html`, the `EXTERNAL` list |
 | Policies and guidelines | `resources/index.html`, the `POLICIES` list |
 | Laws and regulations | `resources/index.html`, the `LAWS` list |
 | FAQs | `resources/index.html`, the `FAQS` list |
-| "Ask the PlayLab" buttons | `resources/index.html`, `requestForm` in `SETTINGS` |
+| "Ask the Futures PlayLab" buttons | `resources/index.html`, `requestForm` in `SETTINGS` |
 
 The "What do you want to do?" search on the Resources home page searches all of these automatically.
 
@@ -47,7 +47,7 @@ Keep the punctuation as it is: text inside straight double quotes `"like this"`,
 
 ## Add a guide or tutorial video
 
-Guides are videos or documents made by the PlayLab team, usually stored in Google Drive. A guide can be a single video or a **whole Drive folder** of videos (a "video collection"). Folders are the easiest: add a video to the folder in Drive and it appears on the page straight away, with no editing.
+Guides are videos or documents made by the Futures PlayLab team, usually stored in Google Drive. A guide can be a single video or a **whole Drive folder** of videos (a "video collection"). Folders are the easiest: add a video to the folder in Drive and it appears on the page straight away, with no editing.
 
 The page currently has three collections: **Making with AI**, **Design thinking** and **Google Sites**.
 
@@ -105,7 +105,7 @@ TED-Ed lessons, NASA videos and articles open in a new tab. The "Latest journal 
 
 ## Update tools and software
 
-The Tools section reads its tools straight from the **PlayLab Tool Finder**, so you keep updating tools exactly as before:
+The Tools section reads its tools straight from the **Futures PlayLab Tool Finder**, so you keep updating tools exactly as before:
 
 1. Edit your `tools.xlsx` workbook.
 2. Upload it to the `data` folder of the `PlayLab-Tool-Finder` repo.
@@ -149,10 +149,10 @@ These links are included in the "What do you want to do?" search.
 
 ## Add or change an FAQ
 
-In `resources/index.html`, search for `const FAQS = [`. Questions are grouped (About the PlayLab, Choosing tools, Cost and access). Each question is one line:
+In `resources/index.html`, search for `const FAQS = [`. Questions are grouped (About the Futures PlayLab, Choosing tools, Cost and access). Each question is one line:
 
 ```js
-    ["Can I borrow equipment?","Yes. Ask the PlayLab team in Slack to book it."],
+    ["Can I borrow equipment?","Yes. Ask the Futures PlayLab team in Slack to book it."],
 ```
 
 To link to another section in an answer, write the link text in square brackets followed by the section in round brackets: `[Tools and software](#tools)`. Sections are `#overview`, `#guides`, `#tools`, `#external`, `#policies` and `#faqs`.
@@ -161,9 +161,9 @@ To add a group, copy a whole group (from `{group:` to `]},`) and change its name
 
 ---
 
-## Connect the "Ask the PlayLab" form
+## Connect the "Ask the Futures PlayLab" form
 
-The "Ask the PlayLab" buttons are greyed out until a form is connected. In `SETTINGS`, paste your request form's link between the quotes after `requestForm:` (Google Form → **Send** → link icon).
+The "Ask the Futures PlayLab" buttons are greyed out until a form is connected. In `SETTINGS`, paste your request form's link between the quotes after `requestForm:` (Google Form → **Send** → link icon).
 
 ---
 

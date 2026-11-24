@@ -1,6 +1,6 @@
 # Community page forms
 
-There are four Google Forms behind the Community page. Students fill them in, the responses stay private, and the PlayLab team chooses what goes on the page.
+There are four Google Forms behind the Community page. Students fill them in, the responses stay private, and the Futures PlayLab team chooses what goes on the page.
 
 | Form | Feeds | Status |
 |---|---|---|
@@ -20,8 +20,8 @@ Keep the question wording close to what's shown here. The entry helper (`communi
 
 ## 1. Join the Lounge (profile)
 
-**Form title:** Join the PlayLab Community Lounge
-**Description:** Add yourself to the PlayLab Community page so others in the MTF can find you. The PlayLab team checks every profile before it appears. Only academyEX staff and students can see the page.
+**Form title:** Join the Futures PlayLab Community Lounge
+**Description:** Add yourself to the Futures PlayLab Community page so others in the MTF can find you. The Futures PlayLab team checks every profile before it appears. Only academyEX staff and students can see the page.
 
 | # | Question | Type | Required | Options / help text |
 |---|---|---|---|---|
@@ -38,7 +38,7 @@ Keep the question wording close to what's shown here. The entry helper (`communi
 | 11 | Portfolio or LinkedIn link | Short answer | No | Response validation: Text → URL |
 | 12 | Photo | File upload | No | 1 file, images only, max 10MB. Help text: "A head-and-shoulders photo. Optional" |
 | 13 | Show me on the Map Wall? | Multiple choice | Yes | Yes · No |
-| 14 | I'm happy for this profile to appear on the PlayLab Community page | Checkboxes | Yes | One option: "Yes, I agree" |
+| 14 | I'm happy for this profile to appear on the Futures PlayLab Community page | Checkboxes | Yes | One option: "Yes, I agree" |
 
 **About the photo question:** Google Forms makes people sign in to Google to upload a file, and uploads go into a private folder in the form owner's Drive. That's fine for academyEX accounts. If you'd rather not, leave the photo question out and people show as coloured initials.
 
@@ -47,7 +47,7 @@ Keep the question wording close to what's shown here. The entry helper (`communi
 ## 2. Send a shout-out
 
 **Form title:** Send a shout-out
-**Description:** Celebrate someone in the MTF community: a finished project, a helping hand, a win. Shout-outs appear in the Foyer of the Community page after the PlayLab team has checked them.
+**Description:** Celebrate someone in the MTF community: a finished project, a helping hand, a win. Shout-outs appear in the Foyer of the Community page after the Futures PlayLab team has checked them.
 
 | # | Question | Type | Required | Options / help text |
 |---|---|---|---|---|
@@ -66,7 +66,7 @@ Your current questions work with the page and the helper:
 
 **Suggested changes**
 1. **Add "Country you live in"** (short answer, required) after the town question. Without it, pins can only be placed for towns the map already knows, so you'd have to fill in countries by hand.
-2. **Add a consent checkbox** at the end: "I'm happy for my pin to appear on the PlayLab Community page" (required, one option "Yes, I agree"). The helper skips rows where it isn't ticked.
+2. **Add a consent checkbox** at the end: "I'm happy for my pin to appear on the Futures PlayLab Community page" (required, one option "Yes, I agree"). The helper skips rows where it isn't ticked.
 
 Optional extras: add "Alumni" and "Future student" to "Are you a...", add help text to First name ("Optional: leave blank to add an unnamed pin") and make it not required.
 
@@ -86,4 +86,4 @@ Check your form has these questions (the wording can vary a little):
 | 6 | Tell us about it | Paragraph | Yes | Help text: "One or two sentences for the caption" |
 | 7 | Upload your image | File upload | Yes | 1 file, images only, max 10MB |
 | 8 | Link to the full piece | Short answer | No | Help text: "A video, website or file link, if you have one" |
-| 9 | I agree to this work being shown on the PlayLab Community page | Checkboxes | Yes | One option: "Yes, I agree. Everyone who made it, or appears in it, is happy for it to be shared" |
+| 9 | I agree to this work being shown on the Futures PlayLab Community page | Checkboxes | Yes | One option: "Yes, I agree. Everyone who made it, or appears in it, is happy for it to be shared" |

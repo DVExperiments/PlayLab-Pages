@@ -10,9 +10,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   PlayLab · Resources
+   Futures PlayLab · Resources
    Content lists (guides, external resources, policies, FAQs) are in
-   the <script> at the bottom. Tools come from the PlayLab Tool Finder.
+   the <script> at the bottom. Tools come from the Futures PlayLab Tool Finder.
    See resources/HOW-TO-UPDATE.md.
    ============================================================ */
 :root{
@@ -38,7 +38,7 @@ h1,h2,h3,h4{font-family:var(--display);margin:0;letter-spacing:-.01em;line-heigh
 p{margin:0}
 [hidden]{display:none!important}
 
-/* ---------- Shell (shared with the other PlayLab pages) ---------- */
+/* ---------- Shell (shared with the other Futures PlayLab pages) ---------- */
 .app{display:grid;grid-template-columns:236px 1fr;min-height:100vh;gap:18px;padding:18px}
 .side{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto}
 .brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px}
@@ -290,7 +290,7 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
     <nav class="nav" id="nav"></nav>
     <div class="side-foot">
       <p>Can't find what you need? Tell us and we'll find it for you.</p>
-      <a class="btn-white" data-req>Ask the PlayLab</a>
+      <a class="btn-white" data-req>Ask us</a>
     </div>
   </aside>
 
@@ -317,18 +317,18 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
 
       <div class="aim" style="margin-top:22px">
         <div class="card"><h2>A growing collection</h2><p>This collection will grow as new tools emerge and as we learn more about what Master of Technological Futures learners find useful.</p></div>
-        <div class="card"><h2>Useful, not exhaustive</h2><p>The aim isn't an exhaustive technology library. The PlayLab focuses on useful, accessible resources relevant to your context that help you explore, make, test and develop your ideas.</p></div>
+        <div class="card"><h2>Useful, not exhaustive</h2><p>The aim isn't an exhaustive technology library. The Futures PlayLab focuses on useful, accessible resources relevant to your context that help you explore, make, test and develop your ideas.</p></div>
       </div>
 
       <div class="help-card" style="margin-top:22px">
-        <div><h2>Still stuck, or looking for something specific?</h2><p>Let us know what you're trying to do and the PlayLab team will help you find it.</p></div>
-        <a class="btn-white" data-req>Ask the PlayLab</a>
+        <div><h2>Still stuck, or looking for something specific?</h2><p>Let us know what you're trying to do and the Futures PlayLab team will help you find it.</p></div>
+        <a class="btn-white" data-req>Ask the Futures PlayLab</a>
       </div>
     </section>
 
     <!-- ===== Guides ===== -->
     <section class="view" id="view-guides" aria-labelledby="h-gd">
-      <div class="view-head"><div class="vh-title"><span class="badge t-lilac" data-ico="play"></span><div><h1 id="h-gd">Guides and tutorials</h1><p>Step-by-step videos and walkthroughs from the PlayLab team. More are being added all the time.</p></div></div></div>
+      <div class="view-head"><div class="vh-title"><span class="badge t-lilac" data-ico="play"></span><div><h1 id="h-gd">Guides and tutorials</h1><p>Step-by-step videos and walkthroughs from the Futures PlayLab team. More are being added all the time.</p></div></div></div>
       <div class="toolbar"><div class="chips" id="guideTopics" role="group" aria-label="Filter guides by topic"></div><input class="find" id="guideQ" type="search" placeholder="Search guides" aria-label="Search guides"></div>
       <div class="media-grid" id="guides"></div>
     </section>
@@ -345,7 +345,7 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
       <div class="tool-layout">
         <div class="tool-cats" id="toolCats" role="group" aria-label="Tool categories"></div>
         <div><p class="count-line" id="toolCount" aria-live="polite"></p><div class="tools" id="tools"></div>
-          <p class="note" style="margin-top:14px">Learning-curve ratings are the PlayLab's estimates. Plans and prices change, so check the provider's website before you commit.</p></div>
+          <p class="note" style="margin-top:14px">Learning-curve ratings are the Futures PlayLab's estimates. Plans and prices change, so check the provider's website before you commit.</p></div>
       </div>
     </section>
 
@@ -369,8 +369,8 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
       <div class="toolbar"><input class="find" id="faqQ" type="search" placeholder="Search questions" aria-label="Search questions"></div>
       <div id="faqs"></div>
       <div class="help-card" style="margin-top:8px">
-        <div><h2>Didn't find your answer?</h2><p>Contact the PlayLab team and we'll help you out.</p></div>
-        <a class="btn-white" data-req>Ask the PlayLab</a>
+        <div><h2>Didn't find your answer?</h2><p>Contact the Futures PlayLab team and we'll help you out.</p></div>
+        <a class="btn-white" data-req>Ask the Futures PlayLab</a>
       </div>
     </section>
 
@@ -388,10 +388,10 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
    SETTINGS
    ============================================================ */
 const SETTINGS = {
-  // "Ask the PlayLab" buttons: the request form ("Still stuck or wanting
+  // "Ask the Futures PlayLab" buttons: the request form ("Still stuck or wanting
   // something specific?"). Paste the Google Form link here.
   requestForm: "https://docs.google.com/forms/d/e/1FAIpQLSfxuPsCw3OmJP6ZdyE_b3Qc7igKQGMFu15fjNTFvwb2Mu1iWA/viewform",
-  // Tools come from the PlayLab Tool Finder. Keep updating tools there
+  // Tools come from the Futures PlayLab Tool Finder. Keep updating tools there
   // (upload tools.xlsx to its data folder) and this page follows.
   toolFinder: "https://dvexperiments.github.io/PlayLab-Tool-Finder/",
   // How many days a guide or resource counts as "New"
@@ -458,7 +458,7 @@ const POLICIES = [
    link:"", more:"copyright", moreLabel:"Copyright and privacy law"},
   {title:"Accessibility", ico:"access", tone:"mint",
    summary:"Make your work usable by as many people as possible, and ask for support if you need it.",
-   points:["Add captions to videos and alt text to images","Use clear headings, plain language and good colour contrast","Talk to the PlayLab team or Student Support about any accessibility needs"],
+   points:["Add captions to videos and alt text to images","Use clear headings, plain language and good colour contrast","Talk to the Futures PlayLab team or Student Support about any accessibility needs"],
    link:""},
   {title:"academyEX privacy policy", ico:"shield", tone:"sky",
    summary:"How academyEX collects, uses and protects your personal information.",
@@ -491,11 +491,11 @@ const LAWS = [
    FAQS
    ============================================================ */
 const FAQS = [
-  {group:"About the PlayLab", items:[
+  {group:"About the Futures PlayLab", items:[
     ["What is the Futures PlayLab?","The Futures PlayLab is a space for exploring emerging technologies, experimenting with ideas, developing new skills and learning through creative practice. It brings together tutorials, tools, resources and opportunities for collaboration."],
-    ["Who is the PlayLab for?","The PlayLab is designed to support students exploring technology, design, innovation and futures thinking, particularly those studying in the Master of Technological Futures programme."],
-    ["Do I need technical experience to use the PlayLab?","Not at all. The PlayLab is designed for people with different levels of technical experience. Many resources are beginner-friendly, and you're encouraged to learn through experimentation."],
-    ["Is the PlayLab only for people interested in programming?","No. The PlayLab supports a range of activities, including filmmaking, design, research, prototyping, storytelling, systems thinking, AI, digital media and creative experimentation."],
+    ["Who is the Futures PlayLab for?","The Futures PlayLab is designed to support students exploring technology, design, innovation and futures thinking, particularly those studying in the Master of Technological Futures programme."],
+    ["Do I need technical experience to use the Futures PlayLab?","Not at all. The Futures PlayLab is designed for people with different levels of technical experience. Many resources are beginner-friendly, and you're encouraged to learn through experimentation."],
+    ["Is the Futures PlayLab only for people interested in programming?","No. The Futures PlayLab supports a range of activities, including filmmaking, design, research, prototyping, storytelling, systems thinking, AI, digital media and creative experimentation."],
     ["Where should I start?","Try the \"What do you want to do?\" search on the [Resources home page](#overview), or browse [Guides and tutorials](#guides) for an introduction. To discover technologies relevant to your interests, explore [Tools and software](#tools)."]
   ]},
   {group:"Choosing tools", items:[
@@ -504,9 +504,9 @@ const FAQS = [
     ["Do I have to use a particular software or technology?","Unless your course specifies a particular tool, you're encouraged to explore different technologies and choose those that best suit your project and learning goals."]
   ]},
   {group:"Cost and access", items:[
-    ["Are all the recommended tools free?","No. The PlayLab includes free, open-source, freemium and paid tools. Where possible, we highlight free alternatives and educational licensing options. Use the \"Has free access\" filter in [Tools and software](#tools)."],
-    ["Does using the PlayLab cost anything?","Many recommended resources are free or offer educational licences. Some professional software and equipment may involve additional costs, which are shown in each tool's details."],
-    ["Can I use the PlayLab resources outside of class?","Many digital resources and tutorials can be accessed independently. Physical equipment and facilities may have additional access requirements."]
+    ["Are all the recommended tools free?","No. The Futures PlayLab includes free, open-source, freemium and paid tools. Where possible, we highlight free alternatives and educational licensing options. Use the \"Has free access\" filter in [Tools and software](#tools)."],
+    ["Does using the Futures PlayLab cost anything?","Many recommended resources are free or offer educational licences. Some professional software and equipment may involve additional costs, which are shown in each tool's details."],
+    ["Can I use the Futures PlayLab resources outside of class?","Many digital resources and tutorials can be accessed independently. Physical equipment and facilities may have additional access requirements."]
   ]}
 ];
 
@@ -542,7 +542,7 @@ const ICONS = {
 const ico = (n, sw=1.9) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
 const VIEWS = [
   {id:"overview", label:"Overview", ico:"home"},
-  {id:"guides", label:"Guides and tutorials", ico:"play", tone:"lilac", desc:"Step-by-step videos and walkthroughs from the PlayLab team"},
+  {id:"guides", label:"Guides and tutorials", ico:"play", tone:"lilac", desc:"Step-by-step videos and walkthroughs from the Futures PlayLab team"},
   {id:"tools", label:"Tools and software", ico:"tools", tone:"sky", desc:"Find the right tool for what you want to make"},
   {id:"external", label:"External resources", ico:"globe", tone:"peach", desc:"Talks, videos and articles from elsewhere worth your time"},
   {id:"policies", label:"Policies and guidelines", ico:"shield", tone:"mint", desc:"AI use, conduct, copyright, privacy and the laws behind them"},
@@ -616,7 +616,7 @@ function renderMediaList(kind){
   const q = norm($(isG ? "#guideQ" : "#extQ").value);
   const shown = list.map((r, i) => [r, i]).filter(([r]) => (cur === "all" || r.topic === cur) && (!q || norm([r.title, r.summary, r.topic, r.source].join(" ")).includes(q)));
   $("#" + (isG ? "guides" : "external")).innerHTML = shown.length ? shown.map(([r, i]) => mediaCard(r, i, isG ? "guide" : "ext")).join("")
-    : `<div class="empty" style="grid-column:1/-1"><b>${list.length ? "Nothing matches that yet" : "Coming soon"}</b>${list.length ? "Try another topic or search word." : "The PlayLab team is adding resources here."}<br><a class="solid-btn" data-req>Ask for something specific</a></div>`;
+    : `<div class="empty" style="grid-column:1/-1"><b>${list.length ? "Nothing matches that yet" : "Coming soon"}</b>${list.length ? "Try another topic or search word." : "The Futures PlayLab team is adding resources here."}<br><a class="solid-btn" data-req>Ask for something specific</a></div>`;
   wireReq();
 }
 function openMedia(list, i){
@@ -711,7 +711,7 @@ function renderFaqs(){
   const hl = s => { const h = faqText(s); if(!q) return h; return h.replace(new RegExp("(" + q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig"), m => `<mark>${m}</mark>`); };
   const html = FAQS.map(g => { const items = g.items.filter(([qq, a]) => !q || norm(qq + " " + a).includes(q)); if(!items.length) return "";
     return `<div class="faq-group"><h2>${esc(g.group)}</h2>${items.map(([qq, a]) => `<details class="faq" ${q ? "open" : ""}><summary><span>${hl(qq)}</span>${ico("chev", 2.2)}</summary><div class="a">${hl(a)}</div></details>`).join("")}</div>`; }).join("");
-  $("#faqs").innerHTML = html || `<div class="empty"><b>No questions match "${esc($("#faqQ").value)}"</b>Try a different word, or ask the PlayLab team.</div>`;
+  $("#faqs").innerHTML = html || `<div class="empty"><b>No questions match "${esc($("#faqQ").value)}"</b>Try a different word, or ask the Futures PlayLab team.</div>`;
 }
 
 /* ---------- Overview: search everything ---------- */
@@ -741,7 +741,7 @@ function renderResults(q){
     sec("External resources", r.external, "external", ([x, i]) => `<button class="r-item" data-open="ext:${i}"><span class="r-ico ph t-peach">${ico("globe")}</span><span class="r-txt"><b>${esc(x.title)}</b><span class="r-sub">${esc(x.source || x.topic || "")}</span></span>${GO}</button>`),
     sec("Policies and laws", r.laws, "policies", ([t, src, d, u]) => u ? `<a class="r-item" href="${esc(u)}" target="_blank" rel="noopener"><span class="r-ico ph t-mint">${ico("shield")}</span><span class="r-txt"><b>${esc(t)}</b><span class="r-sub">${esc(src)}</span></span>${GO}</a>` : `<button class="r-item" data-go="policies"><span class="r-ico ph t-mint">${ico("shield")}</span><span class="r-txt"><b>${esc(t)}</b><span class="r-sub">${esc(src)}</span></span>${GO}</button>`),
     sec("Answers", r.faqs, "faqs", ([qq]) => `<button class="r-item" data-faq="${esc(qq)}"><span class="r-ico ph t-butter">${ico("question")}</span><span class="r-txt"><b>${esc(qq)}</b><span class="r-sub">FAQ</span></span>${GO}</button>`)
-  ].join("") : `<p class="r-none">Nothing matches "${esc(q)}" yet. Try different words, browse the categories below, or <a data-req>ask the PlayLab team</a>.</p>`;
+  ].join("") : `<p class="r-none">Nothing matches "${esc(q)}" yet. Try different words, browse the categories below, or <a data-req>ask the Futures PlayLab team</a>.</p>`;
   box.hidden = false; wireReq();
 }
 function renderOverview(){

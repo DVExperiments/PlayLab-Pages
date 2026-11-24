@@ -1,4 +1,4 @@
-// Fetches the PlayLab Google Calendar and tech news feeds, and saves them
+// Fetches the Futures PlayLab Google Calendar and tech news feeds, and saves them
 // as JSON files the What's On page reads. Run by GitHub Actions on a
 // schedule (.github/workflows/update-whats-on.yml). You don't need to run
 // it yourself.
@@ -71,7 +71,7 @@ function toEvent(ev, start, end, allDay){
   const desc = stripHTML(text(ev.description));
   return {
     id: `${ev.uid}-${start}`,
-    title: stripHTML(text(ev.summary)) || "PlayLab event",
+    title: stripHTML(text(ev.summary)) || "Futures PlayLab event",
     start,
     end: end || null,
     allDay,

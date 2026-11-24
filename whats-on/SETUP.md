@@ -1,6 +1,6 @@
 # Setting up What's On
 
-The What's On page shows the PlayLab calendar and tech news in the PlayLab style. A small scheduled job on GitHub ("GitHub Actions") keeps them up to date: every 3 hours it reads the PlayLab Google Calendar and four tech news feeds (The Verge, WIRED, MIT Technology Review, Ars Technica) and saves them into `whats-on/data/`. The page reads those files.
+The What's On page shows the Futures PlayLab calendar and tech news in the Futures PlayLab style. A small scheduled job on GitHub ("GitHub Actions") keeps them up to date: every 3 hours it reads the Futures PlayLab Google Calendar and four tech news feeds (The Verge, WIRED, MIT Technology Review, Ars Technica) and saves them into `whats-on/data/`. The page reads those files.
 
 You set this up once. After that there's nothing to maintain: new calendar events and news appear on their own.
 
@@ -14,7 +14,7 @@ It takes about 10 minutes. Everything is done on github.com.
 
 The job saves the calendar's upcoming events (titles, times, locations and descriptions) into a file in the repo. **Files in a public repo can be read by anyone who finds them**, even though the Google Site itself needs an academyEX login.
 
-That's fine if the PlayLab calendar only has the kind of events you'd happily list on a public page. If it ever holds private details (people's names for one-to-one meetings, home addresses, private links), keep those in a different calendar.
+That's fine if the Futures PlayLab calendar only has the kind of events you'd happily list on a public page. If it ever holds private details (people's names for one-to-one meetings, home addresses, private links), keep those in a different calendar.
 
 ---
 
@@ -36,7 +36,7 @@ GitHub only runs jobs saved in a folder called `.github/workflows`. Folders star
 
 ```yaml
 # Updates the What's On page's calendar and tech news every few hours.
-# It reads the PlayLab Google Calendar and four news feeds, saves them to
+# It reads the Futures PlayLab Google Calendar and four news feeds, saves them to
 # whats-on/data/, and commits only if something changed.
 # Setup steps: whats-on/SETUP.md
 
@@ -97,11 +97,11 @@ jobs:
 
 ## Step 4. Give the job access to the calendar
 
-**If the PlayLab calendar is public**, skip this step. The job reads its public address automatically.
+**If the Futures PlayLab calendar is public**, skip this step. The job reads its public address automatically.
 
 **If it isn't public** (or you're not sure), give the job the calendar's private address:
 
-1. Open Google Calendar on a computer. Under **My calendars** (or **Other calendars**), point at the PlayLab calendar, click the **⋮** menu, then **Settings and sharing**.
+1. Open Google Calendar on a computer. Under **My calendars** (or **Other calendars**), point at the Futures PlayLab calendar, click the **⋮** menu, then **Settings and sharing**.
 2. Scroll to **Integrate calendar** and copy the **Secret address in iCal format**. (Only the calendar's owner, or someone allowed to change its settings, can see this.)
 3. In your GitHub repo, go to **Settings → Secrets and variables → Actions**.
 4. Click **New repository secret**. For **Name**, type `CALENDAR_ICS_URL`. For **Secret**, paste the address. Click **Add secret**.
@@ -127,7 +127,7 @@ Embed `https://YOUR-USERNAME.github.io/playlab-pages/whats-on/` in your What's O
 
 ## Day-to-day
 
-Nothing to do. Add events to the PlayLab Google Calendar as usual and they appear on the page within 3 hours. Repeating events, cancelled occurrences and moved occurrences are all handled.
+Nothing to do. Add events to the Futures PlayLab Google Calendar as usual and they appear on the page within 3 hours. Repeating events, cancelled occurrences and moved occurrences are all handled.
 
 **Settings you might change**, in `whats-on/index.html` (search for `const SETTINGS`):
 - `meetingReasons`: the "Things you might meet about" list on the Book a meeting page (use `[]` to hide it)

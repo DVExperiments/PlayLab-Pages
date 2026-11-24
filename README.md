@@ -1,6 +1,6 @@
-# PlayLab pages
+# Futures PlayLab pages
 
-Interactive pages for the PlayLab Google Site (Master of Technological Futures, academyEX). Each page is a single self-contained `index.html` in its own folder. GitHub Pages hosts them and they are embedded in Google Sites.
+Interactive pages for the Futures PlayLab Google Site (Master of Technological Futures, academyEX). Each page is a single self-contained `index.html` in its own folder. GitHub Pages hosts them and they are embedded in Google Sites.
 
 | Page | Folder | Live link |
 |---|---|---|
@@ -37,7 +37,7 @@ In `student-journey/index.html`, find `const COHORTS` and add a line at the top 
 
 ## Resources
 
-Guides, external resources, policies and FAQs are lists in `resources/index.html`. Tools are read live from the PlayLab Tool Finder repo, which you keep updating with its Excel workbook. Step-by-step instructions: [`resources/HOW-TO-UPDATE.md`](resources/HOW-TO-UPDATE.md).
+Guides, external resources, policies and FAQs are lists in `resources/index.html`. Tools are read live from the Futures PlayLab Tool Finder repo, which you keep updating with its Excel workbook. Step-by-step instructions: [`resources/HOW-TO-UPDATE.md`](resources/HOW-TO-UPDATE.md).
 
 ## About
 
@@ -53,7 +53,7 @@ The calendar and tech news update themselves through a scheduled GitHub job. One
 >
 > **The simple way** (no published sheets): keep form responses private, then use the entry helper at `community/add.html` to turn chosen responses into lines you paste into the page. Everything below is an **optional** alternative that reads approved entries straight from a published Google Sheet.
 
-The Community page shows sample content until you connect it. Profiles and shout-outs come from Google Forms through a published, approved-only sheet. The Gallery works differently: students send work privately and the PlayLab team adds pieces by hand (see **Gallery** below).
+The Community page shows sample content until you connect it. Profiles and shout-outs come from Google Forms through a published, approved-only sheet. The Gallery works differently: students send work privately and the Futures PlayLab team adds pieces by hand (see **Gallery** below).
 
 Do the steps below for these two forms:
 
@@ -69,8 +69,8 @@ Until each section has real entries, the page shows made-up sample people, galle
 ### Before you start: privacy
 
 - **A published sheet can be read by anyone who has its link**, even though the Google Site itself needs an academyEX login. Only the Approved tab is published, but treat everything in it as public: don't collect email addresses, phone numbers or anything else private.
-- Some Google Workspace accounts aren't allowed to "Publish to web" outside the organisation. If the CSV link only works when you're signed in, the page can't read it. Use a PlayLab Google account that is allowed to publish, or ask IT.
-- Add a required consent question to every form, for example "I'm happy for this to appear on the PlayLab Community page". Only approve entries where it's ticked.
+- Some Google Workspace accounts aren't allowed to "Publish to web" outside the organisation. If the CSV link only works when you're signed in, the page can't read it. Use a Futures PlayLab Google account that is allowed to publish, or ask IT.
+- Add a required consent question to every form, for example "I'm happy for this to appear on the Futures PlayLab Community page". Only approve entries where it's ticked.
 
 ### 1. Make the form
 
@@ -132,7 +132,7 @@ Approved entries appear on the page within about five minutes: Google takes a fe
 
 ### Gallery
 
-The Gallery has no published sheet. Students send work to the PlayLab team, you keep the submissions private, and you choose what goes on the page.
+The Gallery has no published sheet. Students send work to the Futures PlayLab team, you keep the submissions private, and you choose what goes on the page.
 
 **Set up the form (once)**
 1. Make a Google Form called something like "Send us your work for the Gallery". Suggested questions: Your name (or everyone who made it); Title of your work; Which Gen are you in?; Is this project work or a community moment?; Course or assessment (optional); Tell us about it; Upload your image (File upload); Link to the full piece (optional); and a required consent checkbox.

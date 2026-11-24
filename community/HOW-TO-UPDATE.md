@@ -1,6 +1,6 @@
 # How to update the Community page
 
-A plain-language guide for the PlayLab team. Everything here is done in the browser on GitHub. You don't need to install anything.
+A plain-language guide for the Futures PlayLab team. Everything here is done in the browser on GitHub. You don't need to install anything.
 
 Changes go live within about two minutes. If you don't see a change, refresh the Google Site with **Ctrl+Shift+R** (Windows) or **Cmd+Shift+R** (Mac).
 
@@ -119,7 +119,7 @@ When the first real piece is added, the sample gallery disappears.
 
 ## Add pins to the Map Wall
 
-People fill in the **Map Wall Google Form** (the "Drop your pin" buttons open it). Their answers stay private. The PlayLab team then adds pins to the page.
+People fill in the **Map Wall Google Form** (the "Drop your pin" buttons open it). Their answers stay private. The Futures PlayLab team then adds pins to the page.
 
 ### Option A: add pins to the page (simplest)
 
@@ -195,11 +195,11 @@ Buttons without a link are greyed out and say "Link coming soon" when you point 
 | `forms: gallery` | "Send us your work" buttons (already added) | Gallery Google Form → **Send** → link icon |
 | `forms: pin` | "Drop your pin" buttons (already added) | Map Wall Google Form → **Send** → link icon |
 | `forms: shoutout` | "Send a shout-out" buttons | Shout-out Google Form → **Send** → link icon |
-| `slackJoin` | "Open PlayLab Slack" and "Join PlayLab Slack" | See below |
+| `slackJoin` | "Open Futures PlayLab Slack" and "Join Futures PlayLab Slack" | See below |
 | `frame: url` | "Enter the space" in the Portal | Your FrameVR space's address, e.g. `https://framevr.io/playlab` |
 
-**Slack link:** this is set to Slack's sign-in page for now. It's better to use your workspace's own link, so people land straight in PlayLab:
-- an **invite link** (in Slack, click the workspace name → **Invite people to PlayLab** → **Copy invite link**). Invite links can expire, so check it every so often, or
+**Slack link:** this is set to Slack's sign-in page for now. It's better to use your workspace's own link, so people land straight in Futures PlayLab:
+- an **invite link** (in Slack, click the workspace name → **Invite people to Futures PlayLab** → **Copy invite link**). Invite links can expire, so check it every so often, or
 - the workspace address, e.g. `https://your-workspace.slack.com`.
 
 Avoid Slack's "get started" or "create new" pages. Those create a brand-new, empty workspace.
