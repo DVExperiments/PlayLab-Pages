@@ -589,24 +589,36 @@ document.addEventListener("click", e => { const g = e.target.closest("[data-go]"
 
 /* PlayLab cycle */
 function renderCycle(){
-  const C = 210, R = 150, tones = ["#CFE6FF","#FFEDA8","#CBEFD8","#FFD5C2","#DDD7FF","#BFD0FF"];
-  const pt = (i, r = R) => { const a = -Math.PI/2 + i * 2*Math.PI/6; return [C + r*Math.cos(a), C + r*Math.sin(a)]; };
+  const C = 210, R = 150, H = 22, GAP = 9, tones = ["#CFE6FF","#FFEDA8","#CBEFD8","#FFD5C2","#DDD7FF","#BFD0FF"];
+  const ang = i => -Math.PI/2 + i * 2*Math.PI/6;
+  const at = a => [C + R*Math.cos(a), C + R*Math.sin(a)];
+  const halfW = CYCLE.map(s => (s.length * 10 + 34) / 2);
+  // How far (as an angle) the ring stays inside a label before it reaches the label's edge
+  const clear = i => {
+    const a = ang(i), tx = Math.abs(Math.sin(a)), ty = Math.abs(Math.cos(a));
+    const along = Math.min(tx ? halfW[i] / tx : Infinity, ty ? H / ty : Infinity);
+    return (along + GAP) / R;
+  };
   let arcs = "";
   for(let i = 0; i < 6; i++){
-    const a0 = -Math.PI/2 + i*Math.PI/3 + .32, a1 = a0 + Math.PI/3 - .64;
-    const [x0,y0] = [C + R*Math.cos(a0), C + R*Math.sin(a0)], [x1,y1] = [C + R*Math.cos(a1), C + R*Math.sin(a1)];
+    const j = (i + 1) % 6;
+    const a0 = ang(i) + clear(i), a1 = ang(i) + Math.PI/3 - clear(j) - .05;
+    if(a1 <= a0) continue;
+    const [x0,y0] = at(a0), [x1,y1] = at(a1);
     arcs += `<path class="arc" d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${R} ${R} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}" stroke="rgba(255,255,255,.55)" marker-end="url(#ah)"/>`;
   }
-  const nodes = CYCLE.map((s, i) => { const [x,y] = pt(i); const w = s.length * 10 + 34;
-    return `<g class="node" data-step="${i}"><rect x="${(x - w/2).toFixed(1)}" y="${(y - 22).toFixed(1)}" width="${w}" height="44" rx="22" fill="${tones[i]}" stroke="#172038" stroke-width="4"/>
+  const nodes = CYCLE.map((s, i) => { const [x,y] = at(ang(i)); const w = halfW[i] * 2;
+    return `<g class="node" data-step="${i}"><rect x="${(x - w/2).toFixed(1)}" y="${(y - H).toFixed(1)}" width="${w}" height="${H*2}" rx="${H}" fill="${tones[i]}" stroke="#172038" stroke-width="4"/>
       <text x="${x.toFixed(1)}" y="${(y + 6).toFixed(1)}" text-anchor="middle">${s}</text></g>`; }).join("");
-  $("#cycle").innerHTML = `<defs><marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="rgba(255,255,255,.7)"/></marker></defs>
+  // The runner starts at Explore (top) and goes clockwise round the ring. Its own position
+  // stays at 0,0: the motion path supplies the whole position.
+  $("#cycle").innerHTML = `<defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="rgba(255,255,255,.75)"/></marker></defs>
     <circle class="ring" cx="${C}" cy="${C}" r="${R}"/>${arcs}
-    <circle class="runner" r="6" cx="${C}" cy="${C - R}"><animateMotion dur="12s" repeatCount="indefinite" path="M${C} ${C-R} A${R} ${R} 0 1 1 ${C-.01} ${C-R}"/></circle>
+    <circle class="runner" r="6" cx="0" cy="0"><animateMotion dur="12s" repeatCount="indefinite" path="M${C} ${C-R} A${R} ${R} 0 1 1 ${C} ${C+R} A${R} ${R} 0 1 1 ${C} ${C-R}"/></circle>
     ${nodes}
     <text class="centre-t" x="${C}" y="${C - 4}" text-anchor="middle">The PlayLab</text><text class="centre-t" x="${C}" y="${C + 22}" text-anchor="middle">cycle</text>
     <text class="centre-s" x="${C}" y="${C + 48}" text-anchor="middle">and round again</text>`;
-  // Highlight the stage the runner is passing
+  // Highlight the label the runner is passing
   if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
     const start = performance.now();
     const tick = t => { const i = Math.floor((((t - start) / 12000) % 1) * 6 + .5) % 6;
