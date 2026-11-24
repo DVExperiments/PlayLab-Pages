@@ -36,7 +36,7 @@ In `student-journey/index.html`, find `const COHORTS` and add a line at the top 
 
 ## About
 
-Facts that change (fees, start dates, contact details, team bios and photos, links) are in `SETTINGS` near the bottom of `about/index.html`. Programme content (pillars, the three parts, courses and assessments) follows the MTF Programme Refresh Plan and is in the `PILLARS` and `PARTS` lists just below it. Team photos are optional: upload them to an `about/people` folder and add the file name, e.g. `photo:"people/claudio.jpg"`.
+Facts that change (fees, start dates, contact details, team bios and photos, links) are in `SETTINGS` near the bottom of `about/index.html`. Programme content (pillars, the three parts, courses and assessments) follows the MTF Programme Refresh Plan and is in the `PILLARS` and `PARTS` lists just below it. Team photos: upload `claudio.jpg` or `dylan.jpg` (or .png/.webp) to the `about/people` folder and they appear automatically. See `about/people/README.md`.
 
 ## What's On
 

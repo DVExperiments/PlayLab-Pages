@@ -205,7 +205,7 @@ p{margin:0}
 .person{display:flex;flex-direction:column;gap:14px}
 .p-top{display:flex;gap:16px;align-items:center}
 .av{width:76px;height:76px;border-radius:24px;flex:none;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:26px;position:relative;overflow:hidden}
-.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 25%}
 .person h3{font-size:22px;font-weight:800}
 .person .role{font-size:14px;font-weight:700;color:var(--blue-deep)}
 .person .focus{font-size:13.5px;color:var(--ink-3);margin-top:2px}
@@ -463,11 +463,14 @@ const SETTINGS = {
     note: "Fees are \"up to\" amounts in NZD, including GST. Check the programme page on academyex.com for the latest fees, funding options and session times."
   },
   startDates: ["25 Feb 2027"],
-  // Photos are optional: upload to about/people/ and add e.g. photo:"people/claudio.jpg"
+  // PHOTOS: upload a photo to the about/people folder on GitHub with the
+  // name given in photo below, e.g. claudio.jpg. It shows automatically.
+  // .jpg, .jpeg, .png and .webp all work. Until a photo is there, initials show.
+  // To add a person, copy one of the entries below and change it.
   people: [
-    {name:"Dr Claudio Aguayo", role:"MTF Programme Lead and Futures PlayLab Lead", focus:"Academic, curriculum and strategic direction", tone:"lilac", photo:"",
+    {name:"Dr Claudio Aguayo", role:"MTF Programme Lead and Futures PlayLab Lead", focus:"Academic, curriculum and strategic direction", tone:"lilac", photo:"people/claudio",
      bio:"Claudio leads the Master of Technological Futures at academyEX. He has spent two decades working at the edge of AI, XR and digital innovation, from directing AUT's AppLab to founding MappLab, his own reality-capture and digital-twin venture. He holds a PhD in Science and Technology Education from the University of Waikato and has published 26 peer-reviewed papers cited over 1,200 times. His focus: technology that earns its place because it means something to the people learning with it."},
-    {name:"Dylan Verdonkschot", role:"Futures PlayLab Facilitator", focus:"Learner support, experimentation, creative technologies, resources, prototyping and PlayLab activities", tone:"mint", photo:"",
+    {name:"Dylan Verdonkschot", role:"Futures PlayLab Facilitator", focus:"Learner support, experimentation, creative technologies, resources, prototyping and PlayLab activities", tone:"mint", photo:"people/dylan",
      bio:"Dylan brings together creative technology, research and hands-on experimentation to help learners turn ideas into something real. With a background in psychology, filmmaking and Creative Technologies, his work explores how people interact with technology. At academyEX, he supports learners in experimenting with new technologies, developing prototypes and communicating complex ideas in accessible ways. His approach is simple: you don't need to be a technical expert to start creating. Curiosity, experimentation and a willingness to try are often the best places to begin."}
   ]
 };
@@ -638,10 +641,18 @@ function renderJourney(){
 }
 
 /* People, visit */
+// Try the photo name with each image type until one loads; otherwise keep the initials.
+const PHOTO_TYPES = [".jpg", ".jpeg", ".png", ".webp", ".JPG", ".PNG"];
+function photoTag(p){
+  const base = String(p.photo || "").trim(); if(!base) return "";
+  const tries = /\.(jpe?g|png|webp)$/i.test(base) ? [base] : PHOTO_TYPES.map(t => base + t);
+  return `<img src="${esc(tries[0])}" alt="${esc(p.name)}" data-next="${esc(tries.slice(1).join("|"))}" onerror="nextPhoto(this)">`;
+}
+window.nextPhoto = img => { const rest = img.dataset.next ? img.dataset.next.split("|") : []; if(!rest.length){ img.remove(); return; } img.dataset.next = rest.slice(1).join("|"); img.src = rest[0]; };
 const initials = n => n.replace(/^Dr\.?\s+/, "").split(/\s+/).map(w => w[0]).slice(0, 2).join("");
 function renderPeople(){
   $("#people").innerHTML = SETTINGS.people.map(p => `<article class="card person">
-    <div class="p-top"><span class="av" style="background:var(--${p.tone});color:var(--${p.tone}-ink)"><span aria-hidden="true">${esc(initials(p.name))}</span>${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.name)}" onerror="this.remove()">` : ""}</span>
+    <div class="p-top"><span class="av" style="background:var(--${p.tone});color:var(--${p.tone}-ink)"><span aria-hidden="true">${esc(initials(p.name))}</span>${photoTag(p)}</span>
       <div><h3>${esc(p.name)}</h3><div class="role">${esc(p.role)}</div><div class="focus">${esc(p.focus)}</div></div></div>
     <p>${esc(p.bio)}</p></article>`).join("");
 }
