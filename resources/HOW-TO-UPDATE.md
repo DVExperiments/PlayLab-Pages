@@ -25,7 +25,9 @@ Changes go live within about two minutes. If you don't see a change, refresh wit
 | Guides and tutorials | `resources/index.html`, the `GUIDES` list |
 | Tools and software | The **Futures PlayLab Tool Finder** repo (`dvexperiments/PlayLab-Tool-Finder`), using its Excel workbook. Nothing to change here |
 | External resources | `resources/index.html`, the `EXTERNAL` list |
-| Policies and guidelines | `resources/index.html`, the `POLICIES` list |
+| Made by students | `resources/index.html`, the `STUDENT` list |
+| "Share something you made" buttons | `resources/index.html`, `shareForm` in `SETTINGS` (empty means it uses the request form) |
+| Policies and laws | `resources/index.html`, the `POLICIES` list |
 | Laws and regulations | `resources/index.html`, the `LAWS` list |
 | FAQs | `resources/index.html`, the `FAQS` list |
 | "Ask the Futures PlayLab" buttons | `resources/index.html`, `requestForm` in `SETTINGS` |
@@ -100,6 +102,29 @@ In `resources/index.html`, search for `const EXTERNAL = [` and add a line:
 - Add `featured:true` to show it on the Resources home page.
 
 TED-Ed lessons, NASA videos and articles open in a new tab. The "Latest journal articles" entry links to a Taylor & Francis journal's latest articles: change its `title` to the journal's name so students know what it is.
+
+---
+
+## Add a resource made by a student
+
+Students share their guides, templates, tools and examples through the **Share something you made** button, which opens the same form as resource requests for now. When a submission comes in:
+
+1. Open the link and check it's useful and appropriate to share.
+2. Make sure the student is happy for it to appear on the page, and how they'd like to be credited.
+3. If it's a Google Drive file, check its sharing is set to academyEX (or anyone with the link) so other students can open it.
+4. In `resources/index.html`, search for `const STUDENT = [` and add a line at the top of the list:
+
+```js
+  {title:"Stakeholder map template", by:"Aroha Smith", gen:"Gen30", summary:"A Miro template for mapping who is affected by a technology, who decides and who is missing.", topic:"Systems", url:"https://miro.com/...", added:"2026-11-25"},
+```
+
+- `by` is the name the student wants shown. `gen` is optional.
+- Links work the same as guides and external resources: Drive files, Drive folders and YouTube play inside the page, other links open in a new tab.
+- Add `featured:true` to show it on the Resources home page.
+
+**Before launch:** the list starts with three sample resources marked "Sample" so you can see how the section looks. Delete those three lines once you've added real ones, or set `showSamples: false` in `SETTINGS` to hide them. Samples never appear in search results or on the Resources home page.
+
+**A separate form later:** if you make a form just for student submissions, paste its link into `shareForm` in `SETTINGS`. Until then the buttons use `requestForm`.
 
 ---
 

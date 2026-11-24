@@ -124,7 +124,7 @@ a.is-off{opacity:.5;cursor:not-allowed}
 .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .cat{all:unset;box-sizing:border-box;cursor:pointer;border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:8px;min-height:150px;position:relative}
 .cat:hover{filter:brightness(.97)}
-.cat.t-sky{background:var(--sky);color:var(--sky-ink)}.cat.t-lilac{background:var(--lilac);color:var(--lilac-ink)}.cat.t-mint{background:var(--mint);color:var(--mint-ink)}.cat.t-butter{background:var(--butter);color:var(--butter-ink)}.cat.t-peach{background:var(--peach);color:var(--peach-ink)}
+.cat.t-blue{background:var(--blue-soft);color:var(--blue-deep)}.cat.t-sky{background:var(--sky);color:var(--sky-ink)}.cat.t-lilac{background:var(--lilac);color:var(--lilac-ink)}.cat.t-mint{background:var(--mint);color:var(--mint-ink)}.cat.t-butter{background:var(--butter);color:var(--butter-ink)}.cat.t-peach{background:var(--peach);color:var(--peach-ink)}
 .cat:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .cat .c-ico{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.6);display:grid;place-items:center}
 .cat .c-ico svg{width:22px;height:22px}
@@ -211,6 +211,14 @@ dialog.dlg::backdrop{background:rgba(23,32,56,.6)}
 .similar{display:flex;gap:8px;flex-wrap:wrap}
 .similar button{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;padding:6px 12px;border-radius:999px;background:var(--paper)}
 .similar button:hover{background:var(--blue-soft);color:var(--blue-deep)}
+
+/* ---------- Made by students ---------- */
+.share-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.share-steps > div{background:var(--card);border-radius:var(--r-lg);box-shadow:var(--shadow);padding:16px 18px;display:flex;gap:12px;align-items:flex-start}
+.share-steps span{width:30px;height:30px;border-radius:10px;display:grid;place-items:center;font-family:var(--display);font-weight:800;flex:none}
+.share-steps p{font-size:13.5px;color:var(--ink-2)}
+.share-steps b{display:block;font-size:14.5px;color:var(--ink)}
+@media (max-width:900px){.share-steps{grid-template-columns:1fr}}
 
 /* ---------- Policies ---------- */
 .policies{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
@@ -356,6 +364,20 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
       <div class="media-grid" id="external"></div>
     </section>
 
+    <!-- ===== Made by students ===== -->
+    <section class="view" id="view-student" aria-labelledby="h-stu">
+      <div class="view-head"><div class="vh-title"><span class="badge t-blue" data-ico="hands"></span><div><h1 id="h-stu">Made by students</h1><p>Guides, templates, tools and examples made by Master of Technological Futures learners, shared so the next Gen can build on them.</p></div></div>
+        <a class="solid-btn" data-share><span data-ico="upload"></span>Share something you made</a></div>
+      <div class="share-steps">
+        <div><span class="t-blue">1</span><p><b>Send it to us</b>Use the form to share a link to your guide, template, tool or example.</p></div>
+        <div><span class="t-blue">2</span><p><b>We check it</b>The Futures PlayLab team looks it over and confirms how you'd like to be credited.</p></div>
+        <div><span class="t-blue">3</span><p><b>It appears here</b>Your resource is added with your name, ready for others to use.</p></div>
+      </div>
+      <div class="toolbar"><div class="chips" id="stuTopics" role="group" aria-label="Filter by topic"></div><input class="find" id="stuQ" type="search" placeholder="Search student resources" aria-label="Search student resources"></div>
+      <div class="media-grid" id="student"></div>
+      <p class="note" style="margin-top:14px">Shared with the maker's permission. Check each resource's own licence or ask the maker before reusing it in your own work, and credit them when you do.</p>
+    </section>
+
     <!-- ===== Policies ===== -->
     <section class="view" id="view-policies" aria-labelledby="h-po">
       <div class="view-head"><div class="vh-title"><span class="badge t-mint" data-ico="shield"></span><div><h1 id="h-po">Policies and guidelines</h1><p>What you need to know about using AI, conduct, sharing work, privacy and accessibility, plus the New Zealand laws behind them. Policy cards are summaries: the full policy is always the version that applies.</p></div></div></div>
@@ -394,6 +416,12 @@ const SETTINGS = {
   // Tools come from the Futures PlayLab Tool Finder. Keep updating tools there
   // (upload tools.xlsx to its data folder) and this page follows.
   toolFinder: "https://dvexperiments.github.io/PlayLab-Tool-Finder/",
+  // "Share something you made" buttons in Made by students. Leave "" to use
+  // the request form above.
+  shareForm: "",
+  // Show the sample student resources (marked "Sample") until real ones are
+  // added. Set to false before launch.
+  showSamples: true,
   // How many days a guide or resource counts as "New"
   newForDays: 30
 };
@@ -437,6 +465,28 @@ const EXTERNAL = [
   {title:"Rapid prototyping Google Glass", source:"TED-Ed", summary:"Tom Chi explains how rapid prototyping sped up the creation of Google Glass.", topic:"Prototyping", url:"https://ed.ted.com/lessons/rapid-prototyping-google-glass-tom-chi", length:"", added:"2026-11-25"},
   {title:"Real world: from idea to physical prototype", source:"NASA eClips", summary:"How NASA engineers and technicians use physical models to test ideas before building full-scale versions.", topic:"Prototyping", url:"https://science.nasa.gov/eclips/videos/from-idea-to-physical-prototype/", length:"", added:"2026-11-25"},
   {title:"Latest journal articles", source:"Taylor & Francis", summary:"The most recent articles from a peer-reviewed journal on Taylor & Francis Online.", topic:"Research", url:"https://www.tandfonline.com/action/showAxaArticles?journalCode=ciej20", length:"", added:"2026-11-25"}
+];
+
+/* ============================================================
+   MADE BY STUDENTS
+   Guides, templates, tools and examples made by learners. Students send
+   them through the form; you check them, ask permission to share, and
+   add them here, newest first.
+     title:    what it is
+     by:       the student's name as they'd like it shown
+     gen:      their Gen, e.g. "Gen30" (optional)
+     summary:  one or two sentences on what it is and who it helps
+     topic:    a short topic name; new topics appear as filters automatically
+     url:      Google Drive file or folder, YouTube, or any web link
+     length:   optional, e.g. "4 min"
+     added:    date added, "YYYY-MM-DD" (shows "New" for 30 days)
+     featured: true to show on the Resources home page
+     sample:   true for the examples below; delete them once you have real ones
+   ============================================================ */
+const STUDENT = [
+  {title:"A beginner's guide to prompting image generators", by:"Sample student", gen:"Gen30", summary:"A one-page cheat sheet with prompt patterns that worked, and the ones that didn't.", topic:"AI", url:"", added:"", sample:true},
+  {title:"Stakeholder map template", by:"Sample student", gen:"Gen29", summary:"A Miro template for mapping who is affected by a technology, who decides and who is missing.", topic:"Systems", url:"", added:"", sample:true},
+  {title:"Recording a project walkthrough on your phone", by:"Sample student", gen:"Gen31", summary:"A short video on lighting, sound and framing for portfolio walkthroughs, with free apps only.", topic:"Portfolios", url:"", length:"5 min", added:"", sample:true}
 ];
 
 /* ============================================================
@@ -537,7 +587,9 @@ const ICONS = {
   people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.8-3.3 3.2-5 6-5s5.2 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c2.6 0 4.3 1.5 5 4"/>',
   folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
   doc:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',
-  chev:'<path d="m6 9 6 6 6-6"/>'
+  chev:'<path d="m6 9 6 6 6-6"/>',
+  hands:'<path d="M12 21s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 8a4.3 4.3 0 0 1 7.5 2.8C19.5 16.4 12 21 12 21Z"/><path d="M9 12.5h6M12 9.5v6"/>',
+  upload:'<path d="M12 16V5M7 10l5-5 5 5M5 19h14"/>'
 };
 const ico = (n, sw=1.9) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
 const VIEWS = [
@@ -545,12 +597,13 @@ const VIEWS = [
   {id:"guides", label:"Guides and tutorials", ico:"play", tone:"lilac", desc:"Step-by-step videos and walkthroughs from the Futures PlayLab team"},
   {id:"tools", label:"Tools and software", ico:"tools", tone:"sky", desc:"Find the right tool for what you want to make"},
   {id:"external", label:"External resources", ico:"globe", tone:"peach", desc:"Talks, videos and articles from elsewhere worth your time"},
-  {id:"policies", label:"Policies and guidelines", ico:"shield", tone:"mint", desc:"AI use, conduct, copyright, privacy and the laws behind them"},
+  {id:"student", label:"Made by students", ico:"hands", tone:"blue", desc:"Guides, templates and examples shared by MTF learners"},
+  {id:"policies", label:"Policies and laws", ico:"shield", tone:"mint", desc:"AI use, conduct, copyright, privacy and the laws behind them"},
   {id:"faqs", label:"FAQs", ico:"question", tone:"butter", desc:"Quick answers to common questions"}
 ];
 const TONES = ["lilac","sky","mint","butter","peach","blue"];
 const toneFor = s => { let h = 0; for(const c of String(s)) h = (h * 31 + c.charCodeAt(0)) >>> 0; return TONES[h % TONES.length]; };
-const state = {tools:null, toolsFailed:false, toolCat:"all", guideTopic:"all", extTopic:"all", intent:null};
+const state = {tools:null, toolsFailed:false, toolCat:"all", guideTopic:"all", extTopic:"all", stuTopic:"all", intent:null};
 
 /* ---------- Links and media ---------- */
 function setLink(a, url){
@@ -596,6 +649,9 @@ document.addEventListener("click", e => {
 });
 
 /* ---------- Guides and external ---------- */
+// Student resources, with the samples hidden once SETTINGS.showSamples is false
+const studentList = () => STUDENT.filter(r => SETTINGS.showSamples || !r.sample).map(r => ({...r, source: [r.by, r.gen].filter(Boolean).join(", ")}));
+const LISTS = {guide:() => GUIDES, ext:() => EXTERNAL, stu:studentList};
 function mediaCard(r, i, list){
   const m = media(r.url), tone = toneFor(r.topic || r.title);
   const playable = !!m.embed;
@@ -604,28 +660,35 @@ function mediaCard(r, i, list){
   return `<button class="media" data-open="${list}:${i}" aria-label="${esc(r.title)}${playable ? ", plays here" : m.open ? ", opens in a new tab" : ""}">
     ${thumbHTML(m.thumb, r.title, tone, extra, `<span class="ph-in">${ico(m.kind === "none" && r.type === "video" ? "play" : KIND_ICON[m.kind] || "doc", 1.6)}<small>${esc(r.source || (isFolder ? r.title + " videos" : r.topic) || "")}</small></span>`)}
     <div class="m-body"><h3>${esc(r.title)}</h3>${r.summary ? `<p>${esc(r.summary)}</p>` : ""}
-      <div class="m-meta">${r.topic ? `<span class="pill t-${tone}">${esc(r.topic)}</span>` : ""}${isFolder ? `<span class="pill t-blue">Video collection</span>` : ""}${r.source ? `<span class="pill t-blue">${esc(r.source)}</span>` : ""}${!m.open ? `<span class="pill" style="background:var(--paper);color:var(--ink-3)">Coming soon</span>` : ""}</div></div></button>`;
+      <div class="m-meta">${r.topic ? `<span class="pill t-${tone}">${esc(r.topic)}</span>` : ""}${isFolder ? `<span class="pill t-blue">Video collection</span>` : ""}${r.source ? `<span class="pill t-blue">${esc(r.source)}</span>` : ""}${r.sample ? `<span class="pill t-butter">Sample</span>` : !m.open ? `<span class="pill" style="background:var(--paper);color:var(--ink-3)">Coming soon</span>` : ""}</div></div></button>`;
 }
 function topicChips(el, list, current){
   const topics = [...new Set(list.map(r => r.topic).filter(Boolean))].sort();
   el.innerHTML = [["all","All"], ...topics.map(t => [t, t])].map(([k, l]) => `<button class="chip" data-topic="${esc(k)}" aria-pressed="${current === k}">${esc(l)}${k === "all" ? "" : `<small>${list.filter(r => r.topic === k).length}</small>`}</button>`).join("");
 }
+const MEDIA_UI = {
+  guides:  {key:"guide", topics:"#guideTopics", q:"#guideQ", grid:"#guides",   st:"guideTopic"},
+  external:{key:"ext",   topics:"#extTopics",   q:"#extQ",   grid:"#external", st:"extTopic"},
+  student: {key:"stu",   topics:"#stuTopics",   q:"#stuQ",   grid:"#student",  st:"stuTopic"}
+};
 function renderMediaList(kind){
-  const isG = kind === "guides", list = isG ? GUIDES : EXTERNAL, cur = isG ? state.guideTopic : state.extTopic;
-  topicChips($(isG ? "#guideTopics" : "#extTopics"), list, cur);
-  const q = norm($(isG ? "#guideQ" : "#extQ").value);
+  const ui = MEDIA_UI[kind], list = LISTS[ui.key](), cur = state[ui.st];
+  topicChips($(ui.topics), list, cur);
+  const q = norm($(ui.q).value);
   const shown = list.map((r, i) => [r, i]).filter(([r]) => (cur === "all" || r.topic === cur) && (!q || norm([r.title, r.summary, r.topic, r.source].join(" ")).includes(q)));
-  $("#" + (isG ? "guides" : "external")).innerHTML = shown.length ? shown.map(([r, i]) => mediaCard(r, i, isG ? "guide" : "ext")).join("")
-    : `<div class="empty" style="grid-column:1/-1"><b>${list.length ? "Nothing matches that yet" : "Coming soon"}</b>${list.length ? "Try another topic or search word." : "The Futures PlayLab team is adding resources here."}<br><a class="solid-btn" data-req>Ask for something specific</a></div>`;
+  $(ui.grid).innerHTML = shown.length ? shown.map(([r, i]) => mediaCard(r, i, ui.key)).join("")
+    : kind === "student" && !list.length
+      ? `<div class="empty" style="grid-column:1/-1"><b>Be the first to share something</b>Made a guide, template or example that helped you? Share it and help the next Gen.<br><a class="solid-btn" data-share>${ico("upload")}Share something you made</a></div>`
+      : `<div class="empty" style="grid-column:1/-1"><b>${list.length ? "Nothing matches that yet" : "Coming soon"}</b>${list.length ? "Try another topic or search word." : "The Futures PlayLab team is adding resources here."}<br><a class="solid-btn" data-req>Ask for something specific</a></div>`;
   wireReq();
 }
 function openMedia(list, i){
-  const r = (list === "guide" ? GUIDES : EXTERNAL)[i]; if(!r) return;
+  const r = (LISTS[list] || LISTS.guide)()[i]; if(!r) return;
   const m = media(r.url);
   if(!m.open){ return; }
   if(!m.embed){ window.open(m.open, "_blank", "noopener"); return; }
   $("#dlgContent").innerHTML = `<div class="player ${m.kind === "folder" ? "folder" : ""}"><iframe src="${esc(m.embed)}" title="${esc(r.title)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe></div>
-    <div class="dlg-body"><h2 id="dlgTitle">${esc(r.title)}</h2>${r.summary ? `<p>${esc(r.summary)}</p>` : ""}
+    <div class="dlg-body"><h2 id="dlgTitle">${esc(r.title)}</h2>${list === "stu" && r.source ? `<p class="note" style="margin-top:-6px">Made by ${esc(r.source)}</p>` : ""}${r.summary ? `<p>${esc(r.summary)}</p>` : ""}
       <div class="dlg-btns"><a class="ghost-btn" href="${esc(m.open)}" target="_blank" rel="noopener">${ico("ext")}Open in a new tab</a></div>
       ${m.kind === "folder" ? `<p class="note">Select a video to watch it. Videos open in a new tab. Can't see them? Make sure you're signed in to your academyEX Google account, or use "Open in a new tab".</p>`
         : m.kind === "drive" || m.kind === "gdoc" ? `<p class="note">Not playing? Make sure you're signed in to your academyEX Google account, or use "Open in a new tab".</p>` : ""}</div>`;
@@ -725,6 +788,7 @@ function searchAll(q){
     guides: GUIDES.map((r, i) => [r, i]).filter(([r]) => hit([r.title, r.summary, r.topic].join(" "))),
     tools: (state.tools || []).filter(t => hit([t.name, t.category, t.best_for, t.description].join(" "))).sort((a, b) => a.rank - b.rank),
     external: EXTERNAL.map((r, i) => [r, i]).filter(([r]) => hit([r.title, r.summary, r.topic, r.source].join(" "))),
+    student: studentList().map((r, i) => [r, i]).filter(([r]) => !r.sample && hit([r.title, r.summary, r.topic, r.source].join(" "))),
     faqs: FAQS.flatMap(g => g.items).filter(([qq, a]) => hit(qq + " " + a)),
     laws: [...POLICIES.map(p => [p.title, "Policy", p.summary + " " + p.points.join(" "), p.link || ""]), ...LAWS.flatMap(g => g.links.map(([t, src, d, u]) => [t, src, d + " " + g.group, u]))].filter(([t, src, d]) => hit(t + " " + src + " " + d))
   };
@@ -734,11 +798,12 @@ function renderResults(q){
   const box = $("#results"), r = searchAll(q);
   if(!r){ box.hidden = true; return; }
   const sec = (title, items, more, render) => items.length ? `<div><h3><span>${title} <span class="note">(${items.length})</span></span>${more ? `<button class="link-btn" data-go="${more}">See all</button>` : ""}</h3><div class="r-list">${items.slice(0, 6).map(render).join("")}</div></div>` : "";
-  const total = r.guides.length + r.tools.length + r.external.length + r.faqs.length + r.laws.length;
+  const total = r.guides.length + r.tools.length + r.external.length + r.student.length + r.faqs.length + r.laws.length;
   box.innerHTML = total ? [
     sec("Guides", r.guides, "guides", ([g, i]) => `<button class="r-item" data-open="guide:${i}"><span class="r-ico ph t-lilac">${ico("play")}</span><span class="r-txt"><b>${esc(g.title)}</b><span class="r-sub">${esc(g.topic || "Guide")}</span></span>${GO}</button>`),
     sec("Tools", r.tools, "tools", t => `<button class="r-item" data-tool="${esc(t.id)}"><span class="r-ico ph t-${toneFor(t.category)}">${esc(initials(t.name))}</span><span class="r-txt"><b>${esc(t.name)}</b><span class="r-sub">${esc(t.category)}</span></span>${GO}</button>`),
     sec("External resources", r.external, "external", ([x, i]) => `<button class="r-item" data-open="ext:${i}"><span class="r-ico ph t-peach">${ico("globe")}</span><span class="r-txt"><b>${esc(x.title)}</b><span class="r-sub">${esc(x.source || x.topic || "")}</span></span>${GO}</button>`),
+    sec("Made by students", r.student, "student", ([x, i]) => `<button class="r-item" data-open="stu:${i}"><span class="r-ico ph t-blue">${ico("hands")}</span><span class="r-txt"><b>${esc(x.title)}</b><span class="r-sub">${esc(x.source || x.topic || "")}</span></span>${GO}</button>`),
     sec("Policies and laws", r.laws, "policies", ([t, src, d, u]) => u ? `<a class="r-item" href="${esc(u)}" target="_blank" rel="noopener"><span class="r-ico ph t-mint">${ico("shield")}</span><span class="r-txt"><b>${esc(t)}</b><span class="r-sub">${esc(src)}</span></span>${GO}</a>` : `<button class="r-item" data-go="policies"><span class="r-ico ph t-mint">${ico("shield")}</span><span class="r-txt"><b>${esc(t)}</b><span class="r-sub">${esc(src)}</span></span>${GO}</button>`),
     sec("Answers", r.faqs, "faqs", ([qq]) => `<button class="r-item" data-faq="${esc(qq)}"><span class="r-ico ph t-butter">${ico("question")}</span><span class="r-txt"><b>${esc(qq)}</b><span class="r-sub">FAQ</span></span>${GO}</button>`)
   ].join("") : `<p class="r-none">Nothing matches "${esc(q)}" yet. Try different words, browse the categories below, or <a data-req>ask the Futures PlayLab team</a>.</p>`;
@@ -746,20 +811,23 @@ function renderResults(q){
 }
 function renderOverview(){
   $("#intents").innerHTML = INTENTS.map(([l, q]) => `<button data-intent="${esc(q)}" aria-pressed="${state.intent === q}">${esc(l)}</button>`).join("");
-  const counts = {guides:GUIDES.length, tools:state.tools ? state.tools.length : "…", external:EXTERNAL.length, policies:POLICIES.length + LAWS.reduce((a, g) => a + g.links.length, 0), faqs:FAQS.reduce((a, g) => a + g.items.length, 0)};
-  const unit = {guides:"guides", tools:"tools", external:"resources", policies:"policies and laws", faqs:"answers"};
-  $("#cats").innerHTML = VIEWS.slice(1).map(v => `<button class="cat t-${v.tone}" data-go="${v.id}"><span class="c-ico">${ico(v.ico)}</span><b>${esc(v.label)}</b><span>${esc(v.desc)}</span><span class="c-n">${counts[v.id]} ${unit[v.id]}</span></button>`).join("");
-  const feat = [...GUIDES.map((r, i) => [r, i, "guide"]), ...EXTERNAL.map((r, i) => [r, i, "ext"])].filter(([r]) => r.featured || isNew(r.added)).slice(0, 6);
+  const counts = {guides:GUIDES.length, tools:state.tools ? state.tools.length : "…", external:EXTERNAL.length, student:studentList().filter(r => !r.sample).length || "New", policies:POLICIES.length + LAWS.reduce((a, g) => a + g.links.length, 0), faqs:FAQS.reduce((a, g) => a + g.items.length, 0)};
+  const unit = {guides:"guides", tools:"tools", external:"resources", student:"shared", policies:"policies and laws", faqs:"answers"};
+  $("#cats").innerHTML = VIEWS.slice(1).map(v => `<button class="cat t-${v.tone}" data-go="${v.id}"><span class="c-ico">${ico(v.ico)}</span><b>${esc(v.label)}</b><span>${esc(v.desc)}</span><span class="c-n">${counts[v.id]}${counts[v.id] === "New" ? "" : " " + unit[v.id]}</span></button>`).join("");
+  const feat = [...GUIDES.map((r, i) => [r, i, "guide"]), ...EXTERNAL.map((r, i) => [r, i, "ext"]), ...studentList().map((r, i) => [r, i, "stu"])].filter(([r]) => !r.sample && (r.featured || isNew(r.added))).slice(0, 6);
   $("#featured").innerHTML = feat.length ? feat.map(([r, i, l]) => mediaCard(r, i, l)).join("") : `<p class="note">Featured guides and resources will appear here.</p>`;
 }
-function wireReq(){ document.querySelectorAll("[data-req]").forEach(a => setLink(a, SETTINGS.requestForm)); }
+function wireReq(){
+  document.querySelectorAll("[data-req]").forEach(a => setLink(a, SETTINGS.requestForm));
+  document.querySelectorAll("[data-share]").forEach(a => setLink(a, SETTINGS.shareForm || SETTINGS.requestForm));
+}
 
 /* ---------- Wiring ---------- */
 function init(){
   $("#nav").innerHTML = VIEWS.map(v => `<button data-view="${v.id}">${ico(v.ico)}<span>${esc(v.label)}</span></button>`).join("");
   $("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if(b) go(b.dataset.view); });
   document.querySelectorAll("[data-ico]").forEach(el => el.innerHTML = ico(el.dataset.ico));
-  renderOverview(); renderMediaList("guides"); renderMediaList("external"); renderPolicies(); renderFaqs(); renderTools(); wireReq();
+  renderOverview(); renderMediaList("guides"); renderMediaList("external"); renderMediaList("student"); renderPolicies(); renderFaqs(); renderTools(); wireReq();
   document.addEventListener("click", e => {
     const o = e.target.closest("[data-open]"); if(o){ const [l, i] = o.dataset.open.split(":"); openMedia(l, +i); return; }
     const t = e.target.closest("[data-tool]"); if(t){ openTool(t.dataset.tool); return; }
@@ -774,12 +842,10 @@ function init(){
   $("#askGo").addEventListener("click", () => renderResults(ask.value));
   $("#intents").addEventListener("click", e => { const b = e.target.closest("[data-intent]"); if(!b) return;
     state.intent = state.intent === b.dataset.intent ? null : b.dataset.intent; ask.value = state.intent || ""; renderOverview(); renderResults(ask.value); });
-  ["guide","ext"].forEach(k => {
-    const el = $(k === "guide" ? "#guideTopics" : "#extTopics");
-    el.addEventListener("click", e => { const b = e.target.closest("[data-topic]"); if(!b) return; if(k === "guide") state.guideTopic = b.dataset.topic; else state.extTopic = b.dataset.topic; renderMediaList(k === "guide" ? "guides" : "external"); });
+  Object.entries(MEDIA_UI).forEach(([kind, ui]) => {
+    $(ui.topics).addEventListener("click", e => { const b = e.target.closest("[data-topic]"); if(!b) return; state[ui.st] = b.dataset.topic; renderMediaList(kind); });
+    $(ui.q).addEventListener("input", () => renderMediaList(kind));
   });
-  $("#guideQ").addEventListener("input", () => renderMediaList("guides"));
-  $("#extQ").addEventListener("input", () => renderMediaList("external"));
   $("#toolCats").addEventListener("click", e => { const b = e.target.closest("[data-tcat]"); if(b){ state.toolCat = b.dataset.tcat; renderTools(); } });
   ["#toolQ","#toolLC","#toolCost","#toolSort"].forEach(s => $(s).addEventListener("input", renderTools));
   $("#faqQ").addEventListener("input", renderFaqs);
