@@ -142,7 +142,10 @@ a.is-off{opacity:.5;cursor:not-allowed}
 .media:hover h3{color:var(--blue-deep);text-decoration:underline}
 .media:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .thumb{position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--paper)}
-.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ph-in{display:flex;flex-direction:column;align-items:center;gap:8px;padding:0 16px;text-align:center}
+.ph-in svg{width:38px;height:38px}
+.ph-in small{font-family:var(--body);font-size:13px;font-weight:700;line-height:1.25;opacity:.85}
 .thumb .ph{position:absolute;inset:0;font-size:34px}
 .thumb .play{position:absolute;left:14px;bottom:14px;width:46px;height:46px;border-radius:50%;background:rgba(23,32,56,.82);display:grid;place-items:center;color:#fff}
 .thumb .play svg{width:20px;height:20px;margin-left:3px}
@@ -182,6 +185,7 @@ dialog.dlg::backdrop{background:rgba(23,32,56,.6)}
 .dlg-close:focus-visible{outline:3px solid var(--blue)}
 .player{aspect-ratio:16/9;background:var(--ink);position:relative}
 .player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.player.folder{aspect-ratio:auto;height:min(520px,60vh);background:#fff;border-bottom:1px solid var(--line)}
 .dlg-body{padding:22px 26px 26px;display:flex;flex-direction:column;gap:12px}
 .dlg-body h2{font-size:26px;font-weight:800;padding-right:30px}
 .dlg-body p{color:var(--ink-2)}
@@ -369,7 +373,7 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
 const SETTINGS = {
   // "Ask the PlayLab" buttons: the request form ("Still stuck or wanting
   // something specific?"). Paste the Google Form link here.
-  requestForm: "#",
+  requestForm: "https://docs.google.com/forms/d/e/1FAIpQLSfxuPsCw3OmJP6ZdyE_b3Qc7igKQGMFu15fjNTFvwb2Mu1iWA/viewform",
   // Tools come from the PlayLab Tool Finder. Keep updating tools there
   // (upload tools.xlsx to its data folder) and this page follows.
   toolFinder: "https://dvexperiments.github.io/PlayLab-Tool-Finder/",
@@ -379,21 +383,25 @@ const SETTINGS = {
 
 /* ============================================================
    GUIDES AND TUTORIALS
-   Add newest first. For a video in Google Drive: in Drive, right-click
-   the file > Share > General access: "academyEX" (or "Anyone with the
-   link") > Copy link, and paste it as url.
+   Add newest first. For a video or a whole folder of videos in Google
+   Drive: in Drive, right-click it > Share > General access: "academyEX"
+   (or "Anyone with the link") > Copy link, and paste it as url.
+   A folder link shows the folder's videos inside the page.
      title:    the guide's name
      summary:  one or two sentences
      topic:    a short topic name; new topics appear as filters automatically
-     type:     "video" or "guide" (a document, slides or web page)
-     url:      Google Drive, YouTube or any web link
+     type:     "video", "collection" (a Drive folder) or "guide" (a document,
+               slides or web page)
+     url:      Google Drive file or folder, YouTube or any web link
      length:   optional, e.g. "6 min"
      added:    date added, "YYYY-MM-DD" (shows "New" for 30 days)
      featured: true to show on the Resources home page
    ============================================================ */
 const GUIDES = [
-  {title:"Prototyping", summary:"Learn how to turn an idea into something you can test.", topic:"Prototyping", type:"video", url:"", length:"", added:"", featured:true},
-  {title:"Google Sites", summary:"Build a portfolio with Google Sites.", topic:"Portfolios", type:"video", url:"", length:"", added:"", featured:true}
+  {title:"Making with AI", summary:"Tutorial videos on using AI tools to create, from ideas and images to prototypes.", topic:"AI", type:"collection", url:"https://drive.google.com/drive/folders/1b4PdAjT_pJEJ34EPs20wVE7wF3ntpXuK", length:"", added:"2026-11-25", featured:true},
+  {title:"Design thinking", summary:"Tutorial videos introducing design thinking and how to use it in your projects.", topic:"Design thinking", type:"collection", url:"https://drive.google.com/drive/folders/1jaXTF_HvSh20Iii65JBCl9ewdHM9bMAK", length:"", added:"2026-11-25", featured:true},
+  {title:"Google Sites", summary:"Build a portfolio with Google Sites, step by step.", topic:"Portfolios", type:"collection", url:"https://drive.google.com/drive/folders/1OnxUVnoTldh_E3ZyM8e1ZGJErwXhvXiv", length:"", added:"2026-11-25", featured:true},
+  {title:"Prototyping", summary:"Learn how to turn an idea into something you can test.", topic:"Prototyping", type:"video", url:"", length:"", added:"", featured:false}
 ];
 
 /* ============================================================
@@ -401,12 +409,17 @@ const GUIDES = [
    Talks, videos, articles and courses from other websites. YouTube,
    TED and Vimeo links play on this page; everything else opens in a
    new tab. Same fields as guides, plus source (e.g. "TED").
-   The first entries are starter suggestions: keep, change or delete.
    ============================================================ */
 const EXTERNAL = [
-  {title:"Designers: think big!", source:"TED", summary:"Tim Brown of IDEO on how design thinking can tackle problems far bigger than making objects look good.", topic:"Design thinking", url:"https://www.ted.com/talks/tim_brown_designers_think_big", length:"16 min", added:"", featured:true},
-  {title:"Tales of creativity and play", source:"TED", summary:"Tim Brown on the powerful relationship between playfulness and creative thinking.", topic:"Creativity", url:"https://www.ted.com/talks/tim_brown_tales_of_creativity_and_play", length:"28 min", added:""},
-  {title:"Do schools kill creativity?", source:"TED", summary:"Sir Ken Robinson makes the case for an education system that nurtures creativity rather than undermining it.", topic:"Creativity", url:"https://www.ted.com/talks/sir_ken_robinson_do_schools_kill_creativity", length:"19 min", added:""}
+  {title:"How AI is reshaping human skills and thinking", source:"American Psychological Association", summary:"Heavy reliance on generative AI may erode critical thinking and job skills, but deliberate, structured use can preserve them.", topic:"AI", url:"https://www.apa.org/monitor/2026/07-08/ai-job-skills-thinking", length:"", added:"2026-11-25", featured:true},
+  {title:"How AI unleashed (not replaced) my creativity", source:"TED", summary:"Visual artist Kelly A. Boesch on using AI to make dreamlike images and music, and whether the work counts as art.", topic:"AI", url:"https://www.ted.com/talks/kelly_a_boesch_how_ai_unleashed_not_replaced_my_creativity", length:"7 min", added:"2026-11-25"},
+  {title:"Design thinking: a creative's approach to life, work and race", source:"TED", summary:"Graphic designer Cathy Solarana applies design thinking to race and diversity, showing how it can drive social innovation beyond the workplace.", topic:"Design thinking", url:"https://www.ted.com/talks/cathy_solarana_design_thinking_a_creatives_approach_to_life_work_and_race", length:"10 min", added:"2026-11-25"},
+  {title:"The power of design thinking", source:"LinkedUp Podcast, episode 77", summary:"A podcast conversation about design thinking and why it matters.", topic:"Design thinking", url:"https://www.youtube.com/watch?v=2W1H4oO90kg", length:"", added:"2026-11-25"},
+  {title:"Design thinking: a new phenomenon in creating innovation", source:"ResearchGate", summary:"A research paper on design thinking as an approach to innovation, in Persian and English.", topic:"Design thinking", url:"https://www.researchgate.net/publication/333670705_Design_Thinking_A_New_Phenomenon_in_Creating_Innovation_Persian_English", length:"", added:"2026-11-25"},
+  {title:"Why prototyping is a life skill", source:"TEDxFredrikstad", summary:"Adriana Magni on why prototyping is a skill for everyone, not just designers.", topic:"Prototyping", url:"https://www.youtube.com/watch?v=ZiRba1ZTmj0", length:"", added:"2026-11-25"},
+  {title:"Rapid prototyping Google Glass", source:"TED-Ed", summary:"Tom Chi explains how rapid prototyping sped up the creation of Google Glass.", topic:"Prototyping", url:"https://ed.ted.com/lessons/rapid-prototyping-google-glass-tom-chi", length:"", added:"2026-11-25"},
+  {title:"Real world: from idea to physical prototype", source:"NASA eClips", summary:"How NASA engineers and technicians use physical models to test ideas before building full-scale versions.", topic:"Prototyping", url:"https://science.nasa.gov/eclips/videos/from-idea-to-physical-prototype/", length:"", added:"2026-11-25"},
+  {title:"Latest journal articles", source:"Taylor & Francis", summary:"The most recent articles from a peer-reviewed journal on Taylor & Francis Online.", topic:"Research", url:"https://www.tandfonline.com/action/showAxaArticles?journalCode=ciej20", length:"", added:"2026-11-25"}
 ];
 
 /* ============================================================
@@ -414,10 +427,14 @@ const EXTERNAL = [
    link: the full policy (leave "" until you have it).
    ============================================================ */
 const POLICIES = [
-  {title:"Responsible AI use", ico:"spark", tone:"lilac",
-   summary:"AI can help you research, brainstorm, visualise and draft, but your thinking and judgement must stay at the centre of your work.",
+  {title:"AI guidelines", ico:"spark", tone:"lilac",
+   summary:"The academyEX AI Guidelines, co-designed with staff and students, support you to use AI responsibly in your academic work. Your thinking and judgement stay at the centre.",
    points:["Use AI for idea generation, summarising or creating visuals","Check every output against reliable sources","Acknowledge your AI use clearly and critically in your assessments"],
-   link:""},
+   link:"https://docs.google.com/document/d/1sPK2v6U71_Az5G0GrErvgBUBEU-biVUOmYmIz04Xx7U/edit"},
+  {title:"Tikanga (code of conduct)", ico:"people", tone:"butter",
+   summary:"The behaviour expected of everyone at academyEX: staff, students and contractors.",
+   points:["Care for and include everyone, with students at the centre","Learn together: teaching and learning go both ways","Be honest and give credit to other people's work, ideas and findings. Passing off someone else's work as your own is plagiarism","Aim high, and carry these values into every space, including online"],
+   link:"https://academyex-cms-assets.s3.ap-southeast-2.amazonaws.com/academyex-tikanga-(code-of-conduct)-(v3.1).pdf"},
   {title:"Copyright, privacy and intellectual property", ico:"copy", tone:"peach",
    summary:"Respect other people's work and privacy when you make, share and publish.",
    points:["Only use images, music and media you have permission to use, and credit the source","Ask before sharing someone else's work, words or photo","Name everyone who worked on a piece, including any AI tools you used","Keep personal information about participants and colleagues private"],
@@ -478,6 +495,8 @@ const ICONS = {
   spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/>',
   copy:'<circle cx="12" cy="12" r="9"/><path d="M14.5 9.5a3.5 3.5 0 1 0 0 5"/>',
   access:'<circle cx="12" cy="4.5" r="1.8"/><path d="M5 8h14M12 8v6M9 21l3-7 3 7"/>',
+  people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.8-3.3 3.2-5 6-5s5.2 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c2.6 0 4.3 1.5 5 4"/>',
+  folder:'<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
   doc:'<path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5M10 13h6M10 17h6"/>',
   chev:'<path d="m6 9 6 6 6-6"/>'
 };
@@ -504,6 +523,7 @@ function setLink(a, url){
 function media(url){
   url = String(url || "").trim();
   let m;
+  if((m = url.match(/drive\.google\.com\/drive\/(?:u\/\d+\/)?folders\/([\w-]+)/))) return {kind:"folder", embed:`https://drive.google.com/embeddedfolderview?id=${m[1]}#grid`, thumb:"", open:url};
   if((m = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=)([\w-]+)/))) return {kind:"drive", embed:`https://drive.google.com/file/d/${m[1]}/preview`, thumb:`https://drive.google.com/thumbnail?id=${m[1]}&sz=w640`, open:url};
   if((m = url.match(/docs\.google\.com\/(document|presentation|spreadsheets)\/d\/([\w-]+)/))) return {kind:"gdoc", embed:`https://docs.google.com/${m[1]}/d/${m[2]}/preview`, thumb:"", open:url};
   if((m = url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/))) return {kind:"youtube", embed:`https://www.youtube-nocookie.com/embed/${m[1]}?rel=0`, thumb:`https://i.ytimg.com/vi/${m[1]}/hqdefault.jpg`, open:url};
@@ -515,10 +535,12 @@ function media(url){
 const isNew = d => { const t = Date.parse(d || ""); return !isNaN(t) && (Date.now() - t) / 864e5 <= SETTINGS.newForDays; };
 const initials = s => String(s).replace(/^The /, "").split(/[\s.]+/).filter(Boolean).map(w => w[0]).join("").slice(0, 3).toUpperCase();
 window.phSwap = img => { const t = document.createElement("span"); t.className = "ph t-" + img.dataset.tone; t.setAttribute("aria-hidden", "true"); t.textContent = img.dataset.ph; img.replaceWith(t); };
-function thumbHTML(src, label, tone, extra = ""){
-  const ph = `<span class="ph t-${tone}" aria-hidden="true">${esc(initials(label))}</span>`;
-  return `<div class="thumb">${src ? `<img src="${esc(src)}" alt="" loading="lazy" referrerpolicy="no-referrer" data-tone="${tone}" data-ph="${esc(initials(label))}" onerror="phSwap(this)">` : ph}${extra}</div>`;
+// The placeholder sits underneath; the picture (if any) covers it and removes itself if it can't load.
+function thumbHTML(src, label, tone, extra = "", phInner = ""){
+  const ph = `<span class="ph t-${tone}" aria-hidden="true">${phInner || esc(initials(label))}</span>`;
+  return `<div class="thumb">${ph}${src ? `<img src="${esc(src)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}${extra}</div>`;
 }
+const KIND_ICON = {folder:"folder", drive:"play", youtube:"play", ted:"play", vimeo:"play", gdoc:"doc", link:"doc", none:"doc"};
 
 /* ---------- Navigation ---------- */
 function toTop(){ window.scrollTo(0, 0); try{ document.documentElement.scrollIntoView({block:"start", behavior:"instant"}); }catch(e){} }
@@ -538,11 +560,12 @@ document.addEventListener("click", e => {
 function mediaCard(r, i, list){
   const m = media(r.url), tone = toneFor(r.topic || r.title);
   const playable = !!m.embed;
-  const extra = `${playable && (list === "ext" || r.type !== "guide") ? `<span class="play">${'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>'}</span>` : ""}${r.length ? `<span class="len">${esc(r.length)}</span>` : ""}${isNew(r.added) ? `<span class="new">New</span>` : ""}`;
+  const isFolder = m.kind === "folder";
+  const extra = `${playable && m.thumb && !isFolder ? `<span class="play">${'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg>'}</span>` : ""}${r.length ? `<span class="len">${esc(r.length)}</span>` : ""}${isNew(r.added) ? `<span class="new">New</span>` : ""}`;
   return `<button class="media" data-open="${list}:${i}" aria-label="${esc(r.title)}${playable ? ", plays here" : m.open ? ", opens in a new tab" : ""}">
-    ${thumbHTML(m.thumb, r.source && m.kind === "ted" ? "TED" : r.title, tone, extra)}
+    ${thumbHTML(m.thumb, r.title, tone, extra, `<span class="ph-in">${ico(m.kind === "none" && r.type === "video" ? "play" : KIND_ICON[m.kind] || "doc", 1.6)}<small>${esc(r.source || (isFolder ? r.title + " videos" : r.topic) || "")}</small></span>`)}
     <div class="m-body"><h3>${esc(r.title)}</h3>${r.summary ? `<p>${esc(r.summary)}</p>` : ""}
-      <div class="m-meta">${r.topic ? `<span class="pill t-${tone}">${esc(r.topic)}</span>` : ""}${r.source ? `<span class="pill t-blue">${esc(r.source)}</span>` : ""}${!m.open ? `<span class="pill" style="background:var(--paper);color:var(--ink-3)">Coming soon</span>` : ""}</div></div></button>`;
+      <div class="m-meta">${r.topic ? `<span class="pill t-${tone}">${esc(r.topic)}</span>` : ""}${isFolder ? `<span class="pill t-blue">Video collection</span>` : ""}${r.source ? `<span class="pill t-blue">${esc(r.source)}</span>` : ""}${!m.open ? `<span class="pill" style="background:var(--paper);color:var(--ink-3)">Coming soon</span>` : ""}</div></div></button>`;
 }
 function topicChips(el, list, current){
   const topics = [...new Set(list.map(r => r.topic).filter(Boolean))].sort();
@@ -562,10 +585,11 @@ function openMedia(list, i){
   const m = media(r.url);
   if(!m.open){ return; }
   if(!m.embed){ window.open(m.open, "_blank", "noopener"); return; }
-  $("#dlgContent").innerHTML = `<div class="player"><iframe src="${esc(m.embed)}" title="${esc(r.title)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe></div>
+  $("#dlgContent").innerHTML = `<div class="player ${m.kind === "folder" ? "folder" : ""}"><iframe src="${esc(m.embed)}" title="${esc(r.title)}" allow="autoplay; fullscreen; picture-in-picture; encrypted-media" allowfullscreen></iframe></div>
     <div class="dlg-body"><h2 id="dlgTitle">${esc(r.title)}</h2>${r.summary ? `<p>${esc(r.summary)}</p>` : ""}
       <div class="dlg-btns"><a class="ghost-btn" href="${esc(m.open)}" target="_blank" rel="noopener">${ico("ext")}Open in a new tab</a></div>
-      ${m.kind === "drive" || m.kind === "gdoc" ? `<p class="note">Not playing? Make sure you're signed in to your academyEX Google account, or use "Open in a new tab".</p>` : ""}</div>`;
+      ${m.kind === "folder" ? `<p class="note">Select a video to watch it. Videos open in a new tab. Can't see them? Make sure you're signed in to your academyEX Google account, or use "Open in a new tab".</p>`
+        : m.kind === "drive" || m.kind === "gdoc" ? `<p class="note">Not playing? Make sure you're signed in to your academyEX Google account, or use "Open in a new tab".</p>` : ""}</div>`;
   $("#dlg").showModal();
 }
 
@@ -651,7 +675,8 @@ function renderFaqs(){
 function searchAll(q){
   q = norm(q).trim(); if(!q) return null;
   const terms = q.split(/\s+/).filter(w => w.length > 1 && !["a","an","the","to","i","want","how","do","my","for","and","make"].includes(w));
-  const words = terms.length ? terms : [q];
+  // Match word stems, so "prototype" also finds "prototyping" and "videos" finds "video"
+  const words = (terms.length ? terms : [q]).map(w => w.length > 4 ? w.replace(/(ing|ed|es|e|s)$/, "") : w);
   const hit = s => { const t = norm(s); return words.some(w => t.includes(w)); };
   return {
     guides: GUIDES.map((r, i) => [r, i]).filter(([r]) => hit([r.title, r.summary, r.topic].join(" "))),

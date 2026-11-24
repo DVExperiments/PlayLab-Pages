@@ -45,11 +45,13 @@ Keep the punctuation as it is: text inside straight double quotes `"like this"`,
 
 ## Add a guide or tutorial video
 
-Guides are videos or documents made by the PlayLab team, usually stored in Google Drive.
+Guides are videos or documents made by the PlayLab team, usually stored in Google Drive. A guide can be a single video or a **whole Drive folder** of videos (a "video collection"). Folders are the easiest: add a video to the folder in Drive and it appears on the page straight away, with no editing.
+
+The page currently has three collections: **Making with AI**, **Design thinking** and **Google Sites**.
 
 ### 1. Share the file so students can see it
 
-1. In Google Drive, right-click the video (or doc) and choose **Share → Share**.
+1. In Google Drive, right-click the video, doc or folder and choose **Share → Share**.
 2. Under **General access**, choose **academyEX** (anyone signed in with an academyEX account), or **Anyone with the link**.
 3. Click **Copy link**, then **Done**.
 
@@ -68,15 +70,15 @@ In `resources/index.html`, search for `const GUIDES = [` and add a line at the t
 | `title` | The guide's name |
 | `summary` | One or two sentences about what it covers |
 | `topic` | A short topic, e.g. `"Prototyping"`. Use the same spelling to group guides. A new topic becomes a filter button automatically |
-| `type` | `"video"` or `"guide"` (a document, slides or web page) |
-| `url` | The Drive link. YouTube links and other web links work too |
+| `type` | `"video"`, `"collection"` (a Drive folder) or `"guide"` (a document, slides or web page) |
+| `url` | The Drive file or folder link. YouTube links and other web links work too |
 | `length` | Optional, e.g. `"6 min"`. Use `""` to leave it out |
 | `added` | Today's date as year-month-day. The guide shows **New** for 30 days |
 | `featured` | `true` to show it in "Featured and new" on the Resources home page |
 
-Drive videos, Google Docs, Slides and YouTube links play inside the page. Other links open in a new tab.
+Drive videos, Drive folders, Google Docs, Slides and YouTube links open inside the page. For a folder, students see its videos as a grid and each video opens in a new tab. Other links open in a new tab.
 
-The two starter guides (Prototyping and Google Sites) are there with no link yet and show "Coming soon". Paste their Drive links into `url:""` to switch them on.
+The **Prototyping** guide has no link yet and shows "Coming soon". Paste its Drive link (file or folder) into `url:""` to switch it on, or delete its line.
 
 ---
 
@@ -95,7 +97,7 @@ In `resources/index.html`, search for `const EXTERNAL = [` and add a line:
 - Any other link (articles, courses, websites) opens in a new tab.
 - Add `featured:true` to show it on the Resources home page.
 
-The three TED talks in the list are starter suggestions. Keep, change or delete them.
+TED-Ed lessons, NASA videos and articles open in a new tab. The "Latest journal articles" entry links to a Taylor & Francis journal's latest articles: change its `title` to the journal's name so students know what it is.
 
 ---
 
@@ -121,7 +123,7 @@ In `resources/index.html`, search for `const POLICIES = [`.
 - Paste the full policy's address between the quotes after `link:`. Until then, the card says "Full policy link coming soon".
 - Copy a whole entry (from `{title:` to `},`) to add another policy. `ico` can be `spark`, `copy`, `access` or `shield`. `tone` can be `lilac`, `peach`, `mint`, `sky` or `butter`.
 
-These are summaries. Ask the policy owner to check the wording before launch.
+The AI guidelines, Tikanga (code of conduct) and privacy policy cards link to the full documents. Copyright and accessibility don't have links yet. These are summaries: ask the policy owner to check the wording before launch.
 
 ---
 
