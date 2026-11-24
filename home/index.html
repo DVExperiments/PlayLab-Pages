@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%278%27 fill=%27%233651F5%27/%3E%3Cpath d=%27M8 22c3-8 6-12 9-12s4 3 2 6-6 3-6 0 5-6 10-5%27 fill=%27none%27 stroke=%27white%27 stroke-width=%273%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+<title>Futures PlayLab · Master of Technological Futures · academyEX</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Futures PlayLab · Home
+   Page links, pillars and settings are in the <script> at the
+   bottom. See home/HOW-TO-UPDATE.md.
+   ============================================================ */
+:root{
+  --paper:#EEF1F7; --card:#FFFFFF; --ink:#172038; --ink-2:#4A5372; --ink-3:#7D86A3; --line:#E1E5EF;
+  --blue:#3651F5; --blue-deep:#2238C4; --blue-soft:#E4E8FF;
+  --peach:#FFD5C2; --peach-ink:#9A3B12;
+  --lilac:#DDD7FF; --lilac-ink:#4B3AB0;
+  --mint:#CBEFD8;  --mint-ink:#1D6B3E;
+  --butter:#FFEDA8; --butter-ink:#7A5A00;
+  --sky:#CFE6FF;   --sky-ink:#1B4F8A;
+  /* brighter versions for use on the dark panel */
+  --mint-glow:#7FDCA4; --sky-glow:#8EC5FF; --butter-glow:#FFD84D; --lilac-glow:#B9AEFF; --peach-glow:#FFB59A; --blue-glow:#9AA8FF;
+  --r-xl:28px; --r-lg:20px; --r-md:14px;
+  --shadow:0 1px 0 rgba(23,32,56,.04), 0 8px 24px -12px rgba(34,56,196,.18);
+  --display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit}
+a{color:var(--blue-deep)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+h1,h2,h3,h4{font-family:var(--display);margin:0;letter-spacing:-.01em;line-height:1.15}
+p{margin:0}
+[hidden]{display:none!important}
+
+/* ---------- Shell (shared with the other Futures PlayLab pages) ---------- */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh;gap:18px;padding:18px}
+.side{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none}
+.brand b{font-family:var(--display);font-size:19px;display:block;line-height:1.1}
+.brand small{opacity:.75;font-size:12.5px;display:block;line-height:1.3;margin-top:2px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav a{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;font-weight:500;font-size:14.5px;color:rgba(255,255,255,.85);text-decoration:none}
+.nav a svg{width:19px;height:19px;flex:none}
+.nav a:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav a[aria-current="page"]{background:#fff;color:var(--blue-deep);font-weight:700}
+.nav a:focus-visible{outline:3px solid #fff;outline-offset:1px}
+.nav a.is-off{opacity:.55;cursor:default}
+.side-foot{margin-top:auto;background:rgba(255,255,255,.12);border-radius:var(--r-lg);padding:16px;font-size:13.5px}
+.side-foot p{opacity:.9;margin-bottom:10px}
+.btn-white{display:inline-block;background:#fff;color:var(--blue-deep);text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px;font-size:13px}
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.card{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:19px;font-weight:700}
+.link-btn{display:inline-flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--blue-deep);padding:7px 13px;border-radius:999px;background:var(--blue-soft);text-decoration:none;white-space:nowrap}
+.link-btn:hover{background:#d4daff}
+.link-btn svg{width:15px;height:15px}
+a.is-off{opacity:.5;cursor:not-allowed}
+.note{font-size:13px;color:var(--ink-3)}
+.t-sky{background:var(--sky);color:var(--sky-ink)}.t-lilac{background:var(--lilac);color:var(--lilac-ink)}.t-mint{background:var(--mint);color:var(--mint-ink)}
+.t-butter{background:var(--butter);color:var(--butter-ink)}.t-peach{background:var(--peach);color:var(--peach-ink)}.t-blue{background:var(--blue-soft);color:var(--blue-deep)}
+.section-title{font-size:22px;font-weight:800;margin:14px 4px 4px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.section-intro{color:var(--ink-2);margin:0 4px 14px;max-width:72ch}
+
+/* ---------- Welcome ---------- */
+.hero{background:var(--ink);color:#fff;border-radius:var(--r-xl);padding:clamp(26px,3.2vw,48px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);gap:clamp(24px,3.4vw,60px);align-items:center}
+.hero h1{font-size:clamp(36px,4.4vw,74px);font-weight:800;line-height:.98;letter-spacing:-.03em}
+.hero .lead{font-size:clamp(16px,1.15vw,19px);color:rgba(255,255,255,.88);margin-top:18px;max-width:60ch}
+.hero .lead + .lead{margin-top:10px;color:rgba(255,255,255,.72)}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.hero-btns .btn-white{font-size:14px;padding:11px 18px}
+.btn-line{display:inline-block;color:#fff;font-weight:600;font-size:14px;padding:10px 17px;border-radius:999px;border:1px solid rgba(255,255,255,.35);text-decoration:none}
+.btn-line:hover{background:rgba(255,255,255,.1)}
+.btn-white:focus-visible,.btn-line:focus-visible{outline:3px solid #fff;outline-offset:2px}
+
+/* The six verbs: the page's one moving moment. One lights up at a time. */
+.verbs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.verb{position:relative;border-radius:20px;padding:clamp(14px,1.4vw,20px);min-height:clamp(104px,9vw,138px);background:rgba(255,255,255,.06);display:flex;flex-direction:column;justify-content:space-between;gap:10px;transition:background .5s ease, color .5s ease, transform .5s ease}
+.verb svg{width:clamp(22px,2vw,28px);height:clamp(22px,2vw,28px);color:var(--c)}
+.verb b{font-family:var(--display);font-weight:800;font-size:clamp(20px,1.9vw,28px);letter-spacing:-.02em;color:var(--c);transition:color .5s ease}
+.verb b::after{content:"."}
+.verb.on{background:var(--c);transform:translateY(-3px)}
+.verb.on svg,.verb.on b{color:var(--ink)}
+.verbs-cap{grid-column:1/-1;font-size:13px;color:rgba(255,255,255,.6);margin-top:4px}
+@media (prefers-reduced-motion:reduce){.verb{background:rgba(255,255,255,.06)!important;transform:none!important}.verb svg,.verb b{color:var(--c)!important}}
+
+/* ---------- Start exploring ---------- */
+.pages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.page{position:relative;border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:8px;text-decoration:none;min-height:190px;transition:transform .15s ease, box-shadow .15s ease}
+.page:hover{transform:translateY(-2px);box-shadow:0 16px 30px -18px rgba(23,32,56,.45)}
+.page:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.page .p-ico{width:46px;height:46px;border-radius:14px;background:rgba(255,255,255,.65);display:grid;place-items:center;margin-bottom:6px}
+.page .p-ico svg{width:24px;height:24px}
+.page h3{font-size:22px;font-weight:800}
+.page p{font-size:14.5px;opacity:.9;max-width:42ch}
+.page .p-go{margin-top:auto;padding-top:8px;display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}
+.page .p-go svg{width:18px;height:18px;transition:transform .15s ease}
+.page:hover .p-go svg{transform:translateX(3px)}
+.page.is-off{cursor:default}
+.page.is-off:hover{transform:none;box-shadow:none}
+
+/* ---------- Live from What's On ---------- */
+.live{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.live .card{display:flex;flex-direction:column;gap:14px}
+.live-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.live-head h2{display:flex;align-items:center;gap:10px}
+.live-head h2 span{width:34px;height:34px;border-radius:11px;display:grid;place-items:center}
+.live-head h2 svg{width:18px;height:18px}
+.ev-list,.news-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.ev-list li,.news-list li{border-top:1px solid var(--line)}
+.ev-list li:first-child,.news-list li:first-child{border-top:0}
+.ev{display:grid;grid-template-columns:54px minmax(0,1fr);gap:14px;align-items:center;padding:12px 2px;text-decoration:none;color:var(--ink)}
+.ev .d{border-radius:14px;background:var(--blue-soft);color:var(--blue-deep);text-align:center;padding:6px 0;line-height:1.05}
+.ev .d small{display:block;font-size:11.5px;font-weight:700}
+.ev .d b{display:block;font-family:var(--display);font-size:22px;font-weight:800}
+.ev .t{display:block;font-weight:700;font-size:15px;line-height:1.3}
+.ev .m{display:block;font-size:13px;color:var(--ink-2);margin-top:2px}
+a.ev:hover .t{color:var(--blue-deep);text-decoration:underline}
+.news{display:block;padding:12px 2px;text-decoration:none;color:var(--ink)}
+.news .t{display:block;font-weight:700;font-size:15px;line-height:1.35}
+.news .m{display:block;font-size:13px;color:var(--ink-2);margin-top:3px}
+.news:hover .t{color:var(--blue-deep);text-decoration:underline}
+.live-empty{background:var(--paper);border-radius:var(--r-md);padding:18px;color:var(--ink-2);font-size:14.5px}
+.live-empty b{display:block;color:var(--ink);font-size:15px;margin-bottom:2px}
+
+/* ---------- Pillars ---------- */
+.pillars{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.pillar{border-radius:var(--r-lg);padding:18px;display:flex;flex-direction:column;gap:10px;min-height:250px}
+.pillar .n{font-family:var(--display);font-weight:800;font-size:40px;line-height:.9}
+.pillar h3{font-size:17px;font-weight:700;line-height:1.2}
+.pillar p{font-size:14px;line-height:1.45;color:var(--ink);opacity:.88}
+.pillars-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:12px 4px 0}
+
+/* ---------- Visit ---------- */
+.visit{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:20px;align-items:center;background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:24px 28px}
+.visit .v-ico{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.15);display:grid;place-items:center}
+.visit .v-ico svg{width:26px;height:26px}
+.visit h2{font-size:20px;font-weight:800}
+.visit p{color:rgba(255,255,255,.85);margin-top:2px}
+.visit .btn-white{font-size:14px;padding:11px 18px}
+.foot{font-size:12.5px;color:var(--ink-3);text-align:center;padding:10px 0 4px}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media (max-width:1280px){.pillars{grid-template-columns:repeat(3,minmax(0,1fr))}.pillar{min-height:0}}
+@media (max-width:1180px){
+  .hero{grid-template-columns:1fr}
+  .verbs{max-width:620px}
+  .pages{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .live{grid-template-columns:1fr}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;padding:12px;gap:12px}
+  .side{position:static;height:auto;flex-direction:row;align-items:center;padding:10px;border-radius:var(--r-lg);overflow-x:auto}
+  .brand{padding:0 8px 0 4px}
+  .brand small,.side-foot{display:none}
+  .brand b{white-space:nowrap}
+  .nav{flex-direction:row}
+  .nav a{white-space:nowrap;padding:9px 12px}
+  .nav a span{display:none}
+  .nav a[aria-current="page"] span{display:inline}
+  .pillars{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .visit{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .hero{padding:24px 18px}
+  .verbs{grid-template-columns:repeat(3,1fr);gap:8px}
+  .verb{min-height:78px;padding:12px;border-radius:16px}
+  .verb b{font-size:16px}
+  .verb svg{width:20px;height:20px}
+  .pages,.pillars{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side" aria-label="Futures PlayLab pages">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="none" stroke="#3651F5" stroke-width="3.2" stroke-linecap="round"><path d="M6 23c3-9 7-13 10-13s4.5 3.2 2.2 6.6-6.7 3.3-6.7 0 5.5-6.6 11-5.5"/></svg>
+      </div>
+      <div><b>Futures PlayLab</b><small>Master of Technological Futures</small></div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <p>New here? Start with your week in the programme.</p>
+      <a class="btn-white" data-page="myjourney">Find your week</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <section class="hero" aria-labelledby="h-home">
+      <div>
+        <h1 id="h-home">Welcome to the Futures PlayLab</h1>
+        <p class="lead">The Futures PlayLab is an academyEX space for hands-on experimentation, creative practice and critical engagement with emerging technologies. Developed alongside the Master of Technological Futures (MTF), it's where ideas about technological futures become things you can try, test and learn from.</p>
+        <p class="lead">You don't need to be a technical expert, and you don't need a finished project. Bring your curiosity, your questions and your context, and start exploring.</p>
+        <div class="hero-btns">
+          <a class="btn-white" data-page="play">Start exploring</a>
+          <a class="btn-line" data-page="about">About the Futures PlayLab</a>
+        </div>
+      </div>
+      <div class="verbs" id="verbs">
+        <p class="verbs-cap" style="order:99">Explore. Make. Test. Break. Reflect. Adapt.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-explore">
+      <h2 class="section-title" id="h-explore">Start exploring</h2>
+      <p class="section-intro">Everything in the Futures PlayLab, in one place. Pick where you want to go.</p>
+      <div class="pages" id="pages"></div>
+    </section>
+
+    <section aria-labelledby="h-live">
+      <h2 class="section-title" id="h-live">What's happening</h2>
+      <p class="section-intro">Coming up in the Futures PlayLab, and the latest from the tech world. Updated every few hours.</p>
+      <div class="live">
+        <div class="card">
+          <div class="live-head"><h2><span class="t-blue" data-ico="calendar"></span>Coming up</h2><a class="link-btn" data-page="whatson">Full calendar</a></div>
+          <div id="events"><div class="live-empty"><b>Loading events</b>Checking the Futures PlayLab calendar.</div></div>
+        </div>
+        <div class="card">
+          <div class="live-head"><h2><span class="t-peach" data-ico="news"></span>In tech news</h2><a class="link-btn" data-page="whatson">More news</a></div>
+          <div id="news"><div class="live-empty"><b>Loading news</b>Fetching the latest headlines.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-pillars">
+      <h2 class="section-title" id="h-pillars">Our five pillars</h2>
+      <p class="section-intro">The five pillars are the lasting questions at the heart of the Master of Technological Futures. They don't map one-to-one onto courses: each course has a main pillar and supporting ones, and all five run through the whole programme.</p>
+      <div class="pillars" id="pillars"></div>
+      <div class="pillars-foot"><span class="note">From the MTF programme plan.</span><a class="link-btn" data-page="about">More about the programme</a></div>
+    </section>
+
+    <section class="visit" aria-labelledby="h-visit">
+      <span class="v-ico" data-ico="pin"></span>
+      <div><h2 id="h-visit">Visit the Futures PlayLab</h2><p id="address"></p></div>
+      <a class="btn-white" data-page="about">Find us</a>
+    </section>
+
+    <p class="foot" id="foot"></p>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+const SETTINGS = {
+  // The published address of the Google Site, the part before the page
+  // names, e.g. "https://sites.google.com/academyex.ac.nz/futures-playlab/".
+  // Every page link is built from it (see PAGES). Leave empty to grey out
+  // the links until it's ready.
+  siteAddress: "",
+  address: ["99 Khyber Pass Road", "Grafton", "Tāmaki Makaurau / Auckland", "New Zealand"],
+  year: "2026",
+  // Where the "Coming up" and "In tech news" lists come from. These files
+  // are kept up to date by the What's On page's automatic update.
+  eventsFile: "../whats-on/data/events.json",
+  newsFile: "../whats-on/data/news.json",
+  showEvents: 4,
+  showNews: 4
+};
+
+/* ============================================================
+   PAGES
+   The sidebar and the "Start exploring" tiles, in this order.
+     slug: the end of the page's published address (Google Sites makes it
+           from the page name: "What's On" becomes "whats-on").
+     url:  only if a page's address doesn't follow that pattern: paste its
+           full published address here and it's used instead.
+     tile: false to show the page in the sidebar only.
+   ============================================================ */
+const PAGES = [
+  {id:"home",      name:"Home",       slug:"home",       url:"", ico:"home",    tile:false},
+  {id:"play",      name:"Play",       slug:"play",       url:"", ico:"play",    tone:"mint",   about:"Try experimental tools right in the page, then capture what you learned with a Studio Card."},
+  {id:"resources", name:"Resources",  slug:"resources",  url:"", ico:"book",    tone:"sky",    about:"Guides, tools, policies and answers to common questions, to help you explore, make and test."},
+  {id:"whatson",   name:"What's On",  slug:"whats-on",   url:"", ico:"calendar",tone:"peach",  about:"Workshops, drop-ins and events, plus a weekly tech news brief. Book a meeting with the team."},
+  {id:"community", name:"Community",  slug:"community",  url:"", ico:"people",  tone:"lilac",  about:"Meet your fellow learners, see what people are making and share a shout-out."},
+  {id:"myjourney", name:"My Journey", slug:"my-journey", url:"", ico:"map",     tone:"butter", about:"Find your week in the programme: what's on now, what's due and what comes next for your Gen."},
+  {id:"about",     name:"About",      slug:"about",      url:"", ico:"info",    tone:"blue",   about:"What the Futures PlayLab is, how the MTF programme works, our values and the team."}
+];
+// The page this file is embedded on (highlighted in the sidebar)
+const CURRENT = "home";
+
+/* ============================================================
+   THE SIX VERBS
+   ============================================================ */
+const VERBS = [
+  {word:"Explore", c:"--sky-glow",    ico:"compass"},
+  {word:"Make",    c:"--peach-glow",  ico:"make"},
+  {word:"Test",    c:"--butter-glow", ico:"flask"},
+  {word:"Break",   c:"--lilac-glow",  ico:"break"},
+  {word:"Reflect", c:"--mint-glow",   ico:"eye"},
+  {word:"Adapt",   c:"--blue-glow",   ico:"adapt"}
+];
+
+/* ============================================================
+   PILLARS (from the MTF programme plan, the same as the About page)
+   ============================================================ */
+const PILLARS = [
+  {n:1, name:"Futures, Systems and Complexity", tone:"sky",
+   q:"What changes are emerging, how are they connected, and what futures might they produce?"},
+  {n:2, name:"People, Culture and Responsible Technology", tone:"lilac",
+   q:"Who shapes technological change, who benefits, who carries risk, and what experiences and meanings are produced?"},
+  {n:3, name:"Emerging Technologies and Infrastructures", tone:"butter",
+   q:"What can emerging technologies enable, and what capabilities, creative affordances and dependencies do they create?"},
+  {n:4, name:"Ecology, Place and Regenerative Futures", tone:"mint",
+   q:"How can technological development respond to ecological limits, place-based realities and regeneration?"},
+  {n:5, name:"Adaptive Innovation, Leadership and Transformation", tone:"peach",
+   q:"How do we move from understanding technological change to shaping and implementing it responsibly?"}
+];
+
+/* ============================================================
+   You shouldn't need to change anything below this line.
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ICONS = {
+  home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+  play:'<circle cx="12" cy="12" r="9"/><path d="m10 8.5 6 3.5-6 3.5z"/>',
+  book:'<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 0 6.5 23H20"/>',
+  calendar:'<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+  people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.8-3.3 3.2-5 6-5s5.2 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c2.6 0 4.3 1.5 5 4"/>',
+  map:'<path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6z"/><path d="M9 4v14M15 6v14"/>',
+  info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+  arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+  news:'<path d="M5 5h11v14H6a1 1 0 0 1-1-1z"/><path d="M16 9h3v9a1 1 0 0 1-1 1h-2M8 9h5M8 12.5h5M8 16h3"/>',
+  pin:'<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+  make:'<path d="M14 4l6 6-9 9H5v-6z"/><path d="M12 6l6 6"/>',
+  flask:'<path d="M9.5 3h5M10 3v6L4.8 18a2 2 0 0 0 1.8 3h10.8a2 2 0 0 0 1.8-3L14 9V3"/><path d="M7.5 15h9"/>',
+  break:'<path d="M5 4h6l-2 6 4 1-2 9"/><path d="M19 4h-4l1.5 5-3 2"/>',
+  eye:'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/>',
+  adapt:'<path d="M20 12a8 8 0 0 1-14 5.3"/><path d="M4 12a8 8 0 0 1 14-5.3"/><path d="M18 3v4h-4M6 21v-4h4"/>'
+};
+const ico = (n, sw=1.9) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
+
+/* ---------- Links to the other pages of the Google Site ---------- */
+function pageUrl(p){
+  if(/^https?:\/\//.test(p.url || "")) return p.url;
+  const base = String(SETTINGS.siteAddress || "").trim();
+  if(!/^https?:\/\//.test(base)) return "";
+  return base.replace(/\/?$/, "/") + p.slug;
+}
+// Pages open in the whole browser window, not inside this embedded box.
+function wireLink(a, p){
+  const u = p ? pageUrl(p) : "";
+  if(u){ a.href = u; a.target = "_top"; a.classList.remove("is-off"); a.removeAttribute("aria-disabled"); a.removeAttribute("title"); }
+  else { a.removeAttribute("href"); a.classList.add("is-off"); a.setAttribute("aria-disabled", "true"); a.title = "Link coming soon"; }
+}
+
+/* ---------- Render ---------- */
+function renderNav(){
+  $("#nav").innerHTML = PAGES.map(p => `<a data-page="${p.id}"${p.id === CURRENT ? ' aria-current="page"' : ""}>${ico(p.ico)}<span>${esc(p.name)}</span></a>`).join("");
+}
+function renderPages(){
+  $("#pages").innerHTML = PAGES.filter(p => p.tile !== false).map(p =>
+    `<a class="page t-${p.tone || "blue"}" data-page="${p.id}"><span class="p-ico">${ico(p.ico)}</span><h3>${esc(p.name)}</h3><p>${esc(p.about || "")}</p><span class="p-go">Go to ${esc(p.name)} ${ico("arrow")}</span></a>`).join("");
+}
+function renderVerbs(){
+  $("#verbs").insertAdjacentHTML("afterbegin", VERBS.map(v => `<div class="verb" style="--c:var(${v.c})" aria-hidden="true">${ico(v.ico, 2)}<b>${esc(v.word)}</b></div>`).join(""));
+  const els = [...document.querySelectorAll(".verb")];
+  if(!els.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  let i = 0, paused = false;
+  const box = $("#verbs");
+  box.addEventListener("mouseenter", () => paused = true);
+  box.addEventListener("mouseleave", () => paused = false);
+  const step = () => { if(paused || document.hidden) return; els.forEach((el, k) => el.classList.toggle("on", k === i)); i = (i + 1) % els.length; };
+  step(); setInterval(step, 1800);
+}
+function renderPillars(){
+  $("#pillars").innerHTML = PILLARS.map(p => `<div class="pillar t-${p.tone}"><span class="n">${p.n}</span><h3>${esc(p.name)}</h3><p>${esc(p.q)}</p></div>`).join("");
+}
+function renderVisit(){
+  $("#address").textContent = SETTINGS.address.join(", ");
+  $("#foot").textContent = `Futures PlayLab · Master of Technological Futures · academyEX · ${SETTINGS.year}`;
+}
+
+/* ---------- Live lists from the What's On data ---------- */
+const TZ = "Pacific/Auckland";
+async function getJSON(u){ try{ const r = await fetch(u, {cache:"no-store"}); return r.ok ? await r.json() : null; }catch(e){ return null; } }
+const isDay = s => /^\d{4}-\d{2}-\d{2}$/.test(String(s));
+const asDate = s => isDay(s) ? new Date(s + "T12:00:00Z") : new Date(s);     // midday UTC keeps all-day dates on the right day
+const fmt = (s, o) => new Intl.DateTimeFormat("en-NZ", Object.assign({timeZone: isDay(s) ? "UTC" : TZ}, o)).format(asDate(s));
+const todayNZ = () => new Intl.DateTimeFormat("en-CA", {timeZone:TZ}).format(new Date());
+function eventEnded(e){
+  if(e.allDay){ const last = e.end ? e.end : e.start; return (e.end ? last <= todayNZ() : last < todayNZ()); }   // all-day ends are exclusive
+  return new Date(e.end || e.start) < new Date();
+}
+async function renderEvents(){
+  const box = $("#events");
+  const data = await getJSON(SETTINGS.eventsFile);
+  const list = data && Array.isArray(data.events) ? data.events.filter(e => e && e.start && !eventEnded(e)).sort((a, b) => asDate(a.start) - asDate(b.start)).slice(0, SETTINGS.showEvents) : null;
+  const wo = PAGES.find(p => p.id === "whatson");
+  if(!list){ box.innerHTML = `<div class="live-empty"><b>See what's coming up</b>Workshops, drop-ins and onsite days are all on the What's On page.</div>`; return; }
+  if(!list.length){ box.innerHTML = `<div class="live-empty"><b>Nothing scheduled right now</b>New sessions will appear here as soon as they're added to the calendar.</div>`; return; }
+  box.innerHTML = `<ul class="ev-list">${list.map(e => {
+    const when = e.allDay ? "All day" : fmt(e.start, {hour:"numeric", minute:"2-digit"}).replace(/\s/g, "").toLowerCase();
+    return `<li><a class="ev" data-page="whatson"><span class="d"><small>${esc(fmt(e.start, {weekday:"short"}))}</small><b>${esc(fmt(e.start, {day:"numeric"}))}</b><small>${esc(fmt(e.start, {month:"short"}))}</small></span>
+      <span><span class="t">${esc(e.title)}</span><span class="m">${esc(when)}${e.location ? " · " + esc(e.location) : ""}</span></span></a></li>`;
+  }).join("")}</ul>`;
+  box.querySelectorAll("[data-page]").forEach(a => wireLink(a, wo));
+}
+async function renderNews(){
+  const box = $("#news");
+  const data = await getJSON(SETTINGS.newsFile);
+  const list = data && Array.isArray(data.stories) ? data.stories.filter(s => s && s.title && /^https?:\/\//.test(s.link || "")).sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, SETTINGS.showNews) : null;
+  if(!list || !list.length){ box.innerHTML = `<div class="live-empty"><b>Catch up on tech news</b>A weekly brief and the latest headlines are on the What's On page.</div>`; return; }
+  box.innerHTML = `<ul class="news-list">${list.map(s => `<li><a class="news" href="${esc(s.link)}" target="_blank" rel="noopener"><span class="t">${esc(s.title)}</span><span class="m">${esc(s.source || "")}${s.date ? " · " + esc(fmt(s.date, {day:"numeric", month:"short"})) : ""}</span></a></li>`).join("")}</ul>`;
+}
+
+function init(){
+  renderNav(); renderPages(); renderVerbs(); renderPillars(); renderVisit();
+  document.querySelectorAll("[data-ico]").forEach(el => el.innerHTML = ico(el.dataset.ico));
+  document.querySelectorAll("[data-page]").forEach(a => wireLink(a, PAGES.find(p => p.id === a.dataset.page)));
+  renderEvents(); renderNews();
+}
+init();
+</script>
+</body>
+</html>
