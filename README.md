@@ -7,6 +7,7 @@ Interactive pages for the PlayLab Google Site (Master of Technological Futures, 
 | Student Journey | `student-journey/` | `https://YOUR-USERNAME.github.io/playlab-pages/student-journey/` |
 | Community | `community/` | `https://YOUR-USERNAME.github.io/playlab-pages/community/` |
 | What's On | `whats-on/` | `https://YOUR-USERNAME.github.io/playlab-pages/whats-on/` |
+| About | `about/` | `https://YOUR-USERNAME.github.io/playlab-pages/about/` |
 
 ## Updating a page
 
@@ -32,6 +33,10 @@ In `student-journey/index.html`, find `const COHORTS` and add a line at the top 
 - `breaks` lists the Mondays of non-teaching weeks, for example `["2027-09-27","2027-10-04"]`.
 - To link straight to a Gen, add `?gen=gen32` to the end of the page's link.
 
+
+## About
+
+Facts that change (fees, start dates, contact details, team bios and photos, links) are in `SETTINGS` near the bottom of `about/index.html`. Programme content (pillars, the three parts, courses and assessments) follows the MTF Programme Refresh Plan and is in the `PILLARS` and `PARTS` lists just below it. Team photos are optional: upload them to an `about/people` folder and add the file name, e.g. `photo:"people/claudio.jpg"`.
 
 ## What's On
 

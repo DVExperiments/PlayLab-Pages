@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · Futures PlayLab · Master of Technological Futures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   PlayLab · About
+   Facts that change (fees, start dates, contacts, photos) are in
+   SETTINGS in the <script> at the bottom.
+   ============================================================ */
+:root{
+  --paper:#EEF1F7; --card:#FFFFFF; --ink:#172038; --ink-2:#4A5372; --ink-3:#7D86A3; --line:#E1E5EF;
+  --blue:#3651F5; --blue-deep:#2238C4; --blue-soft:#E4E8FF;
+  --peach:#FFD5C2; --peach-ink:#9A3B12;
+  --lilac:#DDD7FF; --lilac-ink:#4B3AB0;
+  --mint:#CBEFD8;  --mint-ink:#1D6B3E;
+  --butter:#FFEDA8; --butter-ink:#7A5A00;
+  --sky:#CFE6FF;   --sky-ink:#1B4F8A;
+  --r-xl:28px; --r-lg:20px; --r-md:14px;
+  --shadow:0 1px 0 rgba(23,32,56,.04), 0 8px 24px -12px rgba(34,56,196,.18);
+  --display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:var(--body);color:var(--ink);background:var(--paper);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+a{color:var(--blue-deep)}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:8px}
+h1,h2,h3,h4{font-family:var(--display);margin:0;letter-spacing:-.01em;line-height:1.15}
+p{margin:0}
+[hidden]{display:none!important}
+
+/* ---------- Shell (shared with the other PlayLab pages) ---------- */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh;gap:18px;padding:18px}
+.side{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:18px;height:calc(100vh - 36px);overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:4px 10px 18px}
+.brand-mark{width:38px;height:38px;border-radius:12px;background:#fff;display:grid;place-items:center;flex:none}
+.brand b{font-family:var(--display);font-size:19px;display:block;line-height:1.1}
+.brand small{opacity:.75;font-size:12.5px}
+.nav{display:flex;flex-direction:column;gap:3px}
+.nav button{all:unset;cursor:pointer;display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;font-weight:500;font-size:14.5px;color:rgba(255,255,255,.85)}
+.nav button svg{width:19px;height:19px;flex:none}
+.nav button:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav button[aria-current="page"]{background:#fff;color:var(--blue-deep);font-weight:700}
+.nav button:focus-visible{outline:3px solid #fff;outline-offset:1px}
+.side-foot{margin-top:auto;background:rgba(255,255,255,.12);border-radius:var(--r-lg);padding:16px;font-size:13.5px}
+.side-foot p{opacity:.9;margin-bottom:10px}
+.btn-white{display:inline-block;background:#fff;color:var(--blue-deep);text-decoration:none;font-weight:700;padding:8px 14px;border-radius:999px;font-size:13px}
+.main{min-width:0;display:flex;flex-direction:column;gap:18px}
+.view{display:none}
+.view.active{display:block}
+.view-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:4px 4px 18px}
+.vh-title{display:flex;gap:14px;align-items:center}
+.badge{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex:none}
+.badge svg{width:26px;height:26px}
+.view-head h1{font-size:clamp(26px,3vw,34px);font-weight:800}
+.view-head p{color:var(--ink-2);max-width:66ch;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+.grid>.s12{grid-column:span 12}.grid>.s8{grid-column:span 8}.grid>.s7{grid-column:span 7}.grid>.s6{grid-column:span 6}.grid>.s5{grid-column:span 5}.grid>.s4{grid-column:span 4}
+.card{background:var(--card);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:20px;font-weight:700}
+.card h3{font-size:17px;font-weight:700}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.body-text{color:var(--ink-2);font-size:15px;max-width:68ch}
+.body-text+.body-text{margin-top:10px}
+.link-btn{all:unset;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--blue-deep);padding:6px 12px;border-radius:999px;background:var(--blue-soft);text-decoration:none;display:inline-block}
+.link-btn:hover{background:#d4daff}
+.solid-btn{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;padding:11px 18px;border-radius:999px;background:var(--blue);color:#fff;text-decoration:none}
+.solid-btn:hover{background:var(--blue-deep)}
+.solid-btn svg{width:17px;height:17px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12.5px;background:var(--paper);border-radius:999px;padding:4px 10px;color:var(--ink-2);font-weight:500}
+.note{font-size:13px;color:var(--ink-3)}
+.quote{font-family:var(--display);font-weight:700;font-size:clamp(20px,2.2vw,26px);line-height:1.25;letter-spacing:-.015em}
+
+/* ---------- Overview hero ---------- */
+.hero{background:var(--ink);color:#fff;border-radius:var(--r-xl);padding:30px;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:30px;align-items:center}
+.fresh{display:inline-flex;gap:8px;align-items:center;background:var(--butter);color:var(--butter-ink);font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px;margin-bottom:16px}
+.fresh i{width:8px;height:8px;border-radius:50%;background:var(--butter-ink)}
+.hero h1{font-size:clamp(34px,4.6vw,56px);font-weight:800;line-height:1;letter-spacing:-.03em}
+.hero-intro{color:rgba(255,255,255,.8);font-size:15.5px;margin-top:16px;max-width:52ch}
+.caps{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.caps span{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.1)}
+.cycle{width:100%;max-width:420px;justify-self:center;display:block;overflow:visible}
+.cycle .ring{fill:none;stroke:rgba(255,255,255,.16);stroke-width:2;stroke-dasharray:3 7}
+.cycle .arc{fill:none;stroke-width:3;stroke-linecap:round}
+.cycle .node circle{stroke:var(--ink);stroke-width:4}
+.cycle .node text{font-family:var(--display);font-weight:700;font-size:17px;fill:var(--ink)}
+.cycle .num{font-family:var(--body);font-weight:700;font-size:11px;fill:rgba(23,32,56,.6)}
+.cycle .centre-t{font-family:var(--display);font-weight:800;font-size:22px;fill:#fff}
+.cycle .centre-s{font-family:var(--body);font-weight:600;font-size:12.5px;fill:rgba(255,255,255,.65)}
+.cycle .runner{fill:#fff}
+.cycle .node{transition:transform .35s cubic-bezier(.2,.8,.2,1);transform-box:fill-box;transform-origin:center}
+.cycle .node.on{transform:scale(1.12)}
+.jump{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.jump button{all:unset;box-sizing:border-box;cursor:pointer;border-radius:var(--r-lg);padding:18px;display:flex;flex-direction:column;gap:6px;min-height:118px}
+.jump button:hover{filter:brightness(.97)}
+.jump button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.jump .j-ico{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.6);display:grid;place-items:center}
+.jump .j-ico svg{width:20px;height:20px}
+.jump b{font-family:var(--display);font-size:17px}
+.jump span{font-size:13.5px;opacity:.85}
+
+/* ---------- Programme ---------- */
+.prop{background:var(--blue);color:#fff;border-radius:var(--r-xl);padding:30px}
+.prop .quote{max-width:34ch}
+.prop .tagline{margin-top:16px;font-size:14.5px;color:rgba(255,255,255,.8)}
+.who{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.who .card{display:flex;flex-direction:column;gap:8px}
+.who .w-ico{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;margin-bottom:4px}
+.who .w-ico svg{width:22px;height:22px}
+.who b{font-family:var(--display);font-size:18px}
+.who .lead-line{font-weight:700;color:var(--ink)}
+.who p{color:var(--ink-2);font-size:14.5px}
+.become{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.become li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--ink-2)}
+.become li svg{flex:none;width:22px;height:22px;color:var(--mint-ink);margin-top:1px}
+.master{display:flex;flex-direction:column;gap:12px}
+.master div{background:var(--paper);border-radius:var(--r-md);padding:14px 16px}
+.master b{display:block;font-size:15.5px;margin-bottom:2px}
+.master span{font-size:14px;color:var(--ink-2)}
+.loop{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:8px;counter-reset:l}
+.loop li{counter-increment:l;background:var(--paper);border-radius:var(--r-md);padding:12px 10px 14px;font-size:13.5px;font-weight:600;color:var(--ink);position:relative;display:flex;flex-direction:column;gap:6px}
+.loop li::before{content:counter(l);width:26px;height:26px;border-radius:9px;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:13px}
+.loop li:last-child{background:var(--blue-soft)}
+.loop-note{margin-top:12px;font-size:14px;color:var(--ink-2)}
+.byoc{display:inline-flex;align-items:center;gap:8px;background:var(--peach);color:var(--peach-ink);font-weight:700;font-size:13.5px;padding:6px 12px;border-radius:999px}
+
+/* ---------- Pillars ---------- */
+.pillar-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.pillar-tabs button{all:unset;box-sizing:border-box;cursor:pointer;border-radius:var(--r-lg);padding:16px;display:flex;flex-direction:column;gap:10px;min-height:150px;border:3px solid transparent;transition:transform .2s ease}
+.pillar-tabs button:hover{transform:translateY(-2px)}
+.pillar-tabs button[aria-selected="true"]{border-color:var(--ink)}
+.pillar-tabs button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.pillar-tabs .p-n{font-family:var(--display);font-weight:800;font-size:30px;line-height:1}
+.pillar-tabs .p-t{font-family:var(--display);font-weight:700;font-size:16px;line-height:1.2}
+.pillar-panel{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px}
+.pillar-q{border-radius:var(--r-xl);padding:28px;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.pillar-q small{font-weight:700;font-size:13px;opacity:.8}
+.pillar-meta{display:flex;flex-direction:column;gap:14px}
+.pillar-meta h4{font-size:14px;font-weight:700;margin-bottom:8px;color:var(--ink-2);font-family:var(--body)}
+.course-chip{display:flex;gap:10px;align-items:center;background:var(--paper);border-radius:12px;padding:10px 12px;font-size:14px;margin-bottom:6px}
+.course-chip code{font-family:var(--body);font-weight:700;font-size:12.5px;background:#fff;border-radius:8px;padding:3px 8px;color:var(--ink-2);flex:none}
+.spiral-note{margin-top:16px}
+
+/* ---------- Journey ---------- */
+.track{display:flex;gap:8px;margin-bottom:8px}
+.track button{all:unset;box-sizing:border-box;cursor:pointer;border-radius:var(--r-lg);padding:16px 18px;display:flex;flex-direction:column;gap:4px;min-width:150px;border:3px solid transparent}
+.track button[aria-selected="true"]{border-color:var(--ink)}
+.track button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.track small{font-weight:700;font-size:12.5px;opacity:.8}
+.track b{font-family:var(--display);font-size:18px;line-height:1.15}
+.track span{font-size:13px;font-weight:600;opacity:.85}
+.scale{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-3);margin:0 4px 18px}
+.part{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:18px}
+.part-q{border-radius:var(--r-xl);padding:26px;display:flex;flex-direction:column;gap:12px}
+.part-q small{font-weight:700;font-size:13px;opacity:.8}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.facts div{background:rgba(255,255,255,.55);border-radius:var(--r-md);padding:10px 12px}
+.facts b{display:block;font-family:var(--display);font-size:22px;font-weight:800;line-height:1.1}
+.facts span{font-size:12.5px;font-weight:600}
+.movement{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px}
+.movement span{font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.6)}
+.movement i{font-style:normal;opacity:.6;font-weight:700}
+.part-side{display:flex;flex-direction:column;gap:18px}
+.alist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.alist li{display:flex;justify-content:space-between;gap:10px;align-items:center;background:var(--paper);border-radius:12px;padding:10px 12px;font-size:14px}
+.pill.form{background:var(--mint);color:var(--mint-ink)}
+.pill.summ{background:var(--butter);color:var(--butter-ink)}
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.blocks div{background:var(--paper);border-radius:var(--r-md);padding:12px 14px}
+.blocks b{display:block;font-size:14.5px}
+.blocks span{font-size:13px;color:var(--ink-2)}
+.bullets{margin:0;padding-left:18px;color:var(--ink-2);font-size:14.5px}
+.bullets li{margin:3px 0}
+
+/* ---------- Values ---------- */
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.value{border-radius:var(--r-lg);padding:22px;display:flex;flex-direction:column;gap:8px}
+.value h3{font-size:24px;font-weight:800}
+.value small{font-weight:700;font-size:13.5px;opacity:.8}
+.value p{font-size:14.5px;color:var(--ink)}
+
+/* ---------- People ---------- */
+.people{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.person{display:flex;flex-direction:column;gap:14px}
+.p-top{display:flex;gap:16px;align-items:center}
+.av{width:76px;height:76px;border-radius:24px;flex:none;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:26px;position:relative;overflow:hidden}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.person h3{font-size:22px;font-weight:800}
+.person .role{font-size:14px;font-weight:700;color:var(--blue-deep)}
+.person .focus{font-size:13.5px;color:var(--ink-3);margin-top:2px}
+.person p{color:var(--ink-2);font-size:14.5px}
+
+/* ---------- Visit ---------- */
+.map{width:100%;height:100%;min-height:340px;border:0;border-radius:var(--r-lg);display:block;background:var(--paper)}
+.contact-list{display:flex;flex-direction:column;gap:12px}
+.contact-list a,.contact-list div{display:flex;gap:12px;align-items:flex-start;text-decoration:none;color:var(--ink);font-size:15px}
+.contact-list svg{width:20px;height:20px;flex:none;color:var(--blue);margin-top:2px}
+.contact-list small{display:block;color:var(--ink-3);font-size:12.5px;font-weight:600}
+.fees{background:var(--butter)}
+.fees h2{color:var(--ink)}
+.fee-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.fee-row div{background:rgba(255,255,255,.6);border-radius:var(--r-md);padding:14px}
+.fee-row small{display:block;font-weight:700;font-size:12.5px;color:var(--butter-ink)}
+.fee-row b{font-family:var(--display);font-size:26px;font-weight:800;display:block;margin-top:2px}
+.fee-row span{font-size:12.5px;color:var(--ink-2)}
+.starts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.starts span{background:#fff;border-radius:999px;padding:6px 12px;font-weight:700;font-size:14px}
+.aex{background:var(--lilac);display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap}
+
+.foot{font-size:12.5px;color:var(--ink-3);text-align:center;padding:10px 0 4px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.cycle .runner{display:none}}
+@media (max-width:1180px){
+  .grid>.s8,.grid>.s7,.grid>.s6,.grid>.s5,.grid>.s4{grid-column:span 12}
+  .hero{grid-template-columns:1fr}
+  .pillar-panel,.part{grid-template-columns:1fr}
+  .loop{grid-template-columns:repeat(4,1fr)}
+}
+@media (max-width:900px){
+  .app{grid-template-columns:1fr;padding:12px;gap:12px}
+  .side{position:static;height:auto;flex-direction:row;align-items:center;padding:10px;border-radius:var(--r-lg);overflow-x:auto}
+  .brand{padding:0 8px 0 4px}
+  .brand small,.side-foot{display:none}
+  .brand b{white-space:nowrap}
+  .nav{flex-direction:row}
+  .nav button{white-space:nowrap;padding:9px 12px}
+  .nav button span{display:none}
+  .nav button[aria-current="page"] span{display:inline}
+  .who,.values,.people{grid-template-columns:1fr}
+  .jump{grid-template-columns:1fr 1fr}
+  .pillar-tabs{grid-template-columns:repeat(5,minmax(150px,1fr));overflow-x:auto;padding-bottom:4px}
+  .track{overflow-x:auto;padding-bottom:4px}
+}
+@media (max-width:600px){
+  .hero,.prop{padding:22px 18px}
+  .loop{grid-template-columns:1fr 1fr}
+  .facts b{font-size:18px}
+  .fee-row,.blocks{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="side" aria-label="About sections">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3651F5" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5"/><circle cx="12" cy="7.6" r=".6" fill="#3651F5"/></svg>
+      </div>
+      <div><b>About</b><small>PlayLab and the MTF</small></div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot">
+      <p>Come and say hello at the PlayLab in Grafton, Auckland.</p>
+      <button class="btn-white" data-go="visit" style="border:0;cursor:pointer;font:inherit;font-weight:700;font-size:13px">Find us</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ===== Overview ===== -->
+    <section class="view" id="view-overview" aria-labelledby="h-ov">
+      <div class="grid">
+        <div class="hero s12">
+          <div>
+            <span class="fresh"><i></i>The PlayLab has been refreshed</span>
+            <h1 id="h-ov">Futures PlayLab</h1>
+            <p class="hero-intro">The Futures PlayLab supports hands-on experimentation, creative practice and critical engagement with technological futures. Rather than operating as a conventional technology lab, it provides a facilitated environment where learners explore, make, test, break, reflect and adapt.</p>
+            <div class="caps" aria-label="Capabilities the PlayLab develops"><span>Futures capability</span><span>Creative capability</span><span>Digital capability</span><span>Adaptive capability</span></div>
+          </div>
+          <svg class="cycle" id="cycle" viewBox="0 0 420 420" role="img" aria-label="The PlayLab cycle: Explore, Make, Test, Break, Reflect, Adapt, and back to Explore."></svg>
+        </div>
+
+        <div class="card s7">
+          <h2 style="margin-bottom:10px">A growing academyEX initiative</h2>
+          <p class="body-text">The PlayLab is designed to create the conditions for experimentation, creative practice and critical engagement with emerging technologies. It's built around developing futures, creative, digital and adaptive capability, and helps learners connect technological possibilities with real professional, organisational, cultural and community contexts.</p>
+          <p class="body-text">It was first developed alongside the refreshed Master of Technological Futures (MTF), as one of the practical environments where the programme's ideas are explored and put into action.</p>
+        </div>
+        <div class="card s5" style="background:var(--sky)">
+          <h2 style="margin-bottom:10px">You don't need to be technical</h2>
+          <p class="body-text" style="color:var(--ink)">You don't need to code. You need curiosity and the ambition to experiment. Software access alone isn't enough, so the PlayLab pairs tools with facilitation, support and a community to learn with.</p>
+        </div>
+
+        <div class="s12"><div class="jump" id="jump"></div></div>
+      </div>
+    </section>
+
+    <!-- ===== Programme ===== -->
+    <section class="view" id="view-programme" aria-labelledby="h-prog">
+      <div class="view-head"><div class="vh-title"><span class="badge" style="background:var(--blue-soft);color:var(--blue-deep)" data-ico="cap"></span><div><h1 id="h-prog">Master of Technological Futures</h1><p>A professional master's for experienced people ready to lead technological change.</p></div></div>
+        <a class="solid-btn" id="mtfLink" target="_blank" rel="noopener"><span data-ico="ext"></span>Programme page on academyex.com</a></div>
+      <div class="grid">
+        <div class="prop s12">
+          <p class="quote">The MTF develops adaptive leaders who can critically understand, creatively shape and responsibly lead technological change within complex human, cultural, organisational and ecological systems.</p>
+          <p class="tagline">High-end thinking, creatively grounded through adaptive practice. The programme combines futures and systems thinking with emerging technologies and responsible innovation, grounded in contextual inquiry and applied practice.</p>
+        </div>
+
+        <div class="card s12">
+          <h2 style="margin-bottom:6px">Why this programme?</h2>
+          <p class="body-text" style="margin-bottom:16px">Work is shifting as AI and emerging technology change how organisations create value. The MTF is for experienced professionals ready to move past technical awareness into the fluency to lead through that change without losing their footing.</p>
+          <div class="who">
+            <div class="card" style="background:var(--lilac);box-shadow:none"><span class="w-ico" style="background:#fff;color:var(--lilac-ink)" data-ico="compass"></span><b>For current leaders</b><p class="lead-line">Lead with fluency.</p><p>Move from reacting to technology change to being the person who decides what your organisation does with it.</p></div>
+            <div class="card" style="background:var(--mint);box-shadow:none"><span class="w-ico" style="background:#fff;color:var(--mint-ink)" data-ico="rise"></span><b>For emerging leaders</b><p class="lead-line">Step up with credentials.</p><p>Gain the qualification and confidence to be trusted with bigger, more technical decisions.</p></div>
+            <div class="card" style="background:var(--peach);box-shadow:none"><span class="w-ico" style="background:#fff;color:var(--peach-ink)" data-ico="spark"></span><b>For non-technical professionals</b><p class="lead-line">Curiosity, not code.</p><p>You don't need to code. You need curiosity and the ambition to experiment. The programme builds the fluency, not the syntax.</p></div>
+          </div>
+        </div>
+
+        <div class="card s7">
+          <h2 style="margin-bottom:6px">What you become</h2>
+          <p class="body-text" style="margin-bottom:14px">The MTF strengthens your pathway into AI adoption, digital transformation, innovation, strategy, policy and change leadership, in business, government, iwi, Pacific and community contexts. You become:</p>
+          <ul class="become">
+            <li><span data-ico="check"></span>Someone who connects emerging technology to real human needs and strategic goals</li>
+            <li><span data-ico="check"></span>Someone who leads change instead of just responding to it</li>
+            <li><span data-ico="check"></span>Someone who tests and experiments instead of waiting to feel ready</li>
+            <li><span data-ico="check"></span>Part of a community doing the same hard thinking you are</li>
+          </ul>
+        </div>
+        <div class="card s5">
+          <h2 style="margin-bottom:14px">What you'll master</h2>
+          <div class="master">
+            <div><b>Navigate complexity</b><span>Connect emerging technology to real human needs and strategic goals.</span></div>
+            <div><b>Lead with fluency</b><span>Move from being affected by change to deciding what happens next in your organisation.</span></div>
+            <div><b>Build confidence through testing</b><span>Experiment with the tools reshaping your industry instead of waiting until you feel ready.</span></div>
+          </div>
+        </div>
+
+        <div class="card s12">
+          <div class="card-head"><h2>Contextual Adaptation</h2><span class="byoc">Bring Your Own Context</span></div>
+          <p class="body-text">Contextual Adaptation is the thread running through the whole programme. It connects advanced theory and technology to your own professional, organisational, cultural, community, historical and ecological setting. You bring a live context into the programme, and Part 1 deliberately challenges your assumptions before a project direction is fixed.</p>
+          <ol class="loop">
+            <li>Advanced theory and technological insight</li>
+            <li>Critical and creative interpretation</li>
+            <li>Contextual inquiry</li>
+            <li>Design and experimentation</li>
+            <li>Adaptive intervention</li>
+            <li>Evaluation</li>
+            <li>Reflexive learning and renewal</li>
+          </ol>
+          <p class="loop-note">The process loops rather than running in a straight line: interventions change contexts, contexts change interventions, and you revise both your actions and your understanding.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Pillars ===== -->
+    <section class="view" id="view-pillars" aria-labelledby="h-pil">
+      <div class="view-head"><div class="vh-title"><span class="badge" style="background:var(--lilac);color:var(--lilac-ink)" data-ico="columns"></span><div><h1 id="h-pil">Our five pillars</h1><p>The pillars give the programme a lasting structure while technologies and cases change. Choose a pillar to see the question at its heart.</p></div></div></div>
+      <div class="pillar-tabs" role="tablist" aria-label="Pillars" id="pillarTabs"></div>
+      <div class="pillar-panel" role="tabpanel" id="pillarPanel" aria-live="polite"></div>
+      <p class="note spiral-note">The pillars don't map one-to-one onto courses. Each course has a primary anchor and supporting pillars, and all five spiral through the programme. The Part 3 project brings all five together.</p>
+    </section>
+
+    <!-- ===== Journey ===== -->
+    <section class="view" id="view-journey" aria-labelledby="h-jr">
+      <div class="view-head"><div class="vh-title"><span class="badge" style="background:var(--mint);color:var(--mint-ink)" data-ico="route"></span><div><h1 id="h-jr">The learner journey</h1><p>180 credits across three parts. Each part builds on the last, moving from guided exploration to independent, work-based research.</p></div></div>
+        <a class="solid-btn" id="journeyLink" target="_top"><span data-ico="route"></span>Part 1 week by week</a></div>
+      <div class="track" role="tablist" aria-label="Programme parts" id="track"></div>
+      <div class="scale" id="scale" aria-hidden="true"></div>
+      <div class="part" role="tabpanel" id="partPanel" aria-live="polite"></div>
+    </section>
+
+    <!-- ===== Values ===== -->
+    <section class="view" id="view-values" aria-labelledby="h-val">
+      <div class="view-head"><div class="vh-title"><span class="badge" style="background:var(--peach);color:var(--peach-ink)" data-ico="heart"></span><div><h1 id="h-val">Our values</h1><p>The MTF is grounded in Te Ara Kōtihi, academyEX's values-based teaching and learning framework. It puts the learner at the centre, supported by people, structures and processes that together create a pathway to success.</p></div></div></div>
+      <div class="values">
+        <div class="value" style="background:var(--lilac);color:var(--lilac-ink)"><small>Self-determination</small><h3>Rangatiratanga</h3><p>We recognise diverse talents, identities, contexts and ways of learning, and support you to shape relevant inquiry, choose how you express your work and have a real say in technological futures.</p></div>
+        <div class="value" style="background:var(--mint);color:var(--mint-ink)"><small>Care</small><h3>Manaaki</h3><p>We create inclusive, supportive environments where you can experiment, take intellectual and creative risks, receive feedback and build confidence and capability.</p></div>
+        <div class="value" style="background:var(--butter);color:var(--butter-ink)"><small>Reciprocal teaching and learning</small><h3>Ako</h3><p>Learners, advisors, academics, communities and professional contributors all bring different expertise. Knowledge moves through dialogue, collaboration, studio practice and peer learning.</p></div>
+        <div class="value" style="background:var(--sky);color:var(--sky-ink)"><small>Transparency and integrity</small><h3>Pono</h3><p>We engage honestly and responsibly with evidence, technology, research, AI, communities and one another, making decisions, assumptions and impacts visible and open to reflection.</p></div>
+      </div>
+      <div class="card" style="margin-top:18px">
+        <h2 style="margin-bottom:8px">Shaped collectively</h2>
+        <p class="body-text">Technological futures are shaped collectively. The goal isn't only individual advancement, but knowledge, capability and practices that enrich organisations, professions, iwi, hapū, communities and wider Aotearoa. The programme keeps an explicit focus on Māori and Pacific learner success, and brings in concepts such as whanaungatanga, kaitiakitanga, whakapapa, Indigenous data sovereignty and plural futures where relevant.</p>
+      </div>
+    </section>
+
+    <!-- ===== People ===== -->
+    <section class="view" id="view-people" aria-labelledby="h-ppl">
+      <div class="view-head"><div class="vh-title"><span class="badge" style="background:var(--sky);color:var(--sky-ink)" data-ico="people"></span><div><h1 id="h-ppl">Your educators and advisors</h1><p>The Futures PlayLab is supported by the MTF team.</p></div></div></div>
+      <div class="people" id="people"></div>
+    </section>
+
+    <!-- ===== Visit ===== -->
+    <section class="view" id="view-visit" aria-labelledby="h-vis">
+      <div class="view-head"><div class="vh-title"><span class="badge" style="background:var(--butter);color:var(--butter-ink)" data-ico="pin"></span><div><h1 id="h-vis">Visit and contact</h1><p>Come and say hello, or get in touch online.</p></div></div></div>
+      <div class="grid">
+        <div class="card s5">
+          <h2 style="margin-bottom:16px">Where are we?</h2>
+          <div class="contact-list" id="contactList"></div>
+        </div>
+        <div class="card s7" style="padding:8px"><iframe class="map" id="map" title="Map showing the Futures PlayLab, 99 Khyber Pass Road, Grafton, Auckland" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+        <div class="card fees s7">
+          <h2>Fees and start dates</h2>
+          <div class="fee-row" id="feeRow"></div>
+          <b style="font-size:14px">Next start dates</b>
+          <div class="starts" id="starts"></div>
+          <p class="note" style="color:var(--ink-2)" id="feeNote"></p>
+        </div>
+        <div class="card aex s5">
+          <div><h2>About academyEX</h2><p class="body-text" style="margin-top:6px">The Futures PlayLab is an academyEX initiative. Learn more about academyEX, its programmes and wider community.</p></div>
+          <a class="solid-btn" id="aexLink" target="_blank" rel="noopener"><span data-ico="ext"></span>academyex.com</a>
+        </div>
+      </div>
+    </section>
+
+    <p class="foot">Futures PlayLab · Master of Technological Futures · academyEX</p>
+  </main>
+</div>
+
+<script>
+/* ============================================================
+   SETTINGS: edit this section.
+   ============================================================ */
+const SETTINGS = {
+  mtfPage: "https://academyex.com/courses/master/master-of-technological-futures",
+  academyEX: "https://academyex.com",
+  myJourney: "#",          // link to the My Journey page on your Google Site
+  slack: "https://slack.com/signin",
+  email: "FuturesPlayLab@academyEX.com",
+  address: ["99 Khyber Pass Road", "Grafton", "Tāmaki Makaurau / Auckland"],
+  fees: {
+    intake: "2027 intakes",
+    domestic: "$18,550",
+    international: "$46,995",
+    note: "Fees are \"up to\" amounts in NZD, including GST. Check the programme page on academyex.com for the latest fees, funding options and session times."
+  },
+  startDates: ["25 Feb 2027"],
+  // Photos are optional: upload to about/people/ and add e.g. photo:"people/claudio.jpg"
+  people: [
+    {name:"Dr Claudio Aguayo", role:"MTF Programme Lead and Futures PlayLab Lead", focus:"Academic, curriculum and strategic direction", tone:"lilac", photo:"",
+     bio:"Claudio leads the Master of Technological Futures at academyEX. He has spent two decades working at the edge of AI, XR and digital innovation, from directing AUT's AppLab to founding MappLab, his own reality-capture and digital-twin venture. He holds a PhD in Science and Technology Education from the University of Waikato and has published 26 peer-reviewed papers cited over 1,200 times. His focus: technology that earns its place because it means something to the people learning with it."},
+    {name:"Dylan Verdonkschot", role:"Futures PlayLab Facilitator", focus:"Learner support, experimentation, creative technologies, resources, prototyping and PlayLab activities", tone:"mint", photo:"",
+     bio:"Dylan brings together creative technology, research and hands-on experimentation to help learners turn ideas into something real. With a background in psychology, filmmaking and Creative Technologies, his work explores how people interact with technology. At academyEX, he supports learners in experimenting with new technologies, developing prototypes and communicating complex ideas in accessible ways. His approach is simple: you don't need to be a technical expert to start creating. Curiosity, experimentation and a willingness to try are often the best places to begin."}
+  ]
+};
+
+/* ============================================================
+   PROGRAMME CONTENT (from the MTF Programme Refresh Plan)
+   ============================================================ */
+const COURSES = {
+  "MTFC8001":"Emerging and Disruptive Technologies",
+  "MTFC8002":"Disrupted Systems, Industries, Practices and Communities",
+  "MTFC8003":"Technology and Ethics",
+  "MTFC8004":"Technology and Practice Context",
+  "MTFC8205":"Applied Research Methods, Stakeholder Engagement and Ethics",
+  "MTFC8206":"Practice-Based Research Proposal",
+  "MTFC9890":"Technological Futures Project"
+};
+const PILLARS = [
+  {n:1, name:"Futures, Systems and Complexity", tone:"sky",
+   q:"What changes are emerging, how are they connected, and what futures might they produce?",
+   scope:["Foresight","Horizon scanning","Systems and complexity","Scenarios","Speculative futures","Cybernetics","Autopoiesis","Resilience","Technological geopolitics"],
+   anchors:["MTFC8002"]},
+  {n:2, name:"People, Culture and Responsible Technology", tone:"lilac",
+   q:"Who shapes technological change, who benefits, who carries risk, and what experiences and meanings are produced?",
+   scope:["Third-wave HCI","4E+ and entangled cognition","Ethics","Kaupapa Māori","Indigenous and plural futures","Inclusion","Algorithmic justice","Data sovereignty"],
+   anchors:["MTFC8003"]},
+  {n:3, name:"Emerging Technologies and Infrastructures", tone:"butter",
+   q:"What can emerging technologies enable, and what capabilities, creative affordances and dependencies do they create?",
+   scope:["AI","Automation","Robotics","Data","Cybersecurity","XR","Spatial computing","IoT","Digital twins","Biotechnology","Quantum and sovereign infrastructure"],
+   anchors:["MTFC8001"]},
+  {n:4, name:"Ecology, Place and Regenerative Futures", tone:"mint",
+   q:"How can technological development respond to ecological limits, place-based realities and regeneration?",
+   scope:["Climate adaptation","Circular systems","Geospatial intelligence","Remote sensing","Environmental monitoring","Biomimicry","Nature-based solutions","More-than-human relations"],
+   anchors:[]},
+  {n:5, name:"Adaptive Innovation, Leadership and Transformation", tone:"peach",
+   q:"How do we move from understanding technological change to shaping and implementing it responsibly?",
+   scope:["Contextual inquiry","Creativity","Systemic design","Co-design","Practice-based and Design-Based Research","Prototyping","Governance","Implementation","Evaluation","Reflective leadership"],
+   anchors:["MTFC8004","MTFC8205","MTFC8206"]}
+];
+const PARTS = [
+  {n:1, name:"Explore and Reframe", tone:"sky", credits:60, level:8, weeks:20,
+   q:"What is changing, what might it mean, and how should I reframe my context?",
+   purpose:"Weekly sessions led by people already leading in their fields, teaching from the work they're doing right now. By the end of Part 1, learners have developed broad technological futures literacy, systems and foresight capability, ethical-cultural-ecological awareness, creative digital confidence, and a well-grounded emerging project idea.",
+   movement:["Encounter","Explore","Connect","Anticipate","Interrogate","Contextualise","Creatively reframe"],
+   courses:["MTFC8001","MTFC8002","MTFC8003","MTFC8004"],
+   blocks:[["Block 1: Exploring Technological Futures","Weeks 1–10. What is changing, how is it connected, and what might it mean in different contexts?"],["Block 2: Shaping Responsible Futures in Context","Weeks 11–20. What future is desirable, for whom, and how might it be responsibly investigated in context?"]],
+   delivery:"Two onsite days in Week 1, weekly sessions from Weeks 2 to 19 with full onsite days in Weeks 6 and 15, and project idea presentations and feedback in Week 20.",
+   assessments:[["Emerging Technology Explainer","Formative"],["Disruption Report","Summative, 30 credits"],["Ethical Case Study and Reflection","Formative"],["Emerging Project Idea","Summative, 30 credits"]]},
+  {n:2, name:"Investigate and Design", tone:"lilac", credits:30, level:8, weeks:12,
+   q:"What must I understand, and how will I investigate and design responsibly?",
+   purpose:"Part 2 turns your emerging project idea into a rigorous, ethical, culturally responsive and professionally feasible practice-based research proposal. Creative, systemic and design-led practice continues, becoming more focused: visualisation, mapping, prototyping, co-design and digital media help you investigate context, test assumptions and communicate with stakeholders.",
+   movement:["Emerging idea","Contextual and evidence-based inquiry","Methodological design","Stakeholder and ethical refinement","Approved research proposal"],
+   courses:["MTFC8205","MTFC8206"],
+   groundedIn:["Contemporary scholarship and professional evidence","Appropriate applied research methods","Stakeholder and community engagement","Kaupapa Māori and Te Tiriti responsibilities","Ethical practice","Contextual and organisational realities","Clear project scope, methods and evaluation planning"],
+   assessments:[["Draft Project Proposal","Formative"],["Practice-Based Research Proposal","Summative, 30 credits"]]},
+  {n:3, name:"Enact and Transform", tone:"peach", credits:90, level:9, weeks:40,
+   q:"What changed through the project, and what original contribution does it make?",
+   purpose:"You plan, carry out, complete and evaluate a substantial work-based research project that makes an original contribution to knowledge and delivers significant benefit to a profession, organisation, industry or community. Through implementation and reflective practice, you extend your knowledge, professional capability and capacity to contribute in complex, changing work environments.",
+   movement:["Implement","Observe","Evaluate","Adapt","Synthesise","Communicate"],
+   courses:["MTFC9890"],
+   outputs:["A prototype or technological artefact","A strategy, service or workflow","A governance, policy or capability framework","An organisational or community intervention","A digital, immersive or interactive experience","An ecological or spatial system","A new method or professional practice","A substantial evidence-based recommendation","A reasoned decision not to deploy a proposed technology"],
+   assessments:[["Project Update","Formative"],["Work-Based Research Project","Summative, 90 credits"]]}
+];
+const CYCLE = ["Explore","Make","Test","Break","Reflect","Adapt"];
+
+/* ============================================================
+   APP
+   ============================================================ */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ICONS = {
+  home:'<path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/>',
+  cap:'<path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6"/>',
+  columns:'<path d="M3 21h18M4 9h16M12 3 4 7h16zM6 9v10M10 9v10M14 9v10M18 9v10"/>',
+  route:'<circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.5"/>',
+  heart:'<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.5-7 10-7 10Z"/>',
+  people:'<circle cx="9" cy="8" r="3.2"/><path d="M3 19c.8-3.3 3.2-5 6-5s5.2 1.7 6 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14c2.6 0 4.3 1.5 5 4"/>',
+  pin:'<path d="M12 21s-6-6.2-6-11a6 6 0 0 1 12 0c0 4.8-6 11-6 11Z"/><circle cx="12" cy="10" r="2.2"/>',
+  ext:'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+  check:'<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+  compass:'<circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/>',
+  rise:'<path d="M4 18 10 12l4 4 6-8"/><path d="M15 8h5v5"/>',
+  spark:'<path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/>',
+  mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>',
+  chat:'<path d="M4 5h16v11H9l-5 4z"/><path d="M8 10h8M8 13h5"/>'
+};
+const ico = (n, sw=1.9) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||""}</svg>`;
+const VIEWS = [
+  {id:"overview", label:"Futures PlayLab", ico:"home"},
+  {id:"programme", label:"The MTF programme", ico:"cap", tone:"sky", desc:"What the Master of Technological Futures is, and who it's for"},
+  {id:"pillars", label:"Five pillars", ico:"columns", tone:"lilac", desc:"The lasting questions at the heart of the programme"},
+  {id:"journey", label:"Learner journey", ico:"route", tone:"mint", desc:"Three parts, from exploring to an original project"},
+  {id:"values", label:"Our values", ico:"heart", tone:"peach", desc:"Te Ara Kōtihi and the Aotearoa grounding of the MTF"},
+  {id:"people", label:"People", ico:"people", tone:"butter", desc:"Meet the educators and advisors behind the PlayLab"},
+  {id:"visit", label:"Visit and contact", ico:"pin", tone:"sky", desc:"Find us in Grafton, fees and start dates"}
+];
+const state = {pillar:0, part:0};
+
+function toTop(){ window.scrollTo(0, 0); try{ document.documentElement.scrollIntoView({block:"start", behavior:"instant"}); }catch(e){} }
+function go(id, opts = {}){
+  if(!VIEWS.some(v => v.id === id)) id = "overview";
+  document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === "view-" + id));
+  document.querySelectorAll("#nav button").forEach(b => b.dataset.view === id ? b.setAttribute("aria-current","page") : b.removeAttribute("aria-current"));
+  if(history.replaceState) history.replaceState(null, "", "#" + id);
+  if(!opts.initial) toTop();
+  if(id === "visit" && !$("#map").src) $("#map").src = "https://www.google.com/maps?q=" + encodeURIComponent(SETTINGS.address.join(", ") + ", New Zealand") + "&output=embed";
+}
+document.addEventListener("click", e => { const g = e.target.closest("[data-go]"); if(g){ e.preventDefault(); go(g.dataset.go); } });
+
+/* PlayLab cycle */
+function renderCycle(){
+  const C = 210, R = 150, tones = ["#CFE6FF","#FFEDA8","#CBEFD8","#FFD5C2","#DDD7FF","#BFD0FF"];
+  const pt = (i, r = R) => { const a = -Math.PI/2 + i * 2*Math.PI/6; return [C + r*Math.cos(a), C + r*Math.sin(a)]; };
+  let arcs = "";
+  for(let i = 0; i < 6; i++){
+    const a0 = -Math.PI/2 + i*Math.PI/3 + .32, a1 = a0 + Math.PI/3 - .64;
+    const [x0,y0] = [C + R*Math.cos(a0), C + R*Math.sin(a0)], [x1,y1] = [C + R*Math.cos(a1), C + R*Math.sin(a1)];
+    arcs += `<path class="arc" d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${R} ${R} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}" stroke="rgba(255,255,255,.55)" marker-end="url(#ah)"/>`;
+  }
+  const nodes = CYCLE.map((s, i) => { const [x,y] = pt(i); const w = s.length * 10 + 34;
+    return `<g class="node" data-step="${i}"><rect x="${(x - w/2).toFixed(1)}" y="${(y - 22).toFixed(1)}" width="${w}" height="44" rx="22" fill="${tones[i]}" stroke="#172038" stroke-width="4"/>
+      <text x="${x.toFixed(1)}" y="${(y + 6).toFixed(1)}" text-anchor="middle">${s}</text></g>`; }).join("");
+  $("#cycle").innerHTML = `<defs><marker id="ah" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" fill="rgba(255,255,255,.7)"/></marker></defs>
+    <circle class="ring" cx="${C}" cy="${C}" r="${R}"/>${arcs}
+    <circle class="runner" r="6" cx="${C}" cy="${C - R}"><animateMotion dur="12s" repeatCount="indefinite" path="M${C} ${C-R} A${R} ${R} 0 1 1 ${C-.01} ${C-R}"/></circle>
+    ${nodes}
+    <text class="centre-t" x="${C}" y="${C - 4}" text-anchor="middle">The PlayLab</text><text class="centre-t" x="${C}" y="${C + 22}" text-anchor="middle">cycle</text>
+    <text class="centre-s" x="${C}" y="${C + 48}" text-anchor="middle">and round again</text>`;
+  // Highlight the stage the runner is passing
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+    const start = performance.now();
+    const tick = t => { const i = Math.floor((((t - start) / 12000) % 1) * 6 + .5) % 6;
+      document.querySelectorAll(".cycle .node").forEach(n => n.classList.toggle("on", +n.dataset.step === i)); requestAnimationFrame(tick); };
+    requestAnimationFrame(tick);
+  }
+}
+
+/* Pillars */
+function renderPillars(){
+  $("#pillarTabs").innerHTML = PILLARS.map((p, i) => `<button role="tab" id="ptab-${i}" aria-selected="${state.pillar === i}" aria-controls="pillarPanel" tabindex="${state.pillar === i ? 0 : -1}" data-pillar="${i}" style="background:var(--${p.tone});color:var(--${p.tone}-ink)"><span class="p-n">${p.n}</span><span class="p-t">${esc(p.name)}</span></button>`).join("");
+  const p = PILLARS[state.pillar];
+  $("#pillarPanel").setAttribute("aria-labelledby", "ptab-" + state.pillar);
+  $("#pillarPanel").innerHTML = `<div class="pillar-q" style="background:var(--${p.tone});color:var(--${p.tone}-ink)"><small>Pillar ${p.n}: ${esc(p.name)}</small><p class="quote" style="color:var(--ink)">${esc(p.q)}</p></div>
+    <div class="card pillar-meta"><div><h4>What it covers</h4><div class="tags">${p.scope.map(s => `<span class="tag">${esc(s)}</span>`).join("")}</div></div>
+      <div><h4>${p.anchors.length ? "Primary anchor for" : "Where it sits"}</h4>${p.anchors.length ? p.anchors.map(c => `<div class="course-chip"><code>${c}</code>${esc(COURSES[c])}</div>`).join("") : `<p class="note" style="color:var(--ink-2)">This pillar isn't the primary anchor of a single course. It runs through the programme as a supporting pillar and is brought together with the others in the Part 3 project.</p>`}</div></div>`;
+}
+
+/* Journey */
+function renderJourney(){
+  const total = PARTS.reduce((a, p) => a + p.weeks, 0);
+  $("#track").innerHTML = PARTS.map((p, i) => `<button role="tab" id="jtab-${i}" aria-selected="${state.part === i}" aria-controls="partPanel" tabindex="${state.part === i ? 0 : -1}" data-part="${i}" style="flex:${p.weeks};background:var(--${p.tone});color:var(--${p.tone}-ink)"><small>Part ${p.n}</small><b>${esc(p.name)}</b><span>${p.weeks} weeks · ${p.credits} credits</span></button>`).join("");
+  $("#scale").innerHTML = `<span>Start</span><span>About ${total} weeks of study in total</span><span>Finish</span>`;
+  const p = PARTS[state.part];
+  const extra = p.blocks ? `<div class="card"><h3 style="margin-bottom:4px">Two learning blocks</h3><p class="note" style="color:var(--ink-2)">${esc(p.delivery)}</p><div class="blocks">${p.blocks.map(([b, t]) => `<div><b>${esc(b)}</b><span>${esc(t)}</span></div>`).join("")}</div></div>`
+    : p.groundedIn ? `<div class="card"><h3 style="margin-bottom:8px">Your inquiry will be grounded in</h3><ul class="bullets">${p.groundedIn.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>`
+    : `<div class="card"><h3 style="margin-bottom:8px">Projects might result in</h3><ul class="bullets">${p.outputs.map(x => `<li>${esc(x)}</li>`).join("")}</ul><p class="note" style="margin-top:10px;color:var(--ink-2)">Whatever its form, every project shows the same Level 9 rigour: systematic inquiry, evidence, ethical and cultural responsibility, evaluation, reflection and a clear original contribution.</p></div>`;
+  $("#partPanel").setAttribute("aria-labelledby", "jtab-" + state.part);
+  $("#partPanel").innerHTML = `<div style="display:flex;flex-direction:column;gap:18px">
+      <div class="part-q" style="background:var(--${p.tone});color:var(--${p.tone}-ink)"><small>Part ${p.n}: ${esc(p.name)}</small><p class="quote" style="color:var(--ink)">${esc(p.q)}</p>
+        <div class="facts"><div><b>${p.credits}</b><span>credits</span></div><div><b>Level ${p.level}</b><span>NZQF</span></div><div><b>${p.weeks}</b><span>weeks</span></div></div>
+        <div class="movement" aria-label="How learning moves through this part">${p.movement.map(m => `<span>${esc(m)}</span>`).join('<i aria-hidden="true">→</i>')}</div></div>
+      <div class="card"><p class="body-text">${esc(p.purpose)}</p></div>
+      ${extra}
+    </div>
+    <div class="part-side">
+      <div class="card"><h3 style="margin-bottom:10px">Courses</h3>${p.courses.map(c => `<div class="course-chip"><code>${c}</code>${esc(COURSES[c])}</div>`).join("")}</div>
+      <div class="card"><h3 style="margin-bottom:10px">Assessments</h3><ul class="alist">${p.assessments.map(([a, s]) => `<li><span>${esc(a)}</span><span class="pill ${/Summative/.test(s) ? "summ" : "form"}">${esc(s)}</span></li>`).join("")}</ul></div>
+    </div>`;
+}
+
+/* People, visit */
+const initials = n => n.replace(/^Dr\.?\s+/, "").split(/\s+/).map(w => w[0]).slice(0, 2).join("");
+function renderPeople(){
+  $("#people").innerHTML = SETTINGS.people.map(p => `<article class="card person">
+    <div class="p-top"><span class="av" style="background:var(--${p.tone});color:var(--${p.tone}-ink)"><span aria-hidden="true">${esc(initials(p.name))}</span>${p.photo ? `<img src="${esc(p.photo)}" alt="${esc(p.name)}" onerror="this.remove()">` : ""}</span>
+      <div><h3>${esc(p.name)}</h3><div class="role">${esc(p.role)}</div><div class="focus">${esc(p.focus)}</div></div></div>
+    <p>${esc(p.bio)}</p></article>`).join("");
+}
+function renderVisit(){
+  const S = SETTINGS;
+  $("#contactList").innerHTML = `<div>${ico("pin")}<span><small>Visit us</small>${S.address.map(esc).join("<br>")}<br>New Zealand</span></div>
+    <a href="mailto:${esc(S.email)}" target="_top">${ico("mail")}<span><small>Email</small>${esc(S.email)}</span></a>
+    <a href="${esc(S.slack)}" target="_blank" rel="noopener">${ico("chat")}<span><small>Message us</small>PlayLab Slack</span></a>`;
+  $("#feeRow").innerHTML = `<div><small>Domestic students</small><b>Up to ${esc(S.fees.domestic)}</b><span>${esc(S.fees.intake)}, NZD incl. GST</span></div><div><small>International students</small><b>Up to ${esc(S.fees.international)}</b><span>${esc(S.fees.intake)}, NZD incl. GST</span></div>`;
+  $("#starts").innerHTML = S.startDates.map(d => `<span>${esc(d)}</span>`).join("");
+  $("#feeNote").textContent = S.fees.note;
+}
+
+function tabKeys(container, attr, set){
+  container.addEventListener("keydown", e => {
+    if(!["ArrowLeft","ArrowRight","Home","End"].includes(e.key)) return;
+    const tabs = [...container.querySelectorAll(`[${attr}]`)]; const i = tabs.indexOf(document.activeElement); if(i < 0) return;
+    e.preventDefault();
+    const n = e.key === "Home" ? 0 : e.key === "End" ? tabs.length - 1 : (i + (e.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+    set(n); container.querySelectorAll(`[${attr}]`)[n].focus();
+  });
+}
+function init(){
+  $("#nav").innerHTML = VIEWS.map(v => `<button data-view="${v.id}">${ico(v.ico)}<span>${esc(v.label)}</span></button>`).join("");
+  $("#nav").addEventListener("click", e => { const b = e.target.closest("button"); if(b) go(b.dataset.view); });
+  $("#jump").innerHTML = VIEWS.slice(1).map(v => `<button data-go="${v.id}" style="background:var(--${v.tone});color:var(--${v.tone}-ink)"><span class="j-ico">${ico(v.ico)}</span><b>${esc(v.label)}</b><span>${esc(v.desc)}</span></button>`).join("");
+  document.querySelectorAll("[data-ico]").forEach(el => { if(el.classList.contains("badge") || el.classList.contains("w-ico")) el.innerHTML = ico(el.dataset.ico); else el.outerHTML = ico(el.dataset.ico); });
+  $("#mtfLink").href = SETTINGS.mtfPage; $("#aexLink").href = SETTINGS.academyEX;
+  const jl = $("#journeyLink"); if(SETTINGS.myJourney && SETTINGS.myJourney !== "#") jl.href = SETTINGS.myJourney; else jl.hidden = true;
+  renderCycle(); renderPillars(); renderJourney(); renderPeople(); renderVisit();
+  $("#pillarTabs").addEventListener("click", e => { const b = e.target.closest("[data-pillar]"); if(b){ state.pillar = +b.dataset.pillar; renderPillars(); $(`#ptab-${state.pillar}`).focus(); } });
+  $("#track").addEventListener("click", e => { const b = e.target.closest("[data-part]"); if(b){ state.part = +b.dataset.part; renderJourney(); $(`#jtab-${state.part}`).focus(); } });
+  tabKeys($("#pillarTabs"), "data-pillar", n => { state.pillar = n; renderPillars(); });
+  tabKeys($("#track"), "data-part", n => { state.part = n; renderJourney(); });
+  go((location.hash || "#overview").slice(1), {initial:true});
+}
+init();
+</script>
+</body>
+</html>
