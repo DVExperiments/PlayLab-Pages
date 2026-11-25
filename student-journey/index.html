@@ -268,7 +268,9 @@ p{margin:0}
 .cat li a{color:var(--blue-deep);font-weight:600;text-decoration:none}
 .cat li a:hover{text-decoration:underline}
 .cat li span{color:var(--ink-3)}
-.cat li .todo{color:var(--peach-ink);font-weight:600}
+.cat li .soon{color:var(--ink-3);opacity:.75;cursor:not-allowed}
+.cat li .soon em{font-style:normal;font-size:11.5px;font-weight:700;background:var(--paper);border-radius:999px;padding:1px 8px;margin-left:4px;white-space:nowrap}
+.side-foot a.is-off{opacity:.55;cursor:not-allowed}
 mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
 
 /* ---------- How do I view ---------- */
@@ -399,8 +401,9 @@ div.wcard:hover{border-color:transparent}
   .brand small,.side-foot{display:none}
   .nav{flex-direction:row}
   .nav button{white-space:nowrap;padding:9px 12px}
-  .nav button span{display:none}
-  .nav button[aria-current="page"] span{display:inline}
+  .nav button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}   /* hidden visually, still read by screen readers */
+  .nav button,.nav a{position:relative}
+  .nav button[aria-current="page"] span{position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none}
   .gantt{grid-template-columns:1fr}
   .g-axis{grid-column:1}
 }
@@ -1617,7 +1620,8 @@ function renderFind(q=""){
     return `<div class="cat"><h3><i style="background:var(--${c.tone});color:var(--${c.tone}-ink)">${ico(c.ico)}</i>${esc(c.cat)}</h3><ul>
       ${items.map(([l,w,u]) => {
         const a = linkAttrs(u);
-        return `<li><b>${hl(l,q)}</b>${a && u !== "#" ? `<a ${a}>${hl(w,q)}</a>` : `<span class="${u===null?"todo":""}">${hl(w,q)}</span>`}</li>`;
+        // Links still to be added ("#" or null) show greyed out
+        return `<li><b>${hl(l,q)}</b>${a && u !== "#" ? `<a ${a}>${hl(w,q)}</a>` : `<span class="soon" title="Link coming soon">${hl(w,q)} <em>Coming soon</em></span>`}</li>`;
       }).join("")}</ul></div>`;
   }).join("");
   $("#cats").innerHTML = html || `<div class="cat"><h3>No matches for "${esc(q)}"</h3><p style="color:var(--ink-2);font-size:14px">Try a shorter word, or ask in the Futures PlayLab Slack channel.</p></div>`;
@@ -1716,7 +1720,9 @@ function renderAll(){
 function init(){
   renderNav(); renderPicker(); renderFind(); renderHow(); renderAll();
   INDEX = buildIndex();
-  if(L.slack && L.slack !== "#") $("#slackLink").href = L.slack; else $("#slackLink").addEventListener("click", e => { if(L.slack==="#"){ e.preventDefault(); go("who"); } });
+  const sl = $("#slackLink");
+  if(L.slack && L.slack !== "#") sl.href = L.slack;
+  else { sl.removeAttribute("href"); sl.classList.add("is-off"); sl.setAttribute("aria-disabled","true"); sl.title = "Link coming soon"; }
 
   $("#cohortPrompt").addEventListener("click", e => {
     const b = e.target.closest("[data-cohort]"); if(b) setCohort(b.dataset.cohort);

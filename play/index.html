@@ -228,8 +228,9 @@ a.is-off{opacity:.5;cursor:not-allowed}
   .brand b{white-space:nowrap}
   .nav{flex-direction:row}
   .nav button{white-space:nowrap;padding:9px 12px}
-  .nav > button span{display:none}
-  .nav > button[aria-current="page"] span,.nav > button.on span{display:inline}
+  .nav > button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}   /* hidden visually, still read by screen readers */
+  .nav button,.nav a{position:relative}
+  .nav > button[aria-current="page"] span,.nav > button.on span{position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none}
   .feature{grid-template-columns:1fr}
   .feature .f-stage{min-height:0;height:300px}
   .tips{grid-template-columns:1fr}

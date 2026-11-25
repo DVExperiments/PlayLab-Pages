@@ -252,8 +252,9 @@ p{margin:0}
   .brand b{white-space:nowrap}
   .nav{flex-direction:row}
   .nav button{white-space:nowrap;padding:9px 12px}
-  .nav button span{display:none}
-  .nav button[aria-current="page"] span{display:inline}
+  .nav button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}   /* hidden visually, still read by screen readers */
+  .nav button,.nav a{position:relative}
+  .nav button[aria-current="page"] span{position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none}
   .who,.values,.people,.tohu-card{grid-template-columns:1fr}
   .jump{grid-template-columns:1fr 1fr}
   .pillar-tabs{grid-template-columns:repeat(5,minmax(150px,1fr));overflow-x:auto;padding-bottom:4px}
@@ -460,7 +461,7 @@ p{margin:0}
 const SETTINGS = {
   mtfPage: "https://academyex.com/courses/master/master-of-technological-futures",
   academyEX: "https://academyex.com",
-  myJourney: "#",          // link to the My Journey page on your Google Site
+  myJourney: "https://sites.google.com/academyex.com/futures-playlab/my-journey",   // the My Journey page on the Google Site
   slack: "https://slack.com/signin",
   email: "FuturesPlayLab@academyEX.com",
   address: ["99 Khyber Pass Road", "Grafton", "Tāmaki Makaurau / Auckland"],
@@ -470,7 +471,7 @@ const SETTINGS = {
     international: "$46,995",
     note: "Fees are \"up to\" amounts in NZD, including GST. Check the programme page on academyex.com for the latest fees, funding options and session times."
   },
-  startDates: ["25 Feb 2027"],
+  startDates: ["25 Feb 2027", "17 Jun 2027", "21 Oct 2027"],
   // PHOTOS: upload a photo to the about/people folder on GitHub with the
   // name given in photo below, e.g. claudio.jpg. It shows automatically.
   // .jpg, .jpeg, .png and .webp all work. Until a photo is there, initials show.

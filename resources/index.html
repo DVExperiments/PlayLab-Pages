@@ -272,8 +272,9 @@ mark{background:var(--butter);color:inherit;border-radius:3px;padding:0 1px}
   .brand b{white-space:nowrap}
   .nav{flex-direction:row}
   .nav button{white-space:nowrap;padding:9px 12px}
-  .nav button span{display:none}
-  .nav button[aria-current="page"] span{display:inline}
+  .nav button span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}   /* hidden visually, still read by screen readers */
+  .nav button,.nav a{position:relative}
+  .nav button[aria-current="page"] span{position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none}
   .policies,.aim,.detail{grid-template-columns:1fr}
 }
 @media (max-width:600px){

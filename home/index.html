@@ -163,8 +163,9 @@ a.ev:hover .t{color:var(--blue-deep);text-decoration:underline}
   .brand b{white-space:nowrap}
   .nav{flex-direction:row}
   .nav a{white-space:nowrap;padding:9px 12px}
-  .nav a span{display:none}
-  .nav a[aria-current="page"] span{display:inline}
+  .nav a span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap}   /* hidden visually, still read by screen readers */
+  .nav button,.nav a{position:relative}
+  .nav a[aria-current="page"] span{position:static;width:auto;height:auto;overflow:visible;clip:auto;clip-path:none}
   .pillars{grid-template-columns:repeat(2,minmax(0,1fr))}
   .visit{grid-template-columns:1fr}
 }
