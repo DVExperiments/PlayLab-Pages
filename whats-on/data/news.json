@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T23:35:00.119Z",
+ "updated": "2026-11-28T08:06:18.364Z",
  "sources": [
   "The Verge",
   "WIRED",
@@ -8,11 +8,155 @@
  ],
  "stories": [
   {
-   "title": "Roborock, Dreame, and Eufy are cutting robovac prices in half for Black Friday",
+   "title": "Walmart Promo Codes: 20% Off for November 2026",
+   "link": "https://www.wired.com/story/top-walmart-promo-codes/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Score $10 off with our Walmart promo codes and coupon, and shop flash deals up to 65% off today.",
+   "image": "https://media.wired.com/photos/66ea077015aa1d8092e99428/master/pass/WIRED-Coupons-6.jpg",
+   "source": "WIRED"
+  },
+  {
+   "title": "Govee Discount Codes and Deals: 30% Off",
+   "link": "https://www.wired.com/story/govee-discount-code/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "New to Govee? Get a $5 coupon on your first purchase just for signing up.",
+   "image": "https://media.wired.com/photos/66ea076ee8502211cd1d9a42/master/pass/WIRED-Coupons-13.jpg",
+   "source": "WIRED"
+  },
+  {
+   "title": "Motley Fool Promo Code: $200 Off on Stock Advisor November 2026",
+   "link": "https://www.wired.com/story/the-motley-fool-promo-code/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Scale your portfolio for less with these verified The Motley Fool membership discounts, stock advisor promo codes, and Epic Bundle deals.",
+   "image": "https://media.wired.com/photos/67b63b9b7d355db73b38e0c2/master/pass/WIRED-Coupons-R2_11.png",
+   "source": "WIRED"
+  },
+  {
+   "title": "Corsair Discount Code: Up to 50% Off for November 2026",
+   "link": "https://www.wired.com/story/corsair-coupon/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Upgrade your gaming setup or PC build for less with these verified Corsair coupon codes, student discounts, and refurbished deals.",
+   "image": "https://media.wired.com/photos/67b63b98fb14553f0ebd9ffd/master/pass/WIRED-Coupons-R2_15.png",
+   "source": "WIRED"
+  },
+  {
+   "title": "Zoro Coupon Codes: 20% Off November 2026",
+   "link": "https://www.wired.com/story/zoro-promo-code/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Find the best Zoro coupon codes, deals, and free shipping offers to save big on industrial equipment, tools, and supplies in November 2026.",
+   "image": "https://media.wired.com/photos/66ea07715f7a3326e9fe7ca3/master/pass/WIRED-Coupons-5.jpg",
+   "source": "WIRED"
+  },
+  {
+   "title": "Udemy Coupon Codes: 20% Off November 2026",
+   "link": "https://www.wired.com/story/udemy-promo-code/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Learn new skills for less. Discover how to apply a promo code for Udemy, find verified online discounts, and save on professional development.",
+   "image": "https://media.wired.com/photos/67b63b967f8fc45af4896200/master/pass/WIRED-Coupons-R2_7.png",
+   "source": "WIRED"
+  },
+  {
+   "title": "Ray-Ban Promo Codes: Save 50% in November 2026",
+   "link": "https://www.wired.com/story/ray-ban-promo-code/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Upgrade your frames with major savings on classic shapes, custom designs, and prescription lenses using these verified Ray-Ban discounts.",
+   "image": "https://media.wired.com/photos/67b63b9a4816461befb48207/master/pass/WIRED-Coupons-R2_12.png",
+   "source": "WIRED"
+  },
+  {
+   "title": "Altra Running Promo Codes: 10% Off November 2026",
+   "link": "https://www.wired.com/story/altra-promo-code/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Score big savings on Altra Running shoes with up to 50% off sale styles, 20% off select models, 10% off your first order when you sign up, plus free standard delivery on every purchase.",
+   "image": "https://media.wired.com/photos/67b63b9a4816461befb48207/master/pass/WIRED-Coupons-R2_12.png",
+   "source": "WIRED"
+  },
+  {
+   "title": "Shark Promo Codes for November 2026",
+   "link": "https://www.wired.com/story/shark-promo-code/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Shark makes some seriously powerful vacuums, from handheld vacs to steam mops. Don’t miss $100 off, 10% off, and more limited-time coupons from WIRED.",
+   "image": "https://media.wired.com/photos/67b63b972c751893c256c1e6/master/pass/WIRED-Coupons-R2_16.png",
+   "source": "WIRED"
+  },
+  {
+   "title": "KitchenAid Promo Codes: Save Up to 20%",
+   "link": "https://www.wired.com/story/exclusive-kitchenaid-promo-code/",
+   "date": "2026-11-28T06:00:00.000Z",
+   "summary": "Save on every purchase with top KitchenAid coupons from WIRED, including up to 20% off countertop appliances.",
+   "image": "https://media.wired.com/photos/66ea076ea6cbbaa16c12af30/master/pass/WIRED-Coupons-12.jpg",
+   "source": "WIRED"
+  },
+  {
+   "title": "The M5 MacBook Air just got its biggest discount since Apple raised the price",
+   "link": "https://www.theverge.com/gadgets/1044771/m5-macbook-air-black-friday-2026-deal-sale",
+   "date": "2026-11-28T03:30:00.000Z",
+   "summary": "If you’ve been holding off on buying a new MacBook Air since Apple raised prices by $200 in June, you’re in luck. The 13-inch M5 MacBook Air is on sale at Amazon and Best Buy with 16GB of RAM and 512GB of storage…",
+   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/268408_Apple_MacBook_Air_15_M5_laptop_ADiBenedetto_0010.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
+   "source": "The Verge"
+  },
+  {
+   "title": "The absolute best Black Friday deals you can still get",
+   "link": "https://www.theverge.com/gadgets/1039190/best-black-friday-2026-deals-tech-gadgets-gift-ideas",
+   "date": "2026-11-28T03:28:32.000Z",
+   "summary": "Black Friday is nearly over, but many of this year’s best deals are still available. You can still find some of the lowest prices we’ve seen in-store and online for video games, wireless earbuds, TVs, robot vacuums, and…",
+   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/268838_BF_CM_BLACK_FRIDAY_Headers_CVirginia.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
+   "source": "The Verge"
+  },
+  {
+   "title": "We found 60-odd Black Friday deals we love for $100 or less",
+   "link": "https://www.theverge.com/gadgets/1043445/black-friday-best-cheap-tech-deals-under-100-2026",
+   "date": "2026-11-28T01:30:00.000Z",
+   "summary": "Between holiday travel, gifts, and the rising cost of just about everything, expenses can quickly add up during this time of year. Thankfully, you don’t have to dip too far into your savings to take advantage of some of…",
+   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24662269/DSCF0790_Enhanced_NR_2.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
+   "source": "The Verge"
+  },
+  {
+   "title": "2026’s Best Black Friday Deals: We’ve Been Tracking Since 4 AM",
+   "link": "https://www.wired.com/story/best-black-friday-deals-11-27-2026/",
+   "date": "2026-11-28T00:14:33.000Z",
+   "summary": "It's time to shop the very best Black Friday deals on the very best tech gadgets we recommend.",
+   "image": "https://media.wired.com/photos/6b089bf933af9bd86d9db0c5/master/pass/Black-Friday-Deals.jpg",
+   "source": "WIRED"
+  },
+  {
+   "title": "This purple electric Chinese minivan can go up to 559 miles on a charge",
+   "link": "https://www.theverge.com/transportation/1044706/this-purple-electric-chinese-minivan-can-go-up-to-559-miles-on-a-charge",
+   "date": "2026-11-28T00:02:49.000Z",
+   "summary": "Electric minivans could be the ultimate in utility, with room for passengers, gear, and huge batteries. While VW's ID Buzz only gave us 200 miles of real-world driving on a charge in 2023, China's BYD has just announced…",
+   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/img_20261127171000_s224i5s0.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
+   "source": "The Verge"
+  },
+  {
+   "title": "Yeti Coolers Are up to 30% Off for Black Friday (2026)",
+   "link": "https://www.wired.com/story/yeti-black-friday-sale-11-2026/",
+   "date": "2026-11-27T23:54:42.000Z",
+   "summary": "Yeti’s Black Friday deals cover everything from a cooler for the tailgate to a Rambler for your desk.",
+   "image": "https://media.wired.com/photos/6ac50d7fb19b1ceefddd39c0/master/pass/Amazon%20Prime%20Day%20Top%20Art%20102026%20Standalone%20Yeti%20ILLUSTRATION%20Isadora-Ayesa%20Lima%20SOURCE%20Amazon.jpg",
+   "source": "WIRED"
+  },
+  {
+   "title": "The best Black Friday deals you can still get on AirPods, Macs, and other Apple gear",
+   "link": "https://www.theverge.com/gadgets/1043935/best-black-friday-apple-deals-2026",
+   "date": "2026-11-27T23:53:19.000Z",
+   "summary": "Black Friday is entering the evening, which means one of the best times of the year to save some cash on a new pair of AirPods or the latest Apple Watch is coming to a close. After all, the holiday savings can help…",
+   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/268836_MacBook_Pro_touchscreen_OLED_handson_ADiBenedetto_0048.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
+   "source": "The Verge"
+  },
+  {
+   "title": "The best robot vacuums we’ve tested are up to 60 percent off for Black Friday",
    "link": "https://www.theverge.com/gadgets/1044487/best-black-friday-robot-vacuum-mop-deals-2026",
    "date": "2026-11-27T23:32:17.000Z",
    "summary": "Black Friday is here, and if you want a little help keeping your floors clean this holiday season, now is a great time to pick up a robot vacuum. Some of the best models we’ve tested over the last year or two are on…",
    "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/05/8A0A6240.jpeg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
+   "source": "The Verge"
+  },
+  {
+   "title": "Sony’s 1000XM4C headphones are a Black Friday bargain at $198",
+   "link": "https://www.theverge.com/gadgets/1043976/sony-wh1000xm4c-noise-canceling-headphones-black-friday-2026-deal-sale",
+   "date": "2026-11-27T23:32:00.000Z",
+   "summary": "Instead of purely looking forward with its headphone designs, Sony went back to its popular WH-1000XM4 design and made some improvements to make it even better. The 2026 version, called the WH-1000XM4C, sounds nearly as…",
+   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/10/268823_Sony_XM4C_JHiggins_0006.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
    "source": "The Verge"
   },
   {
@@ -32,30 +176,6 @@
    "source": "The Verge"
   },
   {
-   "title": "Save Up to $100 on Shark Depuffi and FacialPro Glow (2026)",
-   "link": "https://www.wired.com/story/shark-depuffi-black-friday-deals-11-27-2026/",
-   "date": "2026-11-27T23:27:04.000Z",
-   "summary": "If you’ve been eyeing Shark’s beauty tools, consider this your sign.",
-   "image": "https://media.wired.com/photos/6b0a019be1f03ae5536a590d/master/pass/Shark%20Depuffi%20sale.png",
-   "source": "WIRED"
-  },
-  {
-   "title": "The Best Black Friday Gaming Deals I’ve Found (2026)",
-   "link": "https://www.wired.com/story/black-friday-gaming-deals-11-27-2026/",
-   "date": "2026-11-27T23:15:34.000Z",
-   "summary": "Headsets, keyboards, and video games are all on sale. Here’s what we’ve found so far.",
-   "image": "https://media.wired.com/photos/6a8c77cd68e309e12a12eda0/master/pass/The-Gaming-Headset-I-Use-Every-Day-Is-on-Sale-in-3-of-4-Color-Options.jpg",
-   "source": "WIRED"
-  },
-  {
-   "title": "The absolute best Black Friday deals we’ve found (so far)",
-   "link": "https://www.theverge.com/gadgets/1039190/best-black-friday-2026-deals-tech-gadgets-gift-ideas",
-   "date": "2026-11-27T22:43:57.000Z",
-   "summary": "This year’s Black Friday deals have launched in waves over the past several weeks, but now the floodgates have officially opened. You can now take advantage of the lowest prices we’ve seen in-store and online for video…",
-   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/268838_BF_CM_BLACK_FRIDAY_Headers_CVirginia.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
-   "source": "The Verge"
-  },
-  {
    "title": "The new iPad Mini is getting its first major discount for Black Friday",
    "link": "https://www.theverge.com/gadgets/1042705/ipad-mini-black-friday-deal-sale-2026",
    "date": "2026-11-27T22:30:00.000Z",
@@ -64,132 +184,12 @@
    "source": "The Verge"
   },
   {
-   "title": "Best Black Friday Deals on My Favorite Shark Vacuums: Up to $600 Off (2026)",
-   "link": "https://www.wired.com/story/shark-vacuum-black-friday-deals-11-27-2026/",
-   "date": "2026-11-27T22:11:06.000Z",
-   "summary": "Shark’s vacuums impress me again and again, and my favorite models are deeply discounted right now..",
-   "image": "https://media.wired.com/photos/6ac69e332aae083a2520a8df/master/pass/Amazon%20Prime%20Day%20Top%20Art%20102026%20Standalone%20Shark%20Vacuum%20Deal%20ILLUSTRATION%20Isadora-Ayesa%20Lima%20SOURCE%20Amazon.jpg",
-   "source": "WIRED"
-  },
-  {
-   "title": "Allstate has been suffering an outage since Monday",
-   "link": "https://www.theverge.com/tech/1044612/allstate-has-been-suffering-an-outage-since-monday",
-   "date": "2026-11-27T21:52:42.000Z",
-   "summary": "On Monday, November 23rd, Allstate began dealing with an outage that has impacted its website, mobile apps, and roadside assistance service. It's just the latest company, including Microsoft and JPMorgan Chase, to…",
-   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/https___www.allstatenewsroom.com_wp-content_uploads_2023_04_Allstate_LobbyAllstateSign_DARKBLUE_CROP.jpeg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
-   "source": "The Verge"
-  },
-  {
-   "title": "The 25 best gaming deals we’ve found so far for Black Friday",
-   "link": "https://www.theverge.com/gadgets/1042951/best-black-friday-gaming-deals-ps5-nintendo-2026-sale",
-   "date": "2026-11-27T21:50:00.000Z",
-   "summary": "While deals on consoles and key PC components are in short supply during Black Friday (or simply not good enough to warrant covering), there are numerous fantastic discounts on video games, accessories, and monitors to…",
-   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/11/World-of-Warcraft-Shaman-keyart.png?quality=90&#038;strip=all&#038;crop=0,0,100,100",
-   "source": "The Verge"
-  },
-  {
-   "title": "Best Amazon Device Black Friday Deals I’ve Found (2026): Kindles, Echo Speakers",
-   "link": "https://www.wired.com/story/best-amazon-device-black-friday-deals-11-27-2026/",
-   "date": "2026-11-27T20:51:30.000Z",
-   "summary": "From Kindle e-readers to Alexa-powered smart speakers, these are the Amazon device Black Friday sales you won't want to miss.",
-   "image": "https://media.wired.com/photos/6abd58106f8c64341c3fc8f7/master/pass/Best%20Early%20Amazon%20Device%20Deals%20092026%20top%20art%20SOURCE%20Amazon.jpg",
-   "source": "WIRED"
-  },
-  {
-   "title": "My favorite MPC beat maker is ready for your vibe-coded firmware and effects",
-   "link": "https://www.theverge.com/gadgets/1044485/mpc-sample-firmware-sdk",
-   "date": "2026-11-27T20:48:04.000Z",
-   "summary": "Akai is continuing to open up its various music-making platforms with the MPC Sample 1.4 firmware. My favorite (and the most affordable) of the MPC samplers has become a popular home for vibe-coded custom firmwares and…",
-   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/268415_MPC_Sample_TO_Brien_0006.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
-   "source": "The Verge"
-  },
-  {
-   "title": "Nothing’s ANC-equipped earbuds are on sale for less than $20 for Black Friday",
-   "link": "https://www.theverge.com/gadgets/1041717/nothing-cmf-buds-2a-earbuds-black-friday-2026-deal-sale",
-   "date": "2026-11-27T20:30:00.000Z",
-   "summary": "If our sub-$30 Black Friday roundup has you hungry for more great gadgets at low prices, you can currently grab the Nothing CMF Buds 2A in black starting at $17.89 on Amazon for Black Friday, which is about $11 less…",
-   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/04/CMF-Buds-2a-in-Dark-Grey.jpg?quality=90&#038;strip=all&#038;crop=0,0,100,100",
-   "source": "The Verge"
-  },
-  {
-   "title": "Apple’s latest AirTags have dropped to just $18 a pop for Black Friday",
-   "link": "https://www.theverge.com/gadgets/1042841/apple-airtag-2-black-friday-deal-2026-sale",
-   "date": "2026-11-27T20:30:00.000Z",
-   "summary": "If you’re tired of constantly scrounging around for your lost belongings, Apple’s second-gen AirTags are on sale for an all-time low of $18 at Amazon, Walmart, and Best Buy. The handy location trackers have a list price…",
-   "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/06/268280_AirTags_2_AKrales_0003.webp?quality=90&#038;strip=all&#038;crop=0,0,100,100",
-   "source": "The Verge"
-  },
-  {
-   "title": "Best Black Friday AirPods Deals I’ve Found (2026)",
-   "link": "https://www.wired.com/story/best-black-friday-airpods-deals-11-27-2026/",
-   "date": "2026-11-27T19:51:43.000Z",
-   "summary": "This is the lowest price I’ve ever seen the AirPods Pro 3 drop to, and there’s no telling when these discounts will change.",
-   "image": "https://media.wired.com/photos/6a6a501f4a743f1551e95445/master/pass/If-You%E2%80%99ve-Been-Waiting-to-Upgrade-Your-AirPods,-This-Is-Your-Chance.jpg",
-   "source": "WIRED"
-  },
-  {
-   "title": "Black Friday Deals on Household Essentials and Affordable Toys to Donate",
-   "link": "https://www.wired.com/story/black-friday-deals-essentials-11-27-2026/",
-   "date": "2026-11-27T19:26:33.000Z",
-   "summary": "We found deals on diapers, paper towels, and toys for yourself or your community this holiday season.",
-   "image": "",
-   "source": "WIRED"
-  },
-  {
-   "title": "Black Friday Mattress Deals: Get Up to 55% Off (2026)",
-   "link": "https://www.wired.com/story/black-friday-mattress-deals-11-27-2026/",
-   "date": "2026-11-27T19:07:28.000Z",
-   "summary": "I’ve found great deals on our favorite WIRED-tested mattresses and sleep accessories.",
-   "image": "https://media.wired.com/photos/6b065b795e00c95c05adad67/master/pass/The-Best-Black-Friday-Mattress-Deals.jpg",
-   "source": "WIRED"
-  },
-  {
-   "title": "2026’s Best Black Friday Deals: We’ve Been Tracking Since 4 AM",
-   "link": "https://www.wired.com/story/best-black-friday-deals-11-27-2026/",
-   "date": "2026-11-27T18:51:57.000Z",
-   "summary": "It's time to shop the very best Black Friday deals on the very best tech gadgets we recommend.",
-   "image": "https://media.wired.com/photos/6b089bf933af9bd86d9db0c5/master/pass/Black-Friday-Deals.jpg",
-   "source": "WIRED"
-  },
-  {
-   "title": "Best Black Friday Espresso Machine Deals: Up to 38% Off (2026)",
-   "link": "https://www.wired.com/story/black-friday-coffee-espresso-deals-11-27-2026/",
-   "date": "2026-11-27T18:08:37.000Z",
-   "summary": "A Nespresso under $100, $250 off a slim De’Longhi, and more deals on machines we’d make room for on our own counters.",
-   "image": "https://media.wired.com/photos/6b013ceaf081739979ed6edd/master/pass/The-Best-Early-Black-Friday-Espresso-Machine-Deals-for-National-Espresso-Day.jpg",
-   "source": "WIRED"
-  },
-  {
-   "title": "Best CurrentBody Black Friday Deals (2026): 20% Off LED Masks and More",
-   "link": "https://www.wired.com/story/currentbody-black-friday-deals-11-27-2026/",
-   "date": "2026-11-27T17:14:52.000Z",
-   "summary": "Glazed donut skin days are ahead. Save on select LED masks and devices through December 8.",
-   "image": "https://media.wired.com/photos/6920afe3ed8e2a8960c3319b/master/pass/The%20Best%20Red%20Light%20Therapy%20Mask%20You%20Can%20Buy%20Is%20Currently%20on%20Sale.png",
-   "source": "WIRED"
-  },
-  {
    "title": "The best Black Friday deals Ars could find",
    "link": "https://arstechnica.com/shopping/2026/11/the-best-black-friday-deals-ars-could-find/",
    "date": "2026-11-27T17:05:37.000Z",
    "summary": "Perhaps some commerce, to help all the Turkey Day leftovers go down easier?",
    "image": "https://cdn.arstechnica.net/wp-content/uploads/2026/11/black_friday_matrix-1152x648-1795796083.jpg",
    "source": "Ars Technica"
-  },
-  {
-   "title": "Apple Black Friday Deals (2026): AirPods, iPads, MacBooks, and More",
-   "link": "https://www.wired.com/story/black-friday-apple-deals-11-27-2026/",
-   "date": "2026-11-27T16:24:22.000Z",
-   "summary": "Save on AirPods, iPads, MacBooks, and tons of accessories for Black Friday.",
-   "image": "https://media.wired.com/photos/6ac507aafaca1c452d82d6a4/master/pass/Amazon%20Prime%20Day%20Top%20Art%20102026%20Standalone%20Apple%20AirPods%20Max%202%20ILLUSTRATION%20Isadora-Ayesa%20Lima%20SOURCE%20Amazon.jpg",
-   "source": "WIRED"
-  },
-  {
-   "title": "Walking Pad Deals to Shop This Black Friday (2026)",
-   "link": "https://www.wired.com/story/best-black-friday-walking-pad-treadmill-deals-11-27-26/",
-   "date": "2026-11-27T15:43:33.000Z",
-   "summary": "Don’t let cold weather stop you from getting your steps in. These under-desk treadmills are on sale.",
-   "image": "https://media.wired.com/photos/6af51ba69181a13e281c8875/master/pass/The-Best-Early-Black-Friday-Walking-Pad-Deals-Are-Already-Here.jpg",
-   "source": "WIRED"
   },
   {
    "title": "The Download: Innovators Under 35 nominations are open, and a bionic window into the mind",
